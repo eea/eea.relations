@@ -1,0 +1,20 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="eea.widget">
+
+  <class class="eea.widget.referencebrowser.content.contenttype.EEARelationsContentType">
+    <implements interface="eea.facetednavigation.interfaces.IPossibleFacetedNavigable" />
+  </class>
+
+  <utility
+    name="eea.widget.referencebrowser.facetednavigation.ContentTypeFacetedNavigable"
+    factory=".descriptors.EEARelationsContentTypeDescriptor" />
+
+  <subscriber
+      for="..interfaces.IContentType
+           zope.app.event.interfaces.IObjectModifiedEvent"
+      handler=".events.subtype"
+  />
+
+</configure>

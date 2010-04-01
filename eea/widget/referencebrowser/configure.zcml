@@ -4,7 +4,10 @@
   i18n_domain="eea.widget">
 
   <five:registerPackage package="." initialize=".initialize" />
-
   <include file="profiles.zcml" />
+
+  <include package=".browser" />
+  <include package=".subtypes" />
+  <include package=".vocabulary" />
 
 </configure>

@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <object name="EEARelationsTool" meta_type="Factory-based Type Information"
-   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-   i18n:domain="eea.widget">
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">EEA Relations Tool</property>
  <property name="description" i18n:translate="eeaEEARelationsTool_description">
    Define possible relations between content-types
