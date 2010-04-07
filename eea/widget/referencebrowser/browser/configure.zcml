@@ -35,4 +35,11 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+    for="eea.widget.referencebrowser.interfaces.IFacetedNavigable"
+    name="default_widgets.xml"
+    template="template/default.xml"
+    permission="cmf.ModifyPortalContent"
+    />
+
 </configure>

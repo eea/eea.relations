@@ -1,10 +1,12 @@
 """ EEA Relations Content Type
 """
+from zope import event
 from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
-from eea.widget.referencebrowser.config import PROJECTNAME
 from eea.facetednavigation.widgets.field import StringField
+from eea.widget.referencebrowser.config import PROJECTNAME
+from eea.widget.referencebrowser.events import ObjectInitializedEvent
 
 from interfaces import IContentType
 
@@ -45,5 +47,13 @@ class EEARelationsContentType(ATFolder):
     archetypes_name = 'EEA Relation Content Type'
     _at_rename_after_creation = True
     schema = EditSchema
+
+    def processForm(self, *args, **kwargs):
+        """ Raise event on creation
+        """
+        is_new_object = self.checkCreationFlag()
+        super(EEARelationsContentType, self).processForm(*args, **kwargs)
+        if is_new_object:
+            event.notify(ObjectInitializedEvent(self))
 
 atapi.registerType(EEARelationsContentType, PROJECTNAME)

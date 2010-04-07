@@ -1,5 +1,5 @@
 from zope import interface
-from eea.facetednavigation.interfaces import IFacetedNavigable
+from eea.widget.referencebrowser.interfaces import IFacetedNavigable
 from p4a.subtyper.interfaces import IPortalTypedFolderishDescriptor
 
 class EEARelationsContentTypeDescriptor(object):

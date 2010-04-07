@@ -1,6 +1,8 @@
+from zope.component import getUtility, queryMultiAdapter
 from p4a.subtyper.interfaces import ISubtyper
-from zope.component import getUtility
-SUBTYPE = 'eea.widget.referencebrowser.facetednavigation.ContentTypeFacetedNavigable'
+from Products.GenericSetup.interfaces import IBody
+from Products.GenericSetup.context import SnapshotImportContext
+from eea.widget.referencebrowser.config import SUBTYPE
 
 def subtype(obj, evt):
     """ Subtype as faceted navigable
@@ -15,5 +17,7 @@ def subtype(obj, evt):
     if SUBTYPE not in possible_types:
         return
 
-    if subtyper.existing_type(context) != SUBTYPE:
-        subtyper.change_type(context, SUBTYPE)
+    if subtyper.existing_type(context) == SUBTYPE:
+        return
+
+    subtyper.change_type(context, SUBTYPE)
