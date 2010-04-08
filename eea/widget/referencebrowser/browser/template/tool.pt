@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+  lang="en-US"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="eea.widget">
+
+<body>
+
+<div metal:fill-slot="main">
+  <h1 tal:content="object_title" class="documentFirstHeading">
+    Tool
+  </h1>
+
+  <div metal:use-macro="here/document_actions/macros/document_actions">
+    Document actions (print, sendto etc)
+  </div>
+
+<div class="visualClear"></div>
+
+  <img tal:attributes="
+    src string:${here/absolute_url}/@@graph.png;
+    alt string:Relations Graph;
+    title string:Relations Graph" />
+
+</div>
+
+</body>
+</html>

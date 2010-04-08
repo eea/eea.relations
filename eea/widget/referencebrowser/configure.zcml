@@ -9,5 +9,6 @@
   <include package=".browser" />
   <include package=".subtypes" />
   <include package=".vocabulary" />
+  <include package=".graph" />
 
 </configure>

@@ -35,6 +35,53 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <!-- Graphs -->
+  <browser:page
+    for="..interfaces.IRelationsTool"
+    name="graph.png"
+    class=".app.graph.ToolGraph"
+    attribute="image"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    for="..interfaces.IRelationsTool"
+    name="view.html"
+    template="template/tool.pt"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    for="..interfaces.IContentType"
+    name="graph.png"
+    class=".app.graph.ContentTypeGraph"
+    attribute="image"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    for="..interfaces.IContentType"
+    name="graph.html"
+    template="template/contenttype.pt"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    for="..interfaces.IRelation"
+    name="graph.png"
+    class=".app.graph.RelationGraph"
+    attribute="image"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    for="..interfaces.IRelation"
+    name="view.html"
+    template="template/relation.pt"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <!-- Faceted navigation -->
   <browser:page
     for="eea.widget.referencebrowser.interfaces.IFacetedNavigable"
     name="default_widgets.xml"

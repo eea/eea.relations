@@ -8,3 +8,8 @@ from content.interfaces import IRelation
 # Subtypes
 from subtypes.interfaces import IPossibleFacetedNavigable
 from subtypes.interfaces import IFacetedNavigable
+
+# Graph
+from graph.interfaces import INode
+from graph.interfaces import IEdge
+from graph.interfaces import IGraph
