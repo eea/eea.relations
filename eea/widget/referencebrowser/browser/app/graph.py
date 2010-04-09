@@ -4,6 +4,7 @@ from pydot import Dot as PyGraph
 from zope.component import queryAdapter, queryUtility
 from Products.Five.browser import BrowserView
 
+from eea.widget.referencebrowser.interfaces import INode
 from eea.widget.referencebrowser.interfaces import IEdge
 from eea.widget.referencebrowser.interfaces import IGraph
 
@@ -71,6 +72,9 @@ class ContentTypeGraph(BaseGraph):
                 graph.add_edge(edge())
                 continue
 
+        if not graph.get_edges():
+            node = queryAdapter(self.context, INode)
+            graph.add_node(node())
         return graph
 
 class ToolGraph(BaseGraph):
@@ -89,4 +93,20 @@ class ToolGraph(BaseGraph):
             doc = brain.getObject()
             edge = queryAdapter(doc, IEdge)
             graph.add_edge(edge())
+
+        brains = self.context.getFolderContents(contentFilter={
+            'portal_type': 'EEARelationsContentType'
+        })
+
+        edges = graph.get_edges()
+        nodes = set(edge.get_source() for edge in edges)
+        nodes.update(edge.get_destination() for edge in edges)
+        for brain in brains:
+            name = brain.getId
+            if name in nodes:
+                continue
+            doc = brain.getObject()
+            node = queryAdapter(doc, INode)
+            graph.add_node(node())
+
         return graph

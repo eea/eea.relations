@@ -25,4 +25,3 @@ class ContentTypesVocabulary(object):
                  for brain in brains]
         return SimpleVocabulary(items)
 
-ContentTypesVocabularyFactory = ContentTypesVocabulary()

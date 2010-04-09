@@ -28,7 +28,7 @@ class Graph(object):
         raw = img.read()
 
         img.close()
-        os.remove(img)
+        os.remove(path)
 
         return raw
 

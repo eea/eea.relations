@@ -25,6 +25,7 @@ setup(name='eea.widget.referencebrowser',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'pydot',
           'eea.facetednavigation',
       ],
       entry_points="""

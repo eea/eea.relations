@@ -3,17 +3,17 @@
   i18n_domain="eea.widget">
 
   <utility
-    component=".contenttype.ObjectProvidesVocabularyFactory"
+    factory=".contenttype.ObjectProvidesVocabulary"
     name="eea.widget.refbrowser.voc.ObjectProvides"
     />
 
   <utility
-    component=".contenttype.PortalTypesVocabularyFactory"
+    factory=".contenttype.PortalTypesVocabulary"
     name="eea.widget.refbrowser.voc.PortalTypesVocabulary"
     />
 
   <utility
-    component=".relation.ContentTypesVocabularyFactory"
+    factory=".relation.ContentTypesVocabulary"
     name="eea.widget.refbrowser.voc.ContentTypes"
     />
 

@@ -25,8 +25,6 @@ class ObjectProvidesVocabulary(object):
         voc = voc(context)
         items.extend(term for term in voc)
         return SimpleVocabulary(items)
-
-ObjectProvidesVocabularyFactory = ObjectProvidesVocabulary()
 #
 # Portal Types
 #
@@ -45,5 +43,3 @@ class PortalTypesVocabulary(object):
         voc = voc(context)
         items.extend(term for term in voc)
         return SimpleVocabulary(items)
-
-PortalTypesVocabularyFactory = PortalTypesVocabulary()
