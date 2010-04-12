@@ -35,7 +35,23 @@ class RelationGraph(BaseGraph):
     def graph(self):
         """ Generate pydot.Graph
         """
+        rtool = getToolByName(self.context, 'portal_relations')
         graph = PyGraph()
+
+        nfrom = self.context.getField('from')
+        value_from = nfrom.getAccessor(self.context)()
+        if value_from in rtool.objectIds():
+            nfrom = rtool[value_from]
+            node = queryAdapter(nfrom, INode)
+            graph.add_node(node())
+
+        nto = self.context.getField('to')
+        value_to = nto.getAccessor(self.context)()
+        if not (value_from == value_to) and (value_to in rtool.objectIds()):
+            nto = rtool[value_to]
+            node = queryAdapter(nto, INode)
+            graph.add_node(node())
+
         edge = queryAdapter(self.context, IEdge)
         graph.add_edge(edge())
         return graph
@@ -49,32 +65,42 @@ class ContentTypeGraph(BaseGraph):
         """
         rtool = getToolByName(self.context, 'portal_relations')
         name = self.context.getId()
+        node = queryAdapter(self.context, INode)
 
         brains = rtool.getFolderContents(contentFilter={
             'portal_type': 'EEAPossibleRelation'
         })
 
         graph = PyGraph()
+        graph.add_node(node())
+
         for brain in brains:
             doc = brain.getObject()
 
             field = doc.getField('to')
-            value = field.getAccessor(doc)()
-            if name == value:
-                edge = queryAdapter(doc, IEdge)
-                graph.add_edge(edge())
-                continue
-
+            value_from = field.getAccessor(doc)()
             field = doc.getField('from')
-            value = field.getAccessor(doc)()
-            if name == value:
+            value_to = field.getAccessor(doc)()
+            if name == value_from:
+                if not (value_from == value_to) and value_to in rtool.objectIds():
+                    nto = rtool[value_to]
+                    node = queryAdapter(nto, INode)
+                    graph.add_node(node())
+
                 edge = queryAdapter(doc, IEdge)
                 graph.add_edge(edge())
                 continue
 
-        if not graph.get_edges():
-            node = queryAdapter(self.context, INode)
-            graph.add_node(node())
+            if name == value_to:
+                if not (value_from == value_to) and value_from in rtool.objectIds():
+                    nfrom = rtool[value_from]
+                    node = queryAdapter(nfrom, INode)
+                    graph.add_node(node())
+
+                edge = queryAdapter(doc, IEdge)
+                graph.add_edge(edge())
+                continue
+
         return graph
 
 class ToolGraph(BaseGraph):
@@ -84,29 +110,22 @@ class ToolGraph(BaseGraph):
     def graph(self):
         """ Generate pydot.Graph
         """
+        graph = PyGraph()
+        brains = self.context.getFolderContents(contentFilter={
+            'portal_type': 'EEARelationsContentType'
+        })
+        for brain in brains:
+            doc = brain.getObject()
+            node = queryAdapter(doc, INode)
+            graph.add_node(node())
+
         brains = self.context.getFolderContents(contentFilter={
             'portal_type': 'EEAPossibleRelation'
         })
 
-        graph = PyGraph()
         for brain in brains:
             doc = brain.getObject()
             edge = queryAdapter(doc, IEdge)
             graph.add_edge(edge())
-
-        brains = self.context.getFolderContents(contentFilter={
-            'portal_type': 'EEARelationsContentType'
-        })
-
-        edges = graph.get_edges()
-        nodes = set(edge.get_source() for edge in edges)
-        nodes.update(edge.get_destination() for edge in edges)
-        for brain in brains:
-            name = brain.getId
-            if name in nodes:
-                continue
-            doc = brain.getObject()
-            node = queryAdapter(doc, INode)
-            graph.add_node(node())
 
         return graph

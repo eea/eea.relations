@@ -17,4 +17,8 @@ def test_suite():
                   optionflags=OPTIONFLAGS,
                   package='eea.widget.referencebrowser',
                   test_class=ReferenceBrowserWidgetFunctionalTestCase) ,
+            Suite('docs/faceted.txt',
+                  optionflags=OPTIONFLAGS,
+                  package='eea.widget.referencebrowser',
+                  test_class=ReferenceBrowserWidgetFunctionalTestCase) ,
     ))

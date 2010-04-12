@@ -32,7 +32,7 @@ def setup_eea_widget_referencebrowser():
     else: ptc.installProduct('FiveSite')
 
 setup_eea_widget_referencebrowser()
-ptc.setupPloneSite(extension_profiles=('eea.widget.referenceborwser:default',))
+ptc.setupPloneSite(extension_profiles=('eea.widget.referencebrowser:default',))
 
 class ReferenceBrowserWidgetTestCase(ptc.PloneTestCase):
     """Base class for integration tests for the 'EEA ReferenceBrowser Widget' product.
