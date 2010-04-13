@@ -1,5 +1,5 @@
-from zope.interface import implements
-from Products.validation.config import validation
+""" ContentType validator
+"""
 from Products.validation.interfaces import ivalidator
 
 class ContentType(object):
@@ -40,5 +40,3 @@ class ContentType(object):
             return ("You have to provide even Portal type or Interface or both "
                     "in order to define a valid Content-Type")
         return 1
-
-validation.register(ContentType('eea-refbrowser-contenttype'))

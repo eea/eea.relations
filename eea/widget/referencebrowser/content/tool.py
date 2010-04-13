@@ -3,10 +3,7 @@ from Products.CMFCore.utils import UniqueObject
 from Products.Archetypes.atapi import OrderedBaseFolder
 from Products.Archetypes.atapi import OrderedBaseFolderSchema
 from Products.Archetypes.atapi import Schema
-from Products.Archetypes.atapi import registerType
-
 from interfaces import IRelationsTool
-from eea.widget.referencebrowser.config import PROJECTNAME
 
 class EEARelationsTool(UniqueObject, OrderedBaseFolder):
     """ Local utility to store and customize possible content types relations
@@ -27,5 +24,3 @@ class EEARelationsTool(UniqueObject, OrderedBaseFolder):
         title_field,
         ),
     )
-
-registerType(EEARelationsTool, PROJECTNAME)

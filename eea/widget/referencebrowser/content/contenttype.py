@@ -5,7 +5,6 @@ from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
 from eea.facetednavigation.widgets.field import StringField
-from eea.widget.referencebrowser.config import PROJECTNAME
 from eea.widget.referencebrowser.events import ObjectInitializedEvent
 
 from interfaces import IContentType
@@ -55,5 +54,3 @@ class EEARelationsContentType(ATFolder):
         super(EEARelationsContentType, self).processForm(*args, **kwargs)
         if is_new_object:
             event.notify(ObjectInitializedEvent(self))
-
-atapi.registerType(EEARelationsContentType, PROJECTNAME)

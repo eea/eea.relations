@@ -8,7 +8,7 @@ except ImportError:
     #BBB Plone 2.5
     def install(portal):
         setup_tool = getToolByName(portal, 'portal_setup')
-        setup_tool.setImportContext('profile-eea.widget.referencebrowser:default')
+        setup_tool.setImportContext('profile-eea.widget.referencebrowser:a')
         res = setup_tool.runAllImportSteps()
         messages = res.get('messages', {})
         output = [message for message in messages.values() if message]

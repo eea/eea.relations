@@ -27,3 +27,9 @@ def importVarious(self):
     installed = [package['id'] for package in qtool.listInstalledProducts()]
     if 'eea.facetednavigation' not in installed:
         qtool.installProduct('eea.facetednavigation')
+
+    # Compatibility
+    setup_tool = getToolByName(site, 'portal_setup')
+    setup_tool.setImportContext('profile-eea.widget.referencebrowser:b')
+    setup_tool.runAllImportSteps()
+    setup_tool.setImportContext('profile-eea.widget.referencebrowser:a')

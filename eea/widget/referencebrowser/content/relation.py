@@ -3,7 +3,6 @@
 from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
-from eea.widget.referencebrowser.config import PROJECTNAME
 from eea.facetednavigation.widgets.field import StringField
 
 from interfaces import IRelation
@@ -47,5 +46,3 @@ class EEAPossibleRelation(ATFolder):
     archetypes_name = 'EEA Possible Relation'
     _at_rename_after_creation = True
     schema = EditSchema
-
-atapi.registerType(EEAPossibleRelation, PROJECTNAME)
