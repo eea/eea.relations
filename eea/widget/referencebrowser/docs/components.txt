@@ -1,0 +1,114 @@
+ContentType LookUp
+==================
+LookUp for container in portal_relations ContenTypes
+
+Set up
+------
+
+    >>> self.loginAsPortalOwner()
+    >>> fid = folder.invokeFactory('Folder', 'sandbox')
+    >>> sandbox = folder._getOb(fid)
+
+Let's do some queries
+---------------------
+
+  Add a document
+
+    >>> did = sandbox.invokeFactory('Document', 'my-document')
+    >>> doc = sandbox._getOb(did)
+
+  Lookup
+
+    >>> from zope.component import queryAdapter
+    >>> from eea.widget.referencebrowser.component import queryContentType
+
+    >>> ctype = queryContentType(doc)
+    >>> print ctype
+    None
+
+  There is no content-type define for Document in portal_relations, let's add one
+
+    >>> rtool = portal.portal_relations
+    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'relation')
+    >>> rtype = rtool._getOb(rid)
+    >>> rtype.processForm(values={
+    ...   'title': 'Simple Document',
+    ...   'ct_type': 'Document',
+    ...   'ct_interface': '',
+    ... })
+
+  Let's try now
+
+    >>> queryContentType(doc)
+    <EEARelationsContentType at /plone/portal_relations/simple-document>
+
+  But you can also define complex ContentTypes in portal_relations. Let's see
+  if it choose the correct one
+
+    >>> from eea.widget.referencebrowser.tests import IDoTheZu
+    >>> IDoTheZu.__identifier__
+    'eea.widget.referencebrowser.tests.IDoTheZu'
+
+    >>> from zope.interface import alsoProvides
+    >>> alsoProvides(doc, IDoTheZu)
+
+    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'relation')
+    >>> rtype = rtool._getOb(rid)
+    >>> rtype.processForm(values={
+    ...   'title': 'ZU Document',
+    ...   'ct_type': 'Document',
+    ...   'ct_interface': 'eea.widget.referencebrowser.tests.IDoTheZu',
+    ... })
+
+    >>> queryContentType(doc)
+    <EEARelationsContentType at /plone/portal_relations/zu-document>
+
+  Let's define a content-type only for ZU interface
+
+    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'relation')
+    >>> rtype = rtool._getOb(rid)
+    >>> rtype.processForm(values={
+    ...   'title': 'ZU',
+    ...   'ct_type': '',
+    ...   'ct_interface': 'eea.widget.referencebrowser.tests.IDoTheZu',
+    ... })
+
+  For our doc it should return the same
+
+    >>> queryContentType(doc)
+    <EEARelationsContentType at /plone/portal_relations/zu-document>
+
+  But if we add a Folder for example that provides ZU interface it should
+  return new content-type
+
+    >>> fid = sandbox.invokeFactory('Folder', 'my-new-folder')
+    >>> myfolder = sandbox._getOb(fid)
+    >>> alsoProvides(myfolder, IDoTheZu)
+    >>> queryContentType(myfolder)
+    <EEARelationsContentType at /plone/portal_relations/zu>
+
+  Now let's add a generic Content-Type.
+
+  BTW Products.Archetypes.interfaces.IBaseContent is the low level interface
+  you can use to define ContentType mappings in portal_relations, so if you add
+  a Content-Type for zope.interface.Interface you may have a surprise :)
+
+    >>> from Products.Archetypes.interfaces import IBaseContent
+    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'relation')
+    >>> rtype = rtool._getOb(rid)
+    >>> rtype.processForm(values={
+    ...   'title': 'Generic',
+    ...   'ct_type': '',
+    ...   'ct_interface': IBaseContent.__identifier__,
+    ... })
+
+    >>> queryContentType(doc)
+    <EEARelationsContentType at /plone/portal_relations/zu-document>
+
+    >>> queryContentType(myfolder)
+    <EEARelationsContentType at /plone/portal_relations/zu>
+
+    >>> nid = sandbox.invokeFactory('News Item', 'my-news')
+    >>> newz = sandbox._getOb(nid)
+    >>> queryContentType(newz)
+    <EEARelationsContentType at /plone/portal_relations/generic>

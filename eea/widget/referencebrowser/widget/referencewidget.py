@@ -9,4 +9,5 @@ class EEAReferenceBrowserWidget(ReferenceWidget):
     _properties.update({
         'macro' : "eeareferencebrowser",
         'helper_js': ('eeareferencebrowser.js',),
+        'helper_css': ('eeareferencebrowser.css',)
     })

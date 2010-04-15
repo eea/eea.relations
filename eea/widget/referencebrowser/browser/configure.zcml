@@ -97,4 +97,13 @@
     permission="zope2.View"
     />
 
+  <!-- Widget Popup -->
+    <browser:page
+    for="*"
+    name="eeareferencebrowser_popup.html"
+    template="template/popup.pt"
+    class=".app.popup.Popup"
+    permission="cmf.ModifyPortalContent"
+    />
+
 </configure>

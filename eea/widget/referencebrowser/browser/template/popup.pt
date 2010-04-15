@@ -1,0 +1,8 @@
+<div class="popup-tabs">
+  <ul>
+    <li><a href="#tab-1">Za tab</a></li>
+    <li><a href="#tab-2">Za next tab</a></li>
+  </ul>
+  <div id="tab-1">Ana are mere</div>
+  <div id="tab-2">Ana nu mai are mere</div>
+</div>

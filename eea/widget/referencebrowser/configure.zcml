@@ -7,5 +7,6 @@
   <include package=".subtypes" />
   <include package=".vocabulary" />
   <include package=".graph" />
+  <include package=".component" />
 
 </configure>

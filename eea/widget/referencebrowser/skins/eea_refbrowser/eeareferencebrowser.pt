@@ -12,8 +12,29 @@
     View mode
   </metal:view_macro>
 
+  <metal:edit_macro define-macro="reference_edit" tal:define="
+    fieldName fieldName;
+    fieldRealName field/getName;
+    uids python:same_type(value, []) and value or [value];">
+
+    <div class="eea-widget-referencebrowser"
+      tal:attributes="id string:$fieldName-widget">
+      <div class="" tal:attributes="
+        title python:widget.Label(here);
+        id string:$fieldName-popup">
+        <tal:popup replace="structure here/@@eeareferencebrowser_popup.html" />
+      </div>
+      <input class="searchButton" type="button" value="Add..."
+        i18n:attributes="value"/>
+    </div>
+  </metal:edit_macro>
+
   <metal:edit_macro define-macro="edit">
-    Edit mode
+    <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+      <metal:fill fill-slot="widget_body">
+        <metal:use use-macro="here/eeareferencebrowser/macros/reference_edit" />
+      </metal:fill>
+    </metal:use>
   </metal:edit_macro>
 
   <metal:search_macro define-macro="search">

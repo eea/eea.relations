@@ -13,3 +13,6 @@ from subtypes.interfaces import IFacetedNavigable
 from graph.interfaces import INode
 from graph.interfaces import IEdge
 from graph.interfaces import IGraph
+
+# Commponents
+from component.interfaces import IContentTypeLookUp
