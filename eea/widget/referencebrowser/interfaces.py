@@ -16,3 +16,4 @@ from graph.interfaces import IGraph
 
 # Commponents
 from component.interfaces import IContentTypeLookUp
+from component.interfaces import IRelationsLookUp

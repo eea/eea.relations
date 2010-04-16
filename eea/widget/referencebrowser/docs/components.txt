@@ -1,6 +1,7 @@
 ContentType LookUp
 ==================
-LookUp for container in portal_relations ContenTypes
+LookUp for container in portal_relations ContenTypes:
+  - eea.widget.referencebrowser.component.queryContentType
 
 Set up
 ------
@@ -112,3 +113,57 @@ Let's do some queries
     >>> newz = sandbox._getOb(nid)
     >>> queryContentType(newz)
     <EEARelationsContentType at /plone/portal_relations/generic>
+
+
+Relations LookUp
+================
+Lookup for context possible relations:
+  - eea.widget.referencebrowser.component.queryForwardRelations
+  - eea.widget.referencebrowser.component.queryBackwardRelations
+
+    >>> from eea.widget.referencebrowser.component import queryForwardRelations
+    >>> from eea.widget.referencebrowser.component import queryBackwardRelations
+
+    >>> queryForwardRelations(doc)
+    <generator object at ...>
+
+    >>> [r for r in queryForwardRelations(doc)]
+    []
+
+    >>> [r for r in queryBackwardRelations(myfolder)]
+    []
+
+Let's add some possible relations
+
+  Self relation
+
+    >>> rid = rtool.invokeFactory('EEAPossibleRelation', 'r1')
+    >>> rel = rtool._getOb(rid)
+    >>> rel.processForm(values={
+    ...   'from': 'zu-document',
+    ...   'to': 'zu-document',
+    ... })
+
+    >>> [r for r in queryForwardRelations(doc)]
+    [<EEAPossibleRelation at /plone/portal_relations/r1>]
+
+    >>> [r for r in queryBackwardRelations(doc)]
+    [<EEAPossibleRelation at /plone/portal_relations/r1>]
+
+  Directed relation
+
+    >>> rid = rtool.invokeFactory('EEAPossibleRelation', 'r2')
+    >>> rel = rtool._getOb(rid)
+    >>> rel.processForm(values={
+    ...   'from': 'generic',
+    ...   'to': 'zu',
+    ... })
+
+    >>> [r for r in queryForwardRelations(newz)]
+    [<EEAPossibleRelation at /plone/portal_relations/r2>]
+
+    >>> [r for r in queryForwardRelations(myfolder)]
+    []
+
+    >>> [r for r in queryBackwardRelations(myfolder)]
+    [<EEAPossibleRelation at /plone/portal_relations/r2>]

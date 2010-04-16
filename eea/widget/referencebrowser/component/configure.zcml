@@ -8,4 +8,10 @@
     factory=".contenttype.ContentTypeLookUp"
     />
 
+  <adapter
+    for="eea.widget.referencebrowser.interfaces.IContentType"
+    provides=".interfaces.IRelationsLookUp"
+    factory=".relation.RelationsLookUp"
+    />
+
 </configure>
