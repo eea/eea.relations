@@ -29,6 +29,7 @@
 .popup-selected-items .ui-state-default{
   padding: 0.2em;
   font-weight: bold;
+  margin: 0px;
 }
 
 .eea-ref-selecteditems {
