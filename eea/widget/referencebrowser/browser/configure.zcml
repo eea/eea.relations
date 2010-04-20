@@ -98,11 +98,19 @@
     />
 
   <!-- Widget Popup -->
-    <browser:page
+  <browser:page
     for="*"
-    name="eeareferencebrowser_popup.html"
+    name="eeareferencebrowser-popup.html"
     template="template/popup.pt"
     class=".app.popup.Popup"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    for="*"
+    name="eeareferencebrowser-popup-selecteditems.html"
+    template="template/popup-selecteditems.pt"
+    class=".app.popup.PopupSelectedItems"
     permission="cmf.ModifyPortalContent"
     />
 

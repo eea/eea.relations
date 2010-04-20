@@ -17,16 +17,22 @@
     fieldRealName field/getName;
     uids python:same_type(value, []) and value or [value];">
 
+    <div class="eea-ref-selecteditems eea-ref-selecteditems-box"
+      tal:define="popup_view nocall:here/@@eeareferencebrowser-popup-selecteditems.html"
+      tal:content="structure python:popup_view(field=fieldName)" />
+
     <div class="eea-widget-referencebrowser"
       tal:attributes="id string:$fieldName-widget">
       <div class="" tal:attributes="
-        title python:widget.Label(here);
+        title python:'Edit %s' % widget.Label(here);
         id string:$fieldName-popup">
-        <tal:popup replace="structure here/@@eeareferencebrowser_popup.html" />
+        <tal:popup define="popup_view nocall:here/@@eeareferencebrowser-popup.html"
+          replace="structure python:popup_view(field=fieldName)" />
       </div>
-      <input class="searchButton" type="button" value="Add..."
+      <input class="searchButton" type="button" value="Edit..."
         i18n:attributes="value"/>
     </div>
+
   </metal:edit_macro>
 
   <metal:edit_macro define-macro="edit">

@@ -9,6 +9,7 @@ EEAReferenceBrowser.Widget = function(name){
   this.context = jQuery('#' + name + "-widget");
   this.popup = jQuery('#' + name + '-popup', this.context);
   this.workspace = jQuery('.popup-tabs' , this.popup);
+  this.basket = jQuery('.popup-selected-items', this.popup);
   this.button = jQuery('input[type=button]', this.context);
   this.current_tab = null;
 
@@ -32,9 +33,6 @@ EEAReferenceBrowser.Widget.prototype = {
       buttons: {
         'Done': function(){
           jQuery(this).dialog('close');
-        },
-        'Cancel': function(){
-          jQuery(this).dialog('close');
         }
       }
     });
@@ -49,6 +47,16 @@ EEAReferenceBrowser.Widget.prototype = {
         js_context.tab_selected(ui);
       }
     });
+
+    // Basket
+    this.basket.height(this.height - 128);
+    this.basket.css('overflow', 'auto');
+    jQuery('.tileItem', this.basket).attr('title', 'Click and drag to change order');
+    this.basket.sortable({
+      items: '.tileItem',
+      placeholder: 'ui-state-highlight'
+    });
+    //this.basket.droppable();
 
     // Add button
     this.button.click(function(){
@@ -78,6 +86,70 @@ EEAReferenceBrowser.Tab.prototype = {
   initialize: function(){
     var js_context = this;
     Faceted.Load(0, this.url + '/');
+    jQuery(Faceted.Events).bind(Faceted.Events.AJAX_QUERY_SUCCESS, function(evt){
+      js_context.setup_links();
+    });
+  },
+
+  setup_links: function(){
+    var results = jQuery('#faceted-results', this.panel);
+    this.setup_folder_summary_view(results);
+    this.setup_tabular_view(results);
+    this.setup_album_view(results);
+    this.setup_folder_listing(results);
+
+    var items = jQuery('.refbrowser-faceted-addable-item', results);
+    var icon = jQuery('<div>').addClass('ui-icon')
+                              .addClass('ui-icon-extlink')
+                              .addClass('ui-icon-custom-add');
+    items.attr('title', 'Click to add it to current relations');
+    items.prepend(icon);
+
+  },
+
+  setup_folder_summary_view: function(context){
+    // Folder summary view
+    jQuery('.tileHeadline a', context).click(function(){
+      return false;
+    });
+    jQuery('a.tileImage', context).click(function(){
+      return false;
+    });
+    jQuery('.tileFooter a', context).attr('target', '_blank');
+
+    // Add working css class
+    jQuery('.tileItem', context).addClass('refbrowser-faceted-addable-item');
+  },
+
+  setup_tabular_view: function(context){
+    // Tabular view
+    var table = jQuery('.listing', context);
+    jQuery('a', table).click(function(){
+      return false;
+    });
+
+    jQuery('table', context).css('width', '100%');
+    // Add working css class
+    jQuery('tr', context).addClass('refbrowser-faceted-addable-item');
+  },
+
+  setup_album_view: function(context){
+    // Album view
+    jQuery('.photoAlbumEntry a', context).click(function(){
+      return false;
+    });
+
+    // Add working css class
+  },
+
+  setup_folder_listing: function(context){
+    // Folder listing
+    jQuery('dt a', context).click(function(){
+      return false;
+    });
+
+    // Add working css class
+    jQuery('dt', context).addClass('refbrowser-faceted-addable-item');
   }
 };
 

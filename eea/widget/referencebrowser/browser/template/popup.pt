@@ -22,3 +22,12 @@
     </div>
   </tal:notabs>
 </div>
+
+<div class="popup-selected-items">
+  <h4 class="ui-state-default" i18n:translate="">Current relations</h4>
+  <div class="popup-selected-items-content">
+    <div class="eea-ref-selecteditems"
+      tal:define="popup_view nocall:here/@@eeareferencebrowser-popup-selecteditems.html"
+      tal:content="structure python:popup_view(field=view.field)" />
+  </div>
+</div>

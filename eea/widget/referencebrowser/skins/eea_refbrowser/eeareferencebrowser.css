@@ -4,10 +4,11 @@
 .popup-tabs {
   width: 80%;
   border: none;
+  float: left;
 }
 
 .ui-dialog-titlebar {
-  background: #CDE2A7;
+  background: #cde2a7 url(title-bar-background.png) repeat-x scroll 50% 50%;
 }
 
 .popup-tabs ul.ui-widget-header {
@@ -16,5 +17,61 @@
 }
 
 .ui-tabs .ui-tabs-panel {
-  border: 1px solid #AAAAAA;
+  border: 1px solid #D3D3D3;
+}
+
+.popup-selected-items {
+  float: left;
+  width: 19%;
+  border: 1px solid #D3D3D3;
+}
+
+.popup-selected-items .ui-state-default{
+  padding: 0.2em;
+  font-weight: bold;
+}
+
+.eea-ref-selecteditems {
+  padding: 1em;
+}
+
+.eea-ref-selecteditems-box {
+  border: 1px solid #8CACBB;
+  background: #ffffff url(input_background.gif) repeat-x scroll 0 0;
+}
+
+.eea-ref-selecteditems .tileItem {
+  border: none;
+}
+
+.eea-ref-selecteditems .tileItem a {
+  font-weight: normal;
+  color: #00446a;
+}
+
+.eea-ref-selecteditems .tileBreadcrumbs {
+  color: #578308;
+  font-size: 90%;
+  padding-left: 1em;
+}
+
+.popup-selected-items-content .ui-state-highlight {
+  height: 2em;
+}
+
+.popup-selected-items-content .tileItem:hover {
+  background-color: #FBF9EE;
+}
+
+.ui-icon-custom-add {
+  float: right;
+  visibility: hidden;
+}
+
+.refbrowser-faceted-addable-item:hover {
+  background-color: #FBF9EE;
+}
+
+.refbrowser-faceted-addable-item:hover .ui-icon-custom-add {
+  visibility: visible;
 }

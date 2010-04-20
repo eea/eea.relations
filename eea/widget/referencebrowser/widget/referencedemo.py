@@ -6,7 +6,7 @@ from eea.widget.referencebrowser.widget.referencewidget import (
     EEAReferenceBrowserWidget,
 )
 
-SCHEMA = ATFolder.schema.copy() +  atapi.Schema((
+SCHEMA = ATFolder.schema.copy() + atapi.Schema((
     atapi.ReferenceField('relatedItems',
         schemata='default',
         relationship = 'relatesTo',
