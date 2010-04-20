@@ -114,4 +114,12 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+    for="*"
+    name="eeareferencebrowser-popup-selecteditem.html"
+    template="template/popup-selecteditem.pt"
+    class=".app.popup.PopupSelectedItem"
+    permission="cmf.ModifyPortalContent"
+    />
+
 </configure>

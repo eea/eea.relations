@@ -1,31 +1,6 @@
-<tal:entry tal:repeat="item python:view.items">
-  <div class="tileItem visualIEFloatFix vevent" tal:define="
-    item_title_or_id item/pretty_title_or_id;
-    item_absolute_url item/absolute_url;
-    breadcrumbs item/@@breadcrumbs_view;
-    breadcrumbs python:breadcrumbs.breadcrumbs();
-    ">
-    <a class="tileImage" target="_blank"
-      tal:define="display item/@@imgview/display|nothing;"
-      tal:condition="display"
-      tal:attributes="href item_absolute_url;
-        title item_title_or_id;
-        alt item_title_or_id;
-        class string:tileImage">
-      <img tal:attributes="src string:${item_absolute_url}/image_thumb;
-        title item_title_or_id;
-        alt item_title_or_id" />
-    </a>
-
-    <div class="tileHeadline"
-      metal:define-macro="listitem">
-      <a target="_blank"
-        tal:attributes="href item_absolute_url"
-        tal:content="item_title_or_id">
-          Item Title
-      </a>
-    </div>
-    <div class="tileBreadcrumbs"
-      tal:content="python:' &raquo; '.join((b.get('Title') for b in breadcrumbs))" />
-  </div>
-</tal:entry>
+<form action="#" tal:omit-tag="python:view.mode != 'edit'">
+  <tal:entry tal:repeat="item python:view.items">
+    <div tal:define="popup_view nocall:item/@@eeareferencebrowser-popup-selecteditem.html"
+      tal:replace="structure python:popup_view(field=view.field, mode=view.mode)" />
+  </tal:entry>
+</form>

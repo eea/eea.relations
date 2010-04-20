@@ -37,15 +37,37 @@ class Popup(BrowserView):
             self._field = field
         return self.index()
 
-class PopupSelectedItems(BrowserView):
-    """ Widget popup selected items helper
+class BaseView(BrowserView):
+    """ Base view for selected item
     """
     _field = ''
+    _mode = 'view'
 
     @property
     def field(self):
         return self._field
 
+    @property
+    def mode(self):
+        return self._mode
+
+    def setup(self, **kwargs):
+        """ Setup view
+        """
+        if self.request:
+            kwargs.update(self.request.form)
+
+        # Set mode
+        mode = kwargs.get('mode', 'view')
+        self._mode = mode
+
+        # Set field
+        field = kwargs.get('field', '')
+        self._field = field
+
+class PopupSelectedItems(BaseView):
+    """ Widget popup selected items helper
+    """
     @property
     def items(self):
         """ Return selected items
@@ -64,11 +86,12 @@ class PopupSelectedItems(BrowserView):
     def __call__(self, **kwargs):
         """ Render
         """
-        if self.request:
-            kwargs.update(self.request.form)
+        self.setup(**kwargs)
+        return self.index()
 
-        field = kwargs.get('field', '')
-        if not field:
-            return 'No field specified'
-        self._field = field
+class PopupSelectedItem(BaseView):
+    """ Display an item
+    """
+    def __call__(self, **kwargs):
+        self.setup(**kwargs)
         return self.index()

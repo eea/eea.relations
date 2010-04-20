@@ -36,9 +36,15 @@
   padding: 1em;
 }
 
+.eea-ref-selecteditems .tileHeadline {
+  margin-top: 0.83em;
+}
+
 .eea-ref-selecteditems-box {
   border: 1px solid #8CACBB;
   background: #ffffff url(input_background.gif) repeat-x scroll 0 0;
+  height: 14em;
+  overflow: auto;
 }
 
 .eea-ref-selecteditems .tileItem {
@@ -57,7 +63,7 @@
 }
 
 .popup-selected-items-content .ui-state-highlight {
-  height: 2em;
+  height: 4em;
 }
 
 .popup-selected-items-content .tileItem:hover {
@@ -75,4 +81,27 @@
 
 .refbrowser-faceted-addable-item:hover .ui-icon-custom-add {
   visibility: visible;
+}
+
+.ui-effects-transfer {
+  border: 2px dotted #578308;
+  z-index: 10000;
+}
+
+.ui-pulsate-item {
+  border: 1px dotted #578308;
+  background-color: #e9efcd;
+}
+
+.ui-icon-basket-trash {
+  float: right;
+  visibility: hidden;
+}
+
+.popup-selected-items-content .tileItem:hover .ui-icon-basket-trash{
+  visibility: visible;
+}
+
+.ui-state-working {
+  background: #E6E6E6 url(eeareferencebrowser-loading.gif) no-repeat right center ! important;
 }
