@@ -36,6 +36,14 @@
     />
 
   <!-- Graphs -->
+    <browser:page
+    for="..interfaces.IRelationsTool"
+    name="graph.dot"
+    class=".app.graph.ToolGraph"
+    attribute="dot"
+    permission="cmf.ModifyPortalContent"
+    />
+
   <browser:page
     for="..interfaces.IRelationsTool"
     name="graph.png"

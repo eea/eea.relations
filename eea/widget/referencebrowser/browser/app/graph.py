@@ -129,3 +129,7 @@ class ToolGraph(BaseGraph):
             graph.add_edge(edge())
 
         return graph
+
+    def dot(self):
+        """ Return dotted graph """
+        return self.graph.to_string()

@@ -13,8 +13,8 @@ class Node(object):
     def __call__(self, **kwargs):
         """ Returns a pydot.Node object
         """
-        name = self.context.getId()
-        label = self.context.title_or_id()
+        name = 'node-' + self.context.getId()
+        label = '"%s"' % self.context.title_or_id()
         return PyNode(name, label=label)
 
     def __repr__(self):

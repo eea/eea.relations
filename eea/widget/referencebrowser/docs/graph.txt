@@ -45,7 +45,7 @@ Adapter to display objects as pydot.Node instances
     <pydot.Node object at ...>
 
     >>> repr(node)
-    'myFolder [label="My Folder"];'
+    '"node-myFolder" [label="My Folder"];'
 
 IEdge adapters
 --------------
@@ -69,7 +69,7 @@ Adapter to display objects as pydot.Edge instances
     <pydot.Edge object at ...>
 
     >>> repr(edge)
-    'myFolder -- myDocument;'
+    '"node-myFolder" -- "node-myDocument";'
 
 Browser
 -------
@@ -90,10 +90,10 @@ Browser
 
     >>> print image.graph.to_string()
     digraph G {
-    myFolder [label="My Folder"];
-    myDocument [label="My Document"];
-    notConnected [label="NOT CONNECTED"];
-    myFolder -> myDocument;
+    "node-myFolder" [label="My Folder"];
+    "node-myDocument" [label="My Document"];
+    "node-notConnected" [label="NOT CONNECTED"];
+    "node-myFolder" -> "node-myDocument";
     }
 
     >>> image()
@@ -110,9 +110,9 @@ Browser
 
     >>> print image.graph.to_string()
     digraph G {
-    myFolder [label="My Folder"];
-    myDocument [label="My Document"];
-    myFolder -> myDocument;
+    "node-myFolder" [label="My Folder"];
+    "node-myDocument" [label="My Document"];
+    "node-myFolder" -> "node-myDocument";
     }
 
     >>> image()
@@ -123,7 +123,7 @@ Browser
     >>> image = getMultiAdapter((ctype3, ctype3.REQUEST), name=u'graph.png')
     >>> print image.graph.to_string()
     digraph G {
-    notConnected [label="NOT CONNECTED"];
+    "node-notConnected" [label="NOT CONNECTED"];
     }
 
 
@@ -138,9 +138,9 @@ Browser
 
     >>> print image.graph.to_string()
     digraph G {
-    myFolder [label="My Folder"];
-    myDocument [label="My Document"];
-    myFolder -> myDocument;
+    "node-myFolder" [label="My Folder"];
+    "node-myDocument" [label="My Document"];
+    "node-myFolder" -> "node-myDocument";
     }
 
     >>> image()
@@ -160,8 +160,8 @@ Browser
     >>> image = getMultiAdapter((ctype4, ctype4.REQUEST), name=u'graph.png')
     >>> print image.graph.to_string()
     digraph G {
-    myX [label="My X"];
-    myX -> myX;
+    "node-myX" [label="My X"];
+    "node-myX" -> "node-myX";
     }
 
     >>> image = getMultiAdapter((relation2, relation2.REQUEST), name=u'graph.png')
@@ -170,6 +170,6 @@ Browser
 
     >>> print image.graph.to_string()
     digraph G {
-    myX [label="My X"];
-    myX -> myX;
+    "node-myX" [label="My X"];
+    "node-myX" -> "node-myX";
     }
