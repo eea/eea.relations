@@ -76,6 +76,7 @@
 }
 
 .refbrowser-faceted-addable-item:hover {
+  background-image: none;
   background-color: #FBF9EE;
 }
 

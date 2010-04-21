@@ -8,7 +8,7 @@
   <input type="checkbox" checked="checked" style="display: none"
     tal:condition="python:view.mode == 'edit'"
     tal:attributes="
-      name python:view.field;
+      name python:view.field + '-input';
       value python:item.UID()" />
   <a class="tileImage" target="_blank"
     tal:define="display item/@@imgview/display|nothing;"

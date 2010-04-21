@@ -1,6 +1,9 @@
+import logging
 from Products.Five.browser import BrowserView
 from eea.widget.referencebrowser.component import queryForwardRelations
 from Products.CMFCore.utils import getToolByName
+
+logger = logging.getLogger('eea.widget.referencebrowser.browser.popup')
 
 class Popup(BrowserView):
     """ Widget popup helper
@@ -95,3 +98,24 @@ class PopupSelectedItem(BaseView):
     def __call__(self, **kwargs):
         self.setup(**kwargs)
         return self.index()
+
+class PopupSave(BrowserView):
+    """ Save
+    """
+    def __call__(self, **kwargs):
+        if self.request:
+            kwargs.update(self.request.form)
+
+        fieldname = kwargs.get('field', '')
+        if not fieldname:
+            logger.exception('No field provided for action.save')
+            return 'No field provided for action.save'
+
+        field = self.context.getField(fieldname)
+        if not field:
+            logger.exception('Invalid field provided for action.save')
+            return 'Invalid field provided for action.save'
+
+        values = kwargs.get(fieldname, [])
+        field.getMutator(self.context)(values)
+        return 'Changes saved'
