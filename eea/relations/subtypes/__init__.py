@@ -1,2 +1,2 @@
-""" EEA Reference Browser Widget Subtypes
+""" EEA Relations Subtypes
 """

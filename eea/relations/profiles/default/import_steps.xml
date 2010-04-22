@@ -6,4 +6,10 @@
     <dependency name="toolset" />
     Additional import steps
   </import-step>
+  <import-step id="possible_relations" version="20100422-01"
+    handler="eea.relations.exportimport.importRelationsTool"
+    title="Possible Relations Settings">
+    <dependency step="toolset"/>
+    Import possible relations settings
+  </import-step>
 </import-steps>

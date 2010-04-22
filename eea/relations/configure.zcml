@@ -8,5 +8,6 @@
   <include package=".vocabulary" />
   <include package=".graph" />
   <include package=".component" />
+  <include package=".exportimport" />
 
 </configure>

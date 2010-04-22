@@ -35,9 +35,9 @@ setup_eea_relations()
 ptc.setupPloneSite(extension_profiles=('eea.relations:a',))
 
 class EEARelationsTestCase(ptc.PloneTestCase):
-    """Base class for integration tests for the 'EEA ReferenceBrowser Widget' product.
+    """Base class for integration tests for the 'EEA Relations' product.
     """
 
 class EEARelationsFunctionalTestCase(ptc.FunctionalTestCase, EEARelationsTestCase):
-    """Base class for functional integration tests for the 'EEA ReferenceBrowser Widget' product.
+    """Base class for functional integration tests for the 'EEA Relations' product.
     """

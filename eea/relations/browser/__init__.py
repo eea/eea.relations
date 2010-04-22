@@ -1,2 +1,2 @@
-""" EEA Reference Browser Widget Views
+""" EEA Relations Views
 """

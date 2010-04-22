@@ -97,6 +97,8 @@ Let's do some queries
     >>> from Products.Archetypes.interfaces import IBaseContent
     >>> rid = rtool.invokeFactory('EEARelationsContentType', 'relation')
     >>> rtype = rtool._getOb(rid)
+    >>> IBaseContent.__identifier__
+
     >>> rtype.processForm(values={
     ...   'title': 'Generic',
     ...   'ct_type': '',

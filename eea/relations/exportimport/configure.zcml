@@ -1,0 +1,27 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="eea.facetednavigation"
+   >
+
+  <adapter
+    factory=".tool.RelationsToolXMLAdapter"
+    provides="Products.GenericSetup.interfaces.IBody"
+    for="eea.relations.interfaces.IRelationsTool
+         Products.GenericSetup.interfaces.ISetupEnviron"
+   />
+
+  <adapter
+    factory=".relation.RelationXMLAdapter"
+    provides="Products.GenericSetup.interfaces.IBody"
+    for="eea.relations.interfaces.IRelation
+         Products.GenericSetup.interfaces.ISetupEnviron"
+   />
+
+  <adapter
+    factory=".contenttype.ContentTypeXMLAdapter"
+    provides="Products.GenericSetup.interfaces.IBody"
+    for="eea.relations.interfaces.IContentType
+         Products.GenericSetup.interfaces.ISetupEnviron"
+   />
+
+</configure>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<object name="portal_relations" purge="False">
+  <object purge="False"
+    name="generic"
+    portal_type="EEARelationsContentType">
+    <property name="title">Generic</property>
+    <property name="ct_type"></property>
+    <property name="ct_interface">Products.Archetypes.interfaces._base.IBaseObject</property>
+  </object>
+  <object purge="False"
+    name="generic-to-generic-relation"
+    portal_type="EEAPossibleRelation">
+    <property name="title">Generic to Generic Relation</property>
+    <property name="from">generic</property>
+    <property name="to">generic</property>
+  </object>
+</object>

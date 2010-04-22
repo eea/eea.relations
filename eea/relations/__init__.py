@@ -1,4 +1,4 @@
-""" EEA Custom Reference Browser Widget
+""" EEA Relations
 """
 try:
     import zope.annotation

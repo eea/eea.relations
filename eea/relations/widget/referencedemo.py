@@ -1,4 +1,4 @@
-""" demonstrates the use of ATReferenceBrowserWidget """
+""" Demonstrates the use of EEAReferenceBrowserWidget """
 
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder

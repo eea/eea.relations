@@ -1,2 +1,2 @@
-EEA ReferenceBrowserWidget
-==========================
+EEA Relations
+=============
