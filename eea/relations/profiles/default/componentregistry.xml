@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<componentregistry>
- <utilities>
-  <utility
-     interface="eea.widget.referencebrowser.content.interfaces.IRelationsTool"
-     object="portal_relations"/>
- </utilities>
-</componentregistry>
