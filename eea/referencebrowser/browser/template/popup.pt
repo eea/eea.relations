@@ -1,0 +1,34 @@
+<metal:block use-macro="here/global_defines/macros/defines" />
+<div class="popup-tabs" tal:define="tabs python:[tab for tab in view.tabs()]">
+  <tal:tabs condition="tabs">
+    <ul>
+      <li tal:repeat="tab tabs">
+        <a tal:attributes="href string:${tab/absolute_url}/@@facetednavigation_simple_view">
+          <span tal:content="python:tab.title_or_id()" />
+          <div style="display: none" class="tab-url"
+            tal:content="tab/absolute_url" />
+        </a>
+      </li>
+    </ul>
+  </tal:tabs>
+  <tal:notabs condition="not:tabs">
+    <ul><li><a href="#tab-error">No possible relations</a></li></ul>
+    <div id="tab-error" i18n:translate="">
+      You are not allowed to define relations in this context. In order to be
+      able to define relations please go to
+      <a target="_blank"
+        tal:attributes="href string:$portal_url/portal_relations">Portal relations</a>
+      and define possible relations for this content-type.
+    </div>
+  </tal:notabs>
+</div>
+
+<div class="popup-selected-items"
+  tal:attributes="id python:view.field + '-popup-selected-items'">
+  <h4 class="ui-state-default" i18n:translate="">Current relations</h4>
+  <div class="popup-selected-items-content">
+    <div class="eea-ref-selecteditems"
+      tal:define="popup_view nocall:here/@@eeareferencebrowser-popup-selecteditems.html"
+      tal:content="structure python:popup_view(field=view.field, mode='edit')" />
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<import-steps>
+	<import-step id="eea-widget-referencebrowser-various" version="20100324-01"
+		title="EEA Widget Reference Browser Various"
+		handler="eea.widget.referencebrowser.setuphandlers.importVarious">
+		<dependency name="toolset" />
+		Additional import steps
+	</import-step>
+</import-steps>

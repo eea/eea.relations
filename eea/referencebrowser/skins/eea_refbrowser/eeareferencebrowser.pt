@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="eea.widget">
+
+  <head><title></title></head>
+
+  <body>
+
+  <metal:view_macro define-macro="view">
+  </metal:view_macro>
+
+  <metal:edit_macro define-macro="reference_edit" tal:define="
+    fieldName fieldName;
+    fieldRealName field/getName;
+    uids python:same_type(value, []) and value or [value];">
+
+    <metal:inputview define-macro="inputview">
+      <metal:slot define-slot="content">
+        <div class="eea-ref-selecteditems eea-ref-selecteditems-box"
+          tal:define="popup_view nocall:here/@@eeareferencebrowser-popup-selecteditems.html"
+          tal:content="structure python:popup_view(field=fieldName)" />
+      </metal:slot>
+    </metal:inputview>
+
+    <div metal:define-macro="popup" tal:define="
+      widget nocall:widget | nothing;
+      "
+      class="eea-widget-referencebrowser"
+      tal:attributes="id string:$fieldName-widget">
+      <metal:popup define-slot="popup">
+        <div class="" tal:attributes="
+          title python:widget and 'Edit %s' % widget.Label(here) or 'Edit';
+          id string:$fieldName-popup">
+          <tal:popup define="popup_view nocall:here/@@eeareferencebrowser-popup.html"
+            replace="structure python:popup_view(field=fieldName)" />
+        </div>
+      </metal:popup>
+      <metal:button define-slot="button">
+        <input class="searchButton" type="button" value="Edit..."
+          i18n:attributes="value"/>
+      </metal:button>
+      <metal:script define-slot="script">
+        <script type="text/javascript" tal:content="string:
+          var popup = new EEAReferenceBrowser.Widget('$fieldName');
+        "></script>
+      </metal:script>
+    </div>
+
+  </metal:edit_macro>
+
+  <metal:edit_macro define-macro="edit">
+    <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+      <metal:fill fill-slot="widget_body">
+        <metal:use use-macro="here/eeareferencebrowser/macros/reference_edit" />
+      </metal:fill>
+    </metal:use>
+  </metal:edit_macro>
+
+  <metal:search_macro define-macro="search">
+    <div metal:use-macro="here/eeareferencebrowser/macros/edit"></div>
+  </metal:search_macro>
+
+</body>
+</html>

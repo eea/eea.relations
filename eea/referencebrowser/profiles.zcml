@@ -1,0 +1,67 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  xmlns:five="http://namespaces.zope.org/five"
+  xmlns:cmf="http://namespaces.zope.org/cmf"
+  i18n_domain="eea.widget">
+
+  <five:registerPackage package="." initialize=".initialize" />
+
+  <!-- Default -->
+  <genericsetup:registerProfile
+    name="a"
+    title="EEA Possible Relations"
+    directory="profiles/default"
+    description="Profile for possible content relations"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    />
+
+  <!-- Plone 3.0+ skins directory -->
+  <configure zcml:condition="installed zope.annotation">
+    <cmf:registerDirectory
+      name="skins"
+      directory="skins"
+      recursive="True"
+      />
+  </configure>
+
+  <!-- Plone 2.5 skins directory -->
+  <!-- See plone25.py file in this package -->
+
+  <!-- Plone 3.0+ compatible profile -->
+  <configure zcml:condition="installed zope.annotation">
+    <genericsetup:registerProfile
+      name="b"
+      title="EEA Possible Relations (SKINS)"
+      directory="profiles/plone3"
+      description="Profile for possible content relations"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      />
+  </configure>
+
+  <!-- Plone 2.5 compatible profile -->
+  <configure zcml:condition="installed zope.app.annotation.tests">
+    <genericsetup:registerProfile
+      name="b"
+      title="EEA Possible Relations (SKINS)"
+      directory="profiles/plone25"
+      description="Profile for possible content relations"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      />
+  </configure>
+
+  <!-- Demo content -->
+  <genericsetup:registerProfile
+    name="c"
+    title="EEA Possible Relations (Demo Content)"
+    directory="profiles/demo"
+    description="Profile for possible content relations"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    />
+
+</configure>

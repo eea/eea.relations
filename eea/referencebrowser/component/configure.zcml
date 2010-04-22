@@ -1,0 +1,17 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="eea.widget">
+
+  <adapter
+    for="Products.Archetypes.interfaces.IBaseContent"
+    provides=".interfaces.IContentTypeLookUp"
+    factory=".contenttype.ContentTypeLookUp"
+    />
+
+  <adapter
+    for="eea.widget.referencebrowser.interfaces.IContentType"
+    provides=".interfaces.IRelationsLookUp"
+    factory=".relation.RelationsLookUp"
+    />
+
+</configure>
