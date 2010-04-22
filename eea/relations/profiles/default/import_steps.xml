@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <import-steps>
-  <import-step id="eea-widget-referencebrowser-various" version="20100324-01"
+  <import-step id="eea-relations-various" version="20100422-01"
     title="EEA Relations Various"
     handler="eea.relations.setuphandlers.importVarious">
     <dependency name="toolset" />

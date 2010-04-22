@@ -4,6 +4,6 @@
     category="controlpanel"
     action_id="eea.relations"
     title="Possible Relations" priority="0"
-    icon_expr="eeareferencebrowser.png"
+    icon_expr="eearelations.png"
   />
 </action-icons>

@@ -5,7 +5,7 @@ from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
 from eea.facetednavigation.widgets.field import StringField
-from eea.relationserencebrowser.events import ObjectInitializedEvent
+from eea.relations.events import ObjectInitializedEvent
 
 from interfaces import IContentType
 

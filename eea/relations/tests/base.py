@@ -38,6 +38,6 @@ class EEARelationsTestCase(ptc.PloneTestCase):
     """Base class for integration tests for the 'EEA ReferenceBrowser Widget' product.
     """
 
-class EEARelationsFunctionalTestCase(ptc.FunctionalTestCase, ReferenceBrowserWidgetTestCase):
+class EEARelationsFunctionalTestCase(ptc.FunctionalTestCase, EEARelationsTestCase):
     """Base class for functional integration tests for the 'EEA ReferenceBrowser Widget' product.
     """

@@ -8,7 +8,7 @@ def addObjectProvidesIndex(portal):
         catalog.addIndex('object_provides', 'KeywordIndex')
 
 def importVarious(self):
-    if self.readDataFile('referencebrowser.txt') is None:
+    if self.readDataFile('eearelations.txt') is None:
         return
 
     site = self.getSite()
