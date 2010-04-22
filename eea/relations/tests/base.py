@@ -10,7 +10,7 @@ from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
 
 @onsetup
-def setup_eea_widget_referencebrowser():
+def setup_eea_relations():
     """Set up the additional products.
 
     The @onsetup decorator causes the execution of this body to be deferred
@@ -20,8 +20,8 @@ def setup_eea_widget_referencebrowser():
     import Products.Five
     zcml.load_config('meta.zcml', Products.Five)
 
-    import eea.widget.referencebrowser
-    zcml.load_config('configure.zcml', eea.widget.referencebrowser)
+    import eea.relations
+    zcml.load_config('configure.zcml', eea.relations)
     fiveconfigure.debug_mode = False
 
     ptc.installProduct('Five')
@@ -31,13 +31,13 @@ def setup_eea_widget_referencebrowser():
     except ImportError: pass
     else: ptc.installProduct('FiveSite')
 
-setup_eea_widget_referencebrowser()
-ptc.setupPloneSite(extension_profiles=('eea.widget.referencebrowser:a',))
+setup_eea_relations()
+ptc.setupPloneSite(extension_profiles=('eea.relations:a',))
 
-class ReferenceBrowserWidgetTestCase(ptc.PloneTestCase):
+class EEARelationsTestCase(ptc.PloneTestCase):
     """Base class for integration tests for the 'EEA ReferenceBrowser Widget' product.
     """
 
-class ReferenceBrowserWidgetFunctionalTestCase(ptc.FunctionalTestCase, ReferenceBrowserWidgetTestCase):
+class EEARelationsFunctionalTestCase(ptc.FunctionalTestCase, ReferenceBrowserWidgetTestCase):
     """Base class for functional integration tests for the 'EEA ReferenceBrowser Widget' product.
     """

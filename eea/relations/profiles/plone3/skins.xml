@@ -8,7 +8,7 @@
 
  <object name="eea_refbrowser"
          meta_type="Filesystem Directory View"
-         directory="eea.widget.referencebrowser:skins/eea_refbrowser"/>
+         directory="eea.relations:skins/eea_refbrowser"/>
 
  <skin-path name="*">
   <layer insert-after="custom"

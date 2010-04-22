@@ -3,17 +3,17 @@
   xmlns:browser="http://namespaces.zope.org/browser"
   i18n_domain="eea.widget">
 
-  <class class="eea.widget.referencebrowser.content.contenttype.EEARelationsContentType">
-    <implements interface="eea.widget.referencebrowser.interfaces.IPossibleFacetedNavigable" />
+  <class class="eea.relations.content.contenttype.EEARelationsContentType">
+    <implements interface="eea.relations.interfaces.IPossibleFacetedNavigable" />
   </class>
 
   <utility
-    name="eea.widget.referencebrowser.facetednavigation.ContentTypeFacetedNavigable"
+    name="eea.relations.facetednavigation.ContentTypeFacetedNavigable"
     factory=".descriptors.EEARelationsContentTypeDescriptor" />
 
   <subscriber
-    for="eea.widget.referencebrowser.interfaces.IPossibleFacetedNavigable
-         eea.widget.referencebrowser.events.IObjectInitializedEvent"
+    for="eea.relations.interfaces.IPossibleFacetedNavigable
+         eea.relations.events.IObjectInitializedEvent"
     handler=".events.subtype"
   />
 

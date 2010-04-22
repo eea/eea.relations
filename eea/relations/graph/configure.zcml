@@ -2,13 +2,13 @@
   i18n_domain="eea.widget">
 
   <adapter
-    for="eea.widget.referencebrowser.interfaces.IContentType"
+    for="eea.relations.interfaces.IContentType"
     provides=".interfaces.INode"
     factory=".contenttype.Node"
     />
 
   <adapter
-    for="eea.widget.referencebrowser.interfaces.IRelation"
+    for="eea.relations.interfaces.IRelation"
     provides=".interfaces.IEdge"
     factory=".relation.Edge"
     />

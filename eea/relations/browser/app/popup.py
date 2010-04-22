@@ -1,9 +1,9 @@
 import logging
 from Products.Five.browser import BrowserView
-from eea.widget.referencebrowser.component import queryForwardRelations
+from eea.relations.component import queryForwardRelations
 from Products.CMFCore.utils import getToolByName
 
-logger = logging.getLogger('eea.widget.referencebrowser.browser.popup')
+logger = logging.getLogger('eea.relations.browser.popup')
 
 class Popup(BrowserView):
     """ Widget popup helper

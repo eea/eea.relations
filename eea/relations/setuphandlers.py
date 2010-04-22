@@ -30,6 +30,6 @@ def importVarious(self):
 
     # Compatibility
     setup_tool = getToolByName(site, 'portal_setup')
-    setup_tool.setImportContext('profile-eea.widget.referencebrowser:b')
+    setup_tool.setImportContext('profile-eea.relations:b')
     setup_tool.runAllImportSteps()
-    setup_tool.setImportContext('profile-eea.widget.referencebrowser:a')
+    setup_tool.setImportContext('profile-eea.relations:a')

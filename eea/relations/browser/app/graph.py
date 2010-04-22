@@ -4,9 +4,9 @@ from pydot import Dot as PyGraph
 from zope.component import queryAdapter, queryUtility
 from Products.Five.browser import BrowserView
 
-from eea.widget.referencebrowser.interfaces import INode
-from eea.widget.referencebrowser.interfaces import IEdge
-from eea.widget.referencebrowser.interfaces import IGraph
+from eea.relations.interfaces import INode
+from eea.relations.interfaces import IEdge
+from eea.relations.interfaces import IGraph
 
 from Products.CMFCore.utils import getToolByName
 

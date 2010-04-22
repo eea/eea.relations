@@ -10,7 +10,7 @@ from interfaces import IRelation
 EditSchema = ATFolder.schema.copy() + atapi.Schema((
     StringField('from',
         schemata="default",
-        vocabulary_factory='eea.widget.refbrowser.voc.ContentTypes',
+        vocabulary_factory='eea.relations.voc.ContentTypes',
         required=True,
         widget=atapi.SelectionWidget(
             format='select',
@@ -23,7 +23,7 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
     ),
     StringField('to',
         schemata="default",
-        vocabulary_factory='eea.widget.refbrowser.voc.ContentTypes',
+        vocabulary_factory='eea.relations.voc.ContentTypes',
         required=True,
         widget=atapi.SelectionWidget(
             format='select',

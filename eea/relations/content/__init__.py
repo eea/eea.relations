@@ -2,7 +2,7 @@
 """
 from Products.CMFCore import utils as cmfutils
 from Products.Archetypes.atapi import process_types, listTypes
-from eea.widget.referencebrowser.config import (
+from eea.relations.config import (
     PROJECTNAME,
     ADD_CONTENT_PERMISSION
 )

@@ -6,7 +6,7 @@
     name="description">Define possible relations between content-types</property>
  <property name="content_icon">logoIcon.gif</property>
  <property name="content_meta_type">EEARelationsTool</property>
- <property name="product">eea.widget.referencebrowser</property>
+ <property name="product">eea.relations</property>
  <property name="factory">addEEARelationsTool</property>
  <property name="immediate_view">view.html</property>
  <property name="global_allow">False</property>

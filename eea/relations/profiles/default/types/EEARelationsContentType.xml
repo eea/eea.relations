@@ -7,7 +7,7 @@
     name="description">Content-Type mapping (portal_relations)</property>
  <property name="content_icon">logoIcon.gif</property>
  <property name="content_meta_type">EEARelationsContentType</property>
- <property name="product">eea.widget.referencebrowser</property>
+ <property name="product">eea.relations</property>
  <property name="factory">addEEARelationsContentType</property>
  <property name="immediate_view">folder_summary_view</property>
  <property name="global_allow">False</property>

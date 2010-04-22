@@ -5,14 +5,14 @@ from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
 from eea.facetednavigation.widgets.field import StringField
-from eea.widget.referencebrowser.events import ObjectInitializedEvent
+from eea.relationserencebrowser.events import ObjectInitializedEvent
 
 from interfaces import IContentType
 
 EditSchema = ATFolder.schema.copy() + atapi.Schema((
     StringField('ct_type',
         schemata="default",
-        vocabulary_factory='eea.widget.refbrowser.voc.PortalTypesVocabulary',
+        vocabulary_factory='eea.relations.voc.PortalTypesVocabulary',
         validators=('eea-refbrowser-contenttype',),
         widget=atapi.SelectionWidget(
             label='Portal type',
@@ -24,7 +24,7 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
     ),
     StringField('ct_interface',
         schemata="default",
-        vocabulary_factory='eea.widget.refbrowser.voc.ObjectProvides',
+        vocabulary_factory='eea.relations.voc.ObjectProvides',
         validators=('eea-refbrowser-contenttype',),
         widget=atapi.SelectionWidget(
             label='Interface',

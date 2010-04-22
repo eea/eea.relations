@@ -12,10 +12,10 @@ IGraph utility
 This package provides an utility to generate .png image from pydot.Dot instances.
 
     >>> from zope.component import queryUtility
-    >>> from eea.widget.referencebrowser.interfaces import IGraph
+    >>> from eea.relations.interfaces import IGraph
     >>> image = queryUtility(IGraph, 'png')
     >>> image
-    <eea.widget.referencebrowser.graph.graph.Graph object at ...>
+    <eea.relations.graph.graph.Graph object at ...>
 
     >>> from pydot import Dot as PyGraph
     >>> graph = PyGraph()
@@ -39,7 +39,7 @@ Adapter to display objects as pydot.Node instances
   Adapt
 
     >>> from zope.component import queryAdapter
-    >>> from eea.widget.referencebrowser.interfaces import INode
+    >>> from eea.relations.interfaces import INode
     >>> node = queryAdapter(ctype, INode)
     >>> node()
     <pydot.Node object at ...>
@@ -63,7 +63,7 @@ Adapter to display objects as pydot.Edge instances
 
   Adapt
 
-    >>> from eea.widget.referencebrowser.interfaces import IEdge
+    >>> from eea.relations.interfaces import IEdge
     >>> edge = queryAdapter(relation, IEdge)
     >>> edge()
     <pydot.Edge object at ...>

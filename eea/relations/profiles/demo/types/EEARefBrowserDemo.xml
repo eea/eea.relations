@@ -7,7 +7,7 @@
     name="description"></property>
  <property name="content_icon">document_icon.gif</property>
  <property name="content_meta_type">EEARefBrowserDemo</property>
- <property name="product">eea.widget.referencebrowser</property>
+ <property name="product">eea.relations</property>
  <property name="factory">addEEARefBrowserDemo</property>
  <property name="immediate_view">folder_summary_view</property>
  <property name="global_allow">True</property>

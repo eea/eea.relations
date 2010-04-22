@@ -91,14 +91,14 @@
 
   <!-- Faceted navigation -->
   <browser:page
-    for="eea.widget.referencebrowser.interfaces.IFacetedNavigable"
+    for="eea.relations.interfaces.IFacetedNavigable"
     name="default_widgets.xml"
     template="template/default.xml"
     permission="cmf.ModifyPortalContent"
     />
 
   <browser:page
-    for="eea.widget.referencebrowser.interfaces.IFacetedNavigable"
+    for="eea.relations.interfaces.IFacetedNavigable"
     name="faceted_query"
     class=".app.query.FacetedQuery"
     template="template/query.pt"

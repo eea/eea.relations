@@ -1,10 +1,10 @@
 import logging
 from zope.component import queryAdapter
-from eea.widget.referencebrowser.interfaces import IContentType
+from eea.relations.interfaces import IContentType
 from interfaces import IContentTypeLookUp
 from interfaces import IRelationsLookUp
 
-logger = logging.getLogger('eea.widget.referencebrowser.queryContentType')
+logger = logging.getLogger('eea.relations.queryContentType')
 
 def queryContentType(context):
     """ Lookup for context related content-type in portal_relations

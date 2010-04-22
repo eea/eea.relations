@@ -9,7 +9,7 @@
     />
 
   <adapter
-    for="eea.widget.referencebrowser.interfaces.IContentType"
+    for="eea.relations.interfaces.IContentType"
     provides=".interfaces.IRelationsLookUp"
     factory=".relation.RelationsLookUp"
     />

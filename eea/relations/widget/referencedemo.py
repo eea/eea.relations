@@ -3,7 +3,7 @@
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.OrderableReferenceField._field import OrderableReferenceField
-from eea.widget.referencebrowser.widget.referencewidget import (
+from eea.relations.widget.referencewidget import (
     EEAReferenceBrowserWidget,
 )
 

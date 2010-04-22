@@ -4,17 +4,17 @@
 
   <utility
     factory=".contenttype.ObjectProvidesVocabulary"
-    name="eea.widget.refbrowser.voc.ObjectProvides"
+    name="eea.relations.voc.ObjectProvides"
     />
 
   <utility
     factory=".contenttype.PortalTypesVocabulary"
-    name="eea.widget.refbrowser.voc.PortalTypesVocabulary"
+    name="eea.relations.voc.PortalTypesVocabulary"
     />
 
   <utility
     factory=".relation.ContentTypesVocabulary"
-    name="eea.widget.refbrowser.voc.ContentTypes"
+    name="eea.relations.voc.ContentTypes"
     />
 
 </configure>

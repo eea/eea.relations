@@ -2,7 +2,7 @@
 """
 from Products.Archetypes.atapi import registerType
 from Products.Archetypes.Registry import registerWidget
-from eea.widget.referencebrowser.config import PROJECTNAME
+from eea.relations.config import PROJECTNAME
 from referencedemo import EEARefBrowserDemo
 from referencewidget import EEAReferenceBrowserWidget
 

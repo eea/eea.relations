@@ -2,7 +2,7 @@
 <componentregistry>
  <utilities>
   <utility
-     interface="eea.widget.referencebrowser.content.interfaces.IRelationsTool"
+     interface="eea.relations.content.interfaces.IRelationsTool"
      object="portal_relations"/>
  </utilities>
 </componentregistry>

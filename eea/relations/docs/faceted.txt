@@ -15,7 +15,7 @@ Set up
     >>> ctype.processForm(values={
     ...   'title': 'My Folder',
     ...   'ct_type': 'Folder',
-    ...   'ct_interface': 'eea.widget.referencebrowser.interfaces.INode',
+    ...   'ct_interface': 'eea.relations.interfaces.INode',
     ... })
     >>> request = ctype.REQUEST
 
@@ -87,4 +87,4 @@ Faceted Query
     'Folder'
 
     >>> criteria.get('object_provides', '<NOT SET>')
-    'eea.widget.referencebrowser.interfaces.INode'
+    'eea.relations.interfaces.INode'

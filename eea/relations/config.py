@@ -1,7 +1,7 @@
 """ Config
 """
 
-PROJECTNAME = 'eea.widget.referencebrowser'
+PROJECTNAME = 'eea.relations'
 ADD_CONTENT_PERMISSION = "Add portal content"
-SUBTYPE = 'eea.widget.referencebrowser.facetednavigation.ContentTypeFacetedNavigable'
+SUBTYPE = 'eea.relations.facetednavigation.ContentTypeFacetedNavigable'
 GLOBALS = globals()
