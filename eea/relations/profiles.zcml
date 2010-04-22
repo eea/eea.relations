@@ -4,7 +4,7 @@
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   xmlns:five="http://namespaces.zope.org/five"
   xmlns:cmf="http://namespaces.zope.org/cmf"
-  i18n_domain="eea.widget">
+  i18n_domain="eea.relations">
 
   <five:registerPackage package="." initialize=".initialize" />
 

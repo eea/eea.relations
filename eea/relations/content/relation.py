@@ -18,7 +18,7 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
             label_msgid='widget_from_title',
             description='Select content-type',
             description_msgid='widget_from_description',
-            i18n_domain="eea.widget"
+            i18n_domain="eea.relations"
         )
     ),
     StringField('to',
@@ -31,7 +31,7 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
             label_msgid='widget_to_title',
             description='Select content-type',
             description_msgid='widget_to_description',
-            i18n_domain="eea.widget"
+            i18n_domain="eea.relations"
         )
     ),
 ))

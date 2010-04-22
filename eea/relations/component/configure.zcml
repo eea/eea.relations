@@ -1,6 +1,6 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
-  i18n_domain="eea.widget">
+  i18n_domain="eea.relations">
 
   <adapter
     for="Products.Archetypes.interfaces.IBaseContent"

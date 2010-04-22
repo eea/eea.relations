@@ -19,7 +19,7 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
             label_msgid='widget_portal_type_title',
             description='Select portal type',
             description_msgid='widget_portal_tyoe_description',
-            i18n_domain="eea.widget"
+            i18n_domain="eea.relations"
         )
     ),
     StringField('ct_interface',
@@ -31,7 +31,7 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
             label_msgid='widget_interface_title',
             description='Select interface',
             description_msgid='widget_interface_description',
-            i18n_domain="eea.widget"
+            i18n_domain="eea.relations"
         )
     ),
 ))
