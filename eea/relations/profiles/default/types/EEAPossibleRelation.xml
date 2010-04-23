@@ -4,7 +4,7 @@
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title">Relation</property>
  <property name="description">Possible content-type relation</property>
- <property name="content_icon">logoIcon.gif</property>
+ <property name="content_icon">eeapossiblerelation.png</property>
  <property name="content_meta_type">EEAPossibleRelation</property>
  <property name="product">eea.relations</property>
  <property name="factory">addEEAPossibleRelation</property>

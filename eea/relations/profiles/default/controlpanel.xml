@@ -6,7 +6,7 @@
     appId="eea.relations" category="Products"
     condition_expr="python:getattr(portal, 'portal_relations', None)"
     url_expr="string:${portal_url}/portal_relations/"
-    icon_expr="logoIcon.gif"
+    icon_expr="eearelations.png"
     visible="True" i18n:attributes="title">
   <permission>Manage portal</permission>
  </configlet>

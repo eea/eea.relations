@@ -4,7 +4,7 @@
  <property name="title">EEA Relations Tool</property>
  <property
     name="description">Define possible relations between content-types</property>
- <property name="content_icon">logoIcon.gif</property>
+ <property name="content_icon">eearelations.png</property>
  <property name="content_meta_type">EEARelationsTool</property>
  <property name="product">eea.relations</property>
  <property name="factory">addEEARelationsTool</property>
