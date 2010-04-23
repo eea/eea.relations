@@ -7,6 +7,15 @@ Set up
 ------
 
     >>> self.loginAsPortalOwner()
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> rtool = getToolByName(portal, 'portal_relations')
+
+  Cleanup default relations to avoid surprises
+
+    >>> rtool.manage_delObjects(rtool.objectIds())
+
+  Setup sandbox
+
     >>> fid = folder.invokeFactory('Folder', 'sandbox')
     >>> sandbox = folder._getOb(fid)
 
@@ -97,8 +106,6 @@ Let's do some queries
     >>> from Products.Archetypes.interfaces import IBaseContent
     >>> rid = rtool.invokeFactory('EEARelationsContentType', 'relation')
     >>> rtype = rtool._getOb(rid)
-    >>> IBaseContent.__identifier__
-
     >>> rtype.processForm(values={
     ...   'title': 'Generic',
     ...   'ct_type': '',

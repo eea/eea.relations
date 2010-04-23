@@ -6,6 +6,12 @@ Set up
 ------
 
     >>> self.loginAsPortalOwner()
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> rtool = getToolByName(portal, 'portal_relations')
+
+Cleanup default relations to avoid surprises
+
+    >>> rtool.manage_delObjects(rtool.objectIds())
 
 IGraph utility
 --------------
@@ -30,8 +36,6 @@ Adapter to display objects as pydot.Node instances
 
   Add ContentType
 
-    >>> from Products.CMFCore.utils import getToolByName
-    >>> rtool = getToolByName(portal, 'portal_relations')
     >>> name = rtool.invokeFactory('EEARelationsContentType', 'myFolder')
     >>> ctype = rtool._getOb(name)
     >>> ctype.setTitle('My Folder')

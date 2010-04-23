@@ -24,4 +24,11 @@
          Products.GenericSetup.interfaces.ISetupEnviron"
    />
 
+  <adapter
+    factory=".faceted.FacetedNavigableXMLAdapter"
+    provides="Products.GenericSetup.interfaces.IBody"
+    for="eea.relations.interfaces.IFacetedNavigable
+         Products.GenericSetup.interfaces.ISetupEnviron"
+   />
+
 </configure>

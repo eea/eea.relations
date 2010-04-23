@@ -1,9 +1,12 @@
 """ XML Adapter
 """
+from zope import event
 from zope.app import zapi
 from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.interfaces import IBody
 from eea.relations.interfaces import IRelationsTool
+from eea.relations.events import ObjectInitializedEvent
+from eea.relations.interfaces import IFacetedNavigable
 
 class RelationsToolXMLAdapter(XMLAdapterBase):
     """ Generic setup export/import xml adapter
@@ -23,8 +26,8 @@ class RelationsToolXMLAdapter(XMLAdapterBase):
         """Export the object as a DOM node.
         """
         node = self._getObjectNode('object')
-        for portal_type in self.context.objectValues():
-            exporter = zapi.queryMultiAdapter((portal_type, self.environ), IBody)
+        for child in self.context.objectValues():
+            exporter = zapi.queryMultiAdapter((child, self.environ), IBody)
             node.appendChild(exporter.node)
         return node
 
@@ -44,15 +47,16 @@ class RelationsToolXMLAdapter(XMLAdapterBase):
             purge_child = self._convertToBoolean(purge_child)
             name = child.getAttribute('name').encode('utf-8')
             obj_ids = self.context.objectIds()
-            if name in obj_ids and purge_child:
+            if (name in obj_ids) and purge_child:
                 self.context.manage_delObjects([name,])
                 continue
 
             obj = self.context._getOb(name, None)
             if not obj:
-                portal_type = child.getAttribute('portal_type').encode('utf-8')
+                portal_type = child.getAttribute('meta_type').encode('utf-8')
                 name = self.context.invokeFactory(portal_type, name)
                 obj = self.context._getOb(name)
+                event.notify(ObjectInitializedEvent(obj))
 
             importer = zapi.queryMultiAdapter((obj, self.environ), IBody)
             importer.node = child

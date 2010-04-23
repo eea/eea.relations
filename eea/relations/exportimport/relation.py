@@ -11,8 +11,7 @@ class RelationXMLAdapter(XMLAdapterBase):
     def _exportNode(self):
         """Export the object as a DOM node.
         """
-        node = self._doc.createElement('object')
-        node.setAttribute('name', self.context.getId())
+        node = self._getObjectNode('object')
         for prop in ('title', 'from', 'to'):
             child = self._doc.createElement('property')
             child.setAttribute('name', prop)

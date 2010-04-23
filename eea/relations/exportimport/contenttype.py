@@ -1,9 +1,7 @@
 """ XML Adapter
 """
-from zope import event
 from eea.relations.interfaces import IContentType
 from Products.GenericSetup.utils import XMLAdapterBase
-from eea.relations.events import ObjectInitializedEvent
 
 class ContentTypeXMLAdapter(XMLAdapterBase):
     """ Generic setup import/export xml adapter
@@ -13,8 +11,7 @@ class ContentTypeXMLAdapter(XMLAdapterBase):
     def _exportNode(self):
         """Export the object as a DOM node.
         """
-        node = self._doc.createElement('object')
-        node.setAttribute('name', self.context.getId())
+        node = self._getObjectNode('object')
         for prop in ('title', 'ct_type', 'ct_interface'):
             child = self._doc.createElement('property')
             child.setAttribute('name', prop)
@@ -41,6 +38,5 @@ class ContentTypeXMLAdapter(XMLAdapterBase):
                 value = u''
             field = self.context.getField(name)
             field.getMutator(self.context)(value)
-        event.notify(ObjectInitializedEvent(self.context))
 
     node = property(_exportNode, _importNode)
