@@ -25,7 +25,6 @@ class Graph(object):
             return None
 
         path = mktemp('.%s'  % self.format)
-        prog = GRAPHVIZ_PATHS
         img = writter(path=path)
 
         img = open(path, 'rb')
