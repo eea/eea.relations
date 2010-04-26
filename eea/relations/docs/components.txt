@@ -154,10 +154,10 @@ Let's add some possible relations
     ... })
 
     >>> [r for r in queryForwardRelations(doc)]
-    [<EEAPossibleRelation at /plone/portal_relations/r1>]
+    [<EEAPossibleRelation at /plone/portal_relations/zu-document-zu-document>]
 
     >>> [r for r in queryBackwardRelations(doc)]
-    [<EEAPossibleRelation at /plone/portal_relations/r1>]
+    [<EEAPossibleRelation at /plone/portal_relations/zu-document-zu-document>]
 
   Directed relation
 
@@ -169,10 +169,10 @@ Let's add some possible relations
     ... })
 
     >>> [r for r in queryForwardRelations(newz)]
-    [<EEAPossibleRelation at /plone/portal_relations/r2>]
+    [<EEAPossibleRelation at /plone/portal_relations/generic-zu>]
 
     >>> [r for r in queryForwardRelations(myfolder)]
     []
 
     >>> [r for r in queryBackwardRelations(myfolder)]
-    [<EEAPossibleRelation at /plone/portal_relations/r2>]
+    [<EEAPossibleRelation at /plone/portal_relations/generic-zu>]
