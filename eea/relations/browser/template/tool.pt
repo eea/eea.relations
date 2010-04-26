@@ -5,6 +5,12 @@
 
 <body>
 
+<div metal:fill-slot="portlets_one_slot">
+  <metal:prefs use-macro="here/portlet_prefs/macros/portlet" />
+</div>
+
+<div metal:fill-slot="column_two_slot" />
+
 <div metal:fill-slot="main">
   <h1 class="documentFirstHeading">
     <span class="visualIcon contenttype-eearelationstool" style="background-position: center left">
