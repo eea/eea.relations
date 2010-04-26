@@ -38,5 +38,6 @@ class ContentTypeXMLAdapter(XMLAdapterBase):
                 value = u''
             field = self.context.getField(name)
             field.getMutator(self.context)(value)
+        self.context.reindexObject()
 
     node = property(_exportNode, _importNode)

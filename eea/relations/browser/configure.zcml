@@ -19,22 +19,6 @@
     permission="cmf.ModifyPortalContent"
     />
 
-  <browser:menuItem
-    for="..interfaces.IRelationsTool"
-    menu="object"
-    title="Content Types"
-    action="contenttypes.html"
-    permission="cmf.ModifyPortalContent"
-    />
-
-  <browser:menuItem
-    for="..interfaces.IRelationsTool"
-    menu="object"
-    title="Relations"
-    action="relations.html"
-    permission="cmf.ModifyPortalContent"
-    />
-
   <!-- Graphs -->
     <browser:page
     for="..interfaces.IRelationsTool"

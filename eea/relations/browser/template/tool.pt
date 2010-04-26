@@ -6,20 +6,39 @@
 <body>
 
 <div metal:fill-slot="main">
-  <h1 tal:content="object_title" class="documentFirstHeading">
-    Tool
+  <h1 class="documentFirstHeading">
+    <span class="visualIcon contenttype-eearelationstool" style="background-position: center left">
+      <span class="visualIconPadding" tal:content="object_title">
+        Relations Tool
+      </span>
+    </span>
   </h1>
+
 
   <div metal:use-macro="here/document_actions/macros/document_actions">
     Document actions (print, sendto etc)
   </div>
 
-<div class="visualClear"></div>
+  <div class="visualClear"></div>
 
-  <img tal:attributes="
-    src string:${here/absolute_url}/@@graph.png;
-    alt string:Relations Graph;
-    title string:Relations Graph" />
+  <div style="width: 100%">
+    <div style="float: left; width: 100%">
+      <div style="text-align: center; border: 1px solid #8CACBB; padding: 2em 0">
+      <img tal:attributes="
+        src string:${here/absolute_url}/@@graph.png;
+        alt string:Relations Graph;
+        title string:Relations Graph" />
+      </div>
+    </div>
+    <div style="float: left; width: 48%">
+      <tal:viewlet replace="structure here/@@contenttypes.html" />
+    </div>
+    <div style="float: right; width: 48%">
+      <tal:viewlet replace="structure here/@@relations.html" />
+    </div>
+  </div>
+
+  <div class="visualClear"></div>
 
 </div>
 
