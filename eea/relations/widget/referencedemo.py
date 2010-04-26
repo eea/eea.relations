@@ -2,7 +2,11 @@
 
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
-from Products.OrderableReferenceField._field import OrderableReferenceField
+try:
+    from Products.OrderableReferenceField._field import OrderableReferenceField
+except ImportError:
+    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
+
 from eea.relations.widget.referencewidget import (
     EEAReferenceBrowserWidget,
 )

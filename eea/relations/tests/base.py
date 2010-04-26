@@ -24,9 +24,15 @@ def setup_eea_relations():
     zcml.load_config('configure.zcml', eea.relations)
     fiveconfigure.debug_mode = False
 
+    try:
+        ptc.installPackage('eea.relations')
+    except AttributeError, err:
+        #BBB Plone 2.5
+        pass
+
     ptc.installProduct('Five')
 
-    # Plone 2.x compatible
+    #BBB Plone 2.5
     try: import Products.FiveSite
     except ImportError: pass
     else: ptc.installProduct('FiveSite')

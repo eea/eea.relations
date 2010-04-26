@@ -61,7 +61,7 @@ See default faceted portal types
          name="ct_interface">Products.Archetypes.interfaces._base.IBaseObject</property>
      </object>
      <object name="generic-to-generic-relation" meta_type="EEAPossibleRelation">
-      <property name="title">Generic to Generic Relation</property>
+      <property name="title">Generic -&gt; Generic</property>
       <property name="from">generic</property>
       <property name="to">generic</property>
      </object>
