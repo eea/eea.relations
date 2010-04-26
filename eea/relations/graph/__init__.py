@@ -9,11 +9,12 @@ def find_graphviz():
     """ This assumes that Graphviz is installed in {buildout:directory}/parts/graphviz
     """
     paths = INSTANCE_HOME.split('/parts/')
-    if len(paths) != 2:
+    if len(paths) < 2:
         logger.warn('Graphviz NOT INSTALLED via zc.buildout')
         return None
 
-    binpath = paths[0] + '/parts' + '/graphviz/bin'
+    paths[-1] = 'graphviz/bin'
+    binpath = '/parts/'.join(paths)
     prog = _find_executables(binpath)
     if prog:
         logger.info('Graphviz INSTALLED via zc.buildout')
