@@ -10,10 +10,15 @@ class Popup(BrowserView):
     """
     _relations = []
     _field = ''
+    _uids = ()
 
     @property
     def field(self):
         return self._field
+
+    @property
+    def uids(self):
+        return self._uids
 
     @property
     def relations(self):
@@ -38,6 +43,11 @@ class Popup(BrowserView):
         field = kwargs.get('field', '')
         if field:
             self._field = field
+
+        # Uids
+        uids = kwargs.get('uids', ())
+        self._uids = uids
+
         return self.index()
 
 class BaseView(BrowserView):
@@ -45,6 +55,7 @@ class BaseView(BrowserView):
     """
     _field = ''
     _mode = 'view'
+    _uids = ()
 
     @property
     def field(self):
@@ -53,6 +64,10 @@ class BaseView(BrowserView):
     @property
     def mode(self):
         return self._mode
+
+    @property
+    def uids(self):
+        return self._uids
 
     def setup(self, **kwargs):
         """ Setup view
@@ -68,6 +83,12 @@ class BaseView(BrowserView):
         field = kwargs.get('field', '')
         self._field = field
 
+        # Set uids
+        uids = kwargs.get('uids', ())
+        if not isinstance(uids, (list, tuple)):
+            uids = uids,
+        self._uids = [uid for uid in uids if uid]
+
 class PopupSelectedItems(BaseView):
     """ Widget popup selected items helper
     """
@@ -75,16 +96,16 @@ class PopupSelectedItems(BaseView):
     def items(self):
         """ Return selected items
         """
-        for_field = self.context.getField(self.field)
-        if not for_field:
+        if not self.uids:
             raise StopIteration
 
-        value = for_field.getAccessor(self.context)()
-        if not value:
-            raise StopIteration
-
-        for brain in value:
-            yield brain
+        ctool = getToolByName(self.context, 'portal_catalog')
+        for uid in self.uids:
+            if not uid:
+                continue
+            brains = ctool(UID=uid)
+            for brain in brains:
+                yield brain.getObject()
 
     def __call__(self, **kwargs):
         """ Render
@@ -98,24 +119,3 @@ class PopupSelectedItem(BaseView):
     def __call__(self, **kwargs):
         self.setup(**kwargs)
         return self.index()
-
-class PopupSave(BrowserView):
-    """ Save
-    """
-    def __call__(self, **kwargs):
-        if self.request:
-            kwargs.update(self.request.form)
-
-        fieldname = kwargs.get('field', '')
-        if not fieldname:
-            logger.exception('No field provided for action.save')
-            return 'No field provided for action.save'
-
-        field = self.context.getField(fieldname)
-        if not field:
-            logger.exception('Invalid field provided for action.save')
-            return 'Invalid field provided for action.save'
-
-        values = kwargs.get(fieldname, [])
-        field.getMutator(self.context)(values)
-        return 'Changes saved'

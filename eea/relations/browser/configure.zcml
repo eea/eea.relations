@@ -114,11 +114,4 @@
     permission="cmf.ModifyPortalContent"
     />
 
-  <browser:page
-    for="*"
-    name="eeareferencebrowser.save"
-    class=".app.popup.PopupSave"
-    permission="cmf.ModifyPortalContent"
-    />
-
 </configure>

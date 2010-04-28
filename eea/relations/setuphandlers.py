@@ -7,6 +7,13 @@ def addObjectProvidesIndex(portal):
     if 'object_provides' not in catalog.indexes():
         catalog.addIndex('object_provides', 'KeywordIndex')
 
+def addUIDIndex(portal):
+    """Add UID index to the portal_catalog.
+    """
+    catalog = getToolByName(portal, 'portal_catalog')
+    if 'UID' not in catalog.indexes():
+        catalog.addIndex('UID', 'FieldIndex')
+
 def importVarious(self):
     if self.readDataFile('eearelations.txt') is None:
         return
@@ -15,6 +22,9 @@ def importVarious(self):
 
     # Add object_provides index
     addObjectProvidesIndex(site)
+
+    # Add UID index
+    addUIDIndex(site)
 
     # Portal tool
     rtool = getToolByName(site, 'portal_relations')

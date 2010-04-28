@@ -288,26 +288,30 @@ EEAReferenceBrowser.Basket.prototype = {
           jQuery(this).remove();
         });
       });
-      jQuery('.eea-ref-selecteditems', this.context).append(data_dom);
+      jQuery('.eea-ref-selecteditems', this.context).prepend(data_dom);
+      data_dom.addClass('ui-pulsate-item');
+      data_dom.effect('pulsate', {}, 200, function(){
+        jQuery(this).removeClass('ui-pulsate-item');
+      });
     }
   },
 
   save: function(){
     var self = this;
-    var query = {};
+    var storage = self.parent.storageedit;
     var values = jQuery('input[type=checkbox]', this.context);
-    values = jQuery.map(values, function(input, i){
-      return jQuery(input).val();
+
+    storage.empty();
+    values.each(function(){
+      var input = jQuery(this);
+      var val = input.val();
+      var option = jQuery('<option>').attr('selected', 'selected');
+      option.text(val);
+      option.val(val);
+      storage.append(option);
     });
-    query.field = this.parent.name;
-    query.nocache = new Date().getTime();
-    query[this.parent.name] = values;
-    var url = '@@eeareferencebrowser.save';
-    jQuery(self.parent.events).trigger(self.parent.events.AJAX_START);
-    jQuery.post(url, query, function(data){
-      jQuery(self.parent.events).trigger(self.parent.events.AJAX_STOP);
-      jQuery(self.parent.events).trigger(self.parent.events.SAVED, {msg: data});
-    });
+
+    jQuery(self.parent.events).trigger(self.parent.events.SAVED, {msg: values});
   },
 
   cancel: function(){
@@ -320,6 +324,7 @@ EEAReferenceBrowser.Basket.prototype = {
     var query = {};
     query.mode = 'edit';
     query.field = this.parent.name;
+    query.uids = this.parent.storageedit.val();
     query.nocache = new Date().getTime();
 
     jQuery.get(url, query, function(data){
@@ -334,8 +339,10 @@ EEAReferenceBrowser.Widget = function(name){
   this.context = jQuery('#' + name + "-widget");
   this.popup = jQuery('#' + name + '-popup', this.context);
   this.workspace = jQuery('.popup-tabs' , this.popup);
+  this.storageedit = jQuery('#' + name, this.context);
+  this.storageview = jQuery('.eea-ref-selecteditems-box', this.context);
   this.basket = null;
-  this.button = jQuery('input[type=button]', this.context);
+  this.button = jQuery('.eea-ref-popup-button', this.context);
   this.current_tab = null;
 
   this.events = new EEAReferenceBrowser.Events();
@@ -353,7 +360,7 @@ EEAReferenceBrowser.Widget = function(name){
     height: js_context.height,
     resize: false,
     buttons: {
-      'Save': function(){
+      'Done': function(){
         jQuery(js_context.events).trigger(js_context.events.SAVE);
       },
       'Cancel': function(){
@@ -388,6 +395,15 @@ EEAReferenceBrowser.Widget = function(name){
     jQuery(Faceted.Events).trigger(Faceted.Events.WINDOW_WIDTH_CHANGED);
   });
 
+  // Double click
+  if(this.storageview.length){
+    this.storageview.dblclick(function(){
+      scroll(0, 0);
+      js_context.popup.dialog('open');
+      jQuery(Faceted.Events).trigger(Faceted.Events.WINDOW_WIDTH_CHANGED);
+    });
+  }
+
   jQuery(this.events).bind(this.events.SAVED, function(evt, data){
     js_context.saved(data);
   });
@@ -399,13 +415,17 @@ EEAReferenceBrowser.Widget.prototype = {
   },
 
   saved: function(data){
-    var area = jQuery('.eea-ref-selecteditems-box', this.context.parent());
+    var area = this.storageview;
     if(area.length){
+      area.empty();
+      area.append(jQuery('<img src="../eeareferencebrowser-loading.gif" />'));
+
       var self = this;
       var url = '@@eeareferencebrowser-popup-selecteditems.html';
       var query = {};
       query.mode = 'view';
       query.field = self.name;
+      query.uids = this.storageedit.val();
       query.nocache = new Date().getTime();
 
       jQuery.get(url, query, function(data){

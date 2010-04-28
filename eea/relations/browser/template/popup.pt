@@ -29,6 +29,6 @@
   <div class="popup-selected-items-content">
     <div class="eea-ref-selecteditems"
       tal:define="popup_view nocall:here/@@eeareferencebrowser-popup-selecteditems.html"
-      tal:content="structure python:popup_view(field=view.field, mode='edit')" />
+      tal:content="structure python:popup_view(field=view.field, mode='edit', uids=view.uids)" />
   </div>
 </div>
