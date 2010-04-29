@@ -360,6 +360,7 @@ EEAReferenceBrowser.Widget = function(name){
     width: js_context.width,
     height: js_context.height,
     resize: false,
+    dialogClass: 'eea-refwidget-popup',
     buttons: {
       'Done': function(){
         jQuery(js_context.events).trigger(js_context.events.SAVE);

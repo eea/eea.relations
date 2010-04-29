@@ -1,32 +1,29 @@
-/* Widgets
-========== */
-
-.popup-tabs {
+.eea-refwidget-popup .popup-tabs {
   width: 80%;
   border: none;
   float: left;
 }
 
-.ui-dialog-titlebar {
+.eea-refwidget-popup .ui-dialog-titlebar {
   background: #cde2a7 url(title-bar-background.png) repeat-x scroll 50% 50%;
 }
 
-.popup-tabs ul.ui-widget-header {
+.eea-refwidget-popup  .popup-tabs ul.ui-widget-header {
   background: none;
   border: none;
 }
 
-.ui-tabs .ui-tabs-panel {
+.eea-refwidget-popup  .ui-tabs .ui-tabs-panel {
   border: 1px solid #D3D3D3;
 }
 
-.popup-selected-items {
+.eea-refwidget-popup  .popup-selected-items {
   float: left;
   width: 19%;
   border: 1px solid #D3D3D3;
 }
 
-.popup-selected-items .ui-state-default{
+.eea-refwidget-popup  .popup-selected-items .ui-state-default{
   padding: 0.2em;
   font-weight: bold;
   margin: 0px;
@@ -62,25 +59,26 @@
   padding-left: 1em;
 }
 
-.popup-selected-items-content .ui-state-highlight {
+.eea-refwidget-popup  .popup-selected-items-content .ui-state-highlight {
   height: 4em;
 }
 
-.popup-selected-items-content .tileItem:hover {
+.eea-refwidget-popup  .popup-selected-items-content .tileItem:hover {
   background-color: #FBF9EE;
 }
 
-.ui-icon-custom-add {
+.eea-refwidget-popup  .ui-icon-custom-add {
   float: right;
   visibility: hidden;
 }
 
-.refbrowser-faceted-addable-item:hover {
+.eea-refwidget-popup  .refbrowser-faceted-addable-item:hover {
   background-image: none;
   background-color: #FBF9EE;
+  cursor: pointer;
 }
 
-.refbrowser-faceted-addable-item:hover .ui-icon-custom-add {
+.eea-refwidget-popup  .refbrowser-faceted-addable-item:hover .ui-icon-custom-add {
   visibility: visible;
 }
 
@@ -89,25 +87,25 @@
   z-index: 10000;
 }
 
-.ui-pulsate-item {
+.eea-refwidget-popup  .ui-pulsate-item {
   border: 1px dotted #578308;
   background-color: #e9efcd;
 }
 
-.ui-icon-basket-trash {
+.eea-refwidget-popup  .ui-icon-basket-trash {
   float: right;
   visibility: hidden;
 }
 
-.popup-selected-items-content .tileItem:hover .ui-icon-basket-trash{
+.eea-refwidget-popup  .popup-selected-items-content .tileItem:hover .ui-icon-basket-trash{
   visibility: visible;
 }
 
-.ui-state-working {
+.eea-refwidget-popup  .ui-state-working {
   background: #E6E6E6 url(eeareferencebrowser-loading.gif) no-repeat right center ! important;
 }
 
-.popup-tips {
+.eea-refwidget-popup  .popup-tips {
   clear: both;
   margin: 0 0.7em;
   cursor: pointer;
