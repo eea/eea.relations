@@ -106,3 +106,9 @@
 .ui-state-working {
   background: #E6E6E6 url(eeareferencebrowser-loading.gif) no-repeat right center ! important;
 }
+
+.popup-tips {
+  clear: both;
+  margin: 0 0.7em;
+  cursor: pointer;
+}

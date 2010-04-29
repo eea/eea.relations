@@ -29,6 +29,13 @@
   <div class="popup-selected-items-content">
     <div class="eea-ref-selecteditems"
       tal:define="popup_view nocall:here/@@eeareferencebrowser-popup-selecteditems.html"
-      tal:content="structure python:popup_view(field=view.field, mode='edit', uids=view.uids)" />
+      tal:content="structure python:popup_view(field=view.field, mode='edit', uids=view.uids)">
+      Current relations here
+    </div>
   </div>
+</div>
+
+<div class="portalMessage popup-tips" i18n:translate="">
+  <div class="ui-icon ui-icon-close" style="float: right">X</div>
+  Please click on search results to create a relation
 </div>

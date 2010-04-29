@@ -338,6 +338,7 @@ EEAReferenceBrowser.Widget = function(name){
   this.name = name;
   this.context = jQuery('#' + name + "-widget");
   this.popup = jQuery('#' + name + '-popup', this.context);
+  this.tips = jQuery('.popup-tips', this.popup);
   this.workspace = jQuery('.popup-tabs' , this.popup);
   this.storageedit = jQuery('#' + name, this.context);
   this.storageview = jQuery('.eea-ref-selecteditems-box', this.context);
@@ -390,26 +391,43 @@ EEAReferenceBrowser.Widget = function(name){
 
   // Add button
   this.button.click(function(){
-    scroll(0, 0);
-    js_context.popup.dialog('open');
-    jQuery(Faceted.Events).trigger(Faceted.Events.WINDOW_WIDTH_CHANGED);
+    js_context.popup_open();
   });
 
   // Double click
   if(this.storageview.length){
     this.storageview.dblclick(function(){
-      scroll(0, 0);
-      js_context.popup.dialog('open');
-      jQuery(Faceted.Events).trigger(Faceted.Events.WINDOW_WIDTH_CHANGED);
+      js_context.popup_open();
     });
   }
 
   jQuery(this.events).bind(this.events.SAVED, function(evt, data){
     js_context.saved(data);
   });
+
+  this.tips.click(function(){
+    jQuery(this).hide('blind');
+  });
+
+  // Resize on window width change
+  jQuery(Faceted.Events).bind(Faceted.Events.WINDOW_WIDTH_CHANGED, function(evt, data){
+    if(data){
+      js_context.width = data.width * 0.85;
+      js_context.popup.dialog( "option", "width", js_context.width);
+      js_context.popup.dialog( "option", "position", 'center');
+    }
+  });
 };
 
 EEAReferenceBrowser.Widget.prototype = {
+  popup_open: function(){
+    scroll(0, 0);
+    this.popup.dialog('open');
+    jQuery(Faceted.Events).trigger(Faceted.Events.WINDOW_WIDTH_CHANGED);
+    this.tips.show();
+    this.tips.effect('pulsate', {}, 250);
+  },
+
   tab_selected: function(ui){
     this.current_tab = new EEAReferenceBrowser.Tab(ui, this);
   },
