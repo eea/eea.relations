@@ -17,6 +17,7 @@ Macro parameters:
 
   @@param fieldName required
   @@param value required
+  @@param field required
   @@param widget optional
 
 Usage:
@@ -30,17 +31,23 @@ Usage:
     tal:attributes="id string:$fieldName-widget"
     tal:define="
       fieldName fieldName;
-      widget nocall:widget | nothing;
+      field nocall:field;
+      widget nocall:widget;
       value value | python:[];
       uids python:value or [];
-      uids python:same_type(value, []) and value or [value];">
+      uids python:same_type(value, []) and value or [value];
+      multiVal python:field.multiValued;
+      required python:field.required;
+      ">
 
       <!-- Edit -->
       <metal:slot define-slot="edit">
         <input type="hidden" value=""
-          tal:attributes="name string:$fieldName:default:list" />
-        <select multiple="multiple" style="display: none"
-          tal:attributes="name string:$fieldName:list; id fieldName;">
+          tal:condition="multiVal"
+          tal:attributes="name string:$fieldName:default" />
+        <select style="display:none" tal:attributes="
+          multiple python:multiVal and 'multiple' or None;
+          name string:$fieldName:list; id fieldName;">
           <tal:uids repeat="uid uids">
             <option selected="selected"
               tal:condition="uid" tal:attributes="value uid" tal:content="uid" />

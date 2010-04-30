@@ -156,6 +156,7 @@ EEAReferenceBrowser.Tab.prototype = {
 EEAReferenceBrowser.Basket = function(context, parent){
   this.context = context;
   this.parent = parent;
+  this.multiple = this.parent.storageedit.attr('multiple') ? true : false;
   this.context.height(this.parent.height - 128);
   this.context.css('overflow', 'auto');
   jQuery('.tileItem', this.context).attr('title', 'Click and drag to change order');
@@ -281,6 +282,10 @@ EEAReferenceBrowser.Basket.prototype = {
         jQuery(this).removeClass('ui-pulsate-item');
       });
     }else{
+      var basket = jQuery('.eea-ref-selecteditems', this.context);
+      if(!this.multiple){
+        basket.empty();
+      }
       data_dom.prepend(this.trash_icon());
       jQuery('.ui-icon-basket-trash', data_dom).click(function(){
         var self = jQuery(this);
@@ -288,7 +293,7 @@ EEAReferenceBrowser.Basket.prototype = {
           jQuery(this).remove();
         });
       });
-      jQuery('.eea-ref-selecteditems', this.context).prepend(data_dom);
+      basket.prepend(data_dom);
       data_dom.addClass('ui-pulsate-item');
       data_dom.effect('pulsate', {}, 200, function(){
         jQuery(this).removeClass('ui-pulsate-item');
@@ -302,6 +307,12 @@ EEAReferenceBrowser.Basket.prototype = {
     var values = jQuery('input[type=checkbox]', this.context);
 
     storage.empty();
+    if(!this.multiple && !values.length){
+      var option = jQuery('<option>').attr('selected', 'selected');
+      option.val('');
+      option.text('<No relation set>');
+      storage.append(option);
+    }
     values.each(function(){
       var input = jQuery(this);
       var val = input.val();
