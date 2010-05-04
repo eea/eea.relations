@@ -78,6 +78,17 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
             i18n_domain="eea.relations"
         )
     ),
+    atapi.BooleanField('required',
+        schemata='default',
+        default=False,
+        widget=atapi.BooleanWidget(
+            label='Required',
+            label_msgid='widget_required_title',
+            description='Relation is required in order to validate edit form',
+            description_msgid='widget_required_description',
+            i18n_domain="eea.relations"
+        )
+    ),
 ))
 
 EditSchema['description'].widget.modes = ()

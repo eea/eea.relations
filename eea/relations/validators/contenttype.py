@@ -1,5 +1,6 @@
 """ ContentType validator
 """
+from Products.validation.config import validation
 from Products.validation.interfaces import ivalidator
 
 class ContentType(object):
@@ -40,3 +41,5 @@ class ContentType(object):
             return ("You have to provide even Portal type or Interface or both "
                     "in order to define a valid Content-Type")
         return 1
+
+validation.register(ContentType('eea.relations.contenttype'))

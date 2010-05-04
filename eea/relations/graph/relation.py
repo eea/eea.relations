@@ -40,8 +40,16 @@ class Edge(object):
         if not nto:
             return None
 
+        attributes = {}
+
+        # Required
+        field = self.context.getField('required')
+        req = field.getAccessor(self.context)()
+        if req:
+            attributes['color'] = 'red'
+
         # Edge
-        return PyEdge(nfrom(), nto())
+        return PyEdge(nfrom(), nto(), **attributes)
 
     def __repr__(self):
         """ Returns a string representation of the node in dot language.

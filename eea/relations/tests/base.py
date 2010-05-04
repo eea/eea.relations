@@ -38,7 +38,7 @@ def setup_eea_relations():
     else: ptc.installProduct('FiveSite')
 
 setup_eea_relations()
-ptc.setupPloneSite(extension_profiles=('eea.relations:a',))
+ptc.setupPloneSite(extension_profiles=('eea.relations:a', 'eea.relations:c'))
 
 class EEARelationsTestCase(ptc.PloneTestCase):
     """Base class for integration tests for the 'EEA Relations' product.

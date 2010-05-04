@@ -3,47 +3,25 @@
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
 try:
-    from Products.OrderableReferenceField._field import OrderableReferenceField, OrderableReferenceWidget
+    from Products.OrderableReferenceField._field import OrderableReferenceField
 except ImportError:
     from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
 
-from eea.relations.widget.referencewidget import (
-    EEAReferenceBrowserWidget,
-)
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
+from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
 
 SCHEMA = ATFolder.schema.copy() + atapi.Schema((
     OrderableReferenceField('relatedItems',
         schemata='default',
         relationship = 'relatesTo',
         multiValued = True,
-        isMetadata = True,
+        required=True,
+        # Use eea.relations.required validatior in pair with required=True in order to have expected results
+        validators=('eea.relations.required',),
         widget=EEAReferenceBrowserWidget(
             label='Related items',
             description='Relations.'
         )
     ),
-    #OrderableReferenceField(
-    #'relatedItems',
-    #relationship = 'relatesTo',
-    #multiValued = True,
-    #isMetadata = True,
-    #languageIndependent = False,
-    #index = 'KeywordIndex',
-    #widget = ReferenceBrowserWidget(
-        #allow_search = True,
-        #allow_browse = True,
-        #allow_sorting = True,
-        #show_indexes = False,
-        #force_close_on_insert = True,
-        #label = "Related Item(s)",
-        #label_msgid = "label_related_items",
-        #description = "",
-        #description_msgid = "help_related_items",
-        #i18n_domain = "plone",
-        #visible = {'edit' : 'visible', 'view' : 'invisible' }
-        #)
-    #)
 ))
 
 class EEARefBrowserDemo(ATFolder):

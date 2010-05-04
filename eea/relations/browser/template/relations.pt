@@ -19,6 +19,11 @@
           <a class="visualIconPadding"
             tal:attributes="href url"
             tal:content="title" />
+          <span tal:define="
+            doc python:brain.getObject();
+            required python:doc.getField('required');
+            value python:required.getAccessor(doc)();"
+            tal:condition="value" class="fieldRequired"> * </span>
         </span>
       </td>
       <td style="text-align: center">

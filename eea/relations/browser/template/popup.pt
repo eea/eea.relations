@@ -3,8 +3,14 @@
   <tal:tabs condition="tabs">
     <ul>
       <li tal:repeat="tab tabs">
-        <a tal:attributes="href string:${tab/absolute_url}/@@facetednavigation_simple_view">
-          <span tal:content="python:tab.title_or_id()" />
+        <a tal:define="
+          required python:tab[1];
+          tab python:tab[0]"
+          tal:attributes="href string:${tab/absolute_url}/@@facetednavigation_simple_view">
+          <span>
+            <span tal:content="python:tab.title_or_id()" />
+            <span tal:condition="required" class="fieldRequired"> * </span>
+          </span>
           <div style="display: none" class="tab-url"
             tal:content="tab/absolute_url" />
         </a>

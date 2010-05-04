@@ -13,7 +13,7 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
     StringField('ct_type',
         schemata="default",
         vocabulary_factory='eea.relations.voc.PortalTypesVocabulary',
-        validators=('eea-refbrowser-contenttype',),
+        validators=('eea.relations.contenttype',),
         widget=atapi.SelectionWidget(
             label='Portal type',
             label_msgid='widget_portal_type_title',
@@ -25,7 +25,7 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
     StringField('ct_interface',
         schemata="default",
         vocabulary_factory='eea.relations.voc.ObjectProvides',
-        validators=('eea-refbrowser-contenttype',),
+        validators=('eea.relations.contenttype',),
         widget=atapi.SelectionWidget(
             label='Interface',
             label_msgid='widget_interface_title',

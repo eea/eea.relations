@@ -11,6 +11,10 @@
       <span class="visualIconPadding" tal:content="object_title">
         Relation
       </span>
+      <span tal:define="
+        required python:here.getField('required');
+        value python:required.getAccessor(here)();"
+        tal:condition="value" class="fieldRequired"> * </span>
     </span>
   </h1>
 

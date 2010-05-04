@@ -12,14 +12,17 @@ class RelationXMLAdapter(XMLAdapterBase):
         """Export the object as a DOM node.
         """
         node = self._getObjectNode('object')
-        for prop in ('title', 'from', 'to'):
+        for prop in ('title', 'from', 'to', 'required'):
             child = self._doc.createElement('property')
             child.setAttribute('name', prop)
             field = self.context.getField(prop)
             value = field.getAccessor(self.context)()
+            if prop == 'required':
+                value = repr(value)
             value = self._doc.createTextNode(value)
             child.appendChild(value)
             node.appendChild(child)
+
         return node
 
     def _importNode(self, node):
@@ -36,6 +39,9 @@ class RelationXMLAdapter(XMLAdapterBase):
             purge = self._convertToBoolean(purge)
             if purge:
                 value = u''
+
+            if name in ('required',):
+                value = self._convertToBoolean(value)
             field = self.context.getField(name)
             field.getMutator(self.context)(value)
         self.context.reindexObject()

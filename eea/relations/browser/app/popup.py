@@ -35,7 +35,9 @@ class Popup(BrowserView):
             nto = relation.getField('to').getAccessor(relation)()
             if nto not in rtool.objectIds():
                 continue
-            yield rtool[nto]
+
+            required = relation.getField('required').getAccessor(relation)()
+            yield rtool[nto], required
 
     def __call__(self, **kwargs):
         if self.request:
