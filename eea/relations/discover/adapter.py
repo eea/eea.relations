@@ -1,0 +1,15 @@
+from zope.interface import implements
+from interfaces import IAutoRelations
+
+class AutoRelations(object):
+    """ Abstract adapter to auto discover context relations
+    """
+    implements(IAutoRelations)
+
+    def __init__(self, context):
+        self.context = context
+
+    def __call__(self, **kwargs):
+        """ Return a list of brains
+        """
+        return []

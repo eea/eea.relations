@@ -17,3 +17,6 @@ from graph.interfaces import IGraph
 # Commponents
 from component.interfaces import IContentTypeLookUp
 from component.interfaces import IRelationsLookUp
+
+# Auto discovered relations API
+from discover.interfaces import IAutoRelations
