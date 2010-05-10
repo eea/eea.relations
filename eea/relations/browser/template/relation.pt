@@ -14,7 +14,7 @@
       <span tal:define="
         required python:here.getField('required');
         value python:required.getAccessor(here)();"
-        tal:condition="value" class="fieldRequired"> * </span>
+        tal:condition="value" class="fieldRequired"> </span>
     </span>
   </h1>
 

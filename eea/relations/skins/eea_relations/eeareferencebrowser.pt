@@ -17,7 +17,7 @@ Macro parameters:
 
   @@param fieldName required
   @@param value required
-  @@param field required
+  @@param field optional
   @@param widget optional
 
 Usage:
@@ -31,13 +31,13 @@ Usage:
     tal:attributes="id string:$fieldName-widget"
     tal:define="
       fieldName fieldName;
-      field nocall:field;
-      widget nocall:widget;
+      field nocall:field | nothing;
+      widget nocall:widget | nothing;
       value value | python:[];
       uids python:value or [];
       uids python:same_type(value, []) and value or [value];
-      multiVal python:field.multiValued;
-      required python:field.required;
+      multiVal python:test(field, field.multiValued, True);
+      required python:test(field, field.required, False);
       ">
 
       <!-- Edit -->

@@ -345,8 +345,9 @@ EEAReferenceBrowser.Basket.prototype = {
   }
 };
 
-EEAReferenceBrowser.Widget = function(name){
+EEAReferenceBrowser.Widget = function(name, options){
   this.name = name;
+  this.options = options || {};
   this.context = jQuery('#' + name + "-widget");
   this.popup = jQuery('#' + name + '-popup', this.context);
   this.tips = jQuery('.popup-tips', this.popup);
@@ -434,10 +435,35 @@ EEAReferenceBrowser.Widget = function(name){
 EEAReferenceBrowser.Widget.prototype = {
   popup_open: function(){
     scroll(0, 0);
+    var index = this.default_tab();
+    this.workspace.tabs('select', index);
     this.popup.dialog('open');
     jQuery(Faceted.Events).trigger(Faceted.Events.WINDOW_WIDTH_CHANGED);
     this.tips.show();
     this.tips.effect('pulsate', {}, 250);
+  },
+
+  default_tab: function(){
+    var tabs = this.options.tabs;
+    if(!tabs){
+      return 0;
+    }
+    var name = tabs.selected;
+    if(!name){
+      return 0;
+    }
+    if(name.indexOf(this.name)!==0){
+      name = this.name + '-' + name;
+    }
+    var index = jQuery('#' + name, this.popup);
+    if(!index){
+      return 0;
+    }
+    index = index.attr('href');
+    if(!index){
+      return 0;
+    }
+    return index;
   },
 
   tab_selected: function(ui){

@@ -1,15 +1,20 @@
 <metal:block use-macro="here/global_defines/macros/defines" />
-<div class="popup-tabs" tal:define="tabs python:[tab for tab in view.tabs()]">
+<div class="popup-tabs" tal:define="
+  fieldName python:view.field;
+  tabs python:[tab for tab in view.tabs()]">
   <tal:tabs condition="tabs">
     <ul>
       <li tal:repeat="tab tabs">
         <a tal:define="
           required python:tab[1];
-          tab python:tab[0]"
-          tal:attributes="href string:${tab/absolute_url}/@@facetednavigation_simple_view">
+          tab python:tab[0];
+          tabName python:tab.getId();"
+          tal:attributes="
+            id string:$fieldName-$tabName;
+            href string:${tab/absolute_url}/@@facetednavigation_simple_view">
           <span>
             <span tal:content="python:tab.title_or_id()" />
-            <span tal:condition="required" class="fieldRequired"> * </span>
+            <span tal:condition="required" class="fieldRequired"> </span>
           </span>
           <div style="display: none" class="tab-url"
             tal:content="tab/absolute_url" />

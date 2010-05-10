@@ -23,7 +23,7 @@
             doc python:brain.getObject();
             required python:doc.getField('required');
             value python:required.getAccessor(doc)();"
-            tal:condition="value" class="fieldRequired"> * </span>
+            tal:condition="value" class="fieldRequired"> </span>
         </span>
       </td>
       <td style="text-align: center">
