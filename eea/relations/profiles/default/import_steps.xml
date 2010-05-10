@@ -10,7 +10,7 @@
     handler="eea.relations.exportimport.importRelationsTool"
     title="Possible Relations Settings">
     <dependency step="toolset"/>
-    <dependency step="types"/>
+    <dependency step="typeinfo"/>
     Import possible relations settings
   </import-step>
 </import-steps>
