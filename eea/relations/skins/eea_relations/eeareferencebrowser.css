@@ -110,3 +110,10 @@
   margin: 0 0.7em;
   cursor: pointer;
 }
+
+.fieldRequiredFor {
+  background:transparent url(required_for.gif) no-repeat scroll left center;
+  color:White;
+  padding:0 0 0 8px;
+  background-position: center center;
+}

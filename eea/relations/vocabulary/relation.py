@@ -25,3 +25,18 @@ class ContentTypesVocabulary(object):
                  for brain in brains]
         return SimpleVocabulary(items)
 
+class WorkflowStatesVocabulary(object):
+    """ Vocabulary factory
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        """ Return all unique states
+        """
+        wtool = getToolByName(context, 'portal_workflow')
+        states = wtool.listWFStatesByTitle(filter_similar=True)
+        states.sort()
+        items = []
+        for title, state in states:
+            items.append(SimpleTerm(state, state, title))
+        return SimpleVocabulary(items)

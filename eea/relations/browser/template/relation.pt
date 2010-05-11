@@ -15,6 +15,10 @@
         required python:here.getField('required');
         value python:required.getAccessor(here)();"
         tal:condition="value" class="fieldRequired"> </span>
+      <span tal:define="
+        required python:here.getField('required_for');
+        value python:required.getAccessor(here)();"
+        tal:condition="value" class="fieldRequiredFor"> </span>
     </span>
   </h1>
 

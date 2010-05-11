@@ -17,4 +17,9 @@
     name="eea.relations.voc.ContentTypes"
     />
 
+  <utility
+    factory=".relation.WorkflowStatesVocabulary"
+    name="eea.relations.voc.workflowstates"
+    />
+
 </configure>

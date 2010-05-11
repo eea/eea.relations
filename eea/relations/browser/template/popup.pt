@@ -7,6 +7,7 @@
       <li tal:repeat="tab tabs">
         <a tal:define="
           required python:tab[1];
+          required_for python:tab[2];
           tab python:tab[0];
           tabName python:tab.getId();"
           tal:attributes="
@@ -15,6 +16,7 @@
           <span>
             <span tal:content="python:tab.title_or_id()" />
             <span tal:condition="required" class="fieldRequired"> </span>
+            <span tal:condition="required_for" class="fieldRequiredFor"> </span>
           </span>
           <div style="display: none" class="tab-url"
             tal:content="tab/absolute_url" />

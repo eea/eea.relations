@@ -4,9 +4,15 @@ from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.utils import getToolByName
-from eea.facetednavigation.widgets.field import StringField
+from eea.facetednavigation.widgets.field import FieldMixin
 
 from interfaces import IRelation
+
+class StringField(FieldMixin, atapi.StringField):
+    """ String Field """
+
+class LinesField(FieldMixin, atapi.LinesField):
+    """ Lines Field """
 
 class TitleWidget(atapi.StringWidget):
     """ Auto generate title
@@ -84,8 +90,24 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
         widget=atapi.BooleanWidget(
             label='Required',
             label_msgid='widget_required_title',
-            description='Relation is required in order to validate edit form',
+            description=('Select this if you want to make this relation '
+                         'mandatory (action: edit)'),
             description_msgid='widget_required_description',
+            i18n_domain="eea.relations"
+        )
+    ),
+    LinesField('required_for',
+        schemata='default',
+        vocabulary_factory='eea.relations.voc.workflowstates',
+        widget=atapi.MultiSelectionWidget(
+            format='checkbox',
+            label='Required for',
+            label_msgid='widget_required_for_title',
+            description=('Select workflow states that will require this '
+                         'relation before setup (action: change state). '
+                         'You will also have to update workflow '
+                         'transitions accordingly'),
+            description_msgid='widget_required_for_description',
             i18n_domain="eea.relations"
         )
     ),

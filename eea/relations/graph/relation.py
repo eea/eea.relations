@@ -48,6 +48,13 @@ class Edge(object):
         if req:
             attributes['color'] = 'red'
 
+        # Required for workflow state
+        field = self.context.getField('required_for')
+        req = field.getAccessor(self.context)()
+        if req:
+            attributes['fontcolor'] = '#74AE0B'
+            attributes['label'] = '"%s"' % "\\n".join(req)
+
         # Edge
         return PyEdge(nfrom(), nto(), **attributes)
 

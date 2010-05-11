@@ -24,6 +24,11 @@
             required python:doc.getField('required');
             value python:required.getAccessor(doc)();"
             tal:condition="value" class="fieldRequired"> </span>
+          <span tal:define="
+            doc python:brain.getObject();
+            required python:doc.getField('required_for');
+            value python:required.getAccessor(doc)();"
+            tal:condition="value" class="fieldRequiredFor"> </span>
         </span>
       </td>
       <td style="text-align: center">

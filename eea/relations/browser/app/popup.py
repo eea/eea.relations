@@ -37,7 +37,8 @@ class Popup(BrowserView):
                 continue
 
             required = relation.getField('required').getAccessor(relation)()
-            yield rtool[nto], required
+            required_for = relation.getField('required_for').getAccessor(relation)()
+            yield rtool[nto], required, bool(required_for)
 
     def __call__(self, **kwargs):
         if self.request:
