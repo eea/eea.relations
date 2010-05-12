@@ -7,6 +7,7 @@ except ImportError:
     import plone25
 
 import validators
+import field
 import widget
 
 def initialize(context):

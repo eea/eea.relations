@@ -37,4 +37,8 @@ def test_suite():
                   optionflags=OPTIONFLAGS,
                   package='eea.relations',
                   test_class=EEARelationsFunctionalTestCase) ,
+            Suite('docs/workflow.txt',
+                  optionflags=OPTIONFLAGS,
+                  package='eea.relations',
+                  test_class=EEARelationsFunctionalTestCase) ,
     ))

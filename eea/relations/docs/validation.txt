@@ -1,8 +1,7 @@
 Relations validation
 ====================
 You can use eea.relations validators in your schema fields in order to make a
-relation required. See eea.relations.widget.referencedemo.EEARefBrowserDemo
-schema to see how they are used.
+relation required.
 
 eea.relations.required validator
 --------------------------------

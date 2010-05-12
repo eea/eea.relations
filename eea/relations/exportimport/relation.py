@@ -12,15 +12,23 @@ class RelationXMLAdapter(XMLAdapterBase):
         """Export the object as a DOM node.
         """
         node = self._getObjectNode('object')
-        for prop in ('title', 'from', 'to', 'required'):
+        for prop in ('title', 'from', 'to', 'required', 'required_for'):
             child = self._doc.createElement('property')
             child.setAttribute('name', prop)
             field = self.context.getField(prop)
             value = field.getAccessor(self.context)()
-            if prop == 'required':
-                value = repr(value)
-            value = self._doc.createTextNode(value)
-            child.appendChild(value)
+            if isinstance(value, (tuple, list)):
+                for item in value:
+                    if not value:
+                        continue
+                    element = self._doc.createElement('element')
+                    element.setAttribute('value', item)
+                    child.appendChild(element)
+            else:
+                if isinstance(value, (bool, int)):
+                    value = repr(value)
+                value = self._doc.createTextNode(value)
+                child.appendChild(value)
             node.appendChild(child)
 
         return node
@@ -33,12 +41,20 @@ class RelationXMLAdapter(XMLAdapterBase):
                 continue
 
             name = child.getAttribute('name')
-            value = self._getNodeText(child)
-            value = value.decode('utf-8')
             purge = child.getAttribute('purge')
             purge = self._convertToBoolean(purge)
-            if purge:
-                value = u''
+
+            elements = []
+            for element in child.childNodes:
+                if element.nodeName != 'element':
+                    continue
+                elements.append(element.getAttribute('value'))
+            if elements:
+                value = (not purge) and elements or []
+            else:
+                value = self._getNodeText(child)
+                value = value.decode('utf-8')
+                value = (not purge) and value or u''
 
             if name in ('required',):
                 value = self._convertToBoolean(value)

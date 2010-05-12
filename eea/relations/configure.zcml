@@ -10,5 +10,6 @@
   <include package=".component" />
   <include package=".discover" />
   <include package=".exportimport" />
+  <include package=".field" />
 
 </configure>

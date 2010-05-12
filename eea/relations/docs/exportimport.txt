@@ -65,6 +65,7 @@ See default faceted portal types
       <property name="from">generic</property>
       <property name="to">generic</property>
       <property name="required">False</property>
+      <property name="required_for"/>
      </object>
     </object>
 
@@ -92,6 +93,9 @@ Import some data
     ...   <property name="from">folder</property>
     ...   <property name="to">folder</property>
     ...   <property name="required">True</property>
+    ...   <property name="required_for">
+    ...    <element value="published"/>
+    ...   </property>
     ...  </object>
     ... </object>
     ... '''
@@ -109,6 +113,9 @@ Import some data
       <property name="from">folder</property>
       <property name="to">folder</property>
       <property name="required">True</property>
+      <property name="required_for">
+       <element value="published"/>
+      </property>
      </object>
     </object>
 
@@ -135,6 +142,9 @@ Purge content-types properties
       <property name="from">folder</property>
       <property name="to">folder</property>
       <property name="required">True</property>
+      <property name="required_for">
+       <element value="published"/>
+      </property>
      </object>
     </object>
 
@@ -162,6 +172,9 @@ Purge relations properties
       <property name="from"></property>
       <property name="to"></property>
       <property name="required">True</property>
+      <property name="required_for">
+       <element value="published"/>
+      </property>
      </object>
     </object>
 
@@ -181,6 +194,9 @@ Purge content-type
       <property name="from"></property>
       <property name="to"></property>
       <property name="required">True</property>
+      <property name="required_for">
+       <element value="published"/>
+      </property>
      </object>
     </object>
 

@@ -3,8 +3,8 @@
 from Products.Archetypes.atapi import registerType
 from Products.Archetypes.Registry import registerWidget
 from eea.relations.config import PROJECTNAME
-from referencedemo import EEARefBrowserDemo
 from referencewidget import EEAReferenceBrowserWidget
+from referencedemo import EEARefBrowserDemo
 
 registerWidget(EEAReferenceBrowserWidget,
     title='EEA Reference Browser',

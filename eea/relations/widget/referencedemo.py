@@ -2,21 +2,14 @@
 
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
-try:
-    from Products.OrderableReferenceField._field import OrderableReferenceField
-except ImportError:
-    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
-
-from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
+from eea.relations.field import EEAReferenceField
+from eea.relations.widget import EEAReferenceBrowserWidget
 
 SCHEMA = ATFolder.schema.copy() + atapi.Schema((
-    OrderableReferenceField('relatedItems',
+    EEAReferenceField('relatedItems',
         schemata='default',
         relationship = 'relatesTo',
         multiValued = True,
-        required=True,
-        # Use eea.relations.required validatior in pair with required=True in order to have expected results
-        validators=('eea.relations.required',),
         widget=EEAReferenceBrowserWidget(
             label='Related items',
             description='Relations.'
