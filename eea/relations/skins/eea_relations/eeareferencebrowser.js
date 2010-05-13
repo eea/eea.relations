@@ -358,6 +358,7 @@ EEAReferenceBrowser.Widget = function(name, options){
   this.basket = null;
   this.button = jQuery('.eea-ref-popup-button', this.context);
   this.current_tab = null;
+  this.position = 0;
 
   this.events = new EEAReferenceBrowser.Events();
   this.width = jQuery(window).width() * 0.85;
@@ -387,6 +388,7 @@ EEAReferenceBrowser.Widget = function(name, options){
       jQuery(js_context.events).trigger(js_context.events.CLOSE);
       js_context.workspace.tabs('destroy');
       js_context.workspace.hide();
+      jQuery(window).scrollTop(js_context.position);
     }
   });
 
@@ -426,7 +428,8 @@ EEAReferenceBrowser.Widget = function(name, options){
 
 EEAReferenceBrowser.Widget.prototype = {
   popup_open: function(){
-    scroll(0, 0);
+    this.position = jQuery(window).scrollTop();
+    jQuery(window).scrollTop(0);
     // Tabs
     var js_context = this;
     var index = this.default_tab();
