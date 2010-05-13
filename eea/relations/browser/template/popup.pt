@@ -3,7 +3,7 @@
   fieldName python:view.field;
   tabs python:[tab for tab in view.tabs()]">
   <tal:tabs condition="tabs">
-    <ul>
+    <ul class="popup-tabs-header">
       <li tal:repeat="tab tabs">
         <a tal:define="
           required python:tab[1];

@@ -352,6 +352,7 @@ EEAReferenceBrowser.Widget = function(name, options){
   this.popup = jQuery('#' + name + '-popup', this.context);
   this.tips = jQuery('.popup-tips', this.popup);
   this.workspace = jQuery('.popup-tabs' , this.popup);
+  this.workspace.hide();
   this.storageedit = jQuery('#' + name, this.context);
   this.storageview = jQuery('.eea-ref-selecteditems-box', this.context);
   this.basket = null;
@@ -384,17 +385,8 @@ EEAReferenceBrowser.Widget = function(name, options){
     },
     close: function(){
       jQuery(js_context.events).trigger(js_context.events.CLOSE);
-    }
-  });
-
-  // Tabs
-  this.workspace.tabs({
-    select: function(event, ui){
-      Faceted.Cleanup();
-      jQuery('.popup-tabs #faceted-form').remove();
-    },
-    load: function(event, ui){
-      js_context.tab_selected(ui);
+      js_context.workspace.tabs('destroy');
+      js_context.workspace.hide();
     }
   });
 
@@ -435,8 +427,20 @@ EEAReferenceBrowser.Widget = function(name, options){
 EEAReferenceBrowser.Widget.prototype = {
   popup_open: function(){
     scroll(0, 0);
+    // Tabs
+    var js_context = this;
     var index = this.default_tab();
-    this.workspace.tabs('select', index);
+    this.workspace.tabs({
+      selected: index,
+      select: function(event, ui){
+        Faceted.Cleanup();
+        jQuery('.popup-tabs #faceted-form').remove();
+      },
+      load: function(event, ui){
+        js_context.tab_selected(ui);
+      }
+    });
+    this.workspace.show();
     this.popup.dialog('open');
     jQuery(Faceted.Events).trigger(Faceted.Events.WINDOW_WIDTH_CHANGED);
     this.tips.show();
@@ -459,11 +463,16 @@ EEAReferenceBrowser.Widget.prototype = {
     if(!index){
       return 0;
     }
-    index = index.attr('href');
-    if(!index){
-      return 0;
-    }
-    return index;
+
+    var lis = jQuery('.popup-tabs-header li', this.workspace);
+    idx = 0;
+    lis.each(function(i){
+      if(jQuery('#' + name, jQuery(this)).length){
+        idx = i;
+        return false;
+      }
+    });
+    return idx;
   },
 
   tab_selected: function(ui){
