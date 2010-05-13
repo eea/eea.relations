@@ -1,5 +1,6 @@
 """ Relation vocabularies
 """
+import operator
 from zope.interface import implements
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.vocabulary import SimpleTerm
@@ -35,8 +36,9 @@ class WorkflowStatesVocabulary(object):
         """
         wtool = getToolByName(context, 'portal_workflow')
         states = wtool.listWFStatesByTitle(filter_similar=True)
-        states.sort()
+        states = dict((state, title or state) for title, state in states).items()
+        states.sort(key=operator.itemgetter(1))
         items = []
-        for title, state in states:
+        for state, title in states:
             items.append(SimpleTerm(state, state, title))
         return SimpleVocabulary(items)
