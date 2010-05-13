@@ -386,6 +386,8 @@ EEAReferenceBrowser.Widget = function(name, options){
     },
     close: function(){
       jQuery(js_context.events).trigger(js_context.events.CLOSE);
+      Faceted.Cleanup();
+      jQuery('.popup-tabs #faceted-form').remove();
       js_context.workspace.tabs('destroy');
       js_context.workspace.hide();
       jQuery(window).scrollTop(js_context.position);
