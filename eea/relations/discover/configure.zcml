@@ -15,6 +15,7 @@
     template="browser.pt"
     class=".browser.View"
     permission="zope2.View"
+    allowed_attributes="brains"
     />
 
 </configure>

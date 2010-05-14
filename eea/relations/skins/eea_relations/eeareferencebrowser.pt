@@ -9,6 +9,9 @@
   <body>
 
   <metal:view_macro define-macro="view">
+    <metal:slot define-slot="body">
+      <div metal:use-macro="here/eea_relatedItems/macros/relateditemsWithThumbs" />
+    </metal:slot>
   </metal:view_macro>
 
   <tal:comment condition="nothing">

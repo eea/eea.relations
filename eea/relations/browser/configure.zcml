@@ -114,4 +114,13 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <!-- View macro -->
+  <browser:page
+    for="*"
+    name="eea.relations.macro"
+    class=".app.macro.Macro"
+    permission="zope2.View"
+    allowed_attributes="forward backward"
+    />
+
 </configure>

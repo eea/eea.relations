@@ -40,3 +40,21 @@ class RelationsLookUp(object):
             if name != nto:
                 continue
             yield relation
+
+    def isForward(self, who):
+        """ Check content type to see if it's a forward relation for self.context
+        """
+        for relation in self.forward():
+            nto = relation.getField('to').getAccessor(relation)()
+            if who.getId() == nto:
+                return True
+        return False
+
+    def isBackward(self, who):
+        """ Check content type to see if it's a backward relation for self.context
+        """
+        for relation in self.forward():
+            nfrom = relation.getField('from').getAccessor(relation)()
+            if who.getId() == nfrom:
+                return True
+        return False
