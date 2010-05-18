@@ -1,10 +1,11 @@
 """ EEA Relation
 """
+from zope.component import queryAdapter
 from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
-from Products.CMFCore.utils import getToolByName
 from eea.facetednavigation.widgets.field import FieldMixin
+from interfaces import IToolAccessor
 
 from interfaces import IRelation
 
@@ -26,19 +27,13 @@ class TitleWidget(atapi.StringWidget):
         if not (ct_from and ct_to):
             return '', {}
 
-        rtool = getToolByName(instance, 'portal_relations')
-        brains = rtool.getFolderContents(contentFilter={
-            'portal_type': 'EEARelationsContentType',
-            'getId': ct_from
-        })
+        tool = queryAdapter(instance, IToolAccessor)
+        brains = tool and tool.types(getId=ct_from)
         for brain in brains:
             ct_from = brain.Title
             break
 
-        brains = rtool.getFolderContents(contentFilter={
-            'portal_type': 'EEARelationsContentType',
-            'getId': ct_to
-        })
+        brains = tool.types(getId=ct_to)
         for brain in brains:
             ct_to = brain.Title
             break

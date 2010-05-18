@@ -1,9 +1,9 @@
 from zope.interface import implements
-from Products.CMFCore.utils import UniqueObject
+from Products.CMFCore.utils import UniqueObject, getToolByName
 from Products.Archetypes.atapi import OrderedBaseFolder
 from Products.Archetypes.atapi import OrderedBaseFolderSchema
 from Products.Archetypes.atapi import Schema
-from interfaces import IRelationsTool
+from interfaces import IRelationsTool, IToolAccessor
 
 class EEARelationsTool(UniqueObject, OrderedBaseFolder):
     """ Local utility to store and customize possible content types relations
@@ -24,3 +24,35 @@ class EEARelationsTool(UniqueObject, OrderedBaseFolder):
         title_field,
         ),
     )
+
+class RelationsToolAccessor(object):
+    """ Get tool properties
+    """
+    implements(IToolAccessor)
+
+    def __init__(self, context):
+        self.context = getToolByName(context, 'portal_relations', context)
+
+    def relations(self, proxy=True, **kwargs):
+        """ Possible relations
+        """
+        kwargs.setdefault('portal_type', 'EEAPossibleRelation')
+        kwargs.setdefault('review_state', '')
+        brains = self.context.getFolderContents(contentFilter=kwargs)
+        for brain in brains:
+            if not proxy:
+                brain = brain.getObject()
+            if brain:
+                yield brain
+
+    def types(self, proxy=True, **kwargs):
+        """ Content types
+        """
+        kwargs.setdefault('portal_type', 'EEARelationsContentType')
+        kwargs.setdefault('review_state', '')
+        brains = self.context.getFolderContents(contentFilter=kwargs)
+        for brain in brains:
+            if not proxy:
+                brain = brain.getObject()
+            if brain:
+                yield brain

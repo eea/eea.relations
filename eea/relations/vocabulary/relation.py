@@ -1,11 +1,13 @@
 """ Relation vocabularies
 """
 import operator
+from zope.component import queryAdapter
 from zope.interface import implements
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.vocabulary import SimpleTerm
 from zope.app.schema.vocabulary import IVocabularyFactory
 from Products.CMFCore.utils import getToolByName
+from eea.relations.interfaces import IToolAccessor
 #
 # Object provides
 #
@@ -17,13 +19,12 @@ class ContentTypesVocabulary(object):
     def __call__(self, context):
         """ See IVocabularyFactory interface
         """
-        rtool = getToolByName(context, 'portal_relations')
-        brains = rtool.getFolderContents(contentFilter={
-            'portal_type': 'EEARelationsContentType'
-        })
+        tool = queryAdapter(context, IToolAccessor)
+        if not tool:
+            return SimpleVocabulary([])
 
         items = [SimpleTerm(brain.getId, brain.getId, brain.Title)
-                 for brain in brains]
+                 for brain in tool.types()]
         return SimpleVocabulary(items)
 
 class WorkflowStatesVocabulary(object):
@@ -36,7 +37,8 @@ class WorkflowStatesVocabulary(object):
         """
         wtool = getToolByName(context, 'portal_workflow')
         states = wtool.listWFStatesByTitle(filter_similar=True)
-        states = dict((state, title or state) for title, state in states).items()
+        states = dict((state, title or state)
+                      for title, state in states).items()
         states.sort(key=operator.itemgetter(1))
         items = []
         for state, title in states:

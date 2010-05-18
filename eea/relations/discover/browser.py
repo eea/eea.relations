@@ -1,12 +1,16 @@
+from zope.interface import implements
 from zope.component import queryAdapter
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from eea.relations.interfaces import IAutoRelations
 from AccessControl import Unauthorized
+from interfaces import IBrowserView
 
 class View(BrowserView):
     """ Display auto discovered relations
     """
+    implements(IBrowserView)
+
     def checkPermission(self, brain):
         """ Check document permission
         """

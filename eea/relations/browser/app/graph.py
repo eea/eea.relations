@@ -1,5 +1,6 @@
 """ Graph drawers
 """
+from zope.component import queryAdapter
 from pydot import Dot as PyGraph
 from zope.component import queryAdapter, queryUtility
 from Products.Five.browser import BrowserView
@@ -7,7 +8,7 @@ from Products.Five.browser import BrowserView
 from eea.relations.interfaces import INode
 from eea.relations.interfaces import IEdge
 from eea.relations.interfaces import IGraph
-
+from eea.relations.interfaces import IToolAccessor
 from Products.CMFCore.utils import getToolByName
 
 class BaseGraph(BrowserView):
@@ -67,16 +68,13 @@ class ContentTypeGraph(BaseGraph):
         name = self.context.getId()
         node = queryAdapter(self.context, INode)
 
-        brains = rtool.getFolderContents(contentFilter={
-            'portal_type': 'EEAPossibleRelation'
-        })
+        tool = queryAdapter(self.context, IToolAccessor)
+        docs = tool.relations(proxy=False)
 
         graph = PyGraph()
         graph.add_node(node())
 
-        for brain in brains:
-            doc = brain.getObject()
-
+        for doc in docs:
             field = doc.getField('to')
             value_from = field.getAccessor(doc)()
             field = doc.getField('from')
@@ -111,20 +109,14 @@ class ToolGraph(BaseGraph):
         """ Generate pydot.Graph
         """
         graph = PyGraph()
-        brains = self.context.getFolderContents(contentFilter={
-            'portal_type': 'EEARelationsContentType'
-        })
-        for brain in brains:
-            doc = brain.getObject()
+        tool = queryAdapter(self.context, IToolAccessor)
+        docs = tool.types(proxy=False)
+        for doc in docs:
             node = queryAdapter(doc, INode)
             graph.add_node(node())
 
-        brains = self.context.getFolderContents(contentFilter={
-            'portal_type': 'EEAPossibleRelation'
-        })
-
-        for brain in brains:
-            doc = brain.getObject()
+        docs = tool.relations(proxy=False)
+        for doc in docs:
             edge = queryAdapter(doc, IEdge)
             graph.add_edge(edge())
 

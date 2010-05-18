@@ -21,7 +21,11 @@ class Macro(BrowserView):
         """ Return forward relations by category
         """
         tabs = {}
-        relations = self.context.getRelatedItems()
+        getRelatedItems = getattr(self.context, 'getRelatedItems', None)
+        if not getRelatedItems:
+            return tabs
+
+        relations = getRelatedItems()
         for relation in relations:
             if not self.checkPermission(relation):
                 continue
@@ -40,7 +44,11 @@ class Macro(BrowserView):
         """ Return backward relations by category
         """
         tabs = {}
-        relations = self.context.getBRefs('relatesTo')
+        getBRefs = getattr(self.context, 'getBRefs', None)
+        if not getBRefs:
+            return tabs
+
+        relations = getBRefs('relatesTo')
         for relation in relations:
             if not self.checkPermission(relation):
                 continue

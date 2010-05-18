@@ -1,6 +1,7 @@
-from zope.interface import implements
-from interfaces import IRelationsLookUp
-from Products.CMFCore.utils import getToolByName
+""" Relations components
+"""
+from zope.component import queryAdapter
+from eea.relations.interfaces import IToolAccessor
 
 class RelationsLookUp(object):
     """ Lookup for possible relations
@@ -11,14 +12,16 @@ class RelationsLookUp(object):
 
     @property
     def relations(self):
+        """ All possible relations
+        """
         if self._relations:
             return self._relations
 
-        rtool = getToolByName(self.context, 'portal_relations')
-        brains = rtool.getFolderContents(contentFilter={
-            'portal_type': 'EEAPossibleRelation'
-        })
-        self._relations = [brain.getObject() for brain in brains]
+        tool = queryAdapter(self.context, IToolAccessor)
+        if not tool:
+            return self._relations
+
+        self._relations = [doc for doc in tool.relations(proxy=False)]
         return self._relations
 
     def forward(self):
@@ -42,7 +45,9 @@ class RelationsLookUp(object):
             yield relation
 
     def isForward(self, who):
-        """ Check content type to see if it's a forward relation for self.context
+        """
+        Check content type to see if it's a forward
+        relation for self.context
         """
         for relation in self.forward():
             nto = relation.getField('to').getAccessor(relation)()
@@ -51,9 +56,11 @@ class RelationsLookUp(object):
         return False
 
     def isBackward(self, who):
-        """ Check content type to see if it's a backward relation for self.context
         """
-        for relation in self.forward():
+        Check content type to see if it's a backward
+        relation for self.context
+        """
+        for relation in self.backward():
             nfrom = relation.getField('from').getAccessor(relation)()
             if who.getId() == nfrom:
                 return True

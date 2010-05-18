@@ -1,7 +1,8 @@
+from zope.component import queryAdapter
 from zope.interface import implements
 from interfaces import IContentTypeLookUp
-from Products.CMFCore.utils import getToolByName
 from Products.Five.utilities.interfaces import IMarkerInterfaces
+from eea.relations.interfaces import IToolAccessor
 
 class ContentTypeLookUp(object):
     """ Lookup for context in portal_relations content-types """
@@ -17,11 +18,11 @@ class ContentTypeLookUp(object):
     def ctypes(self):
         if self._ctypes:
             return self._ctypes
-        rtool = getToolByName(self.context, 'portal_relations')
-        brains = rtool.getFolderContents(contentFilter={
-            'portal_type': 'EEARelationsContentType'
-        })
-        self._ctypes = [brain.getObject() for brain in brains]
+
+        tool = queryAdapter(self.context, IToolAccessor)
+        if not tool:
+            return []
+        self._ctypes = [doc for doc in tool.types(proxy=False)]
         return self._ctypes
 
     @property

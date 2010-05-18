@@ -1,4 +1,8 @@
+""" Browser view for tool
+"""
+from zope.component import queryAdapter
 from Products.Five.browser import BrowserView
+from eea.relations.interfaces import IToolAccessor
 
 class View(BrowserView):
     """ Views
@@ -7,18 +11,18 @@ class View(BrowserView):
     def content_types(self):
         """ Content types
         """
-        brains = self.context.getFolderContents(contentFilter={
-            'portal_type': 'EEARelationsContentType'
-        })
-        for brain in brains:
+        tool = queryAdapter(self.context, IToolAccessor)
+        if not tool:
+            raise StopIteration
+        for brain in tool.types():
             yield brain
 
     @property
     def relations(self):
         """ Relations
         """
-        brains = self.context.getFolderContents(contentFilter={
-            'portal_type': 'EEAPossibleRelation'
-        })
-        for brain in brains:
+        tool = queryAdapter(self.context, IToolAccessor)
+        if not tool:
+            raise StopIteration
+        for brain in tool.relations():
             yield brain

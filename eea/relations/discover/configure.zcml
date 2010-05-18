@@ -10,12 +10,12 @@
     />
 
   <browser:page
-    for="Products.Archetypes.interfaces.IBaseContent"
+    for="zope.interface.Interface"
     name="auto-relations.html"
     template="browser.pt"
     class=".browser.View"
-    permission="zope2.View"
-    allowed_attributes="brains"
+    permission="zope.Public"
+    allowed_interface=".interfaces.IBrowserView"
     />
 
 </configure>
