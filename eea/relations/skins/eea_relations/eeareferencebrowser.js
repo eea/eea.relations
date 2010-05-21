@@ -454,8 +454,13 @@ EEAReferenceBrowser.Widget.prototype = {
 
   default_tab: function(){
     var tabs = this.options.tabs;
-    if(!tabs){
-      return 0;
+
+    if(!this.options.tabs){
+        if (window._selected_tab){
+            tabs = {'selected':window._selected_tab};
+        } else {
+            return 0;
+        }
     }
     var name = tabs.selected;
     if(!name){
