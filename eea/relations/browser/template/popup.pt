@@ -18,7 +18,7 @@
             <span tal:condition="required" class="fieldRequired"> </span>
             <span tal:condition="required_for" class="fieldRequiredFor"> </span>
           </span>
-          <div style="display: none" class="tab-url"
+          <span style="display: none" class="tab-url"
             tal:content="tab/absolute_url" />
         </a>
       </li>
