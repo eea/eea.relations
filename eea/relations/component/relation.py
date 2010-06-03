@@ -44,7 +44,7 @@ class RelationsLookUp(object):
                 continue
             yield relation
 
-    def isForward(self, who):
+    def forward_with(self, who):
         """
         Check content type to see if it's a forward
         relation for self.context
@@ -52,10 +52,10 @@ class RelationsLookUp(object):
         for relation in self.forward():
             nto = relation.getField('to').getAccessor(relation)()
             if who.getId() == nto:
-                return True
-        return False
+                return relation
+        return None
 
-    def isBackward(self, who):
+    def backward_with(self, who):
         """
         Check content type to see if it's a backward
         relation for self.context
@@ -63,5 +63,5 @@ class RelationsLookUp(object):
         for relation in self.backward():
             nfrom = relation.getField('from').getAccessor(relation)()
             if who.getId() == nfrom:
-                return True
-        return False
+                return relation
+        return None

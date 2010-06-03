@@ -1,10 +1,9 @@
 """ View macro utils
 """
 from Products.Five.browser import BrowserView
-from eea.relations.component import checkForwardContentType
-from eea.relations.component import checkBackwardContentType
+from eea.relations.component import getForwardRelationWith
+from eea.relations.component import getBackwardRelationWith
 from Products.CMFCore.utils import getToolByName
-from AccessControl import Unauthorized
 
 class Macro(BrowserView):
     """ Categorize relations
@@ -29,10 +28,12 @@ class Macro(BrowserView):
         for relation in relations:
             if not self.checkPermission(relation):
                 continue
-            ctype = checkForwardContentType(relation, self.context)
-            if not ctype:
+
+            forward = getForwardRelationWith(self.context, relation)
+            if not forward:
                 continue
-            name = ctype.title_or_id()
+
+            name = forward.getField('forward_label').getAccessor(forward)()
             if name not in tabs:
                 tabs[name] = []
             tabs[name].append(relation)
@@ -52,10 +53,12 @@ class Macro(BrowserView):
         for relation in relations:
             if not self.checkPermission(relation):
                 continue
-            ctype = checkBackwardContentType(relation, self.context)
-            if not ctype:
+
+            backward = getBackwardRelationWith(self.context, relation)
+            if not backward:
                 continue
-            name = ctype.title_or_id()
+
+            name = backward.getField('backward_label').getAccessor(backward)()
             if name not in tabs:
                 tabs[name] = []
             tabs[name].append(relation)

@@ -41,18 +41,7 @@ class TitleWidget(atapi.StringWidget):
         value = '%s -> %s' % (ct_from, ct_to)
         return value, {}
 
-EditSchema = ATFolder.schema.copy() + atapi.Schema((
-    atapi.StringField(
-        name='title',
-        required=0,
-        searchable=1,
-        accessor='Title',
-        widget=TitleWidget(
-            label_msgid='label_title',
-            modes=(),
-            i18n_domain='plone',
-        ),
-    ),
+RelationSchema = atapi.Schema((
     StringField('from',
         schemata="default",
         vocabulary_factory='eea.relations.voc.ContentTypes',
@@ -77,6 +66,51 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
             description='Select content-type',
             description_msgid='widget_to_description',
             i18n_domain="eea.relations"
+        )
+    ),
+    atapi.StringField(
+        name='title',
+        required=0,
+        searchable=1,
+        accessor='Title',
+        widget=TitleWidget(
+            label_msgid='label_title',
+            modes=(),
+            i18n_domain='plone',
+        ),
+    ),
+    StringField('forward_label',
+        schemata="default",
+        widget=atapi.StringWidget(
+            size=50,
+            label='Forward label',
+            label_msgid='widget_forward_label_title',
+            description='Label to be used for forward relations',
+            description_msgid='widget_forward_label_description',
+            i18n_domain="eea.relations"
+        )
+    ),
+    StringField('backward_label',
+        schemata="default",
+        widget=atapi.StringWidget(
+            size=50,
+            label='Backward label',
+            label_msgid='widget_backward_label_title',
+            description='Label to be used for backward relations',
+            description_msgid='widget_forward_label_description',
+            i18n_domain="eea.relations"
+        )
+    ),
+    atapi.TextField('description',
+        schemata='default',
+        searchable=1,
+        accessor="Description",
+        widget=atapi.TextAreaWidget(
+            label='Description',
+            description="A short summary of the content",
+            label_msgid="label_description",
+            description_msgid="help_description",
+            i18n_domain="plone"
         )
     ),
     atapi.BooleanField('required',
@@ -108,7 +142,9 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
     ),
 ))
 
-EditSchema['description'].widget.modes = ()
+EditSchema = ATFolder.schema.copy() + RelationSchema.copy()
+EditSchema.moveField('title', after='to')
+EditSchema.moveField('description', after='backward_label')
 
 class EEAPossibleRelation(ATFolder):
     """ Relation

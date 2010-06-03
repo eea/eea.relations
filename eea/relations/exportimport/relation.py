@@ -2,6 +2,7 @@
 """
 from eea.relations.interfaces import IRelation
 from Products.GenericSetup.utils import XMLAdapterBase
+from eea.relations.content.relation import RelationSchema
 
 class RelationXMLAdapter(XMLAdapterBase):
     """ Generic setup import/export xml adapter
@@ -12,7 +13,7 @@ class RelationXMLAdapter(XMLAdapterBase):
         """Export the object as a DOM node.
         """
         node = self._getObjectNode('object')
-        for prop in ('title', 'from', 'to', 'required', 'required_for'):
+        for prop in RelationSchema.keys():
             child = self._doc.createElement('property')
             child.setAttribute('name', prop)
             field = self.context.getField(prop)

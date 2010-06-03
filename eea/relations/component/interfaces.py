@@ -14,3 +14,11 @@ class IRelationsLookUp(Interface):
     def backward():
         """ Backward relations
         """
+
+    def forward_with(who):
+        """ Get forward relation with "who"
+        """
+
+    def backward_with(who):
+        """ Get backward relation with "who"
+        """
