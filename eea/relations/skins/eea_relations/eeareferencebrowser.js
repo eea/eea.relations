@@ -348,6 +348,7 @@ EEAReferenceBrowser.Basket.prototype = {
 EEAReferenceBrowser.Widget = function(name, options){
   this.name = name;
   this.options = options || {};
+	this.fieldname = this.options.fieldname || name;
   this.context = jQuery('#' + name + "-widget");
   this.popup = jQuery('#' + name + '-popup', this.context);
   this.tips = jQuery('.popup-tips', this.popup);
@@ -499,7 +500,7 @@ EEAReferenceBrowser.Widget.prototype = {
       var url = '@@eeareferencebrowser-popup-selecteditems.html';
       var query = {};
       query.mode = 'view';
-      query.field = self.name;
+      query.field = self.fieldname;
       query.uids = this.storageedit.val();
       query.nocache = new Date().getTime();
 
