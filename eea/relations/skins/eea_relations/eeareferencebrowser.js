@@ -1,5 +1,16 @@
 var EEAReferenceBrowser = {version: '1.0.0'};
 
+function AssertException(message) { this.message = message; }
+AssertException.prototype.toString = function () {
+	return 'AssertException: ' + this.message;
+}
+
+function assert(exp, message) {
+	if (!exp) {
+		throw new AssertException(message);
+	}
+}
+
 // Events
 EEAReferenceBrowser.Events = function(){
   this.BASKET_ADD = 'EEA-REFERENCEBROWSER-BASKET-ADD';
@@ -62,7 +73,10 @@ EEAReferenceBrowser.Tab.prototype = {
     var js_context = this;
     items.click(function(){
       var self = jQuery(this);
-      self.effect('transfer', {to: '#' + js_context.parent.name + '-popup-selected-items'}, 'slow', function(){
+			var divname = '#' + js_context.parent.name + '-popup-selected-items';
+			assert($(divname).length == 1, "The popup for selected elements could not be found");
+
+      self.effect('transfer', {to: divname}, 'slow', function(){
         jQuery(js_context.parent.events).trigger(
           js_context.parent.events.BASKET_ADD,
           {url: jQuery('.tileHeadline a', self).attr('href')}
@@ -360,6 +374,13 @@ EEAReferenceBrowser.Widget = function(name, options){
   this.button = jQuery('.eea-ref-popup-button', this.context);
   this.current_tab = null;
   this.position = 0;
+
+	// These asserts will make sure that the proper DOM structure is provided for the widget
+	//
+	// console.log(this.context);
+	assert(this.context.length == 1, "The following important element of the widget could not be found: context");
+	assert(this.popup.length == 1, "The following important element of the widget could not be found: popup");
+	assert(this.storageedit.length == 1, "The following important element of the widget could not be found: storageedit");
 
   this.events = new EEAReferenceBrowser.Events();
   this.width = jQuery(window).width() * 0.85;
