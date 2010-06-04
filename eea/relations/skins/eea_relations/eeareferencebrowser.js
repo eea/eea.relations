@@ -1,14 +1,15 @@
 var EEAReferenceBrowser = {version: '1.0.0'};
+EEAReferenceBrowser.debug = false;
 
 function AssertException(message) { this.message = message; }
 AssertException.prototype.toString = function () {
-	return 'AssertException: ' + this.message;
+  return 'AssertException: ' + this.message;
 }
 
 function assert(exp, message) {
-	if (!exp) {
-		throw new AssertException(message);
-	}
+  if (!exp && EEAReferenceBrowser.debug) {
+    throw new AssertException(message);
+  }
 }
 
 // Events
@@ -44,9 +45,9 @@ EEAReferenceBrowser.Tab = function(context, parent){
 
 EEAReferenceBrowser.Tab.prototype = {
   get_icon: function(){
-  return jQuery('<div>').addClass('ui-icon')
-                        .addClass('ui-icon-extlink')
-                        .addClass('ui-icon-custom-add');
+    return jQuery('<div>').addClass('ui-icon')
+    .addClass('ui-icon-extlink')
+    .addClass('ui-icon-custom-add');
   },
 
   setup_links: function(){
@@ -73,8 +74,8 @@ EEAReferenceBrowser.Tab.prototype = {
     var js_context = this;
     items.click(function(){
       var self = jQuery(this);
-			var divname = '#' + js_context.parent.name + '-popup-selected-items';
-			assert($(divname).length == 1, "The popup for selected elements could not be found");
+      var divname = '#' + js_context.parent.name + '-popup-selected-items';
+      assert($(divname).length == 1, "The popup for selected elements could not be found");
 
       self.effect('transfer', {to: divname}, 'slow', function(){
         jQuery(js_context.parent.events).trigger(
@@ -236,9 +237,9 @@ EEAReferenceBrowser.Basket.prototype = {
 
   trash_icon: function(){
     return jQuery('<div>').addClass('ui-icon')
-                               .addClass('ui-icon-trash')
-                               .addClass('ui-icon-basket-trash')
-                               .text('X');
+    .addClass('ui-icon-trash')
+    .addClass('ui-icon-basket-trash')
+    .text('X');
   },
 
   get_url: function(url){
@@ -362,7 +363,7 @@ EEAReferenceBrowser.Basket.prototype = {
 EEAReferenceBrowser.Widget = function(name, options){
   this.name = name;
   this.options = options || {};
-	this.fieldname = this.options.fieldname || name;
+  this.fieldname = this.options.fieldname || name;
   this.context = jQuery('#' + name + "-widget");
   this.popup = jQuery('#' + name + '-popup', this.context);
   this.tips = jQuery('.popup-tips', this.popup);
@@ -375,12 +376,10 @@ EEAReferenceBrowser.Widget = function(name, options){
   this.current_tab = null;
   this.position = 0;
 
-	// These asserts will make sure that the proper DOM structure is provided for the widget
-	//
-	// console.log(this.context);
-	assert(this.context.length == 1, "The following important element of the widget could not be found: context");
-	assert(this.popup.length == 1, "The following important element of the widget could not be found: popup");
-	assert(this.storageedit.length == 1, "The following important element of the widget could not be found: storageedit");
+  // These asserts will make sure that a proper DOM structure is provided for the widget
+  assert(this.context.length == 1, "The following important element of the widget could not be found: context");
+  assert(this.popup.length == 1, "The following important element of the widget could not be found: popup");
+  assert(this.storageedit.length == 1, "The following important element of the widget could not be found: storageedit");
 
   this.events = new EEAReferenceBrowser.Events();
   this.width = jQuery(window).width() * 0.85;
@@ -478,11 +477,11 @@ EEAReferenceBrowser.Widget.prototype = {
     var tabs = this.options.tabs;
 
     if(!this.options.tabs){
-        if (window._selected_tab){
-            tabs = {'selected':window._selected_tab};
-        } else {
-            return 0;
-        }
+      if (window._selected_tab){
+        tabs = {'selected':window._selected_tab};
+      } else {
+        return 0;
+      }
     }
     var name = tabs.selected;
     if(!name){
@@ -532,3 +531,4 @@ EEAReferenceBrowser.Widget.prototype = {
     this.popup.dialog('close');
   }
 };
+// vim: set ts=2 sw=2 et:
