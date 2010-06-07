@@ -1,6 +1,14 @@
 Changelog
 =========
 
+[Alexandru Ghica - alec.ghica@eaudeweb.ro]
+[Alin Voinea - alin.voinea@eaudeweb.ro]
+[Antonio De Marinis - demarinis@eea.europa.eu]
+[Tiberiu Ichim tiberiu.ichim@eaudeweb.ro]
+
+0.2 (unreleased)
+----------------
+
 0.1 (2010-06-07)
 ----------------
 
