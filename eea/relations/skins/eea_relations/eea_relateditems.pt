@@ -18,7 +18,7 @@ Usage:
       <tal:tab repeat="tab tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]"
           tal:condition="related">
-          <h3 tal:content="label">Relations category</h3>
+          <h3 tal:content="label">Relation label</h3>
           <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
         </tal:def>
       </tal:tab>
@@ -31,12 +31,25 @@ Usage:
       <tal:tab repeat="tab tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]"
           tal:condition="related">
-          <h3 tal:content="label">Relations category</h3>
+          <h3 tal:content="label">Relation label</h3>
           <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
         </tal:def>
       </tal:tab>
     </div>
   </tal:forward>
+  
+   <tal:auto define="tabs python:auto_relations.all()" tal:condition="tabs">
+    <!-- Auto relations -->
+    <div class="visualNoMarker">
+      <tal:tab repeat="tab tabs">
+        <tal:def define="label python:tab[0]; related python:tab[1]"
+          tal:condition="related">
+          <h3 tal:content="label">Relation label</h3>
+          <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
+        </tal:def>
+      </tal:tab>
+    </div>
+  </tal:auto>
 
   <tal:auto tal:define="related python:[brain for brain in auto_relations.brains]"
     tal:condition="related">
