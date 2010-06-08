@@ -1,10 +1,12 @@
 <metal:relations define-macro="relations">
-  <div tal:define="brains python:view.brains">
+  <div tal:repeat="tab python:view.tabs">
+    <tal:tab define="label python:tab[0]; brains python:tab[1]">
+    <h3 tal:content="label">Relation label</h3>
     <div tal:repeat="brain brains">
       <a tal:attributes="
-        title python:brain.Title;
-        href python:brain.getURL()"
-        tal:content="python:brain.Title" />
+        title python:brain.title_or_id();
+        href python:brain.absolute_url()"
+        tal:content="python:brain.title_or_id()" />
     </div>
   </div>
 </metal:relations>

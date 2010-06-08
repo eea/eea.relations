@@ -11,27 +11,30 @@ class View(BrowserView):
     """
     implements(IBrowserView)
 
-    def checkPermission(self, brain):
+    def checkPermission(self, brains):
         """ Check document permission
         """
         mtool = getToolByName(self.context, 'portal_membership')
-        try:
-            obj = brain.getObject()
-        except Unauthorized:
-            return None
-        if mtool.checkPermission('View', obj):
-            return obj
-        return None
+        for brain in brains:
+            getObject = getattr(brain, 'getObject', None)
+            if getObject:
+                try:
+                    brain = brain.getObject()
+                except Unauthorized:
+                    continue
+            if mtool.checkPermission('View', brain):
+                yield brain
 
     @property
-    def brains(self):
+    def tabs(self):
         """ Return brains
         """
         explorer = queryAdapter(self.context, IAutoRelations)
         if not explorer:
             raise StopIteration
-        for brain in explorer():
-            doc = self.checkPermission(brain)
-            if not doc:
+
+        for tab, brains in explorer():
+            brains = [b for b in self.checkPermission(brains)]
+            if not len(brains):
                 continue
-            yield doc
+            yield tab, brains

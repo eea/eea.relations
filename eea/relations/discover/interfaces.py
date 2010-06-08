@@ -4,7 +4,7 @@ from zope.interface import Interface
 class IBrowserView(Interface):
     """ Interface
     """
-    brains = schema.Iterable(u'Iterable brains', readonly=True)
+    tabs = schema.Iterable(u'Iterable tabs', readonly=True)
 
 class IAutoRelations(Interface):
     """ Adapter to auto discover relations

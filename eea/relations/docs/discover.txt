@@ -36,8 +36,10 @@ Let's define a custom adapter
     ...
     ...     def __call__(self, **kwargs):
     ...         brains = self.context.getFolderContents()
+    ...         tabs = {}
+    ...         tabs['Children'] = brains
     ...         # Filter brains here
-    ...         return brains
+    ...         return tabs.items()
 
 Skip this as it is only used by doctests
 
@@ -62,8 +64,15 @@ Register adapter within configure.zcml
 Now let's check our relations
 
     >>> relations = queryAdapter(sandbox, IAutoRelations)
-    >>> brains = relations()
-    >>> [brain.getId for brain in brains]
+    >>> tabs = relations()
+    >>> for tab in tabs:
+    ...     label = tab[0]
+    ...     items = tab[1]
+
+    >>> label
+    'Children'
+
+    >>> [item.getId for item in items]
     ['my-document', 'my-folder']
 
 
@@ -75,3 +84,14 @@ IAutoRelations adapter and will display items using a custom template. You can
 reuse this using tal:replace expresion:
 
   <tal:relations replace="structure here/@@auto-relations.html" />
+
+    >>> from zope.component import queryMultiAdapter
+    >>> request = sandbox.REQUEST
+    >>> view = queryMultiAdapter((sandbox, request), name=u'auto-relations.html')
+    >>> for tab, brains in view.tabs:
+    ...     print tab
+    ...     for brain in brains:
+    ...         print '  ' + brain.getId()
+    Children
+      my-document
+      my-folder
