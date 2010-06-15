@@ -12,23 +12,28 @@
       odd repeat/brain/even;
       css python:odd and 'odd' or 'even';
       url python:brain.getURL();
-      title python:brain.Title;"
+      title python:brain.Title;
+      doc python:brain.getObject();"
       tal:attributes="class css">
       <td>
         <span class="visualIcon contenttype-eeapossiblerelation">
           <a class="visualIconPadding"
             tal:attributes="href url"
             tal:content="title" />
-          <span tal:define="
-            doc python:brain.getObject();
-            required python:doc.getField('required');
-            value python:required.getAccessor(doc)();"
+          <span tal:define="field python:doc.getField('required');
+            value python:field.getAccessor(doc)();"
             tal:condition="value" class="fieldRequired"> </span>
-          <span tal:define="
-            doc python:brain.getObject();
-            required python:doc.getField('required_for');
-            value python:required.getAccessor(doc)();"
+          <span tal:define="field python:doc.getField('required_for');
+            value python:field.getAccessor(doc)();"
             tal:condition="value" class="fieldRequiredFor"> </span>
+          <br/>
+          forward label: <span tal:define="field python:doc.getField('forward_label');
+            value python:field.getAccessor(doc)();"
+            tal:condition="value"> </span>
+          <br/>
+          backward label: <span tal:define="field python:doc.getField('backward_label');
+            value python:field.getAccessor(doc)();"
+            tal:condition="value"> </span>
         </span>
       </td>
       <td style="text-align: center">
