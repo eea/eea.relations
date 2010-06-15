@@ -29,11 +29,11 @@
           <br/>
           forward label: <span tal:define="field python:doc.getField('forward_label');
             value python:field.getAccessor(doc)();"
-            tal:condition="value"> </span>
+            tal:condition="value" tal:content="value"> </span>
           <br/>
           backward label: <span tal:define="field python:doc.getField('backward_label');
             value python:field.getAccessor(doc)();"
-            tal:condition="value"> </span>
+            tal:condition="value" tal:content="value"> </span>
         </span>
       </td>
       <td style="text-align: center">
