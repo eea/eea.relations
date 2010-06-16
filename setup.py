@@ -1,5 +1,7 @@
 from setuptools import setup, find_packages
 import os
+from os.path import join
+
 
 NAME = 'eea.relations'
 PATH = NAME.split('.') + ['version.txt']
