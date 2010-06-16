@@ -33,7 +33,7 @@
       Description
   </p>
 
-  <div metal:use-macro="here/eea_relateditems/macros/relatedItemsWithThumbs" />
+  <div metal:use-macro="here/document_relateditems/macros/relatedItemsWithThumbs" />
 
 </metal:main-macro>
 </div>
