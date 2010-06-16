@@ -1,11 +1,13 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.1'
+NAME = 'eea.relations'
+PATH = NAME.split('.') + ['version.txt']
+VERSION = open(join(*PATH)).read().strip()
 
-setup(name='eea.relations',
-      version=version,
-      description="EEA Possible Relations",
+setup(name=NAME,
+      version=VERSION,
+      description="EEA Possible Relations. This package provides a flexible way to manage relations i a plone site. it provides a new reference browser widget and a central management interface for relations, their labels and requirements.",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
@@ -15,7 +17,7 @@ setup(name='eea.relations',
       keywords='eea relations widget reference browser referencebrowserwidget faceted facetednavigation plone zope python',
       author='Alin Voinea',
       author_email='alin.voinea@eaudeweb.ro',
-      url='http://eea.europa.eu',
+      url='http://www.eea.europa.eu',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['eea',],
