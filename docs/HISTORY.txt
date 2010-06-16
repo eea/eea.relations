@@ -6,6 +6,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim tiberiu.ichim@eaudeweb.ro]
 
+0.3 (unreleased)
+----------------
+
 0.2 (2010-06-16)
 ------------------
 * Changed AutoRelations API to return a list of tabs (labeled brains) [#3298 voineali]
