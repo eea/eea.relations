@@ -10,6 +10,7 @@ class AutoRelations(object):
         self.context = context
 
     def __call__(self, **kwargs):
-        """ Return a list of brains
+        """ Return a list of labeled brains/objects, 
+            like [('Data used in figures',databrains),('People responsible',peoplebrains)]
         """
         return []
