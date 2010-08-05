@@ -103,16 +103,20 @@
     name="eeareferencebrowser-popup-selecteditems.html"
     template="template/popup-selecteditems.pt"
     class=".app.popup.PopupSelectedItems"
-    permission="cmf.ModifyPortalContent"
+    permission="zope2.View"
+		allowed_attributes="mode"
     />
+    permission="cmf.ModifyPortalContent"
 
   <browser:page
     for="*"
     name="eeareferencebrowser-popup-selecteditem.html"
     template="template/popup-selecteditem.pt"
     class=".app.popup.PopupSelectedItem"
-    permission="cmf.ModifyPortalContent"
+    permission="zope2.View"
+		allowed_attributes="mode"
     />
+    permission="cmf.ModifyPortalContent"
 
   <!-- View macro -->
   <browser:page
