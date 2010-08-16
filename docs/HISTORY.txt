@@ -6,6 +6,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim tiberiu.ichim@eaudeweb.ro]
 
+0.4 (unreleased)
+----------------
+
 0.3 (2010-08-16)
 ----------------
 * Set permissions for reference popups to View instead of ModifyContent, [tiberich #3525]
