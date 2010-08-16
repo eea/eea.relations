@@ -8,6 +8,7 @@ Changelog
 
 0.3 (unreleased)
 ----------------
+* Set permissions for reference popups to View instead of ModifyContent, [tiberich #3525]
 
 0.2 (2010-06-16)
 ------------------
