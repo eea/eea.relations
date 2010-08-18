@@ -11,11 +11,11 @@ Changelog
 
 0.3 (2010-08-16)
 ----------------
-* Set permissions for reference popups to View instead of ModifyContent, [tiberich #3525]
+* Change: Set permissions for reference popups to View instead of ModifyContent, [tiberich #3525]
 
 0.2 (2010-06-16)
 ------------------
-* Changed AutoRelations API to return a list of tabs (labeled brains) [#3298 voineali]
+* Change: Changed AutoRelations API to return a list of tabs (labeled brains) [#3298 voineali]
 
 
 0.1 (2010-06-07)
