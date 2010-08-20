@@ -117,3 +117,21 @@
   padding:0 0 0 8px;
   background-position: center center;
 }
+
+.eea-ref-selecteditems .reviewstate-published,
+#relatedItems-popup .reviewstate-published
+{
+  color: green ! important;
+}
+
+.eea-ref-selecteditems .reviewstate-published_eionet,
+#relatedItems-popup .reviewstate-published_eionet
+{
+  color: blue ! important;
+}
+
+.eea-ref-selecteditems .reviewstate-draft,
+#relatedItems-popup .reviewstate-draft
+{
+  color: red ! important;
+}

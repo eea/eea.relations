@@ -4,6 +4,8 @@
   item_absolute_url item/absolute_url;
   breadcrumbs item/@@breadcrumbs_view;
   breadcrumbs python:breadcrumbs.breadcrumbs();
+  wftool python:view.context.portal_workflow;
+  state python:wftool.getInfoFor(item, 'review_state');
   ">
   <input type="checkbox" checked="checked" style="display: none"
     tal:condition="python:view.mode == 'edit'"
@@ -24,9 +26,11 @@
 
   <div class="tileHeadline"
     metal:define-macro="listitem">
+
     <a target="_blank"
-      tal:attributes="href item_absolute_url"
-      tal:content="item_title_or_id">
+        tal:attributes="class string:reviewstate-$state; href item_absolute_url; "
+      tal:content="item_title_or_id"
+      >
         Item Title
     </a>
   </div>

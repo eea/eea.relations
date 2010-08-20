@@ -8,6 +8,7 @@ Changelog
 
 0.4 (unreleased)
 ----------------
+* Color links in reference widget according to their state. [tiberich #3561]
 
 0.3 (2010-08-16)
 ----------------
