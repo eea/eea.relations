@@ -12,7 +12,7 @@ class ContentTypeXMLAdapter(XMLAdapterBase):
         """Export the object as a DOM node.
         """
         node = self._getObjectNode('object')
-        for prop in ('title', 'ct_type', 'ct_interface'):
+        for prop in ('title', 'ct_type', 'ct_interface', 'ct_default_location'):
             child = self._doc.createElement('property')
             child.setAttribute('name', prop)
             field = self.context.getField(prop)

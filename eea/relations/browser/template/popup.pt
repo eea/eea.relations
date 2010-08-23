@@ -11,8 +11,8 @@
           tab python:tab[0];
           tabName python:tab.getId();"
           tal:attributes="
-            id string:$fieldName-$tabName;
-            href string:${tab/absolute_url}/@@facetednavigation_simple_view">
+          id string:$fieldName-$tabName;
+          href string:${tab/absolute_url}/@@facetednavigation_simple_view">
           <span>
             <span tal:content="python:tab.title_or_id()" />
             <span tal:condition="required" class="fieldRequired"> </span>
@@ -21,6 +21,11 @@
           <em style="display: none" class="tab-url"
             tal:content="tab/absolute_url" />
         </a>
+        <div class="creation_link" style="display:none" >
+          <a href="http://somewhere/" 
+            tal:attributes="href python:tab[0].getCt_default_location()" 
+            tal:content="python:tab[0].title_or_id()">EEA Data</a>
+        </div>
       </li>
     </ul>
   </tal:tabs>
@@ -50,5 +55,10 @@
 
 <div class="portalMessage popup-tips" i18n:translate="">
   <div class="ui-icon ui-icon-close" style="float: right">X</div>
-  Please click on search results to create a relation
+  To create a relation to existing 
+  <span class="content_name">content type name here</span> 
+  click on the search result item. If 
+  <span class="content_name">content type name</span> 
+  does not exist you may need to create a new one first. 
+  <a href="" class="content_default_location">Create new <span class="content_name">content type name</span></a> 
 </div>

@@ -56,6 +56,14 @@ EEAReferenceBrowser.Tab.prototype = {
     this.tabular_view(results);
     this.album_view(results);
     this.folder_listing(results);
+
+    var tab = $(".ui-tabs-selected");
+    var creation_link = tab.children(".creation_link");
+    var text = creation_link.text();
+    var link = creation_link.children("a").get(0);
+    var href = $(link).attr('href');
+    $(".popup-tips .content_name").html(text);
+    $(".popup-tips .content_default_location").attr('href', href);
   },
 
   folder_summary_view: function(context){

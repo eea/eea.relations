@@ -6,6 +6,7 @@ from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
 from eea.facetednavigation.widgets.field import StringField
 from eea.relations.events import ObjectInitializedEvent
+from Products.TALESField import TALESString
 
 from interfaces import IContentType
 
@@ -18,7 +19,7 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
             label='Portal type',
             label_msgid='widget_portal_type_title',
             description='Select portal type',
-            description_msgid='widget_portal_tyoe_description',
+            description_msgid='widget_portal_type_description',
             i18n_domain="eea.relations"
         )
     ),
@@ -31,6 +32,17 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
             label_msgid='widget_interface_title',
             description='Select interface',
             description_msgid='widget_interface_description',
+            i18n_domain="eea.relations"
+        )
+    ),
+    TALESString('ct_default_location',
+        schemata="default",
+        default="python:object.aq_parent.absolute_url()",
+        widget=atapi.StringWidget(
+            label='Default location expression',
+            label_msgid='widget_portal_type_title',
+            description='Enter a TALES expression that resolves the default location for this content type',
+            description_msgid='widget_ct_default_location',
             i18n_domain="eea.relations"
         )
     ),

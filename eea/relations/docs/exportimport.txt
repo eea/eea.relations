@@ -59,6 +59,8 @@ See default faceted portal types
       <property name="ct_type"></property>
       <property
          name="ct_interface">Products.Archetypes.interfaces._base.IBaseObject</property>
+     <property
+         name="ct_default_location">http://nohost/plone/portal_relations</property>
      </object>
      <object name="generic-to-generic-relation" meta_type="EEAPossibleRelation">
       <property name="from">generic</property>
@@ -113,6 +115,8 @@ Import some data
       <property name="title">Folder</property>
       <property name="ct_type">Folder</property>
       <property name="ct_interface"></property>
+      <property
+         name="ct_default_location">http://nohost/plone/portal_relations</property>
      </object>
      <object name="folder-to-folder" meta_type="EEAPossibleRelation">
       <property name="from">folder</property>
@@ -145,6 +149,8 @@ Purge content-types properties
       <property name="title">Folder</property>
       <property name="ct_type"></property>
       <property name="ct_interface"></property>
+      <property
+         name="ct_default_location">http://nohost/plone/portal_relations</property>
      </object>
      <object name="folder-to-folder" meta_type="EEAPossibleRelation">
       <property name="from">folder</property>
@@ -178,6 +184,8 @@ Purge relations properties
       <property name="title">Folder</property>
       <property name="ct_type"></property>
       <property name="ct_interface"></property>
+      <property
+         name="ct_default_location">http://nohost/plone/portal_relations</property>
      </object>
      <object name="folder-to-folder" meta_type="EEAPossibleRelation">
       <property name="from"></property>
@@ -282,6 +290,8 @@ Export
       <property name="title"></property>
       <property name="ct_type"></property>
       <property name="ct_interface"></property>
+      <property
+         name="ct_default_location">http://nohost/plone/portal_relations</property>
       <criteria>
        <criterion name="c4">
         <property name="widget">checkbox</property>
@@ -338,6 +348,8 @@ Let's see our beautiful faceted navigable container
       <property name="title"></property>
       <property name="ct_type"></property>
       <property name="ct_interface"></property>
+      <property
+         name="ct_default_location">http://nohost/plone/portal_relations</property>
       <criteria>
        <criterion name="c2">
         <property name="widget">checkbox</property>
