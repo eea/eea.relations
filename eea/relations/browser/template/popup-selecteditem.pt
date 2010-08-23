@@ -28,7 +28,7 @@
     metal:define-macro="listitem">
 
     <a target="_blank"
-        tal:attributes="class string:reviewstate-$state; href item_absolute_url; "
+        tal:attributes="class string:state-$state; href item_absolute_url; "
       tal:content="item_title_or_id"
       >
         Item Title
