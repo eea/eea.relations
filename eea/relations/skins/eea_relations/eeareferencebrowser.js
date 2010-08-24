@@ -64,6 +64,15 @@ EEAReferenceBrowser.Tab.prototype = {
     var href = $(link).attr('href');
     $(".popup-tips .content_name").html(text);
     $(".popup-tips .content_default_location").attr('href', href);
+    if (!href) href = [];
+
+    if (href.length == 0) {
+      $(".eea-refwidget-popup .no_link").css('display','inline');
+      $(".eea-refwidget-popup .has_link").css('display','none');
+    } else {
+      $(".eea-refwidget-popup .has_link").css('display','inline');
+      $(".eea-refwidget-popup .no_link").css('display','none');
+    }
   },
 
   folder_summary_view: function(context){
