@@ -1,6 +1,5 @@
 Changelog
 =========
-
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Alin Voinea - alin.voinea@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
@@ -8,19 +7,17 @@ Changelog
 
 0.4 (unreleased)
 ----------------
-* Color links in reference widget according to their state. [tiberich #3561]
-* Add default location field to content type entries [tiberich #3544]
+ * Feature: Color links in reference widget according to their state. [tiberich #3561]
+ * Feature: Add default location field to content type entries [tiberich #3544]
 
 0.3 (2010-08-16)
 ----------------
-* Change: Set permissions for reference popups to View instead of ModifyContent, [tiberich #3525]
+ * Change: Set permissions for reference popups to View instead of ModifyContent, [tiberich #3525]
 
 0.2 (2010-06-16)
 ------------------
-* Change: Changed AutoRelations API to return a list of tabs (labeled brains) [#3298 voineali]
-
+ * Change: Changed AutoRelations API to return a list of tabs (labeled brains) [#3298 voineali]
 
 0.1 (2010-06-07)
 ----------------
-
-* Initial release
+ * Initial release
