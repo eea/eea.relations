@@ -30,6 +30,7 @@ setup(name=NAME,
           # -*- Extra requirements: -*-
           'pydot',
           'eea.facetednavigation',
+          'Products.TALESField',
       ],
       entry_points="""
       # -*- Entry points: -*-
