@@ -5,7 +5,7 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim tiberiu.ichim@eaudeweb.ro]
 
-0.4 (unreleased)
+0.4 (2010-09-06)
 ----------------
  * Feature: Color links in reference widget according to their state. [tiberich #3561]
  * Feature: Add default location field to content type entries [tiberich #3544]
