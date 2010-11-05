@@ -7,6 +7,7 @@ Changelog
 
 0.5-dev - (unreleased)
 ----------------------
+ * Bug fix: when exporting GS profile, constrain to string the type titles [tiberich]
 
 0.4 (2010-09-06)
 ----------------

@@ -17,7 +17,7 @@ class ContentTypeXMLAdapter(XMLAdapterBase):
             child.setAttribute('name', prop)
             field = self.context.getField(prop)
             value = field.getAccessor(self.context)()
-            value = self._doc.createTextNode(value)
+            value = self._doc.createTextNode(str(value))
             child.appendChild(value)
             node.appendChild(child)
         return node
