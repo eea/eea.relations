@@ -26,7 +26,7 @@ This package provides an utility to generate .png image from pydot.Dot instances
     >>> from pydot import Dot as PyGraph
     >>> graph = PyGraph()
     >>> png = image(graph)
-    >>> png
+    >>> png[:10]
     '\x89PNG...'
 
 
