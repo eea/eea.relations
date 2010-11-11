@@ -8,6 +8,7 @@ Changelog
 0.6-dev - (unreleased)
 ----------------------
  * Bug fix: Fix failing tests [voineali #3821]
+ * Change: Added cache metadata to images [ghicaale #3667]
 
 0.5 - (2010-11-05)
 ------------------
