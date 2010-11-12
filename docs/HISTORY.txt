@@ -5,8 +5,8 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim tiberiu.ichim@eaudeweb.ro]
 
-0.6-dev - (unreleased)
-----------------------
+0.6 - (2010-11-12)
+------------------
  * Bug fix: Fix failing tests [voineali #3821]
  * Change: Added cache metadata to images [ghicaale #3667]
 
