@@ -7,6 +7,7 @@ Changelog
 
 0.7-dev - (unreleased)
 ----------------------
+ * Bug fix: Fix missing end tag found by hudson zptlint [voineali #3821]
 
 0.6 - (2010-11-12)
 ------------------

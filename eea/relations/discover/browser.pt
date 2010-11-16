@@ -8,5 +8,6 @@
         href python:brain.absolute_url()"
         tal:content="python:brain.title_or_id()" />
     </div>
+    </tal:tab>
   </div>
 </metal:relations>
