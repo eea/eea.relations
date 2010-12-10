@@ -7,6 +7,7 @@ Changelog
 
 0.8-dev - (unreleased)
 ----------------------
+ * Bug fix: Fixed jslint warnings [voineali #3821]
 
 0.7 - (2010-11-22)
 ------------------
