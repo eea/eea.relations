@@ -81,7 +81,7 @@ Usage:
       ">
       <a class="tileImage" tal:condition="thumb"
         tal:attributes="href url; title title; alt title;
-          class python:test(is_video, 'tileImage thickbox', 'tileImage')">
+          class python:test(is_video, 'tileImage fancybox', 'tileImage')">
         <img tal:attributes="src string:$url/image_thumb;
           title title; alt title;" />
       </a>

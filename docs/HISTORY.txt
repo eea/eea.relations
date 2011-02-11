@@ -7,6 +7,7 @@ Changelog
 
 0.9-dev - (unreleased)
 ----------------------
+ * WIP: replaced thickbox with fancybox [ichimdav #3773]
 
 0.8 - (2010-12-13)
 ------------------
