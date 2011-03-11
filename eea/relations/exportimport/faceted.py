@@ -1,6 +1,6 @@
 """ XML Adapter
 """
-from zope import event
+#from zope import event
 from eea.relations.interfaces import IFacetedNavigable
 from Products.GenericSetup.utils import XMLAdapterBase
 from contenttype import ContentTypeXMLAdapter

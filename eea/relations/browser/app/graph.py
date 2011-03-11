@@ -1,6 +1,5 @@
 """ Graph drawers
 """
-from zope.component import queryAdapter
 from pydot import Dot as PyGraph
 from zope.component import queryAdapter, queryUtility
 from Products.Five.browser import BrowserView

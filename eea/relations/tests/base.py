@@ -26,14 +26,16 @@ def setup_eea_relations():
 
     try:
         ptc.installPackage('eea.relations')
-    except AttributeError, err:
+    except AttributeError:
         #BBB Plone 2.5
         pass
 
     ptc.installProduct('Five')
 
     #BBB Plone 2.5
-    try: import Products.FiveSite
+    try: 
+        import Products.FiveSite
+        Products.FiveSite
     except ImportError: pass
     else: ptc.installProduct('FiveSite')
 

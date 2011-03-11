@@ -1,6 +1,7 @@
 from Products.validation import ValidationChain
 try:
     from Products.OrderableReferenceField._field import OrderableReferenceField
+    OrderableReferenceField #pyflakes
 except ImportError:
     from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
 

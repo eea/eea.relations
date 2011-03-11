@@ -1,7 +1,7 @@
-from zope.component import getUtility, queryMultiAdapter
+from zope.component import getUtility #, queryMultiAdapter
 from p4a.subtyper.interfaces import ISubtyper
-from Products.GenericSetup.interfaces import IBody
-from Products.GenericSetup.context import SnapshotImportContext
+#from Products.GenericSetup.interfaces import IBody
+#from Products.GenericSetup.context import SnapshotImportContext
 from eea.relations.config import SUBTYPE
 
 def subtype(obj, evt):

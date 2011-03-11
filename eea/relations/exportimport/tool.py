@@ -6,7 +6,7 @@ from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.interfaces import IBody
 from eea.relations.interfaces import IRelationsTool
 from eea.relations.events import ObjectInitializedEvent
-from eea.relations.interfaces import IFacetedNavigable
+#from eea.relations.interfaces import IFacetedNavigable
 
 class RelationsToolXMLAdapter(XMLAdapterBase):
     """ Generic setup export/import xml adapter

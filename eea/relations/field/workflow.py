@@ -2,7 +2,7 @@ from zope.interface import Interface
 from zope.component import adapts
 from zope.interface import implements
 from interfaces import IValueProvider, IRequiredFor
-from Products.CMFCore.utils import getToolByName
+#from Products.CMFCore.utils import getToolByName
 from eea.relations.field import EEAReferenceField
 from eea.relations.component import queryForwardRelations
 from eea.relations.component import queryContentType
