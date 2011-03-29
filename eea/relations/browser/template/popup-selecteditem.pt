@@ -5,7 +5,7 @@
   breadcrumbs item/@@breadcrumbs_view;
   breadcrumbs python:breadcrumbs.breadcrumbs();
   wftool python:view.context.portal_workflow;
-  state python:wftool.getInfoFor(item, 'review_state');
+  state python:wftool.getInfoFor(item, 'review_state', 'visible');
   ">
   <input type="checkbox" checked="checked" style="display: none"
     tal:condition="python:view.mode == 'edit'"
