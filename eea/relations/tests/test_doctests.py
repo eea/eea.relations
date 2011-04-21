@@ -1,8 +1,8 @@
 """ Doc tests
 """
 import unittest
-from zope.testing import doctest
-from Testing.ZopeTestCase import FunctionalDocFileSuite as Suite
+import doctest
+from Testing.ZopeTestCase import FunctionalDocFileSuite
 from base import EEARelationsFunctionalTestCase
 
 OPTIONFLAGS = (doctest.REPORT_ONLY_FIRST_FAILURE |
@@ -13,31 +13,31 @@ def test_suite():
     """ Suite
     """
     return unittest.TestSuite((
-            Suite('docs/graph.txt',
+            FunctionalDocFileSuite('docs/graph.txt',
                   optionflags=OPTIONFLAGS,
                   package='eea.relations',
                   test_class=EEARelationsFunctionalTestCase) ,
-            Suite('docs/components.txt',
+            FunctionalDocFileSuite('docs/components.txt',
                   optionflags=OPTIONFLAGS,
                   package='eea.relations',
                   test_class=EEARelationsFunctionalTestCase) ,
-            Suite('docs/faceted.txt',
+            FunctionalDocFileSuite('docs/faceted.txt',
                   optionflags=OPTIONFLAGS,
                   package='eea.relations',
                   test_class=EEARelationsFunctionalTestCase) ,
-            Suite('docs/exportimport.txt',
+            FunctionalDocFileSuite('docs/exportimport.txt',
                   optionflags=OPTIONFLAGS,
                   package='eea.relations',
                   test_class=EEARelationsFunctionalTestCase) ,
-            Suite('docs/validation.txt',
+            FunctionalDocFileSuite('docs/validation.txt',
                   optionflags=OPTIONFLAGS,
                   package='eea.relations',
                   test_class=EEARelationsFunctionalTestCase) ,
-            Suite('docs/discover.txt',
+            FunctionalDocFileSuite('docs/discover.txt',
                   optionflags=OPTIONFLAGS,
                   package='eea.relations',
                   test_class=EEARelationsFunctionalTestCase) ,
-            Suite('docs/workflow.txt',
+            FunctionalDocFileSuite('docs/workflow.txt',
                   optionflags=OPTIONFLAGS,
                   package='eea.relations',
                   test_class=EEARelationsFunctionalTestCase) ,

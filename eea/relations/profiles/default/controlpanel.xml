@@ -5,8 +5,8 @@
     title="Possible relations" action_id="eea.relations"
     appId="eea.relations" category="Products"
     condition_expr="python:getattr(portal, 'portal_relations', None)"
-    url_expr="string:${portal_url}/portal_relations/"
-    icon_expr="eearelations.png"
+    url_expr="string:$portal_url/portal_relations/"
+    icon_expr="string:$portal_url/eearelations.png"
     visible="True" i18n:attributes="title">
   <permission>Manage portal</permission>
  </configlet>

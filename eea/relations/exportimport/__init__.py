@@ -1,5 +1,5 @@
 import os
-from zope.app import zapi
+from zope.component import queryMultiAdapter
 from Products.CMFCore.utils import getToolByName
 from Products.GenericSetup.interfaces import IBody
 
@@ -18,7 +18,7 @@ def importRelationsTool(context):
         logger.info('portal_relations tool missing')
         return
 
-    importer = zapi.queryMultiAdapter((tool, context), IBody)
+    importer = queryMultiAdapter((tool, context), IBody)
     if importer is None:
         logger.warning("Import adapter missing.")
         return
@@ -40,7 +40,7 @@ def exportRelationsTool(context):
         logger.info("Nothing to export")
         return
 
-    exporter = zapi.queryMultiAdapter((tool, context), IBody)
+    exporter = queryMultiAdapter((tool, context), IBody)
     if exporter is None:
         logger.warning("Export adapter missing.")
         return

@@ -4,16 +4,9 @@ from zope.component import queryAdapter
 from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
-from eea.facetednavigation.widgets.field import FieldMixin
 from interfaces import IToolAccessor
 
 from interfaces import IRelation
-
-class StringField(FieldMixin, atapi.StringField):
-    """ String Field """
-
-class LinesField(FieldMixin, atapi.LinesField):
-    """ Lines Field """
 
 class TitleWidget(atapi.StringWidget):
     """ Auto generate title
@@ -42,7 +35,7 @@ class TitleWidget(atapi.StringWidget):
         return value, {}
 
 RelationSchema = atapi.Schema((
-    StringField('from',
+    atapi.StringField('from',
         schemata="default",
         vocabulary_factory='eea.relations.voc.ContentTypes',
         required=True,
@@ -55,7 +48,7 @@ RelationSchema = atapi.Schema((
             i18n_domain="eea.relations"
         )
     ),
-    StringField('to',
+    atapi.StringField('to',
         schemata="default",
         vocabulary_factory='eea.relations.voc.ContentTypes',
         required=True,
@@ -79,7 +72,7 @@ RelationSchema = atapi.Schema((
             i18n_domain='plone',
         ),
     ),
-    StringField('forward_label',
+    atapi.StringField('forward_label',
         schemata="default",
         widget=atapi.StringWidget(
             size=50,
@@ -90,7 +83,7 @@ RelationSchema = atapi.Schema((
             i18n_domain="eea.relations"
         )
     ),
-    StringField('backward_label',
+    atapi.StringField('backward_label',
         schemata="default",
         widget=atapi.StringWidget(
             size=50,
@@ -125,7 +118,7 @@ RelationSchema = atapi.Schema((
             i18n_domain="eea.relations"
         )
     ),
-    LinesField('required_for',
+    atapi.LinesField('required_for',
         schemata='default',
         vocabulary_factory='eea.relations.voc.workflowstates',
         widget=atapi.MultiSelectionWidget(

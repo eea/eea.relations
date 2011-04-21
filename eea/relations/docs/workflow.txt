@@ -53,10 +53,10 @@ Cleanup default relations
 Add possible relations. We will use EEARefBrowserDemo as document content-type
 as it already has a schema containing EEAReferenceField
 
-    >>> from zope.app import zapi
+    >>> from zope.component import queryMultiAdapter
     >>> from Products.GenericSetup.interfaces import IBody
     >>> from Products.GenericSetup.testing import DummySetupEnviron
-    >>> importer = zapi.queryMultiAdapter((rtool, DummySetupEnviron()), IBody)
+    >>> importer = queryMultiAdapter((rtool, DummySetupEnviron()), IBody)
 
     >>> importer.body = '''<?xml version="1.0" encoding="utf-8"?>
     ... <object name="portal_relations" meta_type="EEARelationsTool">
@@ -84,7 +84,7 @@ as it already has a schema containing EEAReferenceField
     ... </object>
     ... '''
 
-    >>> graph = zapi.queryMultiAdapter((rtool, rtool.REQUEST), name=u'graph.dot')
+    >>> graph = queryMultiAdapter((rtool, rtool.REQUEST), name=u'graph.dot')
     >>> print graph()
     digraph G {
     "node-demo" [label="Demo"];

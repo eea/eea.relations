@@ -5,8 +5,14 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim tiberiu.ichim@eaudeweb.ro]
 
-0.11-dev - (unreleased)
+4.0-dev - (unreleased)
 -----------------------
+ * Feature: Plone 4 compatible [voineali #4232]
+   This version is not backward compatible.
+
+ TODO
+   * Fix custom IFacetedNavigable behaviour
+   * Cleanup i18n domains
 
 0.10 - (2011-03-29)
 -------------------

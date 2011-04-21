@@ -1,8 +1,4 @@
-from zope.component import getUtility #, queryMultiAdapter
-from p4a.subtyper.interfaces import ISubtyper
-#from Products.GenericSetup.interfaces import IBody
-#from Products.GenericSetup.context import SnapshotImportContext
-from eea.relations.config import SUBTYPE
+from zope.component import getMultiAdapter
 
 def subtype(obj, evt):
     """ Subtype as faceted navigable
@@ -12,12 +8,6 @@ def subtype(obj, evt):
     if portal_type != 'EEARelationsContentType':
         return
 
-    subtyper = getUtility(ISubtyper)
-    possible_types = [x.name for x in subtyper.possible_types(context)]
-    if SUBTYPE not in possible_types:
-        return
-
-    if subtyper.existing_type(context) == SUBTYPE:
-        return
-
-    subtyper.change_type(context, SUBTYPE)
+    subtyper = getMultiAdapter((context, context.REQUEST),
+                               name=u'faceted_subtyper')
+    subtyper.enable()

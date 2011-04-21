@@ -3,6 +3,8 @@
   i18n_domain="eea.relations">
 
   <include file="profiles.zcml" />
+  <include file="skins.zcml" />
+
   <include package=".browser" />
   <include package=".subtypes" />
   <include package=".vocabulary" />

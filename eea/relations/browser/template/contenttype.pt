@@ -5,29 +5,7 @@
 
 <body>
 
-<div metal:fill-slot="main">
-  <h1 class="documentFirstHeading">
-    <span class="visualIcon contenttype-eearelationscontenttype" style="background-position: center left">
-      <span class="visualIconPadding" tal:content="object_title">
-        Relation
-      </span>
-    </span>
-  </h1>
-
-  <div metal:use-macro="here/document_actions/macros/document_actions">
-    Document actions (print, sendto etc)
-  </div>
-
-  <a href=""
-     class="link-parent"
-     tal:define="parent_url python:here.navigationParent(here, template_id)"
-     tal:condition="parent_url"
-     tal:attributes="href parent_url"
-     i18n:translate="back_to_portal_relations">
-    Back to Possible content relations
-  </a>
-
-<div class="visualClear"></div>
+<div metal:fill-slot="content-core">
 
 <div style="width: 100%">
   <div style="text-align: center; border: 1px solid #8CACBB; padding: 2em 0">

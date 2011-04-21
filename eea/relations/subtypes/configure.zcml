@@ -4,15 +4,11 @@
   i18n_domain="eea.relations">
 
   <class class="eea.relations.content.contenttype.EEARelationsContentType">
-    <implements interface="eea.relations.interfaces.IPossibleFacetedNavigable" />
+    <implements interface="eea.facetednavigation.interfaces.IPossibleFacetedNavigable" />
   </class>
 
-  <utility
-    name="eea.relations.facetednavigation.ContentTypeFacetedNavigable"
-    factory=".descriptors.EEARelationsContentTypeDescriptor" />
-
   <subscriber
-    for="eea.relations.interfaces.IPossibleFacetedNavigable
+    for="eea.relations.interfaces.IContentType
          eea.relations.events.IObjectInitializedEvent"
     handler=".events.subtype"
   />

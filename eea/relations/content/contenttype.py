@@ -4,14 +4,13 @@ from zope import event
 from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
-from eea.facetednavigation.widgets.field import StringField
 from eea.relations.events import ObjectInitializedEvent
 from Products.TALESField import TALESString
 
 from interfaces import IContentType
 
 EditSchema = ATFolder.schema.copy() + atapi.Schema((
-    StringField('ct_type',
+    atapi.StringField('ct_type',
         schemata="default",
         vocabulary_factory='eea.relations.voc.PortalTypesVocabulary',
         validators=('eea.relations.contenttype',),
@@ -23,7 +22,7 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
             i18n_domain="eea.relations"
         )
     ),
-    StringField('ct_interface',
+    atapi.StringField('ct_interface',
         schemata="default",
         vocabulary_factory='eea.relations.voc.ObjectProvides',
         validators=('eea.relations.contenttype',),
@@ -66,3 +65,22 @@ class EEARelationsContentType(ATFolder):
         super(EEARelationsContentType, self).processForm(*args, **kwargs)
         if is_new_object:
             event.notify(ObjectInitializedEvent(self))
+
+    def buildQuery(self):
+        """ Custom query as EEA Faceted Navigation is aware of this method
+        """
+        query = {}
+
+        # Portal type
+        field = self.getField('ct_type')
+        value = field.getAccessor(self)()
+        if value:
+            query['portal_type'] = value
+
+        # Object provides
+        field = self.getField('ct_interface')
+        value = field.getAccessor(self)()
+        if value:
+            query['object_provides'] = value
+
+        return query

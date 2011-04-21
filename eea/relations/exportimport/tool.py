@@ -1,12 +1,11 @@
 """ XML Adapter
 """
 from zope import event
-from zope.app import zapi
+from zope.component import queryMultiAdapter
 from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.interfaces import IBody
 from eea.relations.interfaces import IRelationsTool
 from eea.relations.events import ObjectInitializedEvent
-#from eea.relations.interfaces import IFacetedNavigable
 
 class RelationsToolXMLAdapter(XMLAdapterBase):
     """ Generic setup export/import xml adapter
@@ -27,7 +26,7 @@ class RelationsToolXMLAdapter(XMLAdapterBase):
         """
         node = self._getObjectNode('object')
         for child in self.context.objectValues():
-            exporter = zapi.queryMultiAdapter((child, self.environ), IBody)
+            exporter = queryMultiAdapter((child, self.environ), IBody)
             node.appendChild(exporter.node)
         return node
 
@@ -58,7 +57,7 @@ class RelationsToolXMLAdapter(XMLAdapterBase):
                 obj = self.context._getOb(name)
                 event.notify(ObjectInitializedEvent(obj))
 
-            importer = zapi.queryMultiAdapter((obj, self.environ), IBody)
+            importer = queryMultiAdapter((obj, self.environ), IBody)
             importer.node = child
 
     node = property(_exportNode, _importNode)
