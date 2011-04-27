@@ -2,18 +2,16 @@ Changelog
 =========
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Alin Voinea - alin.voinea@eaudeweb.ro]
-[Antonio De Marinis - demarinis@eea.europa.eu]
-[Tiberiu Ichim tiberiu.ichim@eaudeweb.ro]
+[Antonio De Marinis - Antonio.DeMarinis@eea.europa.eu]
+[Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
 
 4.0-dev - (unreleased)
 ----------------------
+ * TODO: Fix relations JS popup
+ * TODO: Add a way to override default relations widget for all content-types
+ * TODO: Fix custom IFacetedNavigable behaviour
  * Cleanup: Fixed all pylint, pyflakes violations [voineali #4232]
- * Feature: Plone 4 compatible [voineali #4232]
-   This version is not backward compatible.
-
- TODO
-   * Fix relations JS popup.
-   * Add a way to override default relations widget for all content-types.
+ * Feature: Plone 4.0.4 compatible release [voineali #4232]
 
 0.10 - (2011-03-29)
 -------------------
