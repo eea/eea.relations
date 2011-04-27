@@ -58,7 +58,7 @@ See default faceted portal types
       <property name="title">Generic</property>
       <property name="ct_type"></property>
       <property
-         name="ct_interface">Products.Archetypes.interfaces._base.IBaseObject</property>
+         name="ct_interface">Products.Archetypes.interfaces.base.IBaseObject</property>
      <property
          name="ct_default_location">http://nohost/plone/portal_relations</property>
      </object>

@@ -1,3 +1,5 @@
+""" Graph interfaces
+"""
 from zope.interface import Interface
 
 class INode(Interface):

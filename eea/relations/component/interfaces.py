@@ -1,3 +1,5 @@
+""" EEA relations components interfaces
+"""
 from zope.interface import Interface
 
 class IContentTypeLookUp(Interface):

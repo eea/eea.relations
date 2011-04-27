@@ -3,6 +3,8 @@
 from Products.CMFCore.utils import getToolByName
 
 def importVarious(self):
+    """ Various setup
+    """
     if self.readDataFile('eea.relations.txt') is None:
         return
 

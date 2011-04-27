@@ -1,3 +1,5 @@
+""" GenericSetup export/import XML adapters
+"""
 import os
 from zope.component import queryMultiAdapter
 from Products.CMFCore.utils import getToolByName
@@ -45,5 +47,6 @@ def exportRelationsTool(context):
         logger.warning("Export adapter missing.")
         return
 
-    context.writeDataFile('possible_relations.xml', exporter.body, exporter.mime_type)
+    context.writeDataFile('possible_relations.xml',
+                          exporter.body, exporter.mime_type)
     logger.info("Exported.")

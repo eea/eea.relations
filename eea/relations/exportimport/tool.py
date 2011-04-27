@@ -47,7 +47,7 @@ class RelationsToolXMLAdapter(XMLAdapterBase):
             name = child.getAttribute('name').encode('utf-8')
             obj_ids = self.context.objectIds()
             if (name in obj_ids) and purge_child:
-                self.context.manage_delObjects([name,])
+                self.context.manage_delObjects([name, ])
                 continue
 
             obj = self.context._getOb(name, None)

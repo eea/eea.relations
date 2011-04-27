@@ -1,3 +1,5 @@
+""" Content interfaces
+"""
 from zope.interface import Interface
 
 class IContentType(Interface):
@@ -16,7 +18,10 @@ class IToolAccessor(Interface):
     """ portal_relations tool accessor
     """
     def relations(proxy):
-        """ Returns defined possible relation. If proxy=True returns catalog brains
+        """
+        Returns defined possible relation.
+
+        If proxy=True returns catalog brains
         """
 
     def types(proxy):

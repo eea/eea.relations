@@ -3,7 +3,7 @@
 import os
 from tempfile import mktemp
 from zope.interface import implements
-from interfaces import IGraph
+from eea.relations.graph.interfaces import IGraph
 from eea.relations.config import GRAPHVIZ_PATHS
 
 class Graph(object):
@@ -11,8 +11,8 @@ class Graph(object):
     """
     implements(IGraph)
 
-    def __init__(self, format):
-        self.format = format
+    def __init__(self, fmt):
+        self.fmt = fmt
 
     def __call__(self, graph):
         """ Draw pydot.Graph
@@ -20,11 +20,11 @@ class Graph(object):
         if GRAPHVIZ_PATHS:
             graph.progs = GRAPHVIZ_PATHS
 
-        writter = getattr(graph, 'write_' + self.format, None)
+        writter = getattr(graph, 'write_' + self.fmt, None)
         if not writter:
             return None
 
-        path = mktemp('.%s'  % self.format)
+        path = mktemp('.%s'  % self.fmt)
         img = writter(path=path)
 
         img = open(path, 'rb')

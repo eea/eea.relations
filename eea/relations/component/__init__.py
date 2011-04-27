@@ -1,8 +1,10 @@
+""" Components
+"""
 import logging
 from zope.component import queryAdapter
 from eea.relations.interfaces import IContentType
-from interfaces import IContentTypeLookUp
-from interfaces import IRelationsLookUp
+from eea.relations.component.interfaces import IContentTypeLookUp
+from eea.relations.component.interfaces import IRelationsLookUp
 
 logger = logging.getLogger('eea.relations.queryContentType')
 

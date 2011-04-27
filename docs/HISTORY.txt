@@ -6,12 +6,14 @@ Changelog
 [Tiberiu Ichim tiberiu.ichim@eaudeweb.ro]
 
 4.0-dev - (unreleased)
------------------------
+----------------------
+ * Cleanup: Fixed all pylint, pyflakes violations [voineali #4232]
  * Feature: Plone 4 compatible [voineali #4232]
    This version is not backward compatible.
 
  TODO
-   * Fix custom IFacetedNavigable behaviour
+   * Fix relations JS popup.
+   * Add a way to override default relations widget for all content-types.
 
 0.10 - (2011-03-29)
 -------------------

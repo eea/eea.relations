@@ -1,7 +1,11 @@
+""" Custom fields
+"""
 from Products.Archetypes.Registry import registerField
-from referencefield import EEAReferenceField
+from eea.relations.field.referencefield import EEAReferenceField
 
 def register():
+    """ Register fields
+    """
     registerField(
         EEAReferenceField,
         title="EEA Reference Field",

@@ -8,9 +8,9 @@ from eea.relations.config import (
 )
 
 from Products.Archetypes.atapi import registerType
-from tool import EEARelationsTool
-from contenttype import EEARelationsContentType
-from relation import EEAPossibleRelation
+from eea.relations.content.tool import EEARelationsTool
+from eea.relations.content.contenttype import EEARelationsContentType
+from eea.relations.content.relation import EEAPossibleRelation
 
 registerType(EEARelationsTool, PROJECTNAME)
 registerType(EEARelationsContentType, PROJECTNAME)

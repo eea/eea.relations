@@ -1,8 +1,10 @@
+""" Relations content-type components
+"""
 from zope.component import queryAdapter
 from zope.interface import implements
-from interfaces import IContentTypeLookUp
 from Products.Five.utilities.interfaces import IMarkerInterfaces
 from eea.relations.interfaces import IToolAccessor
+from eea.relations.component.interfaces import IContentTypeLookUp
 
 class ContentTypeLookUp(object):
     """ Lookup for context in portal_relations content-types """
@@ -16,6 +18,8 @@ class ContentTypeLookUp(object):
 
     @property
     def ctypes(self):
+        """ Types
+        """
         if self._ctypes:
             return self._ctypes
 
@@ -27,10 +31,14 @@ class ContentTypeLookUp(object):
 
     @property
     def portal_type(self):
+        """ Context portal_type
+        """
         return getattr(self.context, 'portal_type', '')
 
     @property
     def object_provides(self):
+        """ Context object_provides
+        """
         if not self.adapted:
             self.adapted = IMarkerInterfaces(self.context)
 
@@ -40,6 +48,8 @@ class ContentTypeLookUp(object):
 
     @property
     def tuple_types(self):
+        """ Types
+        """
         res = {}
         for doc in self.ctypes:
             ct_type = doc.getField('ct_type').getAccessor(doc)()
@@ -53,6 +63,8 @@ class ContentTypeLookUp(object):
 
     @property
     def portal_types_only(self):
+        """ Only portal_types
+        """
         res = {}
         for doc in self.ctypes:
             ct_interface = doc.getField('ct_interface').getAccessor(doc)()
@@ -66,6 +78,8 @@ class ContentTypeLookUp(object):
 
     @property
     def interfaces_only(self):
+        """ Only interfaces
+        """
         res = {}
         for doc in self.ctypes:
             ct_type = doc.getField('ct_type').getAccessor(doc)()

@@ -77,14 +77,3 @@ Default faceted widgets
       </criterion>
      </criteria>
     </object>
-
-Faceted Query
--------------
-
-    >>> query = getMultiAdapter((ctype, request), name=u'faceted_query')
-    >>> criteria = query.criteria()
-    >>> criteria.get('portal_type', '<NOT SET>')
-    'Folder'
-
-    >>> criteria.get('object_provides', '<NOT SET>')
-    'eea.relations.interfaces.INode'

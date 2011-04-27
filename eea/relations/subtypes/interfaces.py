@@ -1,7 +1,7 @@
-from zope.interface import Interface
-from zope.interface import alsoProvides
-from zope.app.content.interfaces import IContentType
-from eea.facetednavigation.interfaces import IFacetedNavigable as IOriginalFacetedNavigable
+""" Custom subtypes
+"""
+from eea.facetednavigation.interfaces import \
+     IFacetedNavigable as IOriginalFacetedNavigable
 
 class IFacetedNavigable(IOriginalFacetedNavigable):
     """

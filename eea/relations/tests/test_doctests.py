@@ -3,7 +3,7 @@
 import unittest
 import doctest
 from Testing.ZopeTestCase import FunctionalDocFileSuite
-from base import EEARelationsFunctionalTestCase
+from eea.relations.tests.base import EEARelationsFunctionalTestCase
 
 OPTIONFLAGS = (doctest.REPORT_ONLY_FIRST_FAILURE |
                doctest.ELLIPSIS |

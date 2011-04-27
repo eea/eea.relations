@@ -13,4 +13,10 @@
     handler=".events.subtype"
   />
 
+  <subscriber
+    for="eea.facetednavigation.interfaces.IPossibleFacetedNavigable
+         eea.facetednavigation.interfaces.IFacetedEnabledEvent"
+    handler=".events.faceted_enabled"
+    />
+
 </configure>

@@ -4,9 +4,7 @@ from zope.component import queryAdapter
 from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
-from interfaces import IToolAccessor
-
-from interfaces import IRelation
+from eea.relations.content.interfaces import IToolAccessor, IRelation
 
 class TitleWidget(atapi.StringWidget):
     """ Auto generate title

@@ -1,15 +1,15 @@
 """ EEA Relations
 """
-import validators
-validators.register()
-
-import field
-field.register()
-
-import widget
-widget.register()
-
 def initialize(context):
     """ Zope 2 """
-    import content
+    from eea.relations import validators
+    validators.register()
+
+    from eea.relations import field
+    field.register()
+
+    from eea.relations import widget
+    widget.register()
+
+    from eea.relations import content
     content.initialize(context)

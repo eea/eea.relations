@@ -1,3 +1,5 @@
+""" Custom events
+"""
 from zope.interface import implements
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from zope.lifecycleevent import ObjectModifiedEvent

@@ -7,7 +7,7 @@ from Products.ATContentTypes.content.folder import ATFolder
 from eea.relations.events import ObjectInitializedEvent
 from Products.TALESField import TALESString
 
-from interfaces import IContentType
+from eea.relations.content.interfaces import IContentType
 
 EditSchema = ATFolder.schema.copy() + atapi.Schema((
     atapi.StringField('ct_type',
@@ -40,7 +40,8 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
         widget=atapi.StringWidget(
             label='Default location expression',
             label_msgid='widget_portal_type_title',
-            description='Enter a TALES expression that resolves the default location for this content type',
+            description=('Enter a TALES expression that resolves the default '
+                         'location for this content type'),
             description_msgid='widget_ct_default_location',
             i18n_domain="eea"
         )

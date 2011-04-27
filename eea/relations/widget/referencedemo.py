@@ -2,8 +2,8 @@
 
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
-from eea.relations.field import EEAReferenceField
-from eea.relations.widget import EEAReferenceBrowserWidget
+from eea.relations.field.referencefield import EEAReferenceField
+from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
 
 SCHEMA = ATFolder.schema.copy() + atapi.Schema((
     EEAReferenceField('relatedItems',
