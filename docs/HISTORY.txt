@@ -12,7 +12,6 @@ Changelog
 
  TODO
    * Fix custom IFacetedNavigable behaviour
-   * Cleanup i18n domains
 
 0.10 - (2011-03-29)
 -------------------

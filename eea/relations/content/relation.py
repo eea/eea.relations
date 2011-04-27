@@ -45,7 +45,7 @@ RelationSchema = atapi.Schema((
             label_msgid='widget_from_title',
             description='Select content-type',
             description_msgid='widget_from_description',
-            i18n_domain="eea.relations"
+            i18n_domain="eea"
         )
     ),
     atapi.StringField('to',
@@ -58,7 +58,7 @@ RelationSchema = atapi.Schema((
             label_msgid='widget_to_title',
             description='Select content-type',
             description_msgid='widget_to_description',
-            i18n_domain="eea.relations"
+            i18n_domain="eea"
         )
     ),
     atapi.StringField(
@@ -80,7 +80,7 @@ RelationSchema = atapi.Schema((
             label_msgid='widget_forward_label_title',
             description='Label to be used for forward relations',
             description_msgid='widget_forward_label_description',
-            i18n_domain="eea.relations"
+            i18n_domain="eea"
         )
     ),
     atapi.StringField('backward_label',
@@ -91,7 +91,7 @@ RelationSchema = atapi.Schema((
             label_msgid='widget_backward_label_title',
             description='Label to be used for backward relations',
             description_msgid='widget_forward_label_description',
-            i18n_domain="eea.relations"
+            i18n_domain="eea"
         )
     ),
     atapi.TextField('description',
@@ -115,7 +115,7 @@ RelationSchema = atapi.Schema((
             description=('Select this if you want to make this relation '
                          'mandatory (action: edit)'),
             description_msgid='widget_required_description',
-            i18n_domain="eea.relations"
+            i18n_domain="eea"
         )
     ),
     atapi.LinesField('required_for',
@@ -130,7 +130,7 @@ RelationSchema = atapi.Schema((
                          'You will also have to update workflow '
                          'transitions accordingly'),
             description_msgid='widget_required_for_description',
-            i18n_domain="eea.relations"
+            i18n_domain="eea"
         )
     ),
 ))
