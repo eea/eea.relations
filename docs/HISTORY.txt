@@ -9,7 +9,6 @@ Changelog
 ----------------------
  * TODO: Fix relations JS popup
  * TODO: Add a way to override default relations widget for all content-types
- * TODO: Fix custom IFacetedNavigable behaviour
  * Cleanup: Fixed all pylint, pyflakes violations [voineali #4232]
  * Feature: Plone 4.0.4 compatible release [voineali #4232]
 
