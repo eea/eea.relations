@@ -93,6 +93,12 @@ class BaseView(BrowserView):
         if self.request:
             kwargs.update(self.request.form)
 
+        # jQuery >= 1.4 adds type to params keys
+        # $.param({ a: [2,3,4] }) // "a[]=2&a[]=3&a[]=4"
+        # Let's fix this
+        kwargs = dict((key.replace('[]', ''), val)
+                      for key, val in kwargs.items())
+
         # Set mode
         mode = kwargs.get('mode', 'view')
         self._mode = mode
@@ -115,7 +121,7 @@ class PopupSelectedItems(BaseView):
         """ Return selected items
         """
         if not self.uids:
-            raise StopIteration
+            return
 
         ctool = getToolByName(self.context, 'portal_catalog')
         for uid in self.uids:

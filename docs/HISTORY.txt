@@ -1,14 +1,15 @@
 Changelog
 =========
-[Alexandru Ghica - alec.ghica@eaudeweb.ro]
-[Alin Voinea - alin.voinea@eaudeweb.ro]
-[Antonio De Marinis - Antonio.DeMarinis@eea.europa.eu]
-[Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
+[Alexandru Ghica - alec dot ghica at eaudeweb dot ro]
+[Alin Voinea - alin dot voinea at eaudeweb dot ro]
+[Antonio De Marinis - Antonio dot DeMarinis at eea dot europa dot eu]
+[Tiberiu Ichim - tiberiu dot ichim at eaudeweb dot ro]
 
 4.0-dev - (unreleased)
 ----------------------
- * TODO: Fix relations JS popup basket and onSave events.
- * TODO: Add a way to override default relations widget for all content-types
+ * Feature: Added a way to easily override Plone default ATContentTypes
+   widget for relatedItems field. Just add 'eea.relations.default' within your
+   zc.buildout include ZCMLs [voineali #4232]
  * Cleanup: Fixed all pylint, pyflakes violations [voineali #4232]
  * Feature: Plone 4.0.4 compatible release [voineali #4232]
 

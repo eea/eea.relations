@@ -33,7 +33,7 @@ class View(BrowserView):
         """
         explorer = queryAdapter(self.context, IAutoRelations)
         if not explorer:
-            raise StopIteration
+            return
 
         for tab, brains in explorer():
             brains = [b for b in self.checkPermission(brains)]

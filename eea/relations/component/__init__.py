@@ -24,12 +24,12 @@ def queryForwardRelations(context):
     if not IContentType.providedBy(context):
         context = queryContentType(context)
     if not context:
-        raise StopIteration
+        return
     connecter = queryAdapter(context, IRelationsLookUp)
     if not connecter:
         logger.exception('No IRelationsLookUp adapter found for '
                          '%s' % context)
-        raise StopIteration
+        return
     for relation in connecter.forward():
         yield relation
 
@@ -39,12 +39,12 @@ def queryBackwardRelations(context):
     if not IContentType.providedBy(context):
         context = queryContentType(context)
     if not context:
-        raise StopIteration
+        return
     connecter = queryAdapter(context, IRelationsLookUp)
     if not connecter:
         logger.exception('No IRelationsLookUp adapter found for '
                          '%s' % context)
-        raise StopIteration
+        return
     for relation in connecter.backward():
         yield relation
 

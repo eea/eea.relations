@@ -13,7 +13,8 @@ class View(BrowserView):
         """
         tool = queryAdapter(self.context, IToolAccessor)
         if not tool:
-            raise StopIteration
+            return
+
         for brain in tool.types():
             yield brain
 
@@ -23,6 +24,7 @@ class View(BrowserView):
         """
         tool = queryAdapter(self.context, IToolAccessor)
         if not tool:
-            raise StopIteration
+            return
+
         for brain in tool.relations():
             yield brain

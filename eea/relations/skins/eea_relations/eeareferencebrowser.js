@@ -32,7 +32,7 @@ EEAReferenceBrowser.Events.prototype = {};
 EEAReferenceBrowser.Tab = function(context, parent){
   this.parent = parent;
   this.context = context;
-  this.panel = context.getCurrentPane();
+  this.panel = context.getPanes().eq(0);
   this.tab = context.getCurrentTab();
   this.name = this.tab.attr('id');
   this.url = jQuery('.tab-url', this.tab).text();
@@ -41,7 +41,7 @@ EEAReferenceBrowser.Tab = function(context, parent){
 
   var self = this;
   Faceted.Load(0, this.url + '/');
-  jQuery(Faceted.Events).bind(Faceted.Events.AJAX_QUERY_SUCCESS, function(evt){
+  jQuery(Faceted.Events).bind(Faceted.Events.AJAX_QUERY_SUCCESS, function(){
     self.setup_links();
   });
 };
@@ -98,7 +98,7 @@ EEAReferenceBrowser.Tab.prototype = {
     items.click(function(){
       var self = jQuery(this);
       var divname = '#' + js_context.parent.name + '-popup-selected-items';
-      assert(jQuery(divname).length == 1, "The popup for selected elements could not be found");
+      assert(jQuery(divname).length === 1, "The popup for selected elements could not be found");
 
       self.effect('transfer', {to: divname}, 'slow', function(){
         jQuery(js_context.parent.events).trigger(
@@ -369,7 +369,8 @@ EEAReferenceBrowser.Basket.prototype = {
 
   close: function(){
     var self = this;
-    var url = '@@eeareferencebrowser-popup-selecteditems.html';
+
+    var url = self.parent.skip_portal_factory('@@eeareferencebrowser-popup-selecteditems.html');
     var query = {};
     query.mode = 'edit';
     query.field = this.parent.name;
@@ -399,9 +400,9 @@ EEAReferenceBrowser.Widget = function(name, options){
   this.position = 0;
 
   // These asserts will make sure that a proper DOM structure is provided for the widget
-  assert(this.context.length == 1, "The following important element of the widget could not be found: context");
-  assert(this.popup.length == 1, "The following important element of the widget could not be found: popup");
-  assert(this.storageedit.length == 1, "The following important element of the widget could not be found: storageedit");
+  assert(this.context.length === 1, "The following important element of the widget could not be found: context");
+  assert(this.popup.length === 1, "The following important element of the widget could not be found: popup");
+  assert(this.storageedit.length === 1, "The following important element of the widget could not be found: storageedit");
 
   this.events = new EEAReferenceBrowser.Events();
   this.width = jQuery(window).width() * 0.85;
@@ -516,7 +517,7 @@ EEAReferenceBrowser.Widget.prototype = {
     }
 
     var lis = jQuery('.formTabs li.formTab', this.workspace);
-    idx = 0;
+    var idx = 0;
     lis.each(function(i){
       if(jQuery('#' + name, jQuery(this)).length){
         idx = i;
@@ -530,6 +531,14 @@ EEAReferenceBrowser.Widget.prototype = {
     this.current_tab = new EEAReferenceBrowser.Tab(ui, this);
   },
 
+  skip_portal_factory: function(url){
+    if(window.location.pathname.indexOf('portal_factory') === -1){
+      return url;
+    }
+    var base_url = window.location.pathname.split('portal_factory')[0];
+    return base_url + url;
+  },
+
   saved: function(data){
     var area = this.storageview;
     if(area.length){
@@ -537,7 +546,7 @@ EEAReferenceBrowser.Widget.prototype = {
       area.append(jQuery('<img src="../eeareferencebrowser-loading.gif" />'));
 
       var self = this;
-      var url = '@@eeareferencebrowser-popup-selecteditems.html';
+      var url = self.skip_portal_factory('@@eeareferencebrowser-popup-selecteditems.html');
       var query = {};
       query.mode = 'view';
       query.field = self.fieldname;
