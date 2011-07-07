@@ -35,6 +35,6 @@
     </a>
   </div>
   <div class="tileBreadcrumbs"
-    tal:content="structure python:' &raquo; '.join((b.get('Title') for b in breadcrumbs))" />
+    tal:content="structure python:u' &raquo; '.join((b.get('Title') for b in breadcrumbs))" />
   <div class="visualClear"></div>
 </div>

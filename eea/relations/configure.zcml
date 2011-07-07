@@ -16,5 +16,6 @@
   <include package=".exportimport" />
   <include package=".field" />
   <include package=".content" />
+  <include package=".upgrades" />
 
 </configure>
