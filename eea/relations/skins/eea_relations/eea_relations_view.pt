@@ -3,40 +3,28 @@
   metal:use-macro="here/main_template/macros/master"
   i18n:domain="plone">
 
-<body>
+  <body metal:fill-slot="content-core">
 
-  <div metal:fill-slot="main">
-  <metal:main-macro define-macro="main">
+    <metal:main-macro define-macro="main">
 
-  <h1 tal:content="object_title" class="documentFirstHeading">
-    Title or id
-  </h1>
+      <a href=""
+        class="link-parent"
+        tal:define="parent_url python:here.navigationParent(here, template_id)"
+        tal:condition="parent_url"
+        tal:attributes="href parent_url"
+        i18n:translate="go_to_parent_url">
+        Up one level
+      </a>
 
-  <div metal:use-macro="here/document_actions/macros/document_actions">
-    Document actions (print, sendto etc)
-  </div>
+      <p class="documentDescription"
+        tal:content="here/Description"
+        tal:condition="here/Description">
+        Description
+      </p>
 
-  <div class="visualClear"></div>
+      <div metal:use-macro="here/document_relateditems/macros/relatedItemsWithThumbs" />
 
-  <a href=""
-    class="link-parent"
-    tal:define="parent_url python:here.navigationParent(here, template_id)"
-    tal:condition="parent_url"
-    tal:attributes="href parent_url"
-    i18n:translate="go_to_parent_url">
-  Up one level
-  </a>
+    </metal:main-macro>
 
-  <p class="documentDescription"
-    tal:content="here/Description"
-    tal:condition="here/Description">
-      Description
-  </p>
-
-  <div metal:use-macro="here/document_relateditems/macros/relatedItemsWithThumbs" />
-
-</metal:main-macro>
-</div>
-
-</body>
+  </body>
 </html>
