@@ -4,7 +4,6 @@
   tabs python:[tab for tab in view.tabs()]">
 
   <tal:tabs condition="tabs">
-
     <ul class="formTabs">
       <li tal:repeat="tab tabs" class="formTab">
         <a tal:define="
@@ -20,12 +19,11 @@
             <span tal:condition="required" class="fieldRequired"> </span>
             <span tal:condition="required_for" class="fieldRequiredFor"> </span>
           </span>
-          <em style="display: none" class="tab-url"
-            tal:content="tab/absolute_url" />
+          <em style="display: none" class="tab-url" tal:content="tab/absolute_url" />
         </a>
         <div class="creation_link" style="display:none" >
-          <a tal:attributes="href python:tab[0].getCt_default_location()"
-             tal:content="python:tab[0].title_or_id()">EEA Data</a>
+          <span tal:attributes="rel python:tab[0].getCt_default_location()"
+            tal:content="python:tab[0].title_or_id()">EEA Data</span>
         </div>
       </li>
     </ul>
@@ -63,21 +61,21 @@
 <dl class="portalMessage popup-tips" i18n:translate="">
   <dt>Info</dt>
   <dd>
-  <div class="ui-icon ui-icon-close" style="float: right">X</div>
+    <div class="ui-icon ui-icon-close" style="float: right">X</div>
 
-  <span class="has_link" style="display:none">
-    To create a relation to existing
-    <span class="content_name">content type name here</span>
-    click on the search result item. If
-    <span class="content_name">content type name</span>
-    does not exist you may need to create a new one first.
-    <a href="" class="content_default_location">Create new <span class="content_name">content type name</span></a>
-  </span>
+    <span class="has_link" style="display:none">
+      To create a relation to existing
+      <span class="content_name">content type name here</span>
+      click on the search result item. If
+      <span class="content_name">content type name</span>
+      does not exist you may need to create a new one first.
+      <a href="" class="content_default_location">Create new <span class="content_name">content type name</span></a>
+    </span>
 
-  <span class="no_link" style="display:none">
-    This content type has no default add location. Use the search to locate what you need.
-  </span>
+    <span class="no_link" style="display:none">
+      This content type has no default add location. Use the search to locate what you need.
+    </span>
 
-  <span class="loading">Loading...</span>
+    <span class="loading">Loading...</span>
   </dd>
 </dl>

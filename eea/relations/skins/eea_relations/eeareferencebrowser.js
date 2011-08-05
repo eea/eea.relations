@@ -63,8 +63,8 @@ EEAReferenceBrowser.Tab.prototype = {
     var tab = this.tab.parent();
     var creation_link = tab.children(".creation_link");
     var text = creation_link.text();
-    var link = creation_link.children("a").get(0);
-    var href = jQuery(link).attr('href');
+    var link = creation_link.children("span").get(0);
+    var href = jQuery(link).attr('rel');
     jQuery(".popup-tips .content_name").html(text);
     jQuery(".popup-tips .content_default_location").attr('href', href);
     if (!href){
