@@ -29,7 +29,7 @@
     </ul>
 
     <div class="panes">
-      <div>Faceted content here</div>
+      <div>Loading...</div>
     </div>
 
   </tal:tabs>
