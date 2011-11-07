@@ -5,15 +5,15 @@ Changelog
 4.0-dev - (unreleased)
 ----------------------
 
-* Feature: Added a way to easily override Plone default ATContentTypes
+* Feature: added a way to easily override Plone default ATContentTypes
   widget for relatedItems field. Just add 'eea.relations.default' within your
   zc.buildout include ZCMLs
   [voineali #4232]
 
-* Cleanup: Fixed all pylint, pyflakes violations
+* Cleanup: fixed all pylint, pyflakes violations
   [voineali #4232]
 
-* Feature: Added upgrade steps
+* Feature: added upgrade steps
   [voineali #4392]
 
 * Feature: Plone 4.x compatible release
@@ -23,7 +23,7 @@ Changelog
 0.10 - (2011-03-29)
 -------------------
 
-* Bug fix: Fixed failure if object has no workflow
+* Bug fix: fixed failure if object has no workflow
   [voineali #4217]
 
 
@@ -37,24 +37,24 @@ Changelog
 0.8 - (2010-12-13)
 ------------------
 
-* Bug fix: Fixed jslint warnings
+* Bug fix: fixed jslint warnings
   [voineali #3821]
 
 
 0.7 - (2010-11-22)
 ------------------
 
-* Bug fix: Fix missing end tag found by hudson zptlint
+* Bug fix: fix missing end tag found by hudson zptlint
   [voineali #3821]
 
 
 0.6 - (2010-11-12)
 ------------------
 
-* Bug fix: Fix failing tests
+* Bug fix: fix failing tests
   [voineali #3821]
 
-* Change: Added cache metadata to images
+* Change: added cache metadata to images
   [ghicaale #3667]
 
 
@@ -68,24 +68,24 @@ Changelog
 0.4 (2010-09-06)
 ----------------
 
-* Feature: Color links in reference widget according to their state.
+* Feature: color links in reference widget according to their state.
   [tiberich #3561]
 
-* Feature: Add default location field to content type entries
+* Feature: add default location field to content type entries
   [tiberich #3544]
 
 
 0.3 (2010-08-16)
 ----------------
 
-* Change: Set permissions for reference popups to View instead of ModifyContent
+* Change: set permissions for reference popups to View instead of ModifyContent
   [tiberich #3525]
 
 
 0.2 (2010-06-16)
 ------------------
 
-* Change: Changed AutoRelations API to return a list of tabs (labeled brains)
+* Change: shanged AutoRelations API to return a list of tabs (labeled brains)
   [#3298 voineali]
 
 
