@@ -12,7 +12,7 @@ VERSION = open(join(*PATH)).read().strip()
 setup(name=NAME,
       version=VERSION,
       description=("EEA Possible Relations. This package provides a flexible "
-                   "way to manage relations i a plone site. it provides a new "
+                   "way to manage relations in a Plone site. it provides a new "
                    "reference browser widget and a central management "
                    "interface for relations, their labels and requirements."),
       long_description=open("README.txt").read() + "\n" +
