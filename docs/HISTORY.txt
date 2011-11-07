@@ -44,7 +44,7 @@ Changelog
 0.7 - (2010-11-22)
 ------------------
 
-* Bug fix: fix missing end tag found by hudson zptlint
+* Bug fix: fixed missing end tag found by hudson zptlint
   [voineali #3821]
 
 
@@ -71,7 +71,7 @@ Changelog
 * Feature: color links in reference widget according to their state.
   [tiberich #3561]
 
-* Feature: add default location field to content type entries
+* Feature: added default location field to content type entries
   [tiberich #3544]
 
 
@@ -85,7 +85,7 @@ Changelog
 0.2 (2010-06-16)
 ------------------
 
-* Change: shanged AutoRelations API to return a list of tabs (labeled brains)
+* Change: changed AutoRelations API to return a list of tabs (labeled brains)
   [#3298 voineali]
 
 
