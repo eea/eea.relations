@@ -5,10 +5,19 @@ object can be in relation with any other object. EEA Relations lets you to
 define possible relations between objects. EEA Relations also comes with a nice,
 customizable faceted navigable popup for relations widget.
 
+Contents
+========
+
 .. contents::
 
+Introduction
+============
+
+Once installed from "Add-ons" the package will add under control panel an utility
+called "Possible relations".
+
 Installation
-------------
+============
 
 The easiest way to get eea.relations support in Plone 4 using this package is to
 work with installations based on `zc.buildout`_.  Other types of installations
@@ -26,7 +35,7 @@ You can download a sample buildout at:
   http://svn.eionet.europa.eu/repositories/Zope/trunk/eea.relations/buildouts/plone4/
 
 Dependencies
-------------
+============
 
   * graphviz
 
@@ -34,19 +43,16 @@ Dependencies
 
       apt-get install graphviz
 
-Documentation
--------------
-
-  See the **doc** directory in this package.
-
-
 API Doc
--------
+=======
 
   http://apidoc.eea.europa.eu/eea.relations-module.html
 
 
-Authors
--------
+Funding
+=======
 
-  - "European Environment Agency", webadmin at eea europa eu
+  EEA_ - European Enviroment Agency (EU)
+
+.. _EEA: http://www.eea.europa.eu/
+
