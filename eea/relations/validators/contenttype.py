@@ -1,12 +1,12 @@
 """ ContentType validator
 """
-from Products.validation.config import validation
-from Products.validation.interfaces import ivalidator
+from zope.interface import implements
+from Products.validation.interfaces.IValidator import IValidator
 
 class ContentType(object):
     """ Validator EEARelationsContentType
     """
-    __implements__ = (ivalidator,)
+    implements(IValidator)
 
     def __init__( self, name, title='', description=''):
         self.name = name
@@ -41,5 +41,3 @@ class ContentType(object):
             return ("You have to provide even Portal type or Interface or both "
                     "in order to define a valid Content-Type")
         return 1
-
-validation.register(ContentType('eea.relations.contenttype'))

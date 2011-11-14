@@ -1,3 +1,5 @@
+""" Installer
+"""
 from setuptools import setup, find_packages
 import os
 from os.path import join
@@ -9,17 +11,21 @@ VERSION = open(join(*PATH)).read().strip()
 
 setup(name=NAME,
       version=VERSION,
-      description="EEA Possible Relations. This package provides a flexible way to manage relations i a plone site. it provides a new reference browser widget and a central management interface for relations, their labels and requirements.",
+      description=("EEA Possible Relations. This package provides a flexible "
+                   "way to manage relations in a Plone site. it provides a new "
+                   "reference browser widget and a central management "
+                   "interface for relations, their labels and requirements."),
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
-      keywords='eea relations widget reference browser referencebrowserwidget faceted facetednavigation plone zope python',
-      author='Alin Voinea',
-      author_email='alin.voinea@eaudeweb.ro',
-      url='http://www.eea.europa.eu',
+      keywords=('eea relations widget reference browser referencebrowserwidget '
+                'faceted facetednavigation plone zope python'),
+      author='Alin Voinea (eaudeweb), European Environment Agency',
+      author_email='webadmin@eea.europa.eu',
+      url='http://www.eea.europa.eu/projects/Zope',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['eea',],

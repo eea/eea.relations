@@ -1,3 +1,5 @@
+""" Popups
+"""
 import logging
 from Products.Five.browser import BrowserView
 from eea.relations.component import queryForwardRelations
@@ -14,14 +16,20 @@ class Popup(BrowserView):
 
     @property
     def field(self):
+        """ Field
+        """
         return self._field
 
     @property
     def uids(self):
+        """ UIDs
+        """
         return self._uids
 
     @property
     def relations(self):
+        """ Relations
+        """
         if self._relations:
             return self._relations
         self._relations = queryForwardRelations(self.context)
@@ -37,7 +45,8 @@ class Popup(BrowserView):
                 continue
 
             required = relation.getField('required').getAccessor(relation)()
-            required_for = relation.getField('required_for').getAccessor(relation)()
+            required_for = relation.getField(
+                'required_for').getAccessor(relation)()
             yield rtool[nto], required, bool(required_for)
 
     def __call__(self, **kwargs):
@@ -62,14 +71,20 @@ class BaseView(BrowserView):
 
     @property
     def field(self):
+        """ Field
+        """
         return self._field
 
     @property
     def mode(self):
+        """ Mode
+        """
         return self._mode
 
     @property
     def uids(self):
+        """ UIDs
+        """
         return self._uids
 
     def setup(self, **kwargs):
@@ -77,6 +92,12 @@ class BaseView(BrowserView):
         """
         if self.request:
             kwargs.update(self.request.form)
+
+        # jQuery >= 1.4 adds type to params keys
+        # $.param({ a: [2,3,4] }) // "a[]=2&a[]=3&a[]=4"
+        # Let's fix this
+        kwargs = dict((key.replace('[]', ''), val)
+                      for key, val in kwargs.items())
 
         # Set mode
         mode = kwargs.get('mode', 'view')
@@ -100,7 +121,7 @@ class PopupSelectedItems(BaseView):
         """ Return selected items
         """
         if not self.uids:
-            raise StopIteration
+            return
 
         ctool = getToolByName(self.context, 'portal_catalog')
         for uid in self.uids:

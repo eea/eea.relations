@@ -79,7 +79,8 @@ class ContentTypeGraph(BaseGraph):
             field = doc.getField('from')
             value_to = field.getAccessor(doc)()
             if name == value_from:
-                if not (value_from == value_to) and value_to in rtool.objectIds():
+                if not (value_from == value_to
+                    ) and value_to in rtool.objectIds():
                     nto = rtool[value_to]
                     node = queryAdapter(nto, INode)
                     graph.add_node(node())
@@ -89,7 +90,8 @@ class ContentTypeGraph(BaseGraph):
                 continue
 
             if name == value_to:
-                if not (value_from == value_to) and value_from in rtool.objectIds():
+                if not (value_from == value_to
+                    ) and value_from in rtool.objectIds():
                     nfrom = rtool[value_from]
                     node = queryAdapter(nfrom, INode)
                     graph.add_node(node())

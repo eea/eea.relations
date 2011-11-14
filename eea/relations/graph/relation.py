@@ -1,8 +1,10 @@
+""" Graph for Relation
+"""
 from pydot import Edge as PyEdge
 
 from zope.component import queryAdapter
 from zope.interface import implements
-from interfaces import IEdge, INode
+from eea.relations.graph.interfaces import IEdge, INode
 from Products.CMFCore.utils import getToolByName
 
 class Edge(object):

@@ -1,7 +1,7 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
-  i18n_domain="eea.relations">
+  i18n_domain="eea">
 
   <browser:page
     for="..interfaces.IRelationsTool"
@@ -81,14 +81,6 @@
     permission="cmf.ModifyPortalContent"
     />
 
-  <browser:page
-    for="eea.relations.interfaces.IFacetedNavigable"
-    name="faceted_query"
-    class=".app.query.FacetedQuery"
-    template="template/query.pt"
-    permission="zope2.View"
-    />
-
   <!-- Widget Popup -->
   <browser:page
     for="*"
@@ -103,20 +95,18 @@
     name="eeareferencebrowser-popup-selecteditems.html"
     template="template/popup-selecteditems.pt"
     class=".app.popup.PopupSelectedItems"
-    permission="zope2.View"
-		allowed_attributes="mode"
-    />
     permission="cmf.ModifyPortalContent"
+    allowed_attributes="mode"
+    />
 
   <browser:page
     for="*"
     name="eeareferencebrowser-popup-selecteditem.html"
     template="template/popup-selecteditem.pt"
     class=".app.popup.PopupSelectedItem"
-    permission="zope2.View"
-		allowed_attributes="mode"
-    />
     permission="cmf.ModifyPortalContent"
+    allowed_attributes="mode"
+    />
 
   <!-- View macro -->
   <browser:page

@@ -1,9 +1,11 @@
+""" Relations tool
+"""
 from zope.interface import implements
 from Products.CMFCore.utils import UniqueObject, getToolByName
 from Products.Archetypes.atapi import OrderedBaseFolder
 from Products.Archetypes.atapi import OrderedBaseFolderSchema
 from Products.Archetypes.atapi import Schema
-from interfaces import IRelationsTool, IToolAccessor
+from eea.relations.content.interfaces import IRelationsTool, IToolAccessor
 
 class EEARelationsTool(UniqueObject, OrderedBaseFolder):
     """ Local utility to store and customize possible content types relations

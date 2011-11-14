@@ -1,14 +1,14 @@
+""" Reference field
+"""
 from Products.validation import ValidationChain
-try:
-    from Products.OrderableReferenceField._field import OrderableReferenceField
-    OrderableReferenceField #pyflakes
-except ImportError:
-    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
+from Products.Archetypes.atapi import ReferenceField
 
-class EEAReferenceField(OrderableReferenceField):
+class EEAReferenceField(ReferenceField):
     """ Customize ReferenceBrowser field
     """
     def validate_relations(self, value, instance, errors=None, **kwargs):
+        """ Validate relations
+        """
         chainname = 'Validator_%s' % self.getName()
         validators = ValidationChain(chainname,
                                      validators=('eea.relations.required',))

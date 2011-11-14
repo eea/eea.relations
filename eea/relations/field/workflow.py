@@ -1,8 +1,9 @@
+""" Workflows
+"""
 from zope.interface import Interface
 from zope.component import adapts
 from zope.interface import implements
-from interfaces import IValueProvider, IRequiredFor
-#from Products.CMFCore.utils import getToolByName
+from eea.relations.field.interfaces import IValueProvider, IRequiredFor
 from eea.relations.field import EEAReferenceField
 from eea.relations.component import queryForwardRelations
 from eea.relations.component import queryContentType
@@ -19,6 +20,8 @@ class ValueProvider(object):
         self.field = field
 
     def relations(self, state):
+        """ Relations
+        """
         relations = queryForwardRelations(self.context)
         for relation in relations:
             field = relation.getField('required_for')
@@ -36,6 +39,8 @@ class ValueProvider(object):
             yield to.getAccessor(relation)()
 
     def has_value(self, **kwargs):
+        """ Has value?
+        """
         state = kwargs.get('state', None)
         value = self.get_value(**kwargs)
         if not state:
@@ -56,6 +61,8 @@ class ValueProvider(object):
         return False
 
     def get_value(self, **kwargs):
+        """ Get value
+        """
         return self.field.getAccessor(self.context)()
 
 class RequiredFor(object):

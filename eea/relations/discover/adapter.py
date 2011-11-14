@@ -1,5 +1,7 @@
+""" Auto-discover adapters
+"""
 from zope.interface import implements
-from interfaces import IAutoRelations
+from eea.relations.discover.interfaces import IAutoRelations
 
 class AutoRelations(object):
     """ Abstract adapter to auto discover context relations
@@ -10,7 +12,7 @@ class AutoRelations(object):
         self.context = context
 
     def __call__(self, **kwargs):
-        """ Return a list of labeled brains/objects, 
+        """ Return a list of labeled brains/objects,
             like [('Data used in figures',databrains),('People responsible',peoplebrains)]
         """
         return []

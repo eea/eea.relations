@@ -1,6 +1,8 @@
+""" Graph for content-type
+"""
 from pydot import Node as PyNode
 from zope.interface import implements
-from interfaces import INode
+from eea.relations.graph.interfaces import INode
 
 class Node(object):
     """ Adapter for ContentType to represent it as a pydot.Node

@@ -1,31 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
   lang="en-US"
   metal:use-macro="here/main_template/macros/master"
-  i18n:domain="eea.relations">
+  i18n:domain="eea">
 
 <body>
 
-<div metal:fill-slot="portlets_one_slot">
-  <metal:prefs use-macro="here/portlet_prefs/macros/portlet" />
-</div>
-
-<div metal:fill-slot="column_two_slot" />
-
-<div metal:fill-slot="main">
-  <h1 class="documentFirstHeading">
-    <span class="visualIcon contenttype-eearelationstool" style="background-position: center left">
-      <span class="visualIconPadding" tal:content="object_title">
-        Relations Tool
-      </span>
-    </span>
-  </h1>
-
-
-  <div metal:use-macro="here/document_actions/macros/document_actions">
-    Document actions (print, sendto etc)
-  </div>
-
-  <div class="visualClear"></div>
+<div metal:fill-slot="content-core">
 
   <div style="width: 100%">
     <div style="float: left; width: 100%">

@@ -1,15 +1,16 @@
 """ Relation required validator
 """
-from Products.validation.config import validation
+from zope.interface import implements
+from Products.validation.interfaces.IValidator import IValidator
+from Products.CMFCore.utils import getToolByName
+
 from eea.relations.component import queryForwardRelations
 from eea.relations.component import queryContentType
-from Products.validation.interfaces import ivalidator
-from Products.CMFCore.utils import getToolByName
 
 class Required(object):
     """ Validator
     """
-    __implements__ = (ivalidator,)
+    implements(IValidator)
 
     def __init__( self, name, title='', description=''):
         self.name = name
@@ -72,5 +73,3 @@ class Required(object):
         rtool = getToolByName(instance, 'portal_relations')
         names = [rtool[rel].title_or_id() for rel in relations]
         return "Requires relations with: %s" % ', '.join(names)
-
-validation.register(Required('eea.relations.required'))

@@ -1,4 +1,4 @@
-var EEAReferenceBrowser = {version: '1.0.0'};
+var EEAReferenceBrowser = {version: '4.0'};
 EEAReferenceBrowser.debug = false;
 
 var AssertException = function(message) {
@@ -32,16 +32,16 @@ EEAReferenceBrowser.Events.prototype = {};
 EEAReferenceBrowser.Tab = function(context, parent){
   this.parent = parent;
   this.context = context;
-  this.panel = jQuery(context.panel);
-  this.tab = jQuery(context.tab);
-  this.name = this.panel.attr('id');
+  this.panel = context.getPanes().eq(0);
+  this.tab = context.getCurrentTab();
+  this.name = this.tab.attr('id');
   this.url = jQuery('.tab-url', this.tab).text();
-  this.panel.height(parent.height - 180);
+  this.panel.height(parent.height - 195);
   this.panel.css('overflow', 'auto');
 
   var self = this;
   Faceted.Load(0, this.url + '/');
-  jQuery(Faceted.Events).bind(Faceted.Events.AJAX_QUERY_SUCCESS, function(evt){
+  jQuery(Faceted.Events).bind(Faceted.Events.AJAX_QUERY_SUCCESS, function(){
     self.setup_links();
   });
 };
@@ -60,23 +60,24 @@ EEAReferenceBrowser.Tab.prototype = {
     this.album_view(results);
     this.folder_listing(results);
 
-    var tab = $(".ui-tabs-selected");
+    var tab = this.tab.parent();
     var creation_link = tab.children(".creation_link");
     var text = creation_link.text();
-    var link = creation_link.children("a").get(0);
-    var href = $(link).attr('href');
-    $(".popup-tips .content_name").html(text);
-    $(".popup-tips .content_default_location").attr('href', href);
+    var link = creation_link.children("span").get(0);
+    var href = jQuery(link).attr('rel');
+    jQuery(".popup-tips .content_name").html(text);
+    jQuery(".popup-tips .content_default_location").attr('href', href);
     if (!href){
       href = [];
     }
 
+    jQuery(".eea-refwidget-popup .loading").remove();
     if (href.length === 0) {
-      $(".eea-refwidget-popup .no_link").css('display','inline');
-      $(".eea-refwidget-popup .has_link").css('display','none');
+      jQuery(".eea-refwidget-popup .no_link").css('display','inline');
+      jQuery(".eea-refwidget-popup .has_link").css('display','none');
     } else {
-      $(".eea-refwidget-popup .has_link").css('display','inline');
-      $(".eea-refwidget-popup .no_link").css('display','none');
+      jQuery(".eea-refwidget-popup .has_link").css('display','inline');
+      jQuery(".eea-refwidget-popup .no_link").css('display','none');
     }
   },
 
@@ -97,7 +98,7 @@ EEAReferenceBrowser.Tab.prototype = {
     items.click(function(){
       var self = jQuery(this);
       var divname = '#' + js_context.parent.name + '-popup-selected-items';
-      assert($(divname).length == 1, "The popup for selected elements could not be found");
+      assert(jQuery(divname).length === 1, "The popup for selected elements could not be found");
 
       self.effect('transfer', {to: divname}, 'slow', function(){
         jQuery(js_context.parent.events).trigger(
@@ -194,7 +195,7 @@ EEAReferenceBrowser.Basket = function(context, parent){
   this.context = context;
   this.parent = parent;
   this.multiple = this.parent.storageedit.attr('multiple') ? true : false;
-  this.context.height(this.parent.height - 128);
+  this.context.height(this.parent.height - 161);
   this.context.css('overflow', 'auto');
   jQuery('.tileItem', this.context).attr('title', 'Click and drag to change order');
   this.context.sortable({
@@ -368,7 +369,8 @@ EEAReferenceBrowser.Basket.prototype = {
 
   close: function(){
     var self = this;
-    var url = '@@eeareferencebrowser-popup-selecteditems.html';
+
+    var url = self.parent.skip_portal_factory('@@eeareferencebrowser-popup-selecteditems.html');
     var query = {};
     query.mode = 'edit';
     query.field = this.parent.name;
@@ -390,7 +392,6 @@ EEAReferenceBrowser.Widget = function(name, options){
   this.popup = jQuery('#' + name + '-popup', this.context);
   this.tips = jQuery('.popup-tips', this.popup);
   this.workspace = jQuery('.popup-tabs' , this.popup);
-  this.workspace.hide();
   this.storageedit = jQuery('#' + name, this.context);
   this.storageview = jQuery('.eea-ref-selecteditems-box', this.context);
   this.basket = null;
@@ -399,9 +400,9 @@ EEAReferenceBrowser.Widget = function(name, options){
   this.position = 0;
 
   // These asserts will make sure that a proper DOM structure is provided for the widget
-  assert(this.context.length == 1, "The following important element of the widget could not be found: context");
-  assert(this.popup.length == 1, "The following important element of the widget could not be found: popup");
-  assert(this.storageedit.length == 1, "The following important element of the widget could not be found: storageedit");
+  assert(this.context.length === 1, "The following important element of the widget could not be found: context");
+  assert(this.popup.length === 1, "The following important element of the widget could not be found: popup");
+  assert(this.storageedit.length === 1, "The following important element of the widget could not be found: storageedit");
 
   this.events = new EEAReferenceBrowser.Events();
   this.width = jQuery(window).width() * 0.85;
@@ -431,8 +432,7 @@ EEAReferenceBrowser.Widget = function(name, options){
       jQuery(js_context.events).trigger(js_context.events.CLOSE);
       Faceted.Cleanup();
       jQuery('.popup-tabs #faceted-form').remove();
-      js_context.workspace.tabs('destroy');
-      js_context.workspace.hide();
+      jQuery('ul', js_context.workspace).data('tabs').destroy();
       jQuery(window).scrollTop(js_context.position);
     }
   });
@@ -478,21 +478,20 @@ EEAReferenceBrowser.Widget.prototype = {
     // Tabs
     var js_context = this;
     var index = this.default_tab();
-    this.workspace.tabs({
-      selected: index,
-      select: function(event, ui){
+    jQuery('ul', this.workspace).tabs('div.panes > div', {
+      effect: 'ajax',
+      initialIndex: index,
+      onBeforeClick: function(evt, idx){
         Faceted.Cleanup();
         jQuery('.popup-tabs #faceted-form').remove();
       },
-      load: function(event, ui){
-        js_context.tab_selected(ui);
+      onClick: function(evt, idx){
+        js_context.tab_selected(this);
       }
     });
-    this.workspace.show();
     this.popup.dialog('open');
     jQuery(Faceted.Events).trigger(Faceted.Events.WINDOW_WIDTH_CHANGED);
     this.tips.show();
-    this.tips.effect('pulsate', {}, 250);
   },
 
   default_tab: function(){
@@ -500,7 +499,7 @@ EEAReferenceBrowser.Widget.prototype = {
 
     if(!this.options.tabs){
       if (window._selected_tab){
-        tabs = {'selected':window._selected_tab};
+        tabs = {'selected': window._selected_tab};
       } else {
         return 0;
       }
@@ -517,8 +516,8 @@ EEAReferenceBrowser.Widget.prototype = {
       return 0;
     }
 
-    var lis = jQuery('.popup-tabs-header li', this.workspace);
-    idx = 0;
+    var lis = jQuery('.formTabs li.formTab', this.workspace);
+    var idx = 0;
     lis.each(function(i){
       if(jQuery('#' + name, jQuery(this)).length){
         idx = i;
@@ -532,6 +531,14 @@ EEAReferenceBrowser.Widget.prototype = {
     this.current_tab = new EEAReferenceBrowser.Tab(ui, this);
   },
 
+  skip_portal_factory: function(url){
+    if(window.location.pathname.indexOf('portal_factory') === -1){
+      return url;
+    }
+    var base_url = window.location.pathname.split('portal_factory')[0];
+    return base_url + url;
+  },
+
   saved: function(data){
     var area = this.storageview;
     if(area.length){
@@ -539,7 +546,7 @@ EEAReferenceBrowser.Widget.prototype = {
       area.append(jQuery('<img src="../eeareferencebrowser-loading.gif" />'));
 
       var self = this;
-      var url = '@@eeareferencebrowser-popup-selecteditems.html';
+      var url = self.skip_portal_factory('@@eeareferencebrowser-popup-selecteditems.html');
       var query = {};
       query.mode = 'view';
       query.field = self.fieldname;

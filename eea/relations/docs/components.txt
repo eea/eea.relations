@@ -39,7 +39,7 @@ Let's do some queries
   There is no content-type define for Document in portal_relations, let's add one
 
     >>> rtool = portal.portal_relations
-    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'relation')
+    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'simple-document')
     >>> rtype = rtool._getOb(rid)
     >>> rtype.processForm(values={
     ...   'title': 'Simple Document',
@@ -62,7 +62,7 @@ Let's do some queries
     >>> from zope.interface import alsoProvides
     >>> alsoProvides(doc, IDoTheZu)
 
-    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'relation')
+    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'zu-document')
     >>> rtype = rtool._getOb(rid)
     >>> rtype.processForm(values={
     ...   'title': 'ZU Document',
@@ -75,7 +75,7 @@ Let's do some queries
 
   Let's define a content-type only for ZU interface
 
-    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'relation')
+    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'zu')
     >>> rtype = rtool._getOb(rid)
     >>> rtype.processForm(values={
     ...   'title': 'ZU',
@@ -104,7 +104,7 @@ Let's do some queries
   a Content-Type for zope.interface.Interface you may have a surprise :)
 
     >>> from Products.Archetypes.interfaces import IBaseContent
-    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'relation')
+    >>> rid = rtool.invokeFactory('EEARelationsContentType', 'generic')
     >>> rtype = rtool._getOb(rid)
     >>> rtype.processForm(values={
     ...   'title': 'Generic',
@@ -134,7 +134,7 @@ Lookup for context possible relations:
     >>> from eea.relations.component import queryBackwardRelations
 
     >>> queryForwardRelations(doc)
-    <generator object at ...>
+    <generator object queryForwardRelations at ...>
 
     >>> [r for r in queryForwardRelations(doc)]
     []
@@ -146,7 +146,7 @@ Let's add some possible relations
 
   Self relation
 
-    >>> rid = rtool.invokeFactory('EEAPossibleRelation', 'r1')
+    >>> rid = rtool.invokeFactory('EEAPossibleRelation', 'zu-document-zu-document')
     >>> rel = rtool._getOb(rid)
     >>> rel.processForm(values={
     ...   'from': 'zu-document',
@@ -161,7 +161,7 @@ Let's add some possible relations
 
   Directed relation
 
-    >>> rid = rtool.invokeFactory('EEAPossibleRelation', 'r2')
+    >>> rid = rtool.invokeFactory('EEAPossibleRelation', 'generic-zu')
     >>> rel = rtool._getOb(rid)
     >>> rel.processForm(values={
     ...   'from': 'generic',

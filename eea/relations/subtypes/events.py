@@ -1,8 +1,14 @@
-from zope.component import getUtility #, queryMultiAdapter
-from p4a.subtyper.interfaces import ISubtyper
-#from Products.GenericSetup.interfaces import IBody
-#from Products.GenericSetup.context import SnapshotImportContext
-from eea.relations.config import SUBTYPE
+""" Events
+"""
+from zope.component import queryMultiAdapter
+from zope.interface import alsoProvides, noLongerProvides
+from Products.GenericSetup.interfaces import IBody
+from Products.GenericSetup.context import SnapshotImportContext
+
+from eea.relations.subtypes.interfaces import (
+    IOriginalFacetedNavigable,
+    IFacetedNavigable,
+)
 
 def subtype(obj, evt):
     """ Subtype as faceted navigable
@@ -12,12 +18,30 @@ def subtype(obj, evt):
     if portal_type != 'EEARelationsContentType':
         return
 
-    subtyper = getUtility(ISubtyper)
-    possible_types = [x.name for x in subtyper.possible_types(context)]
-    if SUBTYPE not in possible_types:
+    # Subtype as faceted navigable
+    subtyper = queryMultiAdapter((context, context.REQUEST),
+                                 name=u'faceted_subtyper')
+    subtyper.enable()
+
+    # Add default widgets
+    widgets = queryMultiAdapter((context, context.REQUEST),
+                                name=u'default_widgets.xml')
+    if not widgets:
         return
 
-    if subtyper.existing_type(context) == SUBTYPE:
+    xml = widgets()
+    environ = SnapshotImportContext(context, 'utf-8')
+    importer = queryMultiAdapter((context, environ), IBody)
+    if not importer:
+        return
+    importer.body = xml
+
+def faceted_enabled(doc, evt):
+    """ EVENT: faceted navigation enabled
+    """
+    portal_type = getattr(doc, 'portal_type', None)
+    if portal_type != 'EEARelationsContentType':
         return
 
-    subtyper.change_type(context, SUBTYPE)
+    noLongerProvides(doc, IOriginalFacetedNavigable)
+    alsoProvides(doc, IFacetedNavigable)

@@ -1,20 +1,22 @@
 <configure xmlns="http://namespaces.zope.org/zope"
   xmlns:zcml="http://namespaces.zope.org/zcml"
   xmlns:browser="http://namespaces.zope.org/browser"
-  i18n_domain="eea.relations">
+  i18n_domain="eea">
 
   <class class="eea.relations.content.contenttype.EEARelationsContentType">
-    <implements interface="eea.relations.interfaces.IPossibleFacetedNavigable" />
+    <implements interface="eea.facetednavigation.interfaces.IPossibleFacetedNavigable" />
   </class>
 
-  <utility
-    name="eea.relations.facetednavigation.ContentTypeFacetedNavigable"
-    factory=".descriptors.EEARelationsContentTypeDescriptor" />
-
   <subscriber
-    for="eea.relations.interfaces.IPossibleFacetedNavigable
+    for="eea.relations.interfaces.IContentType
          eea.relations.events.IObjectInitializedEvent"
     handler=".events.subtype"
   />
+
+  <subscriber
+    for="eea.facetednavigation.interfaces.IPossibleFacetedNavigable
+         eea.facetednavigation.interfaces.IFacetedEnabledEvent"
+    handler=".events.faceted_enabled"
+    />
 
 </configure>

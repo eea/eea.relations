@@ -1,8 +1,10 @@
+""" Components
+"""
 import logging
 from zope.component import queryAdapter
 from eea.relations.interfaces import IContentType
-from interfaces import IContentTypeLookUp
-from interfaces import IRelationsLookUp
+from eea.relations.component.interfaces import IContentTypeLookUp
+from eea.relations.component.interfaces import IRelationsLookUp
 
 logger = logging.getLogger('eea.relations.queryContentType')
 
@@ -22,12 +24,12 @@ def queryForwardRelations(context):
     if not IContentType.providedBy(context):
         context = queryContentType(context)
     if not context:
-        raise StopIteration
+        return
     connecter = queryAdapter(context, IRelationsLookUp)
     if not connecter:
         logger.exception('No IRelationsLookUp adapter found for '
                          '%s' % context)
-        raise StopIteration
+        return
     for relation in connecter.forward():
         yield relation
 
@@ -37,12 +39,12 @@ def queryBackwardRelations(context):
     if not IContentType.providedBy(context):
         context = queryContentType(context)
     if not context:
-        raise StopIteration
+        return
     connecter = queryAdapter(context, IRelationsLookUp)
     if not connecter:
         logger.exception('No IRelationsLookUp adapter found for '
                          '%s' % context)
-        raise StopIteration
+        return
     for relation in connecter.backward():
         yield relation
 

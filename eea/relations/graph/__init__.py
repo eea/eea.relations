@@ -6,7 +6,9 @@ from Globals import INSTANCE_HOME
 from pydot import __find_executables as _find_executables
 
 def find_graphviz():
-    """ This assumes that Graphviz is installed in {buildout:directory}/parts/graphviz
+    """ This assumes that Graphviz is installed in
+    {buildout:directory}/parts/graphviz
+
     """
     paths = INSTANCE_HOME.split('/parts/')
     if len(paths) < 2:

@@ -1,41 +1,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
   lang="en-US"
   metal:use-macro="here/main_template/macros/master"
-  i18n:domain="eea.relations">
+  i18n:domain="eea">
 
 <body>
 
-<div metal:fill-slot="main">
-  <h1 class="documentFirstHeading">
-    <span class="visualIcon contenttype-eeapossiblerelation" style="background-position: center left">
-      <span class="visualIconPadding" tal:content="object_title">
-        Relation
-      </span>
-      <span tal:define="
-        required python:here.getField('required');
-        value python:required.getAccessor(here)();"
-        tal:condition="value" class="fieldRequired"> </span>
-      <span tal:define="
-        required python:here.getField('required_for');
-        value python:required.getAccessor(here)();"
-        tal:condition="value" class="fieldRequiredFor"> </span>
-    </span>
-  </h1>
+<div metal:fill-slot="content-core">
 
-  <div metal:use-macro="here/document_actions/macros/document_actions">
-    Document actions (print, sendto etc)
-  </div>
-
-  <a href=""
-     class="link-parent"
-     tal:define="parent_url python:here.navigationParent(here, template_id)"
-     tal:condition="parent_url"
-     tal:attributes="href parent_url"
-     i18n:translate="back_to_portal_relations">
-    Back to Possible content relations
-  </a>
-
-<div class="visualClear"></div>
+<div>
+  <span tal:define="
+    required python:here.getField('required');
+    value python:required.getAccessor(here)();"
+    tal:condition="value" class="fieldRequired"> </span>
+  <span tal:define="
+    required python:here.getField('required_for');
+    value python:required.getAccessor(here)();"
+    tal:condition="value" class="fieldRequiredFor"> </span>
+</div>
 
 <div style="width: 100%">
   <div style="text-align: center; border: 1px solid #8CACBB; padding: 2em 0">

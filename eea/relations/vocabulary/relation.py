@@ -5,7 +5,7 @@ from zope.component import queryAdapter
 from zope.interface import implements
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.vocabulary import SimpleTerm
-from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.schema.interfaces import IVocabularyFactory
 from Products.CMFCore.utils import getToolByName
 from eea.relations.interfaces import IToolAccessor
 #

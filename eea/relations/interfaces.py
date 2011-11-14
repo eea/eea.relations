@@ -1,24 +1,37 @@
-from zope.interface import Interface
-Interface
+""" EEA Relations public interfaces
+"""
 # Content
-from content.interfaces import IToolAccessor
-from content.interfaces import IRelationsTool
-from content.interfaces import IContentType
-from content.interfaces import IRelation
-IToolAccessor, IRelationsTool, IContentType, IRelation
+from eea.relations.content.interfaces import IToolAccessor
+from eea.relations.content.interfaces import IRelationsTool
+from eea.relations.content.interfaces import IContentType
+from eea.relations.content.interfaces import IRelation
+
 # Subtypes
-from subtypes.interfaces import IPossibleFacetedNavigable
-from subtypes.interfaces import IFacetedNavigable
-IPossibleFacetedNavigable, IFacetedNavigable
+from eea.relations.subtypes.interfaces import IFacetedNavigable
+
 # Graph
-from graph.interfaces import INode
-from graph.interfaces import IEdge
-from graph.interfaces import IGraph
-INode, IEdge, IGraph
+from eea.relations.graph.interfaces import INode
+from eea.relations.graph.interfaces import IEdge
+from eea.relations.graph.interfaces import IGraph
+
 # Commponents
-from component.interfaces import IContentTypeLookUp
-from component.interfaces import IRelationsLookUp
-IContentTypeLookUp, IRelationsLookUp
+from eea.relations.component.interfaces import IContentTypeLookUp
+from eea.relations.component.interfaces import IRelationsLookUp
+
 # Auto discovered relations API
-from discover.interfaces import IAutoRelations
-IAutoRelations
+from eea.relations.discover.interfaces import IAutoRelations
+
+# pylint, pyflakes
+__all__ = [
+    IToolAccessor.__name__,
+    IRelationsTool.__name__,
+    IContentType.__name__,
+    IRelation.__name__,
+    IFacetedNavigable.__name__,
+    INode.__name__,
+    IEdge.__name__,
+    IGraph.__name__,
+    IContentTypeLookUp.__name__,
+    IRelationsLookUp.__name__,
+    IAutoRelations.__name__,
+]

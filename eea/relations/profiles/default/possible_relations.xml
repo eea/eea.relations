@@ -3,7 +3,7 @@
   <object name="generic" meta_type="EEARelationsContentType">
     <property name="title">Generic</property>
     <property name="ct_type"></property>
-    <property name="ct_interface">Products.Archetypes.interfaces._base.IBaseObject</property>
+    <property name="ct_interface">Products.Archetypes.interfaces.base.IBaseObject</property>
   </object>
   <object name="generic-to-generic-relation" meta_type="EEAPossibleRelation">
     <property name="title">Generic -> Generic</property>
