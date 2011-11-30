@@ -82,10 +82,10 @@ Source code
 ===========
 
 Latest source code (Plone 4 compatible):
-   https://svn.eionet.europa.eu/repositories/Zope/trunk/eea.relations/branches/plone4/
+   https://svn.eionet.europa.eu/repositories/Zope/trunk/eea.relations/trunk
 
 Plone 2 and 3 compatible:
-   https://svn.eionet.europa.eu/repositories/Zope/trunk/eea.relations/trunk/
+   https://svn.eionet.europa.eu/repositories/Zope/trunk/eea.relations/branches/plone25
 
 
 Copyright and license
