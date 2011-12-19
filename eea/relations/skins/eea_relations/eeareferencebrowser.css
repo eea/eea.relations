@@ -171,3 +171,25 @@
   border-style: solid;
   border-color: #DDDDDD;
 }
+
+.contenttype-eeapossiblerelation {
+  background-image: url(eeapossiblerelation.png);
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  padding-left: 20px;
+}
+
+.contenttype-eeapossiblerelation img {
+  display: none;
+}
+
+.contenttype-eearelationscontenttype {
+  background-image: url(eearelationscontenttype.png);
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  padding-left: 20px;
+}
+
+.contenttype-eearelationscontenttype img {
+  display: none;
+}
