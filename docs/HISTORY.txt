@@ -3,6 +3,9 @@ Changelog
 
 4.2-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed permission for related items
+  [voineali #4841]
+
 * Bug fix: Fixed icons for items in portal_relations tool
   [voineali #4834]
 

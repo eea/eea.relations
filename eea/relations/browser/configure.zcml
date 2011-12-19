@@ -104,7 +104,7 @@
     name="eeareferencebrowser-popup-selecteditem.html"
     template="template/popup-selecteditem.pt"
     class=".app.popup.PopupSelectedItem"
-    permission="cmf.ModifyPortalContent"
+    permission="zope2.View"
     allowed_attributes="mode"
     />
 
