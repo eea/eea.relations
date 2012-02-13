@@ -77,9 +77,8 @@ Usage:
       description item/description;
       url item/absolute_url;
       is_video python:False;
-      thumb python:True;
       ">
-      <a class="tileImage" tal:condition="thumb"
+      <a class="tileImage"
         tal:attributes="href url; title title; alt title;
           class python:test(is_video, 'tileImage fancybox', 'tileImage')">
         <img tal:attributes="src string:$url/image_thumb;
