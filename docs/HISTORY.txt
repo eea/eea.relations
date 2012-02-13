@@ -3,6 +3,8 @@ Changelog
 
 4.3-dev - (unreleased)
 ----------------------
+ * Bug fix: don't check for thumbs on content types, we always have them
+   [tiberich #4671]
 
 4.2 - (2012-01-03)
 ------------------
