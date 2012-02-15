@@ -3,6 +3,8 @@ Changelog
 
 4.4-dev - (unreleased)
 ----------------------
+ * Bug fix: Renamed css file to css.dtml. Use portal_url to anchor images
+   [tiberich #4956]
 
 4.3 - (2012-02-15)
 ------------------

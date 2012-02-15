@@ -1,3 +1,8 @@
+/*                                                                                                                                                                                             
+<dtml-with base_properties>                                                                                                                                                                    
+<dtml-call "REQUEST.set('portal_url', portal_url())">                                                                                                                                          
+ */    
+
 .eea-refwidget-popup .popup-tabs {
   width: 80%;
   border: none;
@@ -5,7 +10,7 @@
 }
 
 .eea-refwidget-popup .ui-dialog-titlebar {
-  background: #cde2a7 url(title-bar-background.png) repeat-x scroll 50% 50%;
+  background: #cde2a7 url(&dtml-portal_url;/title-bar-background.png) repeat-x scroll 50% 50%;
 }
 
 .eea-refwidget-popup  .popup-tabs ul.ui-widget-header {
@@ -41,7 +46,7 @@
 
 .eea-ref-selecteditems-box {
   border: 1px solid #8CACBB;
-  background: #ffffff url(input_background.gif) repeat-x scroll 0 0;
+  background: #ffffff url(&dtml-portal_url;/input_background.gif) repeat-x scroll 0 0;
   height: 14em;
   overflow: auto;
 }
@@ -104,7 +109,7 @@
 }
 
 .eea-refwidget-popup  .ui-state-working {
-  background: #E6E6E6 url(eeareferencebrowser-loading.gif) no-repeat right center ! important;
+  background: #E6E6E6 url(&dtml-portal_url;/eeareferencebrowser-loading.gif) no-repeat right center ! important;
 }
 
 .eea-refwidget-popup  .popup-tips {
@@ -114,7 +119,7 @@
 }
 
 .fieldRequiredFor {
-  background:transparent url(required_for.gif) no-repeat scroll left center;
+  background:transparent url(&dtml-portal_url;/required_for.gif) no-repeat scroll left center;
   color:White;
   padding:0 0 0 8px;
   background-position: center center;
@@ -173,7 +178,7 @@
 }
 
 .contenttype-eeapossiblerelation {
-  background-image: url(eeapossiblerelation.png);
+  background-image: url(&dtml-portal_url;/eeapossiblerelation.png);
   background-repeat: no-repeat;
   background-position: 0% 0%;
   padding-left: 20px;
@@ -184,7 +189,7 @@
 }
 
 .contenttype-eearelationscontenttype {
-  background-image: url(eearelationscontenttype.png);
+  background-image: url(&dtml-portal_url;/eearelationscontenttype.png);
   background-repeat: no-repeat;
   background-position: 0% 0%;
   padding-left: 20px;
@@ -193,3 +198,7 @@
 .contenttype-eearelationscontenttype img {
   display: none;
 }
+
+/*                                                                                                                                                                                             
+</dtml-with>  (end of loaded base_properties variables)                                                                                                                                        
+ */ 
