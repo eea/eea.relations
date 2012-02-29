@@ -20,11 +20,16 @@ class Macro(BrowserView):
         """ Return forward relations by category
         """
         tabs = {}
-        getRelatedItems = getattr(self.context, 'getRelatedItems', None)
-        if not getRelatedItems:
+         
+        fieldname = kwargs.get('fieldname', 'relatedItems')
+        field = self.context.getField(fieldname)
+        if not field:
             return tabs
 
-        relations = getRelatedItems()
+        accessor = field.getAccessor(self.context)
+        #getRelatedItems = getattr(self.context, 'getRelatedItems', None)
+
+        relations = accessor()
         for relation in relations:
             if not self.checkPermission(relation):
                 continue
@@ -49,7 +54,9 @@ class Macro(BrowserView):
         if not getBRefs:
             return tabs
 
-        relations = getBRefs('relatesTo')
+        relation = kwargs.get('relation', 'relatesTo')
+
+        relations = getBRefs(relation)
         for relation in relations:
             if not self.checkPermission(relation):
                 continue

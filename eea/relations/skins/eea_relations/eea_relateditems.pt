@@ -64,7 +64,7 @@ Macro parameters
 
 Usage:
 
-  <metal:macro use-macro="here/eea_relateditems/macros/reatedItems" />
+  <metal:macro use-macro="here/eea_relateditems/macros/relatedItems" />
 
 -->
 </tal:comment>
