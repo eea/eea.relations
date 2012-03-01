@@ -1,0 +1,9 @@
+<metal:macro define-macro="portlet" 
+    tal:define="location context/getCt_default_location;
+                ct_type context/getCt_type">
+    <a href="" class="new_content_creator"
+        tal:attributes="href string:${location/absolute_url}/createObject?type_name=${ct_type}&use_schemata_edit=true">Create New</a>
+
+    <script tal:attributes="src string:${context/portal_url}/eea.reference.contentcreation.js" />
+
+</metal:macro>
