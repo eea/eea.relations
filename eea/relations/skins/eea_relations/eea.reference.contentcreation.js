@@ -1,9 +1,11 @@
-function block_ui(){
+function block_ui() {
+return;
     (function($) {
-     var scr_x = jQuery(window).scrollLeft();
-     var scr_y = jQuery(window).scrollTop();
-     var dim_x = jQuery(window).width();
-     var dim_y = jQuery(window).height();
+     var w = jQuery(window)
+     var scr_x = w.scrollLeft();
+     var scr_y = w.scrollTop();
+     var dim_x = w.width();
+     var dim_y = w.height();
 
      var overlay = jQuery('<div>');
      overlay.addClass('specification-overlay');
@@ -33,8 +35,8 @@ function block_ui(){
     })(jQuery);
 }
 
-
 function unblock_ui(){
+return;
   jQuery('.specification-overlay').remove();
   jQuery('.specification-loading').remove();
 }
@@ -108,120 +110,107 @@ function init_tinymce(el){
 }
 
 
-function schemata_ajaxify(el, active_region){
+function schemata_ajaxify(el){
         //console.info("doing schemata ajaxify");
 
-(function($) {
-  set_actives();
-  init_tinymce(el);
+    (function($) {
+      //set_actives();
+      //init_tinymce(el);
 
-  //set the tags widget
-  var widgets = $('.ArchetypesKeywordWidget');
-  if(widgets.length){
-    widgets.eeatags();
-  }
+      //set the tags widget
+      var widgets = $('.ArchetypesKeywordWidget');
+      if(widgets.length){
+        widgets.eeatags();
+      }
 
 
-  $("form", el).submit(
-    function(e){
-      block_ui();
-      tinyMCE.triggerSave();
-      var form = this;
+      $("form", el).submit(
+        function(e){
+          block_ui();
+          tinyMCE.triggerSave();
+          var form = this;
 
-      var inputs = [];
-      $(".widgets-list .widget-name").each(function(){
-        inputs.push($(this).text());
-      });
+          var inputs = [];
+          $(".widgets-list .widget-name").each(function(){
+            inputs.push($(this).text());
+          });
 
-      var data = "";
-      data = $(form).serialize();
-      data += "&_active_region=" + active_region;
-      data += "&form_submit=Save&form.submitted=1";
-        //console.info("doing ajax schemata ajaxify");
+          var data = "";
+          data = $(form).serialize();
+          // data += "&_active_region=" + active_region;
+          data += "&form_submit=Save&form.submitted=1";
+            //console.info("doing ajax schemata ajaxify");
 
-      $.ajax({
-        "data": data,
-        url: this.action,
-        type:'POST',
-        cache:false,
-        // timeout: 2000,
-        error: function() {
-          unblock_ui();
-          alert("Failed to submit");
-        },
-        success: function(r) {
-          $(el).html(r);
-          schemata_ajaxify(el, active_region);
-          unblock_ui();
+          $.ajax({
+            "data": data,
+            url: this.action,
+            type:'POST',
+            cache:false,
+            // timeout: 2000,
+            error: function() {
+              unblock_ui();
+              alert("Failed to submit");
+            },
+            success: function(r) {
+              $(el).html(r);
+              schemata_ajaxify(el);
+              unblock_ui();
+              return false;
+            }
+          });
           return false;
-        }
-      });
-      return false;
-    });
-})(jQuery);
+        });
+    })(jQuery);
 }
 
 
 function dialog_edit(url, title, callback, options){
-  // Opens a modal dialog with the given title
+      // Opens a modal dialog with the given title
 
-(function($) {
-  block_ui();
-  options = options || {
-    'height':null,
-    'width':800
-  };
-  var target = $('#dialog_edit_target');
-  $("#dialog-inner").remove();     // temporary, apply real fix
-  $(target).append("<div id='dialog-inner'></div>");
-  window.onbeforeunload = null; // this disables the form unloaders
-  $("#dialog-inner").dialog({
-    modal:true,
-    width:options.width,
-    minWidth:options.width,
-    height:options.height,
-    minHeight:options.height,
-    'title':title,
-    closeOnEscape:true,
-    buttons: {
-      'Save':function(e){
-        var button = e.target;
-        $("#dialog-inner form").trigger('submit');
-      },
-      'Cancel':function(e){
-        $("#dialog-inner").dialog("close");
-      }
-    },
-    beforeclose:function(event, ui){
-      return true;
-    }
-  });
-        //console.info("doing ajax dialog edit ");
+    (function($) {
+      block_ui();
+      options = options || {
+        'height':null,
+        'width':800
+      };
+      var target = $('#dialog_edit_target');
+      $("#dialog-inner").remove();     // temporary, apply real fix
+      $(target).append("<div id='dialog-inner'></div>");
+      window.onbeforeunload = null; // this disables the form unloaders
+      $("#dialog-inner").dialog({
+        modal         : true,
+        width         : options.width,
+        minWidth      : options.width,
+        height        : options.height,
+        minHeight     : options.height,
+        'title'       : title,
+        closeOnEscape : true,
+        buttons: {
+          'Save':function(e){
+            var button = e.target;
+            $("#dialog-inner form").trigger('submit');
+          },
+          'Cancel':function(e){
+            $("#dialog-inner").dialog("close");
+          }
+        },
+        beforeclose:function(event, ui){ return true; }
+      });
 
-  $.ajax({
-    'url':url,
-    'type':'GET',
-    'cache':false,
-    'success': function(r){
-      $("#dialog-inner").html(r);
-
-      // this is a workaround for the following bug:
-      // after editing with Kupu in one of the popup dialogs,
-      // it is not possible to click inside the text inputs anymore
-      // surprisingly, clicking on their label activates the fields
-      // this happens only in Internet Explorer
-      //
-      $("#dialog-inner div.ArchetypesRichWidget > label").each(function(){ 
-          var label = this; 
-          if ($(label).parents('.ArchetypesRichWidget').length) { 
-            $(label).trigger('click'); 
-          } 
-      }); 
-      set_inout($("#archetypes-fieldname-themes"));
-      callback();
-    }
-  });
-})(jQuery);
+      $.ajax({
+        'url':url,
+        'type':'GET',
+        'cache':false,
+        'success': function(r){
+          console.log("success");
+          console.log(r);
+          console.log($("#dialog-inner"));
+          $("#dialog-inner").html(r);
+          //set_inout($("#archetypes-fieldname-themes"));
+          callback();
+        }
+      });
+    })(jQuery);
 }
 
 
@@ -229,10 +218,10 @@ function set_creators(){
     // Set handlers for Create buttons
 
     (function($) {
-      alert('asta este');
       $('a.new_content_creator').live('click', function(){
         block_ui();
         var link = $(this).attr('href');
+        console.log(link);
         var portal_type = "";
         var title = "Edit new " + portal_type;    // should insert portal type here
         var options = {
@@ -240,39 +229,20 @@ function set_creators(){
           'height':600
         };
         console.info("doing ajax set creators");
-        $.ajax({
-          url: link,
-          type:'GET',
-          cache:false,
-          // timeout: 2000,
-          error: function() {
-            unblock_ui();
-            alert("ERROR: There was a problem communicating with the server. Please reload this page.");
-          },
-          success: function(r) {
-            dialog_edit(edit_link, title, 
+        dialog_edit(link, title, 
                 function(text, status, xhr){
-                    schemata_ajaxify($("#dialog-inner"), someid);   //set someid
+                    alert("callback");
+                    console.log("got response from ajax");
+                    schemata_ajaxify($("#dialog-inner"));   //set someid
                     unblock_ui();
+                    console.log("unblocked ui");
                 },
                 options);
-              }
-            return false;
-          }
-        );
 
         return false;
       });
     })(jQuery);
 }
 
-
 set_creators();
 
-//(function($){
-    //$("a.new_content_creator").each(function(){
-        //var link = this;
-        //var href = $(link).attr('href');
-        //console.log(href);
-    //});
-//})(jQuery);

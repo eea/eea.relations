@@ -18,14 +18,6 @@ response = REQUEST.response
 response.setHeader('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
 response.setHeader('Cache-Control', 'no-cache')
 
-#Override to allow to specify which edit to use
-use_schemata_edit = REQUEST.get('schemata_edit')
-if use_schemata_edit:
-    edit_method = 'schemata_edit'
-else:
-    edit_method = 'edit'
-#end override (also see below for edit_method)
-
 if id is None:
     id=context.generateUniqueId(type_name)
 
@@ -39,10 +31,15 @@ fti = types_tool.getTypeInfo(type_name)
 if not fti.queryMethodID('edit'):
     state.setStatus('success_no_edit')
 
+
 if type_name in context.portal_factory.getFactoryTypes():
     new_url = 'portal_factory/' + type_name + '/' + id
-    if state.getStatus() != 'success_no_edit':
-        new_url = new_url + '/edit'
+
+    #TODO: cleanup here
+    #if state.getStatus() != 'success_no_edit':
+        #new_url = new_url + '/schemata_edit'
+    new_url = new_url + '/schemata_edit'
+
     state.set(status='factory', next_action='redirect_to:string:%s'%new_url)
     # If there's an issue with object creation, let the factory handle it
     return state
