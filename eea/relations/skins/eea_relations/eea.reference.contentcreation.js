@@ -46,76 +46,36 @@ function init_tinymce(el){
   // init tinymce edit fields
 (function($) {
   $('.mce_editable', el).each(function(){
-    var id = $(this).attr('id');
-
-    var config = new TinyMCEConfig(id);
-    // TODO: resize tinymce to a more decent size
-    config.widget_config.editor_height = 800;
-    //config.widget_config.autoresize = true;
-    //config.widget_config.resizing = false;
-    config.widget_config.resizing_use_cookie = false;
-    config.widget_config.buttons = [
-      "save",
-      "style",
-      "bold",
-      "italic",
-      "justifyleft",
-      "justifycenter",
-      "justifyright",
-      "justifyfull",
-      "bullist",
-      "numlist",
-      "definitionlist",
-      "outdent",
-      "indent",
-      //"image",
-      "link",
-      "unlink",
-      "anchor",
-      //"tablecontrols",
-      "code",
-      "fullscreen",
-      ""
-    ];
-    config.widget_config.styles = [
-      "Invisible grid|table|invisible",
-      "Fancy listing|table|listing",
-      "Fancy grid listing|table|grid listing",
-      "Fancy vertical listing|table|vertical listing",
-      "Literal|pre",
-      "Discreet|span|discreet",
-      "Pull-quote|blockquote|pullquote",
-      "Call-out|p|callout",
-      "Highlight|span|visualHighlight",
-      "Disc|ul|listTypeDisc",
-      "Square|ul|listTypeSquare",
-      "Circle|ul|listTypeCircle",
-      "Numbers|ol|listTypeDecimal",
-      "Lower Alpha|ol|listTypeLowerAlpha",
-      "Upper Alpha|ol|listTypeUpperAlpha",
-      "Lower Roman|ol|listTypeLowerRoman",
-      "Upper Roman|ol|listTypeUpperRoman",
-      "Definition term|dt",
-      "Definition description|dd",
-      "Odd row|tr|odd",
-      "Even row|tr|even",
-      "Heading cell|th|",
-      "Page break (print only)|div|pageBreak",
-      "Clear floats|div|visualClear"
-    ];
+    //ids can be repeated because of duplicated field names
+    //same field can exist in the main page and also in the popup dialog
+    var id = "popup-" + $(this).attr('id');
+    $(this).attr('id', id);
+    console.log("Initializing tinymce for ", id);
     delete InitializedTinyMCEInstances[id];
+    var config = new TinyMCEConfig(id);
+    // TODO: fix the editor sizes
+    config.widget_config.editor_height = 800;
+    config.widget_config.editor_width = 630;
+    config.widget_config.autoresize = true;
+    config.widget_config.resizing = true;
+    config.widget_config.resizing_use_cookie = false;
+    console.log(config.widget_config);
+    //delete InitializedTinyMCEInstances[id];
     config.init();
+
+    // TODO: resize tinymce to a more decent size
+    //config.init();
   });
 })(jQuery);
 }
 
 
 function schemata_ajaxify(el){
-        //console.info("doing schemata ajaxify");
+    //console.info("doing schemata ajaxify");
 
     (function($) {
       //set_actives();
-      //init_tinymce(el);
+      init_tinymce(el);
 
       //set the tags widget
       var widgets = $('.ArchetypesKeywordWidget');
@@ -123,9 +83,16 @@ function schemata_ajaxify(el){
         widgets.eeatags();
       }
 
+      // other fixes to include: 
+      // geographical coverage
+      // organisations widget
+      // temporal coverage
+      // reference system widget has no label
+      // geographical accuracy, contact person and disclaimer are not tinymce!?
 
       $("form", el).submit(
         function(e){
+          console.log('doing save');
           block_ui();
           tinyMCE.triggerSave();
           var form = this;
@@ -139,7 +106,9 @@ function schemata_ajaxify(el){
           data = $(form).serialize();
           // data += "&_active_region=" + active_region;
           data += "&form_submit=Save&form.submitted=1";
-            //console.info("doing ajax schemata ajaxify");
+          //console.info("doing ajax schemata ajaxify");
+
+          console.log(data);
 
           $.ajax({
             "data": data,
@@ -171,7 +140,7 @@ function dialog_edit(url, title, callback, options){
       block_ui();
       options = options || {
         'height':null,
-        'width':800
+        'width':1000
       };
       var target = $('#dialog_edit_target');
       $("#dialog-inner").remove();     // temporary, apply real fix
@@ -202,10 +171,8 @@ function dialog_edit(url, title, callback, options){
         'type':'GET',
         'cache':false,
         'success': function(r){
-          console.log("success");
-          console.log(r);
           console.log($("#dialog-inner"));
-          $("#dialog-inner").html(r);
+          $("#dialog-inner").html($(r));
           //set_inout($("#archetypes-fieldname-themes"));
           callback();
         }
@@ -225,13 +192,12 @@ function set_creators(){
         var portal_type = "";
         var title = "Edit new " + portal_type;    // should insert portal type here
         var options = {
-          'width':800,
-          'height':600
+          'width':1000,
+          'height':700
         };
         console.info("doing ajax set creators");
         dialog_edit(link, title, 
                 function(text, status, xhr){
-                    alert("callback");
                     console.log("got response from ajax");
                     schemata_ajaxify($("#dialog-inner"));   //set someid
                     unblock_ui();
