@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.4-dev - (unreleased)
-----------------------
+4.4 - (2012-03-05)
+------------------
  * Bug fix: Renamed css file to css.dtml. Use portal_url to anchor images
    [tiberich #4956]
  * Change: make the @eea.relations.macros generic 
