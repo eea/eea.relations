@@ -3,6 +3,8 @@ Changelog
 
 4.5-dev - (unreleased)
 ----------------------
+ * Bug fix: Fixed view macro under eeareferencebrowser.pt
+   [ghicaale #4998]
 
 4.4 - (2012-03-05)
 ------------------
