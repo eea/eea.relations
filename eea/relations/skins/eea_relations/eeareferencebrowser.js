@@ -61,24 +61,7 @@ EEAReferenceBrowser.Tab.prototype = {
     this.folder_listing(results);
 
     var tab = this.tab.parent();
-    var creation_link = tab.children(".creation_link");
-    var text = creation_link.text();
-    var link = creation_link.children("span").get(0);
-    var href = jQuery(link).attr('rel');
-    jQuery(".popup-tips .content_name").html(text);
-    jQuery(".popup-tips .content_default_location").attr('href', href);
-    if (!href){
-      href = [];
-    }
-
     jQuery(".eea-refwidget-popup .loading").remove();
-    if (href.length === 0) {
-      jQuery(".eea-refwidget-popup .no_link").css('display','inline');
-      jQuery(".eea-refwidget-popup .has_link").css('display','none');
-    } else {
-      jQuery(".eea-refwidget-popup .has_link").css('display','inline');
-      jQuery(".eea-refwidget-popup .no_link").css('display','none');
-    }
   },
 
   folder_summary_view: function(context){

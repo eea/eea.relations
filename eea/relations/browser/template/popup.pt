@@ -58,24 +58,3 @@
   </div>
 </div>
 
-<dl class="portalMessage popup-tips" i18n:translate="">
-  <dt>Info</dt>
-  <dd>
-    <div class="ui-icon ui-icon-close" style="float: right">X</div>
-
-    <span class="has_link" style="display:none">
-      To create a relation to existing
-      <span class="content_name">content type name here</span>
-      click on the search result item. If
-      <span class="content_name">content type name</span>
-      does not exist you may need to create a new one first.
-      <a href="" class="content_default_location">Create new <span class="content_name">content type name</span></a>
-    </span>
-
-    <span class="no_link" style="display:none">
-      This content type has no default add location. Use the search to locate what you need.
-    </span>
-
-    <span class="loading">Loading...</span>
-  </dd>
-</dl>

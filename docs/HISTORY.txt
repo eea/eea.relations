@@ -5,6 +5,8 @@ Changelog
 ----------------------
  * Bug fix: Fixed view macro under eeareferencebrowser.pt
    [ghicaale #4998]
+ * Change: removed content creation status message in reference popup
+   [tiberich #4982]
 
 4.4 - (2012-03-05)
 ------------------
