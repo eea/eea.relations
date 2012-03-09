@@ -36,7 +36,8 @@ EEAReferenceBrowser.Tab = function(context, parent){
   this.tab = context.getCurrentTab();
   this.name = this.tab.attr('id');
   this.url = jQuery('.tab-url', this.tab).text();
-  this.panel.height(parent.height - 195);
+  //tibi
+  this.panel.height(parent.height - 120);// 195
   this.panel.css('overflow', 'auto');
 
   var self = this;
@@ -178,7 +179,8 @@ EEAReferenceBrowser.Basket = function(context, parent){
   this.context = context;
   this.parent = parent;
   this.multiple = this.parent.storageedit.attr('multiple') ? true : false;
-  this.context.height(this.parent.height - 161);
+  //tibi
+  this.context.height(this.parent.height - 96);  //161
   this.context.css('overflow', 'auto');
   jQuery('.tileItem', this.context).attr('title', 'Click and drag to change order');
   this.context.sortable({
