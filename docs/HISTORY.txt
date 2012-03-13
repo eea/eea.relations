@@ -3,6 +3,8 @@ Changelog
 
 4.5-dev - (unreleased)
 ----------------------
+ * Feature: possibility to overwrite default thumb scale when show relations
+   [demarant]
  * Bug fix: Fixed view macro under eeareferencebrowser.pt
    [ghicaale #4998]
  * Change: removed content creation status message in reference popup

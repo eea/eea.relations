@@ -11,7 +11,8 @@ Usage:
 </tal:comment>
 <div metal:define-macro="relatedItemsWithThumbs" id="relatedItems" tal:define="
   relations nocall:here/@@eea.relations.macro;
-  auto_relations nocall:here/@@auto-relations.html">
+  auto_relations nocall:here/@@auto-relations.html;
+  thumb_scale thumb_scale | string:image_thumb;">
   <tal:backward tal:define="tabs python:relations.backward();" tal:condition="tabs">
     <!-- Backward relations -->
     <div class="visualNoMarker">
@@ -68,7 +69,9 @@ Usage:
 
 -->
 </tal:comment>
-<div metal:define-macro="relatedItems" tal:define="related related | python:[]"
+<div metal:define-macro="relatedItems"
+     tal:define="related related | python:[];
+                 thumb_scale thumb_scale | string:image_thumb;"
   tal:condition="related">
   <tal:related tal:repeat="item related">
     <div class="tileItem visualIEFloatFix vevent" tal:define="
@@ -81,7 +84,7 @@ Usage:
       <a class="tileImage"
         tal:attributes="href url; title title; alt title;
           class python:test(is_video, 'tileImage fancybox', 'tileImage')">
-        <img tal:attributes="src string:$url/image_thumb;
+        <img tal:attributes="src python:'%s/%s' % (url,thumb_scale);
           title title; alt title;" />
       </a>
 
