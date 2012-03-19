@@ -3,6 +3,8 @@ Changelog
 
 4.5-dev - (unreleased)
 ----------------------
+ * Change: remove left and right column for portal_relations admin page
+   [demarant]
  * Feature: possibility to overwrite default thumb scale when show relations
    [demarant]
  * Bug fix: Fixed view macro under eeareferencebrowser.pt
