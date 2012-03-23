@@ -37,7 +37,7 @@ EEAReferenceBrowser.Tab = function(context, parent){
   this.name = this.tab.attr('id');
   this.url = jQuery('.tab-url', this.tab).text();
   //tibi
-  this.panel.height(parent.height - 120);// 195
+  this.panel.height(parent.height - 145);// 195
   this.panel.css('overflow', 'auto');
 
   var self = this;
@@ -180,7 +180,7 @@ EEAReferenceBrowser.Basket = function(context, parent){
   this.parent = parent;
   this.multiple = this.parent.storageedit.attr('multiple') ? true : false;
   //tibi
-  this.context.height(this.parent.height - 96);  //161
+  this.context.height(this.parent.height - 115);  //161
   this.context.css('overflow', 'auto');
   jQuery('.tileItem', this.context).attr('title', 'Click and drag to change order');
   this.context.sortable({
@@ -433,7 +433,7 @@ EEAReferenceBrowser.Widget = function(name, options){
 
   // Double click
   if(this.storageview.length){
-    this.storageview.dblclick(function(){
+    this.storageview.click(function(){
       js_context.popup_open();
     });
   }

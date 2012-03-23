@@ -67,9 +67,9 @@ Usage:
 
       <!-- Popup -->
       <metal:popup define-slot="popup">
-        <div tal:attributes="
+        <div title="Edit related items" tal:attributes="
           title python:widget and 'Edit %s' % widget.Label(here) or 'Edit';
-          id string:$fieldName-popup">
+          id string:$fieldName-popup" i18n:attributes="title">
           <tal:popup define="popup_view nocall:here/@@eeareferencebrowser-popup.html"
             replace="structure python:popup_view(field=fieldName, uids=uids)" />
         </div>

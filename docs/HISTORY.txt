@@ -3,6 +3,10 @@ Changelog
 
 4.5-dev - (unreleased)
 ----------------------
+ * i18n: Added i18n locales folder, pot files and po files for en and ro
+   [voineali]
+ * Change: Update popup look&feel
+   [voineali #4968]
  * Change: remove left and right column for portal_relations admin page
    [demarant]
  * Feature: possibility to overwrite default thumb scale when show relations
@@ -16,7 +20,7 @@ Changelog
 ------------------
  * Bug fix: Renamed css file to css.dtml. Use portal_url to anchor images
    [tiberich #4956]
- * Change: make the @eea.relations.macros generic 
+ * Change: make the @eea.relations.macros generic
    [tiberich #4982]
 
 4.3 - (2012-02-15)
