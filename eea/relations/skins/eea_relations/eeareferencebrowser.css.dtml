@@ -71,6 +71,8 @@
 
 .eea-ref-selecteditems .tileItem {
   border: none;
+  padding: 0.5em 0;
+  margin: 0;
 }
 
 .eea-ref-selecteditems .tileItem a {
@@ -90,6 +92,11 @@
 
 .eea-refwidget-popup  .popup-selected-items-content .tileItem:hover {
   background-color: #FBF9EE;
+  -webkit-transition: background-color .218s;
+     -moz-transition: background-color .218s;
+      -ms-transition: background-color .218s;
+       -o-transition: background-color .218s;
+          transition: background-color .218s;
 }
 
 .eea-refwidget-popup  .ui-icon-custom-add {
@@ -100,6 +107,11 @@
 .eea-refwidget-popup  .refbrowser-faceted-addable-item:hover {
   background-image: none;
   background-color: #FBF9EE;
+  -webkit-transition: background-color .218s;
+     -moz-transition: background-color .218s;
+      -ms-transition: background-color .218s;
+       -o-transition: background-color .218s;
+          transition: background-color .218s;
   cursor: pointer;
 }
 
