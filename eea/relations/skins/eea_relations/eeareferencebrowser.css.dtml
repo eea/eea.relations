@@ -100,8 +100,17 @@
 }
 
 .eea-refwidget-popup  .ui-icon-custom-add {
-  float: right;
   visibility: hidden;
+  float: right;
+}
+
+.eea-refwidget-popup  .ui-icon-album-add {
+  float: none;
+  position: absolute;
+  right: 1em;
+  bottom: 1em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
 
 .eea-refwidget-popup  .refbrowser-faceted-addable-item:hover {
@@ -114,6 +123,16 @@
           transition: background-color .218s;
   cursor: pointer;
 }
+
+.eea-refwidget-popup .refbrowser-faceted-addable-item:hover span.photoAlbumEntryWrapper {
+  display: none;
+}
+
+.eea-refwidget-popup .refbrowser-faceted-addable-item:hover .photoAlbumEntryTitle {
+  padding-top: 2em;
+  font-size: 16px;
+}
+
 
 .eea-refwidget-popup  .refbrowser-faceted-addable-item:hover .ui-icon-custom-add {
   visibility: visible;

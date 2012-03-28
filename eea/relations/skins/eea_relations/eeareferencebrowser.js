@@ -136,8 +136,11 @@ EEAReferenceBrowser.Tab.prototype = {
 
     // Add working css class
     items.addClass('refbrowser-faceted-addable-item');
-    items.attr('title', 'Click on the top-right icon to add it to current relations');
-    items.prepend(this.get_icon());
+    items.attr('title', 'Click on the plus icon to add it to current relations');
+    var icon = this.get_icon()
+      .removeClass('ui-icon-extlink')
+      .addClass('ui-icon-plus')
+      .addClass('ui-icon-album-add').appendTo(items);
 
     items.click(function(){
       var self = jQuery(this);
