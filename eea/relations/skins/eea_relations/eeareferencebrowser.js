@@ -136,7 +136,7 @@ EEAReferenceBrowser.Tab.prototype = {
 
     // Add working css class
     items.addClass('refbrowser-faceted-addable-item');
-    items.attr('title', 'Click on right-top icon to add it to current relations');
+    items.attr('title', 'Click on the top-right icon to add it to current relations');
     items.prepend(this.get_icon());
 
     items.click(function(){
