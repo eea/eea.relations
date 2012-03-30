@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.6-dev - (unreleased)
+----------------------
+
 4.5 - (2012-03-30)
 ------------------
  * i18n: Added i18n locales folder, pot files and po files for en and ro
