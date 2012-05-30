@@ -3,6 +3,12 @@ Changelog
 
 4.6-dev - (unreleased)
 ----------------------
+* Upgrade step: (optional) For each "Plone > portal_relations >
+  <Content-Type>" enable 'faceted search' within Actions menu
+  [voineali refs #5218]
+* Feature: Use the faceted 'search mode' by default for
+  relations content-types in order to speed up the relations popup
+  [voineali refs #5218]
 
 4.5 - (2012-03-30)
 ------------------

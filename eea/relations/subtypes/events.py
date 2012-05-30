@@ -20,8 +20,11 @@ def subtype(obj, evt):
 
     # Subtype as faceted navigable
     subtyper = queryMultiAdapter((context, context.REQUEST),
-                                 name=u'faceted_subtyper')
-    subtyper.enable()
+        name=u'faceted_search_subtyper', default=queryMultiAdapter(
+            (context, context.REQUEST), name=u'faceted_subtyper'))
+
+    if subtyper:
+        subtyper.enable()
 
     # Add default widgets
     widgets = queryMultiAdapter((context, context.REQUEST),
