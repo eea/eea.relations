@@ -3,6 +3,8 @@ Changelog
 
 4.6-dev - (unreleased)
 ----------------------
+* Bug fix: fixed markup of HISTORY.txt file
+  [ciobabog refs #5231]
 * Upgrade step: (optional) For each "Plone > portal_relations >
   <Content-Type>" enable 'faceted search' within Actions menu
   [voineali refs #5218]
@@ -12,30 +14,30 @@ Changelog
 
 4.5 - (2012-03-30)
 ------------------
- * i18n: Added i18n locales folder, pot files and po files for en and ro
-   [voineali]
- * Change: Update popup look&feel
-   [voineali #4968]
- * Change: remove left and right column for portal_relations admin page
-   [demarant]
- * Feature: possibility to overwrite default thumb scale when show relations
-   [demarant]
- * Bug fix: Fixed view macro under eeareferencebrowser.pt
-   [ghicaale #4998]
- * Change: removed content creation status message in reference popup
-   [tiberich #4982]
+* i18n: Added i18n locales folder, pot files and po files for en and ro
+  [voineali]
+* Change: Update popup look&feel
+  [voineali #4968]
+* Change: remove left and right column for portal_relations admin page
+  [demarant]
+* Feature: possibility to overwrite default thumb scale when show relations
+  [demarant]
+* Bug fix: Fixed view macro under eeareferencebrowser.pt
+  [ghicaale #4998]
+* Change: removed content creation status message in reference popup
+  [tiberich #4982]
 
 4.4 - (2012-03-05)
 ------------------
- * Bug fix: Renamed css file to css.dtml. Use portal_url to anchor images
-   [tiberich #4956]
- * Change: make the @eea.relations.macros generic
-   [tiberich #4982]
+* Bug fix: Renamed css file to css.dtml. Use portal_url to anchor images
+  [tiberich #4956]
+* Change: make the @eea.relations.macros generic
+  [tiberich #4982]
 
 4.3 - (2012-02-15)
 ------------------
- * Bug fix: don't check for thumbs on content types, we always have them
-   [tiberich #4671]
+* Bug fix: don't check for thumbs on content types, we always have them
+  [tiberich #4671]
 
 4.2 - (2012-01-03)
 ------------------
