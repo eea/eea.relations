@@ -51,7 +51,7 @@ Products" section in "Site Setup".
 
 You can download a sample buildout at:
 
-  http://svn.eionet.europa.eu/repositories/Zope/trunk/eea.relations/buildouts/plone4/
+  https://svn.eionet.europa.eu/repositories/Zope/trunk/eea.relations/buildouts/plone4/
 
 
 Getting started
