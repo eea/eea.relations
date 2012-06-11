@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
 <object name="portal_relations" meta_type="EEARelationsTool">
-  <object name="generic" meta_type="EEARelationsContentType">
-    <property name="title">Generic</property>
+  <!-- Cleanup -->
+  <object name="generic" purge="True" />
+  <object name="generic-generic" purge="True" />
+  <object name="generic-to-generic-relation" purge="True" />
+
+  <!-- All => All relations -->
+  <object name="all" meta_type="EEARelationsContentType">
+    <property name="title">All</property>
     <property name="ct_type"></property>
-    <property name="ct_interface">Products.Archetypes.interfaces.base.IBaseObject</property>
+    <property name="ct_interface">eea.relations.content.interfaces.IBaseObject</property>
   </object>
-  <object name="generic-to-generic-relation" meta_type="EEAPossibleRelation">
-    <property name="title">Generic -> Generic</property>
-    <property name="from">generic</property>
-    <property name="to">generic</property>
+  <object name="all-all" meta_type="EEAPossibleRelation">
+    <property name="title">All -> All</property>
+    <property name="from">all</property>
+    <property name="to">all</property>
   </object>
 </object>

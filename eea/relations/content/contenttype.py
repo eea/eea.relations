@@ -36,7 +36,7 @@ EditSchema = ATFolder.schema.copy() + atapi.Schema((
     ),
     TALESString('ct_default_location',
         schemata="default",
-        default="python:object.aq_parent.absolute_url()",
+        default="python:None",
         widget=atapi.StringWidget(
             label='Default location expression',
             label_msgid='widget_portal_type_title',

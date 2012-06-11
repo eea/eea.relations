@@ -3,11 +3,15 @@ Changelog
 
 4.6-dev - (unreleased)
 ----------------------
-* Bug fix: fixed markup of HISTORY.txt file
-  [ciobabog refs #5231]
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.relations
 * Upgrade step: (optional) For each "Plone > portal_relations >
   <Content-Type>" enable 'faceted search' within Actions menu
   [voineali refs #5218]
+* Bug fix: Fixed generic relations (all to all relations)
+  [voineali fixes #4908]
+* Bug fix: fixed markup of HISTORY.txt file
+  [ciobabog refs #5231]
 * Feature: Use the faceted 'search mode' by default for
   relations content-types in order to speed up the relations popup
   [voineali refs #5218]

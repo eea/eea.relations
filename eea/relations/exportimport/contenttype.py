@@ -17,6 +17,8 @@ class ContentTypeXMLAdapter(XMLAdapterBase):
             child.setAttribute('name', prop)
             field = self.context.getField(prop)
             value = field.getAccessor(self.context)()
+            if prop == 'ct_default_location' and value is None:
+                value = u'python:None'
             value = self._doc.createTextNode(str(value))
             child.appendChild(value)
             node.appendChild(child)

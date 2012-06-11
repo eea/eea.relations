@@ -1,6 +1,7 @@
 """ EEA Relations public interfaces
 """
 # Content
+from eea.relations.content.interfaces import IBaseObject
 from eea.relations.content.interfaces import IToolAccessor
 from eea.relations.content.interfaces import IRelationsTool
 from eea.relations.content.interfaces import IContentType
@@ -23,6 +24,7 @@ from eea.relations.discover.interfaces import IAutoRelations
 
 # pylint, pyflakes
 __all__ = [
+    IBaseObject.__name__,
     IToolAccessor.__name__,
     IRelationsTool.__name__,
     IContentType.__name__,

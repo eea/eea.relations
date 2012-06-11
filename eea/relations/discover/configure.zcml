@@ -4,7 +4,7 @@
   i18n_domain="eea">
 
   <adapter
-    for="Products.Archetypes.interfaces.IBaseContent"
+    for="eea.relations.interfaces.IBaseObject"
     provides=".interfaces.IAutoRelations"
     factory=".adapter.AutoRelations"
     />

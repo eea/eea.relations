@@ -3,7 +3,7 @@
   i18n_domain="eea">
 
   <adapter
-    for="Products.Archetypes.interfaces.IBaseContent"
+    for="eea.relations.interfaces.IBaseObject"
     provides=".interfaces.IContentTypeLookUp"
     factory=".contenttype.ContentTypeLookUp"
     />

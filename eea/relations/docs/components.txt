@@ -99,17 +99,17 @@ Let's do some queries
 
   Now let's add a generic Content-Type.
 
-  BTW Products.Archetypes.interfaces.IBaseContent is the low level interface
+  BTW Products.Archetypes.interfaces.IBaseObject is the low level interface
   you can use to define ContentType mappings in portal_relations, so if you add
   a Content-Type for zope.interface.Interface you may have a surprise :)
 
-    >>> from Products.Archetypes.interfaces import IBaseContent
+    >>> from eea.relations.interfaces import IBaseObject
     >>> rid = rtool.invokeFactory('EEARelationsContentType', 'generic')
     >>> rtype = rtool._getOb(rid)
     >>> rtype.processForm(values={
     ...   'title': 'Generic',
     ...   'ct_type': '',
-    ...   'ct_interface': IBaseContent.__identifier__,
+    ...   'ct_interface': IBaseObject.__identifier__,
     ... })
 
     >>> queryContentType(doc)

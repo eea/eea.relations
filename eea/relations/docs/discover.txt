@@ -58,7 +58,7 @@ Register adapter within configure.zcml
     ... </configure>
     ... """
 
-    >>> from Products.Five import zcml
+    >>> from Zope2.App import zcml
     >>> zcml.load_string(configure_zcml)
 
 Now let's check our relations

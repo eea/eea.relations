@@ -8,4 +8,8 @@
     factory=".tool.RelationsToolAccessor"
     />
 
+  <class class="Products.Archetypes.BaseObject.BaseObject">
+    <implements interface=".interfaces.IBaseObject" />
+  </class>
+
 </configure>

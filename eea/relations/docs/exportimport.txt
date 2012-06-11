@@ -43,7 +43,7 @@ So let's remove all default faceted criteria for generic content-type:
 
     >>> importer.body = '''<?xml version="1.0"?>
     ... <object name="portal_relations">
-    ...   <object name="generic">
+    ...   <object name="all">
     ...     <criteria/>
     ...   </object>
     ... </object>
@@ -54,18 +54,18 @@ See default faceted portal types
     >>> print exporter.body
     <?xml version="1.0" encoding="utf-8"?>
     <object name="portal_relations" meta_type="EEARelationsTool">
-     <object name="generic" meta_type="EEARelationsContentType">
-      <property name="title">Generic</property>
+     <object name="all" meta_type="EEARelationsContentType">
+      <property name="title">All</property>
       <property name="ct_type"></property>
       <property
-         name="ct_interface">Products.Archetypes.interfaces.base.IBaseObject</property>
+         name="ct_interface">eea.relations.content.interfaces.IBaseObject</property>
      <property
-         name="ct_default_location">http://nohost/plone/portal_relations</property>
+         name="ct_default_location">python:None</property>
      </object>
-     <object name="generic-to-generic-relation" meta_type="EEAPossibleRelation">
-      <property name="from">generic</property>
-      <property name="to">generic</property>
-      <property name="title">Generic -&gt; Generic</property>
+     <object name="all-all" meta_type="EEAPossibleRelation">
+      <property name="from">all</property>
+      <property name="to">all</property>
+      <property name="title">All -&gt; All</property>
       <property name="forward_label"></property>
       <property name="backward_label"></property>
       <property name="description"></property>
@@ -116,7 +116,7 @@ Import some data
       <property name="ct_type">Folder</property>
       <property name="ct_interface"></property>
       <property
-         name="ct_default_location">http://nohost/plone/portal_relations</property>
+         name="ct_default_location">python:None</property>
      </object>
      <object name="folder-to-folder" meta_type="EEAPossibleRelation">
       <property name="from">folder</property>
@@ -150,7 +150,7 @@ Purge content-types properties
       <property name="ct_type"></property>
       <property name="ct_interface"></property>
       <property
-         name="ct_default_location">http://nohost/plone/portal_relations</property>
+         name="ct_default_location">python:None</property>
      </object>
      <object name="folder-to-folder" meta_type="EEAPossibleRelation">
       <property name="from">folder</property>
@@ -185,7 +185,7 @@ Purge relations properties
       <property name="ct_type"></property>
       <property name="ct_interface"></property>
       <property
-         name="ct_default_location">http://nohost/plone/portal_relations</property>
+         name="ct_default_location">python:None</property>
      </object>
      <object name="folder-to-folder" meta_type="EEAPossibleRelation">
       <property name="from"></property>
@@ -291,7 +291,7 @@ Export
       <property name="ct_type"></property>
       <property name="ct_interface"></property>
       <property
-         name="ct_default_location">http://nohost/plone/portal_relations</property>
+         name="ct_default_location">python:None</property>
       <criteria>
        <criterion name="c4">
         <property name="widget">checkbox</property>
@@ -349,7 +349,7 @@ Let's see our beautiful faceted navigable container
       <property name="ct_type"></property>
       <property name="ct_interface"></property>
       <property
-         name="ct_default_location">http://nohost/plone/portal_relations</property>
+         name="ct_default_location">python:None</property>
       <criteria>
        <criterion name="c2">
         <property name="widget">checkbox</property>
