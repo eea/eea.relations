@@ -27,23 +27,27 @@
             value python:field.getAccessor(doc)();"
             tal:condition="value" class="fieldRequiredFor"> </span>
           <br/>
-          forward label: <span tal:define="field python:doc.getField('forward_label');
+          <span i18n:translate="">forward label:</span>&nbsp; 
+          <span tal:define="field python:doc.getField('forward_label');
             value python:field.getAccessor(doc)();"
             tal:condition="value" tal:content="value"> </span>
           <br/>
-          backward label: <span tal:define="field python:doc.getField('backward_label');
+          <span i18n:translate="">backward label:</span>&nbsp;
+          <span tal:define="field python:doc.getField('backward_label');
             value python:field.getAccessor(doc)();"
             tal:condition="value" tal:content="value"> </span>
         </span>
       </td>
       <td style="text-align: center">
         <a tal:attributes="href string:$url/edit">
-          <img src="eeatooledit.png" alt="Edit" title="Edit"/>
+          <img src="eeatooledit.png" alt="Edit" title="Edit"
+               i18n:attributes="alt edit; title edit" />
         </a>
       </td>
       <td style="text-align: center">
         <a tal:attributes="href string:$url/delete_confirmation">
-          <img src="eeatooldelete.png" alt="Delete" title="Delete"/>
+          <img src="eeatooldelete.png" alt="Delete" title="Delete"
+               i18n:attributes="alt delete; title delete"/>
         </a>
       </td>
     </tr>

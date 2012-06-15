@@ -23,12 +23,14 @@
       </td>
       <td style="text-align: center">
         <a tal:attributes="href string:$url/edit">
-          <img src="eeatooledit.png" alt="Edit" title="Edit"/>
+          <img src="eeatooledit.png" alt="Edit" title="Edit" 
+               i18n:attributes="alt edit; title edit"/>
         </a>
       </td>
       <td style="text-align: center">
         <a tal:attributes="href string:$url/delete_confirmation">
-          <img src="eeatooldelete.png" alt="Delete" title="Delete"/>
+          <img src="eeatooldelete.png" alt="Delete" title="Delete"
+               i18n:attributes="alt delete; title delete"/>
         </a>
       </td>
     </tr>

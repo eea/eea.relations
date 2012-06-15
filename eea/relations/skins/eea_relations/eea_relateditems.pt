@@ -1,7 +1,6 @@
 <tal:comment condition="nothing">
 <!--
 Full portal_relations macro
----------------------------
 
 Usage:
 
@@ -57,7 +56,6 @@ Usage:
 <tal:comment condition="nothing">
 <!--
 Generic macro for relatedItmes (use relatedItemsWithThumbs for full relations)
-------------------------------------------------------------------------------
 
 Macro parameters
 
