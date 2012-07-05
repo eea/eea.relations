@@ -75,7 +75,7 @@ Usage:
     <div class="tileItem visualIEFloatFix vevent" tal:define="
       item item/getObject | nocall:item;
       title item/title_or_id;
-      description item/description;
+      description item/Description;
       url item/absolute_url;
       is_video python:False;
       ">
