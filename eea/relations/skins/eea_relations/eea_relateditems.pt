@@ -93,7 +93,7 @@ Usage:
       </h3>
       <p class="tileFooter">
         <a class="moreLink" tal:attributes="href url; title title;"
-          i18n:translate="read_more">
+          i18n:translate="">
           Read more
         </a>
       </p>

@@ -29,7 +29,7 @@
     </ul>
 
     <div class="panes">
-      <div i18n:translate="loading">Loading...</div>
+      <div i18n:translate="">Loading...</div>
     </div>
 
   </tal:tabs>
