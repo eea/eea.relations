@@ -6,9 +6,9 @@ Changelog
 
 4.7 - (2012-07-13)
 ------------------
-* Bug fix: fixed description error for Sparql related items  
+* Bug fix: fixed description error for Sparql related items
   [ichimdav #4705]
-* Bug fix: Fixed i18n missing tags and i18n:domain in *.pt 
+* Bug fix: Fixed i18n missing tags and i18n:domain in .pt files
   [prospchr refs #5162]
 
 4.6 - (2012-06-12)
