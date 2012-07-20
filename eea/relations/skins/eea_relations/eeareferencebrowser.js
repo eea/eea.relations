@@ -25,6 +25,7 @@ EEAReferenceBrowser.Events = function(){
   this.CANCEL = 'EEA-REFERENCEBROWSER-CANCEL';
   this.CLOSE = 'EEA-REFERENCEBROWSER-CLOSE';
   this.SAVED = 'EEA-REFERENCEBROWSER-SAVED';
+  this.FINISHEDUPDATE = 'EEA-REFERENCEBROWSER-FINISHEDUPDATE';
 };
 
 EEAReferenceBrowser.Events.prototype = {};
@@ -536,6 +537,7 @@ EEAReferenceBrowser.Widget.prototype = {
       var self = this;
       var url = self.skip_portal_factory('@@eeareferencebrowser-popup-selecteditems.html');
       var query = {};
+      var event = this.events.FINISHEDUPDATE;
       query.mode = 'view';
       query.field = self.fieldname;
       query.uids = this.storageedit.val();
@@ -543,6 +545,7 @@ EEAReferenceBrowser.Widget.prototype = {
 
       jQuery.get(url, query, function(data){
         area.html(data);
+        jQuery(document).trigger(event, data);
       });
     }
     this.popup.dialog('close');

@@ -3,6 +3,8 @@ Changelog
 
 4.8-dev - (unreleased)
 ----------------------
+* Feature: Trigger event when updating widget is done
+  [szabozo0 refs #5138]
 
 4.7 - (2012-07-13)
 ------------------
