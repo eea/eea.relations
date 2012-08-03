@@ -73,21 +73,24 @@ Usage:
   tal:condition="related">
   <tal:related tal:repeat="item related">
     <div class="tileItem visualIEFloatFix vevent" tal:define="
-      item item/getObject | nocall:item;
-      title item/title_or_id;
+      item item/getObject|nocall:item;
+      title item/Title;
       description item/Description;
-      url item/absolute_url;
-      is_video python:False;
+      urlview item/@@url;
+      img_url item/absolute_url;
+      url urlview/listing_url;
+      is_video python:'p4a.video.interfaces.IVideoEnhanced' in item.restrictedTraverse('@@get_interfaces')();
+      css_class python: 'video-fancybox' if is_video else 'tileImage';
       ">
       <a class="tileImage"
         tal:attributes="href url; title title; alt title;
-          class python:test(is_video, 'tileImage fancybox', 'tileImage')">
-        <img tal:attributes="src python:'%s/%s' % (url,thumb_scale);
+          class python:'video-fancybox tileImage' if is_video else 'tileImage'">
+        <img tal:attributes="src python:'%s/%s' % (img_url,thumb_scale);
           title title; alt title;" />
       </a>
 
       <h3 class="tileHeadline">
-        <a tal:attributes="href  url; title description" tal:content="title">
+        <a tal:attributes="href  url; title description; class css_class" tal:content="title">
           Related Item
         </a>
       </h3>

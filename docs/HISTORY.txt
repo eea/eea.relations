@@ -3,6 +3,9 @@ Changelog
 
 4.8-dev - (unreleased)
 ----------------------
+* Bug fix: show fancybox popup on video click and display view page instead
+  of downloading file
+  [ichimdav #5403]
 * Feature: Trigger event when updating widget is done
   [szabozo0 refs #5138]
 
