@@ -3,6 +3,8 @@ Changelog
 
 4.8-dev - (unreleased)
 ----------------------
+* Bug fix: correctly set css class for related links to avoid floating issues
+  [ichimdav #5455]
 * Bug fix: show fancybox popup on video click and display view page instead
   of downloading file
   [ichimdav #5403]

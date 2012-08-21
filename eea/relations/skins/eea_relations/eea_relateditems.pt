@@ -80,7 +80,7 @@ Usage:
       img_url item/absolute_url;
       url urlview/listing_url;
       is_video python:'p4a.video.interfaces.IVideoEnhanced' in item.restrictedTraverse('@@get_interfaces')();
-      css_class python: 'video-fancybox' if is_video else 'tileImage';
+      css_class python: 'video-fancybox' if is_video else '';
       ">
       <a class="tileImage"
         tal:attributes="href url; title title; alt title;
