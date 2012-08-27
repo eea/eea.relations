@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.9-dev - (unreleased)
+----------------------
+
 4.8 - (2012-08-27)
 ------------------
 * Bug fix: correctly set css class for related links to avoid floating issues
