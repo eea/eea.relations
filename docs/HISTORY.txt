@@ -3,6 +3,8 @@ Changelog
 
 4.9-dev - (unreleased)
 ----------------------
+* Bug fix: Fix doc tests
+  [voineali]
 
 4.8 - (2012-08-27)
 ------------------
