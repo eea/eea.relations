@@ -12,12 +12,20 @@
   <div style="width: 100%">
     <div style="float: left; width: 100%">
       <div style="width: 100%; overflow: auto; text-align: center; border: 1px solid #8CACBB; padding: 2em 0">
-      <img tal:attributes="
-        src string:${here/absolute_url}/@@graph.png;
-        alt string:Relations Graph;
-        title string:Relations Graph" />
+        <img tal:attributes="src string:${here/absolute_url}/@@graph.png;
+                             alt string:Relations Graph;
+                             title string:Relations Graph" />
+      </div>
+      <div class="eea-portalrelations-menu">
+        <a href="graph.png"
+           title="View full graph"
+           tal:attributes="href string:${here/absolute_url}/@@graph.png">View full graph</a> |
+        <a href="badrelations.html"
+           title="List all relations that don't comply portal_relations schema"
+           tal:attributes="href string:${here/absolute_url}/@@badrelations.html">List of bad relations</a> |
       </div>
     </div>
+
     <div style="float: left; width: 48%">
       <tal:viewlet replace="structure here/@@contenttypes.html" />
     </div>
