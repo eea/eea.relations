@@ -1,0 +1,44 @@
+<tal:block tal:define="foo python:request.set('disable_plone.leftcolumn', 1);
+                       foo python:request.set('disable_plone.rightcolumn', 1)"/>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+
+<body>
+
+<div metal:fill-slot="content-core">
+
+  <div tal:define="all_relations python:view.all_relations;"
+       tal:content="all_relations">Result</div>
+
+<ul>
+
+<li tal:repeat="interface python:view.object_provides_vocabulary"
+    tal:content="interface/title" />
+
+</ul>
+
+<ul>
+
+<li tal:repeat="interface python:view.content_types_vocabulary"
+    tal:content="interface/title" />
+
+</ul>
+
+
+<form action="#" name="#" method="GET">
+
+<select>
+
+</form>
+
+
+
+  <div class="visualClear"></div>
+
+</div>
+
+</body>
+</html>
