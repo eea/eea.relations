@@ -17,37 +17,43 @@ class View(BrowserView):
     def object_provides_vocabulary(self):
         """ Object provides vocabulary
         """
-        voc = queryUtility(IVocabularyFactory, name=u'eea.relations.voc.ObjectProvides')
+        voc = queryUtility(IVocabularyFactory,
+                           name=u'eea.relations.voc.ObjectProvides')
         return voc(self.context)
 
     @property
-    def content_types_vocabulary(self):
-        """ Content types vocabulary
+    def portal_types_vocabulary(self):
+        """ Portal types vocabulary
         """
-        voc = queryUtility(IVocabularyFactory, name=u'eea.relations.voc.ContentTypes')
+        voc = queryUtility(IVocabularyFactory,
+                           name=u'eea.relations.voc.PortalTypesVocabulary')
         return voc(self.context)
 
     @property
-    def all_relations(self):
+    def bad_relations_report(self):
         """ All relations
         """
+        res = []
         catalog = getToolByName(self.context, 'portal_catalog')
+        ct_type = self.request.get('ct_type', '')
+        ct_interface = self.request.get('ct_interface', '')
 
-        query = {'portal_type': 'Specification'}
-        res = catalog(**query)
+        if ct_type or ct_interface:
+            query = {'portal_type': ct_type}
+            res = catalog(**query)
 
-        res_res = {}
+        report = {}
 
         for brain in res:
             obj = brain.getObject()
-#            try:
-#                backreferences = Set(IRelations(obj).backReferences())
-#                fwdreferences = Set(IRelations(obj).forwardReferences())
-#                res_res[brain.getURL()] = backreferences | fwdreferences
-#            except (TypeError, ValueError):
-#                # The catalog expects AttributeErrors when a value can't be found
-#                raise AttributeError
-#            except:
-#                logger.info('ERROR: %s' % brain.getURL())
+            try:
+                backreferences = Set(IRelations(obj).backReferences())
+                fwdreferences = Set(IRelations(obj).forwardReferences())
+                report[brain.getURL()] = backreferences | fwdreferences
+            except (TypeError, ValueError):
+                # The catalog expects AttributeErrors when a value can't be found
+                raise AttributeError
+            except:
+                logger.info('ERROR: %s' % brain.getURL())
 
-        return len(res)
+        return report

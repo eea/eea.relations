@@ -8,36 +8,67 @@
 
 <body>
 
+<div metal:fill-slot="content-title">
+    <h1 class="documentFirstHeading">Search for bad relations</h1>
+</div>
+
+<div metal:fill-slot="content-description">
+    <div class="documentDescription">This form will help you find deprecated relation between portal content</div>
+</div>
+
 <div metal:fill-slot="content-core">
+<tal:relations_report define="ct_type_value python:request.get('ct_type', '');
+                              ct_interface_value python:request.get('ct_interface', '')">
 
-  <div tal:define="all_relations python:view.all_relations;"
-       tal:content="all_relations">Result</div>
+    <form action="@@badrelations.html" name="bad-relations" id="eearelationscontenttype-bad-relations"
+          method="GET" enctype="multipart/form-data"
+          tal:attributes="action string:${here/absolute_url}/@@badrelations.html">
 
-<ul>
+    <div class="field">
+        <label for="ct_type" class="formQuestion">
+            Portal type
+            <span class="formHelp" id="ct_type_help">Select portal type</span>
+        </label>
+        <select name="ct_type" id="ct_type">
+            <option tal:repeat="portaltype python:view.portal_types_vocabulary"
+                    tal:attributes="value portaltype/title;
+                                    selected python:ct_type_value==portaltype.title and 'selected' or ''"
+                    tal:content="portaltype/title" />
+        </select>
+    </div>
 
-<li tal:repeat="interface python:view.object_provides_vocabulary"
-    tal:content="interface/title" />
+    <div class="field">
+        <label for="ct_interface" class="formQuestion">
+            Interface
+            <span class="formHelp" id="ct_interface_help">Select interface</span>
+        </label>
+        <select name="ct_interface" id="ct_interface">
+            <option tal:repeat="interface python:view.object_provides_vocabulary"
+                    tal:attributes="value interface/title;
+                                    selected python:ct_interface_value==interface.title and 'selected' or ''"
+                    tal:content="interface/title" />
+        </select>
+    </div>
 
-</ul>
+    <input class="context" type="submit" name="form.button.save" value="Generate report" />
 
-<ul>
+    </form>
 
-<li tal:repeat="interface python:view.content_types_vocabulary"
-    tal:content="interface/title" />
+    <fieldset tal:define="bad_relations_report python:view.bad_relations_report">
+      <legend>Report</legend>
+      <ul>
+        <li tal:repeat="item bad_relations_report/keys" tal:content="item">
+            <ul>
+                <li tal:repeat="relation python:bad_relations_report[item]"
+                    tal:content="relation" />
+            </ul>
+        </li>
+      </ul>
+    </fieldset>
 
-</ul>
+    <div class="visualClear"></div>
 
-
-<form action="#" name="#" method="GET">
-
-<select>
-
-</form>
-
-
-
-  <div class="visualClear"></div>
-
+</tal:relations_report>
 </div>
 
 </body>
