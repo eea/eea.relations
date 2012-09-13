@@ -1,11 +1,15 @@
 """ Browser view for bad relations listing
 """
-from Products.EEAContentTypes.interfaces import IRelations
 from zope.component import queryUtility
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from zope.schema.interfaces import IVocabularyFactory
 from sets import Set
+try:
+    from Products.EEAContentTypes.interfaces import IRelations
+except:
+    NOT_INSTALLED = True
+
 import logging
 
 logger = logging.getLogger('eea.relations.browser.badrelations')
