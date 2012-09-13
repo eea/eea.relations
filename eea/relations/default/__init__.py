@@ -11,7 +11,7 @@ def override(context):
     from plone.app.blob import content as blobcontent
 
     widget = EEAReferenceBrowserWidget(
-        label = _(u'label_related_items', default=u'Related Items'),
+        label = _(u'Related Items'),
         description='',
         visible = {'edit' : 'visible', 'view' : 'invisible' },
         i18n_domain="plone"

@@ -20,9 +20,13 @@
       <div class="eea-portalrelations-menu">
         <a href="graph.png"
            title="View full graph"
+           i18n:translate=""
+           i18n:attributes="title"
            tal:attributes="href string:${here/absolute_url}/@@graph.png">View full graph</a> |
         <a href="badrelations.html"
            title="List all relations that don't comply portal_relations schema"
+           i18n:translate=""
+           i18n:attributes="title"
            tal:attributes="href string:${here/absolute_url}/@@badrelations.html">List of bad relations</a> |
       </div>
     </div>

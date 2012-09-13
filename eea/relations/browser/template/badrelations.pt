@@ -9,11 +9,11 @@
 <body>
 
 <div metal:fill-slot="content-title">
-    <h1 class="documentFirstHeading">Search for bad relations</h1>
+    <h1 class="documentFirstHeading" i18n:translate="">Search for bad relations</h1>
 </div>
 
 <div metal:fill-slot="content-description">
-    <div class="documentDescription">This form will help you find deprecated relation between portal content</div>
+    <div class="documentDescription" i18n:translate="">This form will help you find deprecated relation between portal content</div>
 </div>
 
 <div metal:fill-slot="content-core">
@@ -26,8 +26,8 @@
 
     <div class="field">
         <label for="ct_type" class="formQuestion">
-            Portal type
-            <span class="formHelp" id="ct_type_help">Select portal type</span>
+            <tal:block i18n:translate="">Portal type</tal:block>
+            <span class="formHelp" id="ct_type_help" i18n:translate="">Select portal type</span>
         </label>
         <select name="ct_type" id="ct_type">
             <option tal:repeat="portaltype python:view.portal_types_vocabulary"
@@ -39,8 +39,8 @@
 
     <div class="field">
         <label for="ct_interface" class="formQuestion">
-            Interface
-            <span class="formHelp" id="ct_interface_help">Select interface</span>
+            <tal:block i18n:translate="">Interface</tal:block>
+            <span class="formHelp" id="ct_interface_help" i18n:translate="">Select interface</span>
         </label>
         <select name="ct_interface" id="ct_interface">
             <option tal:repeat="interface python:view.object_provides_vocabulary"
@@ -50,12 +50,12 @@
         </select>
     </div>
 
-    <input class="context" type="submit" name="form.button.save" value="Generate report" />
+    <input class="context" type="submit" name="form.button.save" value="Generate report" i18n:attributes="value"/>
 
     </form>
 
     <fieldset tal:define="bad_relations_report python:view.bad_relations_report">
-      <legend>Report</legend>
+      <legend i18n:translate="">Report</legend>
       <ul>
         <li tal:repeat="item bad_relations_report/keys" tal:content="item">
             <ul>
