@@ -3,6 +3,8 @@ Changelog
 
 4.9-dev - (unreleased)
 ----------------------
+* Change: use IVideo interface when checking for videos
+  [ichimdav #5480]
 * Feature: Added a listing of all relations that don't comply portal_relations schema
   [ghicaale refs #3212]
 * Bug fix: Fix doc tests

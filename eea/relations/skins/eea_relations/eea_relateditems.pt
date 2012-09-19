@@ -79,7 +79,8 @@ Usage:
       urlview item/@@url;
       img_url item/absolute_url;
       url urlview/listing_url;
-      is_video python:'p4a.video.interfaces.IVideoEnhanced' in item.restrictedTraverse('@@get_interfaces')();
+      interfaces python:item.restrictedTraverse('@@get_interfaces')(); 
+      is_video python:'eea.mediacentre.interfaces.IVideo' in interfaces;
       css_class python: 'video-fancybox' if is_video else '';
       ">
       <a class="tileImage"
