@@ -39,16 +39,22 @@
         <input class="context" type="submit" name="form.button.save" value="Generate report" i18n:attributes="value"/>
     </form>
 
-    <h2 tal:condition="bad_relations_report/keys">Deprecated relations</h2>
-    <tal:results repeat="key bad_relations_report/keys">
-    <tal:condition condition="python:bad_relations_report[key]">
+    <tal:results_header condition="bad_relations_report">
+        <h2>Deprecated relations</h2>
+        <p><tal:block content="python:len(view.get_objects)" /> objects verified.</p>
+    </tal:results_header>
+
+    <tal:results repeat="res bad_relations_report">
+    <tal:condition define="obj python:res[1];
+                           relations python:res[2]"
+                   condition="relations">
         <fieldset>
         <legend><a href="" title=""
-            tal:attributes="href key/absolute_url;
-                            title key/Title"
-            tal:content="key/Title" /></legend>
+            tal:attributes="href obj/absolute_url;
+                            title obj/Title"
+            tal:content="obj/Title" /></legend>
         <ul>
-            <li tal:repeat="rel python:bad_relations_report[key]">
+            <li tal:repeat="rel relations">
                 <a href="" title=""
                     tal:attributes="href rel/absolute_url;
                                     title rel/Title"
