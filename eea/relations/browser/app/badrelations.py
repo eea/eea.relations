@@ -1,15 +1,10 @@
 """ Browser view for bad relations listing
 """
-from zope.component import queryUtility
+from zope.component import queryAdapter
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
-from zope.schema.interfaces import IVocabularyFactory
-from sets import Set
-try:
-    from Products.EEAContentTypes.interfaces import IRelations
-except:
-    NOT_INSTALLED = True
-
+from eea.relations.interfaces import IToolAccessor
+from eea.relations.component import getForwardRelationWith
 import logging
 
 logger = logging.getLogger('eea.relations.browser.badrelations')
@@ -18,46 +13,55 @@ class View(BrowserView):
     """ Views
     """
     @property
-    def object_provides_vocabulary(self):
-        """ Object provides vocabulary
+    def content_types(self):
+        """ Content types
         """
-        voc = queryUtility(IVocabularyFactory,
-                           name=u'eea.relations.voc.ObjectProvides')
-        return voc(self.context)
+        tool = queryAdapter(self.context, IToolAccessor)
+        if not tool:
+            return
 
-    @property
-    def portal_types_vocabulary(self):
-        """ Portal types vocabulary
-        """
-        voc = queryUtility(IVocabularyFactory,
-                           name=u'eea.relations.voc.PortalTypesVocabulary')
-        return voc(self.context)
+        for brain in tool.types():
+            yield brain
 
     @property
     def bad_relations_report(self):
         """ All relations
         """
         res = []
-        catalog = getToolByName(self.context, 'portal_catalog')
-        ct_type = self.request.get('ct_type', '')
-        ct_interface = self.request.get('ct_interface', '')
-
-        if ct_type or ct_interface:
-            query = {'portal_type': ct_type}
-            res = catalog(**query)
-
+        query = {}
         report = {}
 
+        catalog = getToolByName(self.context, 'portal_catalog')
+        pr_tool = getToolByName(self.context, 'portal_relations')
+        ct_type = self.request.get('ct_type', '')
+
+        # Get portal relations content type
+        if ct_type:
+            pr_ct_type = pr_tool[ct_type]
+
+            if pr_ct_type.getCt_type():
+                query['portal_type'] = pr_ct_type.getCt_type()
+            if pr_ct_type.getCt_interface():
+                query['object_provides'] = pr_ct_type.getCt_interface()
+            res = catalog(**query)
+
+        # Get relations
         for brain in res:
+            bad_relations = []
             obj = brain.getObject()
+
             try:
-                backreferences = Set(IRelations(obj).backReferences())
-                fwdreferences = Set(IRelations(obj).forwardReferences())
-                report[brain.getURL()] = backreferences | fwdreferences
+                fwd = obj.getRelatedItems()
+                # Check for bad relations
+                for rel in fwd:
+                    if not getForwardRelationWith(obj, rel):
+                        bad_relations.append(rel)
+                report[obj] = bad_relations
             except (TypeError, ValueError):
-                # The catalog expects AttributeErrors when a value can't be found
+                # The catalog expects AttributeErrors when
+                # a value can't be found
                 raise AttributeError
             except:
-                logger.info('ERROR: %s' % brain.getURL())
+                logger.info('ERROR getting relations for %s' % brain.getURL())
 
         return report

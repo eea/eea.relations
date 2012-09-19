@@ -13,58 +13,52 @@
 </div>
 
 <div metal:fill-slot="content-description">
-    <div class="documentDescription" i18n:translate="">This form will help you find deprecated relation between portal content</div>
+    <div class="documentDescription" i18n:translate="">This form will help you find deprecated relations between portal content.</div>
 </div>
 
 <div metal:fill-slot="content-core">
 <tal:relations_report define="ct_type_value python:request.get('ct_type', '');
-                              ct_interface_value python:request.get('ct_interface', '')">
+                              bad_relations_report python:view.bad_relations_report">
 
     <form action="@@badrelations.html" name="bad-relations" id="eearelationscontenttype-bad-relations"
           method="GET" enctype="multipart/form-data"
           tal:attributes="action string:${here/absolute_url}/@@badrelations.html">
+        <div class="field">
+            <label for="ct_type" class="formQuestion">
+                <tal:block i18n:translate="">Portal type</tal:block>
+                <span class="formHelp" id="ct_type_help" i18n:translate="">Select portal type</span>
+            </label>
+            <select name="ct_type" id="ct_type">
+                <option tal:repeat="portaltype python:view.content_types"
+                        tal:attributes="value portaltype/getId;
+                                        selected python:ct_type_value==portaltype.getId and 'selected' or ''"
+                        tal:content="portaltype/Title" />
+            </select>
+        </div>
 
-    <div class="field">
-        <label for="ct_type" class="formQuestion">
-            <tal:block i18n:translate="">Portal type</tal:block>
-            <span class="formHelp" id="ct_type_help" i18n:translate="">Select portal type</span>
-        </label>
-        <select name="ct_type" id="ct_type">
-            <option tal:repeat="portaltype python:view.portal_types_vocabulary"
-                    tal:attributes="value portaltype/title;
-                                    selected python:ct_type_value==portaltype.title and 'selected' or ''"
-                    tal:content="portaltype/title" />
-        </select>
-    </div>
-
-    <div class="field">
-        <label for="ct_interface" class="formQuestion">
-            <tal:block i18n:translate="">Interface</tal:block>
-            <span class="formHelp" id="ct_interface_help" i18n:translate="">Select interface</span>
-        </label>
-        <select name="ct_interface" id="ct_interface">
-            <option tal:repeat="interface python:view.object_provides_vocabulary"
-                    tal:attributes="value interface/title;
-                                    selected python:ct_interface_value==interface.title and 'selected' or ''"
-                    tal:content="interface/title" />
-        </select>
-    </div>
-
-    <input class="context" type="submit" name="form.button.save" value="Generate report" i18n:attributes="value"/>
-
+        <input class="context" type="submit" name="form.button.save" value="Generate report" i18n:attributes="value"/>
     </form>
 
-    <fieldset tal:define="bad_relations_report python:view.bad_relations_report">
-      <legend i18n:translate="">Report</legend>
-      <ul>
-        <li tal:repeat="item bad_relations_report/keys" tal:content="item">
-            <ul>
-                <li tal:repeat="relation python:bad_relations_report[item]"
-                    tal:content="relation" />
-            </ul>
-        </li>
-      </ul>
-    </fieldset>
+    <h2 tal:condition="bad_relations_report/keys">Deprecated relations</h2>
+    <tal:results repeat="key bad_relations_report/keys">
+    <tal:condition condition="python:bad_relations_report[key]">
+        <fieldset>
+        <legend><a href="" title=""
+            tal:attributes="href key/absolute_url;
+                            title key/Title"
+            tal:content="key/Title" /></legend>
+        <ul>
+            <li tal:repeat="rel python:bad_relations_report[key]">
+                <a href="" title=""
+                    tal:attributes="href rel/absolute_url;
+                                    title rel/Title"
+                    tal:content="rel/Title" />
+                &nbsp;(<span tal:content="rel/portal_type" style="color:red"></span>)
+            </li>
+        <ul>
+        </fieldset>
+    </tal:condition>
+    </tal:results>
 
     <div class="visualClear"></div>
 
