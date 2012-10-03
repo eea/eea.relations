@@ -1,13 +1,11 @@
 """ Installer
 """
-from setuptools import setup, find_packages
 import os
-from os.path import join
-
+from setuptools import setup, find_packages
 
 NAME = 'eea.relations'
 PATH = NAME.split('.') + ['version.txt']
-VERSION = open(join(*PATH)).read().strip()
+VERSION = open(os.path.join(*PATH)).read().strip()
 
 setup(name=NAME,
       version=VERSION,
@@ -18,14 +16,27 @@ setup(name=NAME,
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
-        "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
+          "Framework :: Zope2",
+          "Framework :: Zope3",
+          "Framework :: Plone",
+          "Framework :: Plone :: 4.0",
+          "Framework :: Plone :: 4.1",
+          "Framework :: Plone :: 4.2",
+          "Programming Language :: Zope",
+          "Programming Language :: Python",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+          "License :: OSI Approved :: GNU General Public License (GPL)",
+          "License :: OSI Approved :: Mozilla Public License 1.0 (MPL)",
         ],
       keywords=('eea relations widget reference browser referencebrowserwidget '
                 'faceted facetednavigation plone zope python'),
-      author='Alin Voinea (eaudeweb), European Environment Agency',
-      author_email='webadmin@eea.europa.eu',
-      url='http://www.eea.europa.eu/projects/Zope',
+      author='European Environment Agency',
+      author_email="webadmin@eea.europa.eu",
+      maintainer='Alin Voinea (Eau de Web)',
+      maintainer_email='alin@eaudeweb.ro',
+      bugtrack_url="https://github.com/eea/eea.relations/issues",
+      download_url="http://pypi.python.org/pypi/eea.relations",
+      url='https://eea.github.com/docs/eea.relations',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['eea',],
@@ -38,6 +49,11 @@ setup(name=NAME,
           'eea.facetednavigation',
           'Products.TALESField',
       ],
+      extras_require={
+          'test': [
+              'plone.app.testing',
+          ]
+      },
       entry_points="""
       # -*- Entry points: -*-
       """,

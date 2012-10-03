@@ -1,10 +1,12 @@
-Overview
-========
+=============
+EEA Relations
+=============
 EEA Relations package redefines relations in Plone. Right now in Plone any
 object can be in relation with any other object. EEA Relations lets you to
 define possible relations between objects. EEA Relations also comes with a nice,
 customizable faceted navigable popup for relations widget.
 
+.. contents::
 
 Installation
 ============
@@ -21,4 +23,7 @@ Usage
 
 Authors
 =======
-  "European Environment Agency", mailto:webadmin@eea europa eu
+
+  EEA_ - European Environment Agency (EU)
+
+.. _EEA: http://www.eea.europa.eu/

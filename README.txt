@@ -1,3 +1,4 @@
+=============
 EEA Relations
 =============
 EEA Relations package redefines relations in Plone. Right now in Plone any
@@ -5,9 +6,6 @@ object can be in relation with any other object. EEA Relations lets you to
 define possible relations between objects. EEA Relations also comes with a nice,
 customizable faceted navigable popup for relations widget.
 
-
-Contents
-========
 
 .. contents::
 
@@ -38,20 +36,34 @@ EEA Relations features:
 Installation
 ============
 
-The easiest way to get eea.relations support in Plone 4 using this package is to
-work with installations based on `zc.buildout`_.  Other types of installations
-should also be possible, but might turn out to be somewhat tricky.
+zc.buildout
+-----------
+If you are using `zc.buildout`_ and the `plone.recipe.zope2instance`_
+recipe to manage your project, you can do this:
 
-To get started you will simply need to add the package to your "eggs" and
-"zcml" sections, run buildout, restart your Plone instance and install the
-"eea.relations" package using the quick-installer or via the "Add-on
-Products" section in "Site Setup".
+* Update your buildout.cfg file:
 
-  .. _`zc.buildout`: http://pypi.python.org/pypi/zc.buildout/
+  * Add ``eea.relations`` to the list of eggs to install
+  * Tell the `plone.recipe.zope2instance`_ recipe to install a ZCML slug
 
-You can download a sample buildout at:
+  ::
 
-  https://svn.eionet.europa.eu/repositories/Zope/trunk/eea.relations/buildouts/plone4/
+    [instance]
+    ...
+    eggs =
+      ...
+      eea.relations
+
+    zcml =
+      ...
+      eea.relations
+
+* Re-run buildout, e.g. with::
+
+  $ ./bin/buildout
+
+You can skip the ZCML slug if you are going to explicitly include the package
+from another package's configure.zcml file.
 
 
 Getting started
@@ -64,12 +76,17 @@ define the relations, the constraints between contents etc.
 
 Dependencies
 ============
+`EEA Relations`_ has the following dependencies:
 
   * graphviz
 
-      yum install graphviz
+    ::
 
-      apt-get install graphviz
+      $ yum install graphviz
+      $ apt-get install graphviz
+
+  * pydot
+  * eea.facetednavigation
 
 
 API Doc
@@ -82,10 +99,8 @@ Source code
 ===========
 
 Latest source code (Plone 4 compatible):
-   https://svn.eionet.europa.eu/repositories/Zope/trunk/eea.relations/trunk
-
-Plone 2 and 3 compatible:
-   https://svn.eionet.europa.eu/repositories/Zope/trunk/eea.relations/branches/plone25
+- `Plone Collective on Github <https://github.com/collective/eea.relations>`_
+- `EEA on Github <https://github.com/eea/eea.relations>`_
 
 
 Copyright and license
@@ -105,6 +120,8 @@ More details under docs/License.txt
 Funding
 =======
 
-  EEA_ - European Enviroment Agency (EU)
+  EEA_ - European Environment Agency (EU)
 
 .. _EEA: http://www.eea.europa.eu/
+.. _`plone.recipe.zope2instance`: http://pypi.python.org/pypi/plone.recipe.zope2instance
+.. _`zc.buildout`: http://pypi.python.org/pypi/zc.buildout
