@@ -9,6 +9,9 @@ from eea.relations.interfaces import IEdge
 from eea.relations.interfaces import IGraph
 from eea.relations.interfaces import IToolAccessor
 from Products.CMFCore.utils import getToolByName
+from Products.statusmessages.interfaces import IStatusMessage
+from Products.CMFPlone import PloneMessageFactory as _
+
 
 class BaseGraph(BrowserView):
     """ Abstract layer
@@ -117,10 +120,31 @@ class ToolGraph(BaseGraph):
             graph.add_node(node())
 
         docs = tool.relations(proxy=False)
+        strerr = "" 
+        bad_relations = []
+        pr_tool = getToolByName(self.context, 'portal_relations')
         for doc in docs:
             edge = queryAdapter(doc, IEdge)
-            graph.add_edge(edge())
-
+            res = edge()
+            if not res:
+                # if no result then check which relation id is missing
+                from_rel = doc['from']
+                to_rel = doc['to']
+                pr_from = pr_tool.get(from_rel)
+                bad_rel = from_rel if not pr_from else to_rel
+                if bad_rel not in bad_relations:
+                    bad_relations.append(bad_rel)
+                strerr +=  doc.Title() + ", "
+                continue
+            graph.add_edge(res)
+        if bad_relations:
+            status = queryAdapter(self.request, IStatusMessage)
+            message = _(u'The following relations are broken: ${relations} ' \
+                'because of broken or missing: ${bad_relations} ' \
+                                        'EEARelationsContentType',
+                mapping = {u'relations': strerr, u'bad_relations': 
+                                                            bad_relations})
+            status.addStatusMessage(message, type='error')
         return graph
 
     def dot(self):
