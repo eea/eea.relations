@@ -1,20 +1,22 @@
 =============
 EEA Relations
 =============
+.. image:: http://ci.eionet.europa.eu/job/eea.relations-www/badge/icon
+  :target: http://ci.eionet.europa.eu/job/eea.relations-www/lastBuild
+.. image:: http://ci.eionet.europa.eu/job/eea.relations-plone4/badge/icon
+  :target: http://ci.eionet.europa.eu/job/eea.relations-plone4/lastBuild
+
+Introduction
+============
 EEA Relations package redefines relations in Plone. Right now in Plone any
 object can be in relation with any other object. EEA Relations lets you to
 define possible relations between objects. EEA Relations also comes with a nice,
 customizable faceted navigable popup for relations widget.
 
-
-.. contents::
-
-
-Introduction
-============
-
 Once installed from "Add-ons", the package will add an utility
 called "Possible relations" under control panel.
+
+.. contents::
 
 
 Main features
