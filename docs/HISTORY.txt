@@ -3,6 +3,12 @@ Changelog
 
 5.1-dev - (unreleased)
 ----------------------
+* WIP :: Change: requests reponsable with listing of all relations that don't
+  comply portal_relations schema are now done asynchronous
+  [ghicaale refs #6773]
+* Change: better Zope logging when listing relations that don't
+  comply portal_relations schema
+  [ghicaale refs #6773]
 
 5.0 - (2012-10-08)
 ------------------

@@ -41,21 +41,18 @@ class View(BrowserView):
         """
         query = {}
         res = []
-
+        ct_type = self.request.get('ct_type', '')
         catalog = getToolByName(self.context, 'portal_catalog')
         pr_tool = getToolByName(self.context, 'portal_relations')
 
-        ct_type = self.request.get('ct_type', '')
+        pr_ct_type = pr_tool[ct_type]
 
-        if ct_type:
-            pr_ct_type = pr_tool[ct_type]
-
-            query['sort_on'] = 'sortable_title'
-            if pr_ct_type.getCt_type():
-                query['portal_type'] = pr_ct_type.getCt_type()
-            if pr_ct_type.getCt_interface():
-                query['object_provides'] = pr_ct_type.getCt_interface()
-            res = catalog(**query)
+        query['sort_on'] = 'sortable_title'
+        if pr_ct_type.getCt_type():
+            query['portal_type'] = pr_ct_type.getCt_type()
+        if pr_ct_type.getCt_interface():
+            query['object_provides'] = pr_ct_type.getCt_interface()
+        res = catalog(**query)
 
         return res
 
@@ -63,15 +60,22 @@ class View(BrowserView):
     def bad_relations_report(self):
         """ Get bad relations
         """
-        logger.info('Start generating bad relations report.')
         res = []
         report = []
 
         # Get portal relations content type
-        res = self.get_objects
+        ct_type = self.request.get('ct_type', '')
+        if ct_type:
+            res = self.get_objects
+        else:
+            return []
 
         # Get relations
+        logger.info('Start generating bad relations report.')
+        count = 0
+
         for brain in res:
+            count += 1
             bad_relations = []
             obj = brain.getObject()
 
@@ -88,6 +92,8 @@ class View(BrowserView):
                 raise AttributeError
             except:
                 logger.info('ERROR getting relations for %s' % brain.getURL())
+            if not (count % 100):
+                logger.info('done %s out of %s' % (count, len(res)))
 
         report.sort()
         logger.info('Done generating bad relations report.')
