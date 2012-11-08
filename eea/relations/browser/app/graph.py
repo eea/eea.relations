@@ -12,6 +12,16 @@ from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFPlone import PloneMessageFactory as _
 
+def broken_relation_message(self, strerr, bad_relations):
+    """ Broken relation portal status message
+    """
+    status = queryAdapter(self.request, IStatusMessage)
+    message = _(u'The following relations are broken: ${relations} ' \
+        'because of broken or missing: ${bad_relations} ' \
+                                'EEARelationsContentType',
+        mapping = {u'relations': strerr, u'bad_relations': 
+                                                    bad_relations})
+    status.add(message, type='error')
 
 class BaseGraph(BrowserView):
     """ Abstract layer
@@ -50,13 +60,29 @@ class RelationGraph(BaseGraph):
 
         nto = self.context.getField('to')
         value_to = nto.getAccessor(self.context)()
-        if not (value_from == value_to) and (value_to in rtool.objectIds()):
+
+        rtool_ids = rtool.objectIds()
+        if not (value_from == value_to) and (value_to in rtool_ids):
             nto = rtool[value_to]
             node = queryAdapter(nto, INode)
             graph.add_node(node())
 
         edge = queryAdapter(self.context, IEdge)
-        graph.add_edge(edge())
+        res = edge()
+        # display info message with info about broken relation
+        if not res:
+            bad_relations = []
+            strerr = ""
+            has_from = value_from in rtool_ids
+            bad_rel = value_from if not has_from else value_to
+            relation = rtool[self.context.getId()]
+            if bad_rel not in bad_relations:
+                bad_relations.append(bad_rel)
+                strerr +=  relation.Title()
+        if bad_relations:
+            broken_relation_message(self, strerr, bad_relations)
+            return ""
+        graph.add_edge(res)
         return graph
 
 class ContentTypeGraph(BaseGraph):
@@ -138,13 +164,7 @@ class ToolGraph(BaseGraph):
                 continue
             graph.add_edge(res)
         if bad_relations:
-            status = queryAdapter(self.request, IStatusMessage)
-            message = _(u'The following relations are broken: ${relations} ' \
-                'because of broken or missing: ${bad_relations} ' \
-                                        'EEARelationsContentType',
-                mapping = {u'relations': strerr, u'bad_relations': 
-                                                            bad_relations})
-            status.addStatusMessage(message, type='error')
+            broken_relation_message(self, strerr, bad_relations)
         return graph
 
     def dot(self):
