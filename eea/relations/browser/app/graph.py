@@ -70,8 +70,8 @@ class RelationGraph(BaseGraph):
         edge = queryAdapter(self.context, IEdge)
         res = edge()
         # display info message with info about broken relation
+        bad_relations = []
         if not res:
-            bad_relations = []
             strerr = ""
             has_from = value_from in rtool_ids
             bad_rel = value_from if not has_from else value_to
