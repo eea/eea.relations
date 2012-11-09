@@ -100,18 +100,21 @@ class BaseView(BrowserView):
                       for key, val in kwargs.items())
 
         # Set mode
-        mode = kwargs.get('mode', 'view')
+        mode = kwargs.pop('mode', 'view')
         self._mode = mode
 
         # Set field
-        field = kwargs.get('field', '')
+        field = kwargs.pop('field', '')
         self._field = field
 
         # Set uids
-        uids = kwargs.get('uids', ())
+        uids = kwargs.pop('uids', ())
         if not isinstance(uids, (list, tuple)):
             uids = uids,
         self._uids = [uid for uid in uids if uid]
+
+        self.kwargs = kwargs
+
 
 class PopupSelectedItems(BaseView):
     """ Widget popup selected items helper

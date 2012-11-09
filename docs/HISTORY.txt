@@ -9,6 +9,9 @@ Changelog
 * Change: better Zope logging when listing relations that don't
   comply portal_relations schema
   [ghicaale refs #6773]
+* Change: pass context to eeareferencebrowser-popup-selecteditem.html
+  so that eea.daviz knows how to get the context of the field
+  [tiberich refs #9571]
 
 5.0 - (2012-10-08)
 ------------------

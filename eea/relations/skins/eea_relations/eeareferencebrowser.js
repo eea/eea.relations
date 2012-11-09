@@ -346,6 +346,7 @@ EEAReferenceBrowser.Basket.prototype = {
       var option = jQuery('<option>').attr('selected', 'selected');
       option.text(val);
       option.val(val);
+      option.data(input.data());
       storage.append(option);
     });
 
