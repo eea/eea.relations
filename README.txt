@@ -18,7 +18,6 @@ called "Possible relations" under control panel.
 
 .. contents::
 
-
 Main features
 =============
 

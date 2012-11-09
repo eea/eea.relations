@@ -20,7 +20,7 @@ class View(BrowserView):
         if status:
             status.addStatusMessage('Be aware that this operation can \
                 take a long time to perform if a lot of objects are \
-                involved.', type='info')
+                involved. Watch zope log to see the progress.', type='info')
 
         return self.index()
 
