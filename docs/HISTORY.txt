@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.1-dev - (unreleased)
-----------------------
+5.1 - (2012-11-09)
+------------------
 * Change: better Zope logging when listing relations that don't
   comply portal_relations schema
   [ghicaale refs #6773]
