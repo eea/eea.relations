@@ -6,7 +6,10 @@
 <body>
 
 <div metal:fill-slot="content-core">
-
+    <dl class="portalMessage error" tal:define="bad_relations here/@@graph.png/markBrokenRelations" tal:condition="bad_relations" id="bad_relations">
+        <dt i18n:translate="">Error</dt>
+        <dd><tal:relations tal:content="bad_relations" /></dd>
+    </dl>
 <div>
   <span tal:define="
     required python:here.getField('required');
@@ -18,7 +21,7 @@
     tal:condition="value" class="fieldRequiredFor"> </span>
 </div>
 
-<div style="width: 100%">
+<div style="width: 100%; overflow: auto;">
   <div style="text-align: center; border: 1px solid #8CACBB; padding: 2em 0">
   <img tal:attributes="
     src string:${here/absolute_url}/@@graph.png;

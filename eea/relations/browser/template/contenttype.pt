@@ -7,12 +7,17 @@
 
 <div metal:fill-slot="content-core">
 
-<div style="width: 100%">
+    <dl class="portalMessage error" tal:define="bad_relations here/@@graph.png/markBrokenRelations" tal:condition="bad_relations" id="bad_relations">
+        <dt i18n:translate="">Error</dt>
+        <dd><tal:relations tal:content="bad_relations" /></dd>
+    </dl>
+
+<div style="width: 100%; overflow: auto;">
   <div style="text-align: center; border: 1px solid #8CACBB; padding: 2em 0">
-    <img tal:attributes="
-      src string:${here/absolute_url}/@@graph.png;
-      alt string:My Relations Graph;
-      title string:My Relations Graph" />
+  <img tal:attributes="
+    src string:${here/absolute_url}/@@graph.png;
+    alt string:Relation Graph;
+    title string:Relation Graph" />
   </div>
 </div>
 
