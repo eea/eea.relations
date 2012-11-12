@@ -32,6 +32,7 @@ class BaseGraph(BrowserView):
         if not res:
             self.markBrokenRelations()
             res = self.anno.get('relations_graph')
+        self.anno['relations_graph'] = ""
         return res
 
     def image(self):
@@ -100,17 +101,11 @@ class RelationGraph(BaseGraph):
             strerr +=  relation.Title()
             self.anno['relations_graph'] = graph
             return self.brokenRelationMessage(strerr, bad_relations)
-        return ""
+
 
 class ContentTypeGraph(BaseGraph):
     """ Draw a graph for ContentType
     """
-    def __init__(self, context, request):
-        """ ContentTypeGraph init
-        """
-        super(ContentTypeGraph, self).__init__(context, request)
-        self.tool = queryAdapter(self.context, IToolAccessor)
-        self.relations = self.tool.relations(proxy=False)
 
     def markBrokenRelations(self):
         """ Construct graph and return message with info about broken 
@@ -122,25 +117,28 @@ class ContentTypeGraph(BaseGraph):
         node = queryAdapter(self.context, INode)
         graph = PyGraph()
         graph.add_node(node())
-        for doc in self.relations:
-            field = doc.getField('to')
-            value_from = field.getAccessor(doc)()
-            field = doc.getField('from')
-            value_to = field.getAccessor(doc)()
+        tool = queryAdapter(self.context, IToolAccessor)
+        relations = tool.relations(proxy=False)
+        for relation in relations:
+            field = relation.getField('to')
+            value_from = field.getAccessor(relation)()
+            field = relation.getField('from')
+            value_to = field.getAccessor(relation)()
             if name == value_from:
                 nto = self.pt_relations.get(value_to)
                 if not (value_from == value_to
                     ) and nto:
                     node = queryAdapter(nto, INode)
                     graph.add_node(node())
-                edge = queryAdapter(doc, IEdge)
+                edge = queryAdapter(relation, IEdge)
                 res = edge()
                 if res:
                     graph.add_edge(res)
                 else:
                     if value_to not in bad_relations:
                         bad_relations.append(value_to)
-                        strerr +=  doc.Title() + ", "
+                        strerr +=  relation.Title() + ", "
+                continue
 
             if name == value_to:
                 nfrom = self.pt_relations.get(value_from)
@@ -148,14 +146,15 @@ class ContentTypeGraph(BaseGraph):
                     ) and nfrom:
                     node = queryAdapter(nfrom, INode)
                     graph.add_node(node())
-                edge = queryAdapter(doc, IEdge)
+                edge = queryAdapter(relation, IEdge)
                 res = edge()
                 if res:
                     graph.add_edge(res)
                 else:
                     if value_from not in bad_relations:
                         bad_relations.append(value_from)
-                        strerr +=  doc.Title() + ", "
+                        strerr +=  relation.Title() + ", "
+                continue
 
         self.anno['relations_graph'] = graph
         if bad_relations:
@@ -165,12 +164,6 @@ class ContentTypeGraph(BaseGraph):
 class ToolGraph(BaseGraph):
     """ Draw a graph for portal_relations
     """
-    def __init__(self, context, request):
-        """ ToolGraph init
-        """
-        super(ToolGraph, self).__init__(context, request)
-        self.tool = queryAdapter(self.context, IToolAccessor)
-        self.relations = self.tool.relations(proxy=False)
 
     def markBrokenRelations(self):
         """ Construct graph and return message with info about broken 
@@ -181,18 +174,20 @@ class ToolGraph(BaseGraph):
         bad_rel = ""
 
         graph = PyGraph()
-        types = self.tool.types(proxy=False)
-        for doc in types:
-            node = queryAdapter(doc, INode)
+        tool = queryAdapter(self.context, IToolAccessor)
+        types = tool.types(proxy=False)
+        for type in types:
+            node = queryAdapter(type, INode)
             graph.add_node(node())
 
-        for doc in self.relations:
-            edge = queryAdapter(doc, IEdge)
+        relations = tool.relations(proxy=False)
+        for relation in relations:
+            edge = queryAdapter(relation, IEdge)
             res = edge()
             if not res:
                 # if no result then check which relation id is missing
-                from_rel = doc['from']
-                to_rel = doc['to']
+                from_rel = relation['from']
+                to_rel = relation['to']
                 pr_from = self.pt_relations.get(from_rel)
                 pr_to = self.pt_relations.get(to_rel)
                 if not pr_from:
@@ -201,8 +196,7 @@ class ToolGraph(BaseGraph):
                     bad_rel = to_rel
                 if bad_rel and bad_rel not in bad_relations:
                     bad_relations.append(bad_rel)
-                    strerr +=  doc.Title() + ", "
-                continue
+                    strerr +=  relation.Title() + ", "
             graph.add_edge(res)
 
         self.anno['relations_graph'] = graph
