@@ -50,8 +50,8 @@ class BaseGraph(BrowserView):
     def brokenRelationMessage(self, strerr, bad_relations):
         """ Broken relation portal status message
         """
-        message = _(u'The following relations are broken: ${relations} ' \
-            'because of broken or missing: ${bad_relations} ' \
+        message = _(u'The following relations are broken: ${relations} '
+            'because of broken or missing: ${bad_relations} '
                                     'EEARelationsContentType',
             mapping = {u'relations': strerr, u'bad_relations': 
                                                         bad_relations})
