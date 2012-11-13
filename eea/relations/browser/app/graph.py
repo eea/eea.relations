@@ -189,7 +189,10 @@ class ToolGraph(BaseGraph):
         for relation in relations:
             edge = queryAdapter(relation, IEdge)
             res = edge()
-            if not res:
+            if res:
+                graph.add_edge(res)
+                continue
+            else:
                 # if no result then check which relation id is missing
                 from_rel = relation['from']
                 to_rel = relation['to']
@@ -202,7 +205,6 @@ class ToolGraph(BaseGraph):
                 if bad_rel and bad_rel not in bad_relations:
                     bad_relations.append(bad_rel)
                     strerr +=  relation.Title() + ", "
-            graph.add_edge(res)
 
         self.graph_res = graph
         if bad_relations:
