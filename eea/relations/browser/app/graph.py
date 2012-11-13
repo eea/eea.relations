@@ -11,7 +11,6 @@ from eea.relations.interfaces import IToolAccessor
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as _
-from zope.annotation import IAnnotations
 
 
 class BaseGraph(BrowserView):
@@ -21,18 +20,20 @@ class BaseGraph(BrowserView):
         """ BaseGraph Init
         """
         super(BaseGraph, self).__init__(context, request)
-        self.anno = IAnnotations(self.context)
         self.pt_relations = getToolByName(self.context, 'portal_relations')
+        self.graph_res = ""
 
     @property
     def graph(self):
         """ Generate pydot.Graph
         """
-        res = self.anno.get('relations_graph')
+        res = self.graph_res
         if not res:
             self.markBrokenRelations()
-            res = self.anno.get('relations_graph')
-        self.anno['relations_graph'] = ""
+            res = self.graph_res
+        # we need to empty the graph_res otherwise when ran on the same object
+        # it misses results when new restrictions are added to relations tool
+        self.graph_res = ""
         return res
 
     def image(self):
@@ -57,7 +58,7 @@ class BaseGraph(BrowserView):
     def markBrokenRelations(self):
         """ Base method which assignes a pydot.Graph for the graph method
         """
-        self.anno['relations_graph'] = PyGraph()
+        self.graph_res = PyGraph()
 
 class RelationGraph(BaseGraph):
     """ Draw a graph for Relation
@@ -88,7 +89,7 @@ class RelationGraph(BaseGraph):
         res = edge()
         if res:
             graph.add_edge(res)
-            self.anno['relations_graph'] = graph
+            self.graph_res = graph
             return ""
 
         if not nfrom:
@@ -99,7 +100,7 @@ class RelationGraph(BaseGraph):
         if bad_rel and bad_rel not in bad_relations:
             bad_relations.append(bad_rel)
             strerr +=  relation.Title()
-            self.anno['relations_graph'] = graph
+            self.graph_res = graph
             return self.brokenRelationMessage(strerr, bad_relations)
 
 
@@ -138,6 +139,9 @@ class ContentTypeGraph(BaseGraph):
                     if value_to not in bad_relations:
                         bad_relations.append(value_to)
                         strerr +=  relation.Title() + ", "
+                # if we don't continue when value_from == name
+                # then we will get a double "node-myX" -> "node-myX"
+                # graph entry when value_to is also equal to name
                 continue
 
             if name == value_to:
@@ -154,9 +158,8 @@ class ContentTypeGraph(BaseGraph):
                     if value_from not in bad_relations:
                         bad_relations.append(value_from)
                         strerr +=  relation.Title() + ", "
-                continue
 
-        self.anno['relations_graph'] = graph
+        self.graph_res = graph
         if bad_relations:
             return self.brokenRelationMessage(strerr, bad_relations)
         return ""
@@ -199,7 +202,7 @@ class ToolGraph(BaseGraph):
                     strerr +=  relation.Title() + ", "
             graph.add_edge(res)
 
-        self.anno['relations_graph'] = graph
+        self.graph_res = graph
         if bad_relations:
             return self.brokenRelationMessage(strerr, bad_relations)
         return ""
