@@ -14,7 +14,7 @@ define possible relations between objects. EEA Relations also comes with a nice,
 customizable faceted navigable popup for relations widget.
 
 Once installed from "Add-ons", the package will add an utility
-called "Possible relations" under control panel.
+called "Possible relations" under "Control Panel".
 
 .. contents::
 
@@ -32,7 +32,7 @@ EEA Relations features:
   3. You can define easy to use faceted searches (using EEA Faceted navigation)
      on the relate items popup
   4. Nice visual diagram showning all the relations and restrictions you defined
-     (Control pane -> Possible relations)
+     (Control Panel -> Possible relations)
 
 Installation
 ============
@@ -70,8 +70,8 @@ from another package's configure.zcml file.
 Getting started
 ===============
 
-Once you install the package from control panel "Add-ons", the package will add
-an utility called "Possible relations" under control panel from where you can start
+Once you install the package from "Control Panel Add-ons", the package will add
+an utility called "Possible relations" under "Control Panel" from where you can start
 define the relations, the constraints between contents etc.
 
 
