@@ -181,8 +181,8 @@ class ToolGraph(BaseGraph):
         graph = PyGraph()
         tool = queryAdapter(self.context, IToolAccessor)
         types = tool.types(proxy=False)
-        for type in types:
-            node = queryAdapter(type, INode)
+        for ctype in types:
+            node = queryAdapter(ctype, INode)
             graph.add_node(node())
 
         relations = tool.relations(proxy=False)
