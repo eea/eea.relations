@@ -21,20 +21,22 @@ class BaseGraph(BrowserView):
         """
         super(BaseGraph, self).__init__(context, request)
         self.pt_relations = getToolByName(self.context, 'portal_relations')
-        self.graph_res = ""
+        self.graph_res = PyGraph()
 
     @property
     def graph(self):
         """ Generate pydot.Graph
         """
-        res = self.graph_res
-        if not res:
+        graph_res = self.graph_res
+        graph_string = graph_res.to_string()
+        if graph_string == "digraph G {\n}\n":
             self.markBrokenRelations()
-            res = self.graph_res
-        # we need to empty the graph_res otherwise when ran on the same object
-        # it misses results when new restrictions are added to relations tool
-        self.graph_res = ""
-        return res
+            graph_res = self.graph_res
+        # we need to have an empty PyGraph object on graph_res otherwise when 
+        # ran on the same object it misses results when new restrictions are 
+        # added to relations tool
+        self.graph_res = PyGraph()
+        return graph_res
 
     def image(self):
         """ Returns a PNG image
