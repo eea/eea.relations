@@ -8,16 +8,35 @@ from eea.relations.interfaces import INode
 from eea.relations.interfaces import IEdge
 from eea.relations.interfaces import IGraph
 from eea.relations.interfaces import IToolAccessor
+
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone import PloneMessageFactory as _
+
 
 class BaseGraph(BrowserView):
     """ Abstract layer
     """
+    def __init__(self, context, request):
+        """ BaseGraph Init
+        """
+        super(BaseGraph, self).__init__(context, request)
+        self.pt_relations = getToolByName(self.context, 'portal_relations')
+        self.graph_res = PyGraph()
+
     @property
     def graph(self):
-        """ Returns a pydot.Graph instance
+        """ Generate pydot.Graph
         """
-        return PyGraph()
+        graph_res = self.graph_res
+        graph_string = graph_res.to_string()
+        if graph_string == "digraph G {\n}\n":
+            self.markBrokenRelations()
+            graph_res = self.graph_res
+        # we need to have an empty PyGraph object on graph_res otherwise when 
+        # ran on the same object it misses results when new restrictions are 
+        # added to relations tool
+        self.graph_res = PyGraph()
+        return graph_res
 
     def image(self):
         """ Returns a PNG image
@@ -28,101 +47,171 @@ class BaseGraph(BrowserView):
         self.request.response.setHeader('Content-Type', 'image/png')
         return raw
 
+    def brokenRelationMessage(self, strerr, bad_relations):
+        """ Broken relation portal status message
+        """
+        message = _(u'The following relations are broken: ${relations} '
+            'because of broken or missing: ${bad_relations} '
+                                    'EEARelationsContentType',
+            mapping = {u'relations': strerr, u'bad_relations': 
+                                                        bad_relations})
+        return message
+
+    def markBrokenRelations(self):
+        """ Base method which assignes a pydot.Graph for the graph method
+        """
+        self.graph_res = PyGraph()
+
 class RelationGraph(BaseGraph):
     """ Draw a graph for Relation
     """
-    @property
-    def graph(self):
-        """ Generate pydot.Graph
-        """
-        rtool = getToolByName(self.context, 'portal_relations')
-        graph = PyGraph()
 
-        nfrom = self.context.getField('from')
-        value_from = nfrom.getAccessor(self.context)()
-        if value_from in rtool.objectIds():
-            nfrom = rtool[value_from]
+    def markBrokenRelations(self):
+        """ Construct graph and return message with info about broken 
+        relations for RelationGraph if any errors are found
+        """ 
+        bad_relations = []
+        strerr = ""
+        bad_rel = ""
+
+        graph = PyGraph()
+        value_from = self.context.getField('from').getAccessor(self.context)()
+        nfrom = self.pt_relations.get(value_from)
+        if nfrom:
             node = queryAdapter(nfrom, INode)
             graph.add_node(node())
 
-        nto = self.context.getField('to')
-        value_to = nto.getAccessor(self.context)()
-        if not (value_from == value_to) and (value_to in rtool.objectIds()):
-            nto = rtool[value_to]
+        value_to = self.context.getField('to').getAccessor(self.context)()
+        nto = self.pt_relations.get(value_to)
+        if not (value_from == value_to) and nto:
             node = queryAdapter(nto, INode)
             graph.add_node(node())
 
         edge = queryAdapter(self.context, IEdge)
-        graph.add_edge(edge())
-        return graph
+        res = edge()
+        if res:
+            graph.add_edge(res)
+            self.graph_res = graph
+            return ""
+
+        if not nfrom:
+            bad_rel = value_from
+        if not nto:
+            bad_rel = value_to
+        relation = self.pt_relations[self.context.getId()]
+        if bad_rel and bad_rel not in bad_relations:
+            bad_relations.append(bad_rel)
+            strerr +=  relation.Title()
+            self.graph_res = graph
+            return self.brokenRelationMessage(strerr, bad_relations)
+
 
 class ContentTypeGraph(BaseGraph):
     """ Draw a graph for ContentType
     """
-    @property
-    def graph(self):
-        """ Generate pydot.Graph
+
+    def markBrokenRelations(self):
+        """ Construct graph and return message with info about broken 
+        relations for ContentTypeGraph if any errors are found
         """
-        rtool = getToolByName(self.context, 'portal_relations')
+        bad_relations = []
+        strerr = "" 
         name = self.context.getId()
         node = queryAdapter(self.context, INode)
-
-        tool = queryAdapter(self.context, IToolAccessor)
-        docs = tool.relations(proxy=False)
-
         graph = PyGraph()
         graph.add_node(node())
-
-        for doc in docs:
-            field = doc.getField('to')
-            value_from = field.getAccessor(doc)()
-            field = doc.getField('from')
-            value_to = field.getAccessor(doc)()
+        tool = queryAdapter(self.context, IToolAccessor)
+        relations = tool.relations(proxy=False)
+        for relation in relations:
+            field = relation.getField('to')
+            value_from = field.getAccessor(relation)()
+            field = relation.getField('from')
+            value_to = field.getAccessor(relation)()
             if name == value_from:
+                nto = self.pt_relations.get(value_to)
                 if not (value_from == value_to
-                    ) and value_to in rtool.objectIds():
-                    nto = rtool[value_to]
+                    ) and nto:
                     node = queryAdapter(nto, INode)
                     graph.add_node(node())
-
-                edge = queryAdapter(doc, IEdge)
-                graph.add_edge(edge())
+                edge = queryAdapter(relation, IEdge)
+                res = edge()
+                if res:
+                    graph.add_edge(res)
+                else:
+                    if value_to not in bad_relations:
+                        bad_relations.append(value_to)
+                        strerr +=  relation.Title() + ", "
+                # if we don't continue when value_from == name
+                # then we will get a double "node-myX" -> "node-myX"
+                # graph entry when value_to is also equal to name
                 continue
 
             if name == value_to:
+                nfrom = self.pt_relations.get(value_from)
                 if not (value_from == value_to
-                    ) and value_from in rtool.objectIds():
-                    nfrom = rtool[value_from]
+                    ) and nfrom:
                     node = queryAdapter(nfrom, INode)
                     graph.add_node(node())
+                edge = queryAdapter(relation, IEdge)
+                res = edge()
+                if res:
+                    graph.add_edge(res)
+                else:
+                    if value_from not in bad_relations:
+                        bad_relations.append(value_from)
+                        strerr +=  relation.Title() + ", "
 
-                edge = queryAdapter(doc, IEdge)
-                graph.add_edge(edge())
-                continue
-
-        return graph
+        self.graph_res = graph
+        if bad_relations:
+            return self.brokenRelationMessage(strerr, bad_relations)
+        return ""
 
 class ToolGraph(BaseGraph):
     """ Draw a graph for portal_relations
     """
-    @property
-    def graph(self):
-        """ Generate pydot.Graph
+
+    def markBrokenRelations(self):
+        """ Construct graph and return message with info about broken 
+        relations for ToolGraph if any errors are found
         """
+        bad_relations = []
+        strerr = "" 
+        bad_rel = ""
+
         graph = PyGraph()
         tool = queryAdapter(self.context, IToolAccessor)
-        docs = tool.types(proxy=False)
-        for doc in docs:
-            node = queryAdapter(doc, INode)
+        types = tool.types(proxy=False)
+        for type in types:
+            node = queryAdapter(type, INode)
             graph.add_node(node())
 
-        docs = tool.relations(proxy=False)
-        for doc in docs:
-            edge = queryAdapter(doc, IEdge)
-            graph.add_edge(edge())
+        relations = tool.relations(proxy=False)
+        for relation in relations:
+            edge = queryAdapter(relation, IEdge)
+            res = edge()
+            if res:
+                graph.add_edge(res)
+                continue
+            else:
+                # if no result then check which relation id is missing
+                from_rel = relation['from']
+                to_rel = relation['to']
+                pr_from = self.pt_relations.get(from_rel)
+                pr_to = self.pt_relations.get(to_rel)
+                if not pr_from:
+                    bad_rel = from_rel
+                if not pr_to:
+                    bad_rel = to_rel
+                if bad_rel and bad_rel not in bad_relations:
+                    bad_relations.append(bad_rel)
+                    strerr +=  relation.Title() + ", "
 
-        return graph
+        self.graph_res = graph
+        if bad_relations:
+            return self.brokenRelationMessage(strerr, bad_relations)
+        return ""
 
     def dot(self):
-        """ Return dotted graph """
+        """ Return dotted graph 
+        """
         return self.graph.to_string()

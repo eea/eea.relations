@@ -3,6 +3,10 @@ Changelog
 
 5.2-dev - (unreleased)
 ----------------------
+* Feature: added warning of broken relation when viewing the portal_relations,
+  relations and content types pages and continue displaying graph without
+  those broken relations
+  [ichimdav #9547]
 
 5.1 - (2012-11-09)
 ------------------

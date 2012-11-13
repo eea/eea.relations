@@ -25,6 +25,7 @@
                 name="graph.png"
                 class=".app.graph.ToolGraph"
                 attribute="image"
+                allowed_attributes="markBrokenRelations"
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IRelationsTool"
@@ -36,6 +37,7 @@
                 name="graph.png"
                 class=".app.graph.ContentTypeGraph"
                 attribute="image"
+                allowed_attributes="markBrokenRelations"
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IContentType"
@@ -47,6 +49,7 @@
                 name="graph.png"
                 class=".app.graph.RelationGraph"
                 attribute="image"
+                allowed_attributes="markBrokenRelations"
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IRelation"
