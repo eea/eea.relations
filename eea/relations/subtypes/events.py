@@ -55,9 +55,9 @@ def faceted_enabled(doc, evt):
 def object_renamed(obj, evt):
     """ EVENT: EEARelationsContentType object renamed
     """
-    # if there is no newName then it means that we don't really have a renamed
-    # object event so don't do anything
-    if not evt.newName:
+    # if there is no newName or oldName then it means that we don't really 
+    #have a renamed object event so don't do anything
+    if not evt.newName or not evt.oldName:
         return
     tool = queryAdapter(obj, IToolAccessor)
     relations = tool.relations(proxy=False)
