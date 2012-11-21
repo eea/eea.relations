@@ -14,6 +14,12 @@
   />
 
   <subscriber
+    for="eea.relations.interfaces.IContentType
+         zope.lifecycleevent.interfaces.IObjectMovedEvent"
+    handler=".events.object_renamed"
+  />
+
+  <subscriber
     for="eea.facetednavigation.interfaces.IPossibleFacetedNavigable
          eea.facetednavigation.interfaces.IFacetedEnabledEvent"
     handler=".events.faceted_enabled"
