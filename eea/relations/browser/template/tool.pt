@@ -11,11 +11,8 @@
 <div metal:fill-slot="content-core">
 
 
-    <dl class="portalMessage error" tal:define="bad_relations here/@@graph.png/markBrokenRelations" tal:condition="bad_relations" id="bad_relations">
-        <dt i18n:translate="">Error</dt>
-        <dd><tal:relations tal:content="bad_relations" /></dd>
-    </dl>
-
+    <metal:relationerror use-macro="context/eea_relations_macros/macros/errors">
+    <metal:body fill-slot="body">
   <div style="width: 100%">
     <div style="float: left; width: 100%">
       <div style="width: 100%; overflow: auto; text-align: center; border: 1px solid #8CACBB; padding: 2em 0">
@@ -36,7 +33,6 @@
            tal:attributes="href string:${here/absolute_url}/@@badrelations.html">List of bad relations</a> |
       </div>
     </div>
-
     <div style="float: left; width: 48%">
       <tal:viewlet replace="structure here/@@contenttypes.html" />
     </div>
@@ -45,7 +41,8 @@
     </div>
   </div>
   <div class="visualClear"></div>
-
+    </metal:body>
+  </metal:relationerror>
 </div>
 
 </body>

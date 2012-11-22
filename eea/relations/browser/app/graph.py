@@ -10,7 +10,6 @@ from eea.relations.interfaces import IGraph
 from eea.relations.interfaces import IToolAccessor
 
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone import PloneMessageFactory as _
 
 
 class BaseGraph(BrowserView):
@@ -47,15 +46,10 @@ class BaseGraph(BrowserView):
         self.request.response.setHeader('Content-Type', 'image/png')
         return raw
 
-    def brokenRelationMessage(self, strerr, bad_relations):
+    def brokenRelationMessage(self, bad_content, bad_relations):
         """ Broken relation portal status message
         """
-        message = _(u'The following relations are broken: ${relations} '
-            'because of broken or missing: ${bad_relations} '
-                                    'EEARelationsContentType',
-            mapping = {u'relations': strerr, u'bad_relations': 
-                                                        bad_relations})
-        return message
+        return {u'relations': bad_relations, u'content': bad_content}
 
     def markBrokenRelations(self):
         """ Base method which assignes a pydot.Graph for the graph method
@@ -71,7 +65,7 @@ class RelationGraph(BaseGraph):
         relations for RelationGraph if any errors are found
         """ 
         bad_relations = []
-        strerr = ""
+        bad_content = []
         bad_rel = ""
 
         graph = PyGraph()
@@ -99,11 +93,11 @@ class RelationGraph(BaseGraph):
         if not nto:
             bad_rel = value_to
         relation = self.pt_relations[self.context.getId()]
-        if bad_rel and bad_rel not in bad_relations:
-            bad_relations.append(bad_rel)
-            strerr +=  relation.Title()
+        if bad_rel and bad_rel not in bad_content:
+            bad_content.append(bad_rel)
+            bad_relations.append(relation.Title())
             self.graph_res = graph
-            return self.brokenRelationMessage(strerr, bad_relations)
+            return self.brokenRelationMessage(bad_content, bad_relations)
 
 
 class ContentTypeGraph(BaseGraph):
@@ -115,7 +109,7 @@ class ContentTypeGraph(BaseGraph):
         relations for ContentTypeGraph if any errors are found
         """
         bad_relations = []
-        strerr = "" 
+        bad_content = [] 
         name = self.context.getId()
         node = queryAdapter(self.context, INode)
         graph = PyGraph()
@@ -138,9 +132,9 @@ class ContentTypeGraph(BaseGraph):
                 if res:
                     graph.add_edge(res)
                 else:
-                    if value_to not in bad_relations:
-                        bad_relations.append(value_to)
-                        strerr +=  relation.Title() + ", "
+                    if value_to not in bad_content:
+                        bad_content.append(value_to)
+                    bad_relations.append(relation.Title())
                 # if we don't continue when value_from == name
                 # then we will get a double "node-myX" -> "node-myX"
                 # graph entry when value_to is also equal to name
@@ -157,13 +151,13 @@ class ContentTypeGraph(BaseGraph):
                 if res:
                     graph.add_edge(res)
                 else:
-                    if value_from not in bad_relations:
-                        bad_relations.append(value_from)
-                        strerr +=  relation.Title() + ", "
+                    if value_from not in bad_content:
+                        bad_content.append(value_from)
+                    bad_relations.append(relation.Title())
 
         self.graph_res = graph
         if bad_relations:
-            return self.brokenRelationMessage(strerr, bad_relations)
+            return self.brokenRelationMessage(bad_content, bad_relations)
         return ""
 
 class ToolGraph(BaseGraph):
@@ -175,7 +169,7 @@ class ToolGraph(BaseGraph):
         relations for ToolGraph if any errors are found
         """
         bad_relations = []
-        strerr = "" 
+        bad_content = [] 
         bad_rel = ""
 
         graph = PyGraph()
@@ -202,13 +196,13 @@ class ToolGraph(BaseGraph):
                     bad_rel = from_rel
                 if not pr_to:
                     bad_rel = to_rel
-                if bad_rel and bad_rel not in bad_relations:
-                    bad_relations.append(bad_rel)
-                    strerr +=  relation.Title() + ", "
+                if bad_rel and bad_rel not in bad_content:
+                    bad_content.append(bad_rel)
+                bad_relations.append(relation.Title())
 
         self.graph_res = graph
         if bad_relations:
-            return self.brokenRelationMessage(strerr, bad_relations)
+            return self.brokenRelationMessage(bad_content, bad_relations)
         return ""
 
     def dot(self):
