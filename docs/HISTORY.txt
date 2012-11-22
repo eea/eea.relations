@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.2-dev - (unreleased)
-----------------------
+5.2 - (2012-11-22)
+------------------
 * Feature: added subscriber to update relations once a relation contenttype 
   has been renamed
   [ichimdav #9547]
