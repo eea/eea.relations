@@ -1,6 +1,9 @@
 Changelog
 =========
 
+5.3-dev - (unreleased)
+----------------------
+
 5.2 - (2012-11-22)
 ------------------
 * Feature: added subscriber to update relations once a relation contenttype 
