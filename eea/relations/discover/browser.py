@@ -29,8 +29,8 @@ class View(BrowserView):
                 yield brain
 
     def generatorTabs(self, tupleResult):
-        """ Return a generator from the tuple result which is returned in the form
-        of string name + object list
+        """ Return a generator from the tuple result which is returned in the
+        form of string name + object list
         """
         for tab, brains in tupleResult:
             brains = [b for b in self.checkPermission(brains)]
