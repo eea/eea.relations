@@ -11,11 +11,16 @@ Usage:
 <div metal:define-macro="relatedItemsWithThumbs" id="relatedItems" tal:define="
   relations nocall:here/@@eea.relations.macro;
   auto_relations nocall:here/@@auto-relations.html;
-  thumb_scale thumb_scale | string:image_thumb;">
-  <tal:backward tal:define="tabs python:relations.backward();" tal:condition="tabs">
+  thumb_scale thumb_scale | string:image_thumb;
+  backward_tabs python:relations.backward();
+  forward_tabs python:relations.forward();
+  auto_tabs python:auto_relations.tabs;"
+  tal:condition="python:backward_tabs or forward_tabs or auto_tabs">
+
+  <tal:backward tal:condition="backward_tabs">
     <!-- Backward relations -->
     <div class="visualNoMarker">
-      <tal:tab repeat="tab tabs">
+      <tal:tab repeat="tab backward_tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]"
           tal:condition="related">
           <h3 tal:content="label">Relation label</h3>
@@ -25,10 +30,10 @@ Usage:
     </div>
   </tal:backward>
 
-  <tal:forward define="tabs python:relations.forward()" tal:condition="tabs">
+  <tal:forward tal:condition="forward_tabs">
     <!-- Forward relations -->
     <div class="visualNoMarker">
-      <tal:tab repeat="tab tabs">
+      <tal:tab repeat="tab forward_tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]"
           tal:condition="related">
           <h3 tal:content="label">Relation label</h3>
@@ -38,10 +43,10 @@ Usage:
     </div>
   </tal:forward>
 
-  <tal:auto define="tabs python:auto_relations.tabs">
+  <tal:auto tal:condition="python:auto_tabs">
     <!-- Auto relations -->
     <div class="visualNoMarker">
-      <tal:tab repeat="tab tabs">
+      <tal:tab repeat="tab auto_tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]">
           <h3 tal:content="label">Relation label</h3>
           <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
@@ -49,6 +54,7 @@ Usage:
       </tal:tab>
     </div>
   </tal:auto>
+
 </div>
 
 

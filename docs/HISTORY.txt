@@ -3,6 +3,9 @@ Changelog
 
 5.3-dev - (unreleased)
 ----------------------
+* Change: changed auto relations logic returns False instead of generator when
+  there are no results
+  [ichimdav #10182]
 
 5.2 - (2012-11-22)
 ------------------

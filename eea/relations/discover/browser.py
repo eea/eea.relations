@@ -8,6 +8,7 @@ from eea.relations.interfaces import IAutoRelations
 from AccessControl import Unauthorized
 from eea.relations.discover.interfaces import IBrowserView
 
+
 class View(BrowserView):
     """ Display auto discovered relations
     """
@@ -27,16 +28,23 @@ class View(BrowserView):
             if mtool.checkPermission('View', brain):
                 yield brain
 
+    def generatorTabs(self, tupleResult):
+        """ Return a generator from the tuple result which is returned in the form
+        of string name + object list
+        """
+        for tab, brains in tupleResult:
+            brains = [b for b in self.checkPermission(brains)]
+            if not len(brains):
+                continue
+            yield tab, brains
+
     @property
     def tabs(self):
         """ Return brains
         """
         explorer = queryAdapter(self.context, IAutoRelations)
+        explorer = explorer()
         if not explorer:
-            return
-
-        for tab, brains in explorer():
-            brains = [b for b in self.checkPermission(brains)]
-            if not len(brains):
-                continue
-            yield tab, brains
+            return False
+        else:
+            return self.generatorTabs(explorer)

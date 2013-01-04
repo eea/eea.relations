@@ -81,7 +81,7 @@ How is this used in real world
 
 There is a browser view called '''auto-relations.html'''. It will search for
 IAutoRelations adapter and will display items using a custom template. You can
-reuse this using tal:replace expresion:
+reuse this using tal:replace expression:
 
   <tal:relations replace="structure here/@@auto-relations.html" />
 

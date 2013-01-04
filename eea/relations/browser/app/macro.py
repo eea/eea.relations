@@ -5,9 +5,11 @@ from eea.relations.component import getForwardRelationWith
 from eea.relations.component import getBackwardRelationWith
 from Products.CMFCore.utils import getToolByName
 
+
 class Macro(BrowserView):
     """ Categorize relations
     """
+
     def checkPermission(self, doc):
         """ Check document permission
         """
@@ -20,7 +22,7 @@ class Macro(BrowserView):
         """ Return forward relations by category
         """
         tabs = {}
-         
+
         fieldname = kwargs.get('fieldname', 'relatedItems')
         field = self.context.getField(fieldname)
         if not field:
