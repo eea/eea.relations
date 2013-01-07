@@ -3,6 +3,9 @@ Changelog
 
 5.3-dev - (unreleased)
 ----------------------
+* Change: relationItems are now rendered by default with an album_view style
+  which can be changed by supplying a template parameter
+  [ichimdav #10182]
 * Change: changed auto relations logic returns False instead of generator when
   there are no results
   [ichimdav #10182]
