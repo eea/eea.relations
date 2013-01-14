@@ -28,12 +28,6 @@ Optional parameters:
                   templateStyle templateStyle|string:album_view;"
   tal:condition="python:backward_tabs or forward_tabs or auto_tabs">
 
-    <div class="eea-i18n hidden" i18n:domain="eea" style="display: none;">
-        <div id="eeaPaginationNext" i18n:translate="">next</div>
-        <div id="eeaPaginationPrev" i18n:translate="">« previous</div>
-        <div id="eeaPaginationItems" i18n:translate="">items</div>
-    </div>
-
   <tal:backward tal:condition="backward_tabs">
     <!-- Backward relations -->
     <div class="visualNoMarker">

@@ -3,6 +3,9 @@ Changelog
 
 5.4-dev - (unreleased)
 ----------------------
+* Change: removed i18n information regarding pagination since no code for it
+  is found inside eea.relations
+  [ichimdav]
 
 5.3 - (2013-01-10)
 ------------------
