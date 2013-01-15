@@ -43,7 +43,10 @@ class ContentTypeLookUp(object):
             self.adapted = IMarkerInterfaces(self.context)
 
         ifaces = self.adapted.getDirectlyProvidedNames()
-        ifaces.extend(self.adapted.getInterfaceNames())
+
+        interfaces = self.adapted.getInterfaces()
+        ifaces.extend((i.__module__ + '.' + i.__name__) for i in interfaces)
+
         return ifaces
 
     @property
@@ -94,10 +97,11 @@ class ContentTypeLookUp(object):
     def __call__(self, **kwargs):
         """ Return ContentType object from portal_relation or None
         """
+        object_provides = self.object_provides
         # Search for full mapping
         tuple_types = self.tuple_types
         ptype = self.portal_type
-        for iface in self.object_provides:
+        for iface in object_provides:
             if (iface, ptype) in tuple_types:
                 return tuple_types[(iface, ptype)]
 
@@ -108,7 +112,7 @@ class ContentTypeLookUp(object):
 
         # Fallback to interfaces only
         interfaces = self.interfaces_only
-        for iface in self.object_provides:
+        for iface in object_provides:
             if iface in interfaces:
                 return interfaces[iface]
 

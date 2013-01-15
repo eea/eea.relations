@@ -1,6 +1,11 @@
 Changelog
 =========
 
+5.5-dev - (unreleased)
+----------------------
+* Bug fix: Optimize queryContentType component. Now it's 5 times faster
+  [voineali refs #13590]
+
 5.4 - (2013-01-15)
 ------------------
 * Change: removed i18n information regarding pagination since no code for it
@@ -18,7 +23,7 @@ Changelog
 
 5.2 - (2012-11-22)
 ------------------
-* Feature: added subscriber to update relations once a relation contenttype 
+* Feature: added subscriber to update relations once a relation contenttype
   has been renamed
   [ichimdav #9547]
 * Feature: added warning of broken relation when viewing the portal_relations,
