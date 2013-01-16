@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.5-dev - (unreleased)
-----------------------
+5.5 - (2013-01-16)
+------------------
 * Bug fix: Optimize queryContentType component. Now it's 5 times faster
   [voineali refs #13590]
 
