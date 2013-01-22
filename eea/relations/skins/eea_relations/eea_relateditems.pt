@@ -16,6 +16,13 @@ Optional parameters:
   <metal:macro tal:define="templateStyle string:folder_summary"
                use-macro="here/eea_relateditems/macros/relatedItemsWithThumbs" />
 
+  By default it adds a title Related Content header however if you wish to get rid
+  of it just override the provided relatedTitle slot
+  ex:
+  <metal:macro use-macro="here/eea_relateditems/macros/relatedItemsWithThumbs">
+    <metal:title fill-slot="relatedTitle />
+  </metal:macro>
+
 -->
 </tal:comment>
 <div metal:define-macro="relatedItemsWithThumbs" id="relatedItems"
@@ -28,7 +35,9 @@ Optional parameters:
                   templateStyle templateStyle|string:album_view;"
   tal:condition="python:backward_tabs or forward_tabs or auto_tabs">
 
-    <h3 i18n:translate="">Related content</h3>
+  <tal:relatedTitle metal:define-slot="relatedTitle">
+      <h3 i18n:translate="">Related content</h3>
+  </tal:relatedTitle>
 
   <tal:backward tal:condition="backward_tabs">
     <!-- Backward relations -->
