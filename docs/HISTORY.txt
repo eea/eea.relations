@@ -3,6 +3,8 @@ Changelog
 
 5.6-dev - (unreleased)
 ----------------------
+* Feature: added related content header to relatedItemsWithThumbs macro
+  [ichimdav #13639]
 
 5.5 - (2013-01-16)
 ------------------

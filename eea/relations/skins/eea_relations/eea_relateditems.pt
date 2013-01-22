@@ -28,6 +28,8 @@ Optional parameters:
                   templateStyle templateStyle|string:album_view;"
   tal:condition="python:backward_tabs or forward_tabs or auto_tabs">
 
+    <h3 i18n:translate="">Related content</h3>
+
   <tal:backward tal:condition="backward_tabs">
     <!-- Backward relations -->
     <div class="visualNoMarker">
