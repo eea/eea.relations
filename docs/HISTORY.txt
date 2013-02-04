@@ -1,8 +1,11 @@
 Changelog
 =========
 
-5.7-dev - (unreleased)
+5.8-dev - (unreleased)
 ----------------------
+
+5.7 - (2013-02-04)
+------------------
 * Change: optimized relatedItems macro tal definitions and reference listing
   url in a way that can work without our own extra packages
   [ichimdav #13677]
