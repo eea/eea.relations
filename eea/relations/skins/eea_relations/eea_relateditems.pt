@@ -26,6 +26,7 @@ Optional parameters:
 -->
 </tal:comment>
 <div metal:define-macro="relatedItemsWithThumbs" id="relatedItems"
+     i18n:domain="eea"
      tal:define="relations nocall:here/@@eea.relations.macro;
                   auto_relations nocall:here/@@auto-relations.html;
                   thumb_scale thumb_scale | string:image_thumb;
@@ -45,7 +46,7 @@ Optional parameters:
       <tal:tab repeat="tab backward_tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]"
           tal:condition="related">
-          <h3 tal:content="label">Relation label</h3>
+          <h3 tal:content="label" i18n:translate="">Relation label</h3>
           <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
         </tal:def>
       </tal:tab>
@@ -58,7 +59,7 @@ Optional parameters:
       <tal:tab repeat="tab forward_tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]"
           tal:condition="related">
-          <h3 tal:content="label">Relation label</h3>
+          <h3 tal:content="label" i18n:translate="">Relation label</h3>
           <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
         </tal:def>
       </tal:tab>
@@ -70,7 +71,7 @@ Optional parameters:
     <div class="visualNoMarker">
       <tal:tab repeat="tab auto_tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]">
-          <h3 tal:content="label">Relation label</h3>
+          <h3 tal:content="label" i18n:translate="">Relation label</h3>
           <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
         </tal:def>
       </tal:tab>
@@ -101,6 +102,7 @@ Usage:
 -->
 </tal:comment>
 <div metal:define-macro="relatedItems"
+     i18n:domain="eea"
      tal:define="related related | python:[];
                  thumb_scale thumb_scale | string:image_thumb;
                  templateStyle templateStyle"
