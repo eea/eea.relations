@@ -39,9 +39,10 @@ class Popup(BrowserView):
         """ Return popup tabs
         """
         rtool = getToolByName(self.context, 'portal_relations')
+        rtoolObjects = rtool.objectIds()
         for relation in self.relations:
             nto = relation.getField('to').getAccessor(relation)()
-            if nto not in rtool.objectIds():
+            if nto not in rtoolObjects:
                 continue
 
             required = relation.getField('required').getAccessor(relation)()
