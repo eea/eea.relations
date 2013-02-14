@@ -46,7 +46,6 @@ class Macro(BrowserView):
         nonForwardRelations = set()
         relations = accessor()
         for relation in relations:
-            import pdb; pdb.set_trace()
             portalType = relation.portal_type
             if not self.checkPermission(relation) or portalType in \
                     nonForwardRelations:
