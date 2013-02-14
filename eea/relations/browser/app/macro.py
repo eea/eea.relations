@@ -10,10 +10,21 @@ class Macro(BrowserView):
     """ Categorize relations
     """
 
+    def __init__(self, context, request):
+        super(Macro, self).__init__(context, request)
+        self._portal_membership = None
+
+    @property
+    def portal_membership(self):
+        if not self._portal_membership:
+            self._portal_membership = getToolByName(self.context,
+                                                            'portal_membership')
+        return self._portal_membership
+
     def checkPermission(self, doc):
         """ Check document permission
         """
-        mtool = getToolByName(self.context, 'portal_membership')
+        mtool = self.portal_membership
         if mtool.checkPermission('View', doc):
             return doc
         return None
@@ -31,16 +42,24 @@ class Macro(BrowserView):
         accessor = field.getAccessor(self.context)
         #getRelatedItems = getattr(self.context, 'getRelatedItems', None)
 
+        contentTypes = {}
+        nonForwardRelations = set()
         relations = accessor()
         for relation in relations:
-            if not self.checkPermission(relation):
+            portalType = relation.portal_type
+            if not self.checkPermission(relation) or portalType in \
+                    nonForwardRelations:
                 continue
 
-            forward = getForwardRelationWith(self.context, relation)
-            if not forward:
-                continue
+            if portalType not in contentTypes:
+                forward = getForwardRelationWith(self.context, relation)
+                if not forward:
+                    nonForwardRelations.add(portalType)
+                    continue
+                name = forward.getField('forward_label').getAccessor(forward)()
+                contentTypes[portalType] = name
 
-            name = forward.getField('forward_label').getAccessor(forward)()
+            name = contentTypes[portalType]
             if name not in tabs:
                 tabs[name] = []
             tabs[name].append(relation)
@@ -60,7 +79,7 @@ class Macro(BrowserView):
 
         relations = getBRefs(relation) or []
         contentTypes = {}
-        nonBackwardRelations = []
+        nonBackwardRelations = set()
         for relation in relations:
             # save the name and the portal type of the first relation that we
             # have permission to use.
@@ -78,13 +97,13 @@ class Macro(BrowserView):
             if portalType not in contentTypes:
                 backward = getBackwardRelationWith(self.context, relation)
                 if not backward:
-                    nonBackwardRelations.append(portalType)
+                    nonBackwardRelations.add(portalType)
                     continue
                 name = backward.getField('backward_label').getAccessor(
                                                                      backward)()
                 contentTypes[portalType] = name
-            name = contentTypes[portalType]
 
+            name = contentTypes[portalType]
             if name not in tabs:
                 tabs[name] = []
             tabs[name].append(relation)
