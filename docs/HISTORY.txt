@@ -3,6 +3,9 @@ Changelog
 
 5.8-dev - (unreleased)
 ----------------------
+* Bug fix: optimize Macro forward and backwards methods calls for similar
+  performance gains like those done in 5.5
+  [ichimdav #13771]
 
 5.7 - (2013-02-04)
 ------------------
