@@ -62,8 +62,6 @@ class Macro(BrowserView):
         contentTypes = {}
         nonBackwardRelations = []
         for relation in relations:
-            if not self.checkPermission(relation):
-                continue
             # save the name and the portal type of the first relation that we
             # have permission to use.
             # this way we can check if other relations are of same portal_type
@@ -71,14 +69,13 @@ class Macro(BrowserView):
             # relation and what is it's name, we can just add it to the tabs
             # for that relation name the relation item
             portalType = relation.portal_type
+            if not self.checkPermission(relation) or portalType in \
+                    nonBackwardRelations:
+                continue
             # if the portal_type of the relation is not already in
             # contentTypes than we are dealing with a backward relation that
             # is different from the ones we had before therefore we need
             if portalType not in contentTypes:
-                # don't check if relation is backward if the portal_type has
-                # already been identified as nonBackward
-                if portalType in nonBackwardRelations:
-                    continue
                 backward = getBackwardRelationWith(self.context, relation)
                 if not backward:
                     nonBackwardRelations.append(portalType)
