@@ -16,9 +16,11 @@ class Macro(BrowserView):
 
     @property
     def portal_membership(self):
+        """ cached portal_membership as a property of Macro
+        """
         if not self._portal_membership:
             self._portal_membership = getToolByName(self.context,
-                                                            'portal_membership')
+                                                          'portal_membership')
         return self._portal_membership
 
     def checkPermission(self, doc):
@@ -100,7 +102,7 @@ class Macro(BrowserView):
                     nonBackwardRelations.add(portalType)
                     continue
                 name = backward.getField('backward_label').getAccessor(
-                                                                     backward)()
+                                                                   backward)()
                 contentTypes[portalType] = name
 
             name = contentTypes[portalType]
