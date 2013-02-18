@@ -6,6 +6,8 @@ Changelog
 * Bug fix: optimize Macro forward and backwards methods calls for similar
   performance gains like those done in 5.5
   [ichimdav #13771]
+* Bug fix: Corrected missing i18n attributes for translations.
+  [prospchr refs #13827]
 
 5.7 - (2013-02-04)
 ------------------

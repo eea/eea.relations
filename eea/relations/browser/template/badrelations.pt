@@ -40,8 +40,8 @@
     </form>
 
     <tal:results_header condition="bad_relations_report">
-        <h2>Deprecated relations</h2>
-        <p><tal:block content="python:len(view.get_objects)" /> objects verified.</p>
+        <h2 i18n:translate="">Deprecated relations</h2>
+        <p i18n:translate=""><tal:block content="python:len(view.get_objects)" i18n:name="number">42</tal:block> objects verified.</p>
     </tal:results_header>
 
     <tal:results repeat="res bad_relations_report">
@@ -61,7 +61,7 @@
                     tal:content="rel/Title" />
                 &nbsp;(<span tal:content="rel/portal_type" style="color:red"></span>)
             </li>
-        <ul>
+        </ul>
         </fieldset>
     </tal:condition>
     </tal:results>
