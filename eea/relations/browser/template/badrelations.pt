@@ -4,7 +4,7 @@
       xml:lang="en-US"
       lang="en-US"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="eea">
+      i18n:domain="eea.notranslation">
 
 <body>
 

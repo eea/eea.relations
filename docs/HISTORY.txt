@@ -8,6 +8,9 @@ Changelog
   [ichimdav #13771]
 * Bug fix: Corrected missing i18n attributes for translations.
   [prospchr refs #13827]
+* Bug fix: Added domain=eea.notranslation to views that don't need
+  translations.
+  [prospchr refs #13827]
 
 5.7 - (2013-02-04)
 ------------------
