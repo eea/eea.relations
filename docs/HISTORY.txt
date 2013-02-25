@@ -1,8 +1,11 @@
 Changelog
 =========
 
-5.8-dev - (unreleased)
+5.9-dev - (unreleased)
 ----------------------
+
+5.8 - (2013-02-25)
+------------------
 * Bug fix: optimize Macro forward and backwards methods calls for similar
   performance gains like those done in 5.5
   [ichimdav #13771]
