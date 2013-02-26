@@ -31,8 +31,8 @@ Optional parameters:
      tal:define="relations nocall:here/@@eea.relations.macro;
                   auto_relations nocall:here/@@auto-relations.html;
                   thumb_scale thumb_scale | string:image_thumb;
-                  backward_tabs python:relations.backward();
-                  forward_tabs python:relations.forward();
+                  backward_tabs python:relations.backward(sort='Title');
+                  forward_tabs python:relations.forward(sort='Title');
                   auto_tabs python:auto_relations.tabs;
                   templateStyle templateStyle|string:album_view;"
   tal:condition="python:backward_tabs or forward_tabs or auto_tabs">

@@ -67,6 +67,10 @@ class Macro(BrowserView):
             tabs[name].append(relation)
         tabs = tabs.items()
         tabs.sort()
+        if kwargs.get('sort') == 'Title':
+            for label, relations in tabs:
+                relations.sort(cmp=lambda x,y:cmp(x.Title().strip(), 
+                                                  y.Title().strip()))
         return tabs
 
     def backward(self, **kwargs):
@@ -110,5 +114,9 @@ class Macro(BrowserView):
                 tabs[name] = []
             tabs[name].append(relation)
         tabs = tabs.items()
-        tabs.sort()
+        tabs.sort() #this sorts based on relation label
+        if kwargs.get('sort') == 'Title':
+            for label, relations in tabs:
+                relations.sort(cmp=lambda x,y:cmp(x.Title().strip(), 
+                                                  y.Title().strip()))
         return tabs

@@ -3,6 +3,8 @@ Changelog
 
 5.9-dev - (unreleased)
 ----------------------
+* Bug fix: sort items in related items macro based on title
+  [tiberich #13870]
 
 5.8 - (2013-02-25)
 ------------------
