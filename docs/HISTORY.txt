@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.9-dev - (unreleased)
-----------------------
+5.9 - (2013-02-27)
+------------------
 * Bug fix: avoid crash for backwards and forward relations when relation is 
   None
   [ichimdav 13988]
