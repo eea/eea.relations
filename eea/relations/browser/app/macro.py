@@ -68,8 +68,8 @@ class Macro(BrowserView):
         tabs = tabs.items()
         tabs.sort()
         if kwargs.get('sort') == 'Title':
-            for label, relations in tabs:
-                relations.sort(cmp=lambda x,y:cmp(x.Title().strip(), 
+            for _label, relations in tabs:
+                relations.sort(cmp=lambda x, y:cmp(x.Title().strip(), 
                                                   y.Title().strip()))
         return tabs
 
@@ -116,7 +116,7 @@ class Macro(BrowserView):
         tabs = tabs.items()
         tabs.sort() #this sorts based on relation label
         if kwargs.get('sort') == 'Title':
-            for label, relations in tabs:
-                relations.sort(cmp=lambda x,y:cmp(x.Title().strip(), 
+            for _label, relations in tabs:
+                relations.sort(cmp=lambda x, y:cmp(x.Title().strip(), 
                                                   y.Title().strip()))
         return tabs
