@@ -3,6 +3,9 @@ Changelog
 
 5.9-dev - (unreleased)
 ----------------------
+* Bug fix: avoid crash for backwards and forward relations when relation is 
+  None
+  [ichimdav 13988]
 * Bug fix: sort items in related items macro based on title
   [tiberich #13870]
 

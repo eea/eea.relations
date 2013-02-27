@@ -48,10 +48,10 @@ class Macro(BrowserView):
         nonForwardRelations = set()
         relations = accessor()
         for relation in relations:
-            portalType = relation.portal_type
-            if not self.checkPermission(relation) or portalType in \
+            if not self.checkPermission(relation) or relation.portal_type in \
                     nonForwardRelations:
                 continue
+            portalType = relation.portal_type
 
             if portalType not in contentTypes:
                 forward = getForwardRelationWith(self.context, relation)
@@ -93,10 +93,10 @@ class Macro(BrowserView):
             # if they are then we don't need to check if it's a backward
             # relation and what is it's name, we can just add it to the tabs
             # for that relation name the relation item
-            portalType = relation.portal_type
-            if not self.checkPermission(relation) or portalType in \
+            if not self.checkPermission(relation) or relation.portal_type in \
                     nonBackwardRelations:
                 continue
+            portalType = relation.portal_type
             # if the portal_type of the relation is not already in
             # contentTypes than we are dealing with a backward relation that
             # is different from the ones we had before therefore we need
