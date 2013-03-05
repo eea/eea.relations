@@ -3,11 +3,14 @@ Changelog
 
 6.0-dev - (unreleased)
 ----------------------
+* Bug fix: fixed generation of tabs call when IAutoRelations queryAdapter 
+  returns no result
+  [ichimdav]
+* Feature: added information for contributors
+  [ciobabog refs #13892]
 
 5.9 - (2013-02-27)
 ------------------
-* Feature: added information for contributors
-  [ciobabog refs #13892]
 * Bug fix: avoid crash for backwards and forward relations when relation is 
   None
   [ichimdav 13988]
