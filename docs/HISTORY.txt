@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.0-dev - (unreleased)
-----------------------
+6.0 - (2013-03-15)
+------------------
 * Bug fix: fixed generation of tabs call when IAutoRelations queryAdapter 
   returns no result
   [ichimdav]
