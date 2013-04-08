@@ -3,6 +3,8 @@ Changelog
 
 6.1-dev - (unreleased)
 ----------------------
+* Feature: added controls for reordering of related content
+  [tiberich #13870]
 
 6.0 - (2013-03-15)
 ------------------

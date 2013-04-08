@@ -31,8 +31,8 @@ Optional parameters:
      tal:define="relations nocall:here/@@eea.relations.macro;
                   auto_relations nocall:here/@@auto-relations.html;
                   thumb_scale thumb_scale | string:image_thumb;
-                  backward_tabs python:relations.backward(sort='Title');
-                  forward_tabs python:relations.forward(sort='Title');
+                  backward_tabs python:relations.backward();
+                  forward_tabs python:relations.forward();
                   auto_tabs python:auto_relations.tabs;
                   templateStyle templateStyle|string:album_view;"
   tal:condition="python:backward_tabs or forward_tabs or auto_tabs">
@@ -79,8 +79,14 @@ Optional parameters:
     </div>
   </tal:auto>
 
+    <div class="sorter_ctl" style="clear:both; float:right; margin-bottom:20px;">
+        <label for="sort_by">Sort by: </label>
+        <select name="sort_by">
+            <option value="date">Publishing date</option>
+            <option value="title">Title</option>
+        </select>
+    </div>
 </div>
-
 
 
 <tal:comment condition="nothing">
@@ -126,6 +132,10 @@ Usage:
                          cloud python: 'video-fancybox cloudvideo' if portal_type == 'CloudVideo' else '';
                          pretty_title item/title_or_id;
                          desc_or_title python:description or pretty_title">
+                <div class="metadata" style="display:none" tal:replace="nothing">
+                    <span class="effective" tal:content="item/effective/millis | nothing"></span>
+                    <span class="title" tal:content="item/Title"></span>
+                </div>
             <a tal:attributes="href listing_url;
                                title pretty_title;
                                class python:cloud or video or animation">
@@ -155,6 +165,10 @@ Usage:
                              item_interfaces context/@@plone_interface_info;
                              is_video python:item_interfaces.provides('eea.mediacentre.interfaces.IVideo');
                              css_class python: 'video-fancybox' if is_video else '';">
+                <div class="metadata" style="display:none" tal:replace="nothing">
+                    <span class="effective" tal:content="item/effective/millis | nothing"></span>
+                    <span class="title" tal:content="item/Title"></span>
+                </div>
                 <a class="tileImage"
                    tal:attributes="href url; title title; alt title;
                                    class python:'video-fancybox tileImage' if is_video else 'tileImage'">
@@ -180,5 +194,6 @@ Usage:
                 <div class="visualClear"></div>
             </div>
         </tal:related>
+
     </metal:template>
 </div>
