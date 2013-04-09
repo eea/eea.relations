@@ -82,7 +82,7 @@ Optional parameters:
     <div class="sorter_ctl" style="clear:both; float:right; margin-bottom:20px;">
         <label for="sort_by">Sort by: </label>
         <select name="sort_by">
-            <option value="date">Publishing date</option>
+            <option value="effective">Publishing date</option>
             <option value="title">Title</option>
         </select>
     </div>
@@ -132,8 +132,10 @@ Usage:
                          cloud python: 'video-fancybox cloudvideo' if portal_type == 'CloudVideo' else '';
                          pretty_title item/title_or_id;
                          desc_or_title python:description or pretty_title">
-                <div class="metadata" style="display:none" tal:replace="nothing">
-                    <span class="effective" tal:content="item/effective/millis | nothing"></span>
+                <div class="metadata" style="display:none">
+                    <span class="effective"
+                          tal:define="time item/effective"
+                          tal:content="time/millis|nothing"></span>
                     <span class="title" tal:content="item/Title"></span>
                 </div>
             <a tal:attributes="href listing_url;
@@ -165,8 +167,8 @@ Usage:
                              item_interfaces context/@@plone_interface_info;
                              is_video python:item_interfaces.provides('eea.mediacentre.interfaces.IVideo');
                              css_class python: 'video-fancybox' if is_video else '';">
-                <div class="metadata" style="display:none" tal:replace="nothing">
-                    <span class="effective" tal:content="item/effective/millis | nothing"></span>
+                <div class="metadata">
+                    <span class="effective" tal:content="item/effective|nothing"></span>
                     <span class="title" tal:content="item/Title"></span>
                 </div>
                 <a class="tileImage"
