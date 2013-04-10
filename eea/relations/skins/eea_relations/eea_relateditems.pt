@@ -41,6 +41,14 @@ Optional parameters:
       <h3 i18n:translate="">Related content</h3>
   </tal:relatedTitle>
 
+  <div class="sorter_ctl">
+      <label for="sort_by" i18n:translate="">Sort by: </label>
+      <select name="sort_by">
+          <option value="effective">Publishing date</option>
+          <option value="title">Title</option>
+      </select>
+  </div>
+
   <tal:backward tal:condition="backward_tabs">
     <!-- Backward relations -->
     <div class="visualNoMarker">
@@ -79,13 +87,6 @@ Optional parameters:
     </div>
   </tal:auto>
 
-    <div class="sorter_ctl" style="clear:both; float:right; margin-bottom:20px;">
-        <label for="sort_by">Sort by: </label>
-        <select name="sort_by">
-            <option value="effective">Publishing date</option>
-            <option value="title">Title</option>
-        </select>
-    </div>
 </div>
 
 
@@ -131,13 +132,10 @@ Usage:
                          animation python:'animation-fancybox' if portal_type == 'FlashFile' else '';
                          cloud python: 'video-fancybox cloudvideo' if portal_type == 'CloudVideo' else '';
                          pretty_title item/title_or_id;
-                         desc_or_title python:description or pretty_title">
-                <div class="metadata" style="display:none">
-                    <span class="effective"
-                          tal:define="time item/effective"
-                          tal:content="time/millis|nothing"></span>
-                    <span class="title" tal:content="item/Title"></span>
-                </div>
+                         desc_or_title python:description or pretty_title;
+                         time item/effective;"
+             tal:attributes="data-effective time/millis|nothing;
+                             data-title pretty_title;">
             <a tal:attributes="href listing_url;
                                title pretty_title;
                                class python:cloud or video or animation">
@@ -166,11 +164,11 @@ Usage:
                              url urlview/listing_url;
                              item_interfaces context/@@plone_interface_info;
                              is_video python:item_interfaces.provides('eea.mediacentre.interfaces.IVideo');
-                             css_class python: 'video-fancybox' if is_video else '';">
-                <div class="metadata">
-                    <span class="effective" tal:content="item/effective|nothing"></span>
-                    <span class="title" tal:content="item/Title"></span>
-                </div>
+                             css_class python: 'video-fancybox' if is_video else '';
+                             time item/effective;
+                             pretty_title item/title_or_id;"
+                 tal:attributes="data-effective time/millis|nothing;
+                                 data-title pretty_title;">
                 <a class="tileImage"
                    tal:attributes="href url; title title; alt title;
                                    class python:'video-fancybox tileImage' if is_video else 'tileImage'">
