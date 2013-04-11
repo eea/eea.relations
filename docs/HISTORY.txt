@@ -3,6 +3,11 @@ Changelog
 
 6.1-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.relations
+  [ichim-david #13870]
+* Feature: added javascript logic that makes use of the reordering controls
+  [ichim-david #13870]
 * Feature: added controls for reordering of related content
   [tiberich #13870]
 

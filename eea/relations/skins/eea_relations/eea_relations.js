@@ -1,7 +1,7 @@
 jQuery(function($){
+    // 13870 sort relations based on given criteria
     var relations = $('#relatedItems').find('.visualNoMarker > div');
     var tab_panels = $(".eea-tabs-panel");
-    // 13870 sort relations based on given criteria
     $("select[name='sort_by']").change(function(e) {
         var sort_parameter = e.currentTarget.value;
         relations.each(function(){
