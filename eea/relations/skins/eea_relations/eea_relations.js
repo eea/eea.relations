@@ -2,7 +2,28 @@ jQuery(function($){
     // 13870 sort relations based on given criteria
     var relations = $('#relatedItems').find('.visualNoMarker > div');
     var tab_panels = $(".eea-tabs-panel");
-    $("select[name='sort_by']").change(function(e) {
+    var $sort_parent = $(".sorter_ctl");
+    var $sort_select = $sort_parent.find('select');
+
+    if (relations.children().length > 10) {
+        $sort_parent.show();
+    }
+
+    $(window).bind('relations.showSortingWidget', function(){
+        if (tab_panels.length) {
+            tab_panels.each(function(){
+               var $this = $(this);
+               if ($this.find('.page').eq(0).data().count > 10) {
+                   $sort_parent.show();
+                   return false;
+               }
+            });
+        }
+    });
+
+    $(window).trigger('relations.showSortingWidget');
+
+    $sort_select.change(function(e) {
         var sort_parameter = e.currentTarget.value;
         relations.each(function(){
             var $this = $(this);
@@ -18,7 +39,7 @@ jQuery(function($){
 
     $(window).bind('relations.sort', function(ev, sort_parameter) {
         tab_panels.each(function(){
-            // sort items differently if we have eea-tabs present
+            // sort items differently if we have eea-tabs and eea-pagination present
             // this event can be bound by third party code which can supplement different
             // sorting
             var $this = $(this);
