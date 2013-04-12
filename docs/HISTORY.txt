@@ -6,6 +6,9 @@ Changelog
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.relations
   [ichim-david #13870]
+* Bug fix: fixed issue when the relations div from the relations macro appeared
+  wrongly when the auto relations returned an empty list
+  [ichim-david #13870]
 * Feature: added javascript logic that makes use of the reordering controls
   [ichim-david #13870]
 * Feature: added controls for reordering of related content
