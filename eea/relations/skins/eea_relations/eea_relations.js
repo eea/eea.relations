@@ -1,17 +1,18 @@
 jQuery(function($){
     // 13870 sort relations based on given criteria
-    var relations = $('#relatedItems').find('.visualNoMarker > div');
-    var tab_panels = $(".eea-tabs-panel");
+    var $relations_parent = $('#relatedItems');
+    var $relations = $relations_parent.find('.visualNoMarker > div');
+    var $tab_panels = $relations_parent.find(".eea-tabs-panel");
     var $sort_parent = $(".sorter_ctl");
     var $sort_select = $sort_parent.find('select');
 
-    if (relations.children().length > 10) {
+    if ($relations.children().length > 10) {
         $sort_parent.show();
     }
 
     $(window).bind('relations.showSortingWidget', function(){
-        if (tab_panels.length) {
-            tab_panels.each(function(){
+        if ($tab_panels.length) {
+            $tab_panels.each(function(){
                var $this = $(this);
                var data_attr = $this.find('.page').eq(0).data();
                if (data_attr && data_attr.count > 10) {
@@ -26,7 +27,7 @@ jQuery(function($){
 
     $sort_select.change(function(e) {
         var sort_parameter = e.currentTarget.value;
-        relations.each(function(){
+        $relations.each(function(){
             var $this = $(this);
             var $children = $this.children().detach();
             // sort based on the data attributes set on the listing elements
@@ -39,7 +40,7 @@ jQuery(function($){
     });
 
     $(window).bind('relations.sort', function(ev, sort_parameter) {
-        tab_panels.each(function(){
+        $tab_panels.each(function(){
             // sort items differently if we have eea-tabs and eea-pagination present
             // this event can be bound by third party code which can supplement different
             // sorting
