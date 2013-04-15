@@ -13,7 +13,8 @@ jQuery(function($){
         if (tab_panels.length) {
             tab_panels.each(function(){
                var $this = $(this);
-               if ($this.find('.page').eq(0).data().count > 10) {
+               var data_attr = $this.find('.page').eq(0).data();
+               if (data_attr && data_attr.count > 10) {
                    $sort_parent.show();
                    return false;
                }
