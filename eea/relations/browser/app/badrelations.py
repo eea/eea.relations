@@ -91,9 +91,9 @@ class View(BrowserView):
                 # a value can't be found
                 raise AttributeError
             except:
-                logger.info('ERROR getting relations for %s' % brain.getURL())
+                logger.info('ERROR getting relations for %s', brain.getURL())
             if not (count % 100):
-                logger.info('done %s out of %s' % (count, len(res)))
+                logger.info('done %s out of %s', count, len(res))
 
         report.sort()
         logger.info('Done generating bad relations report.')

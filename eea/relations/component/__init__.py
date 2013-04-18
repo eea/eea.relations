@@ -14,7 +14,7 @@ def queryContentType(context):
     connecter = queryAdapter(context, IContentTypeLookUp)
     if not connecter:
         logger.exception('No IContentTypeLookUp adapter found for '
-                         '%s' % context)
+                         '%s', context)
         return None
     return connecter()
 
@@ -28,7 +28,7 @@ def queryForwardRelations(context):
     connecter = queryAdapter(context, IRelationsLookUp)
     if not connecter:
         logger.exception('No IRelationsLookUp adapter found for '
-                         '%s' % context)
+                         '%s', context)
         return
     for relation in connecter.forward():
         yield relation
@@ -43,7 +43,7 @@ def queryBackwardRelations(context):
     connecter = queryAdapter(context, IRelationsLookUp)
     if not connecter:
         logger.exception('No IRelationsLookUp adapter found for '
-                         '%s' % context)
+                         '%s', context)
         return
     for relation in connecter.backward():
         yield relation
@@ -67,7 +67,7 @@ def getForwardRelationWith(context, ctype):
     connecter = queryAdapter(context, IRelationsLookUp)
     if not connecter:
         logger.exception('No IRelationsLookUp adapter found for '
-                         '%s' % context)
+                         '%s', context)
         return None
     return connecter.forward_with(ctype)
 
@@ -90,6 +90,6 @@ def getBackwardRelationWith(context, ctype):
     connecter = queryAdapter(context, IRelationsLookUp)
     if not connecter:
         logger.exception('No IRelationsLookUp adapter found for '
-                         '%s' % context)
+                         '%s', context)
         return None
     return connecter.backward_with(ctype)
