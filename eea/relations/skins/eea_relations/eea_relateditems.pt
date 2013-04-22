@@ -28,15 +28,16 @@ Optional parameters:
 
 <div metal:define-macro="relatedItemsWithThumbs" id="relatedItems"
      i18n:domain="eea"
-     tal:define="relations nocall:here/@@eea.relations.macro;
+     tal:condition="context/@@plone_context_state/is_view_template">
+  <tal:content
+          tal:define="relations nocall:here/@@eea.relations.macro;
                   auto_relations nocall:here/@@auto-relations.html;
                   thumb_scale thumb_scale | string:image_thumb;
                   backward_tabs python:relations.backward();
                   forward_tabs python:relations.forward();
                   auto_tabs python:auto_relations.tabs;
                   templateStyle templateStyle|string:album_view;"
-  tal:condition="python:backward_tabs or forward_tabs or auto_tabs">
-
+          tal:condition="python:backward_tabs or forward_tabs or auto_tabs">
   <tal:relatedTitle metal:define-slot="relatedTitle">
       <h3 i18n:translate="">Related content</h3>
   </tal:relatedTitle>
@@ -85,7 +86,7 @@ Optional parameters:
       </tal:tab>
     </div>
   </tal:auto>
-
+  </tal:content>
 </div>
 
 

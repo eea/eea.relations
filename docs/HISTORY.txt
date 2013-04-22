@@ -3,6 +3,9 @@ Changelog
 
 6.2-dev - (unreleased)
 ----------------------
+* Change: load relatedItemsWithThumbs macro only on view template to avoid it
+  from showing up in unwanted places like edit form
+  [ichim-david]
 
 6.1 - (2013-04-17)
 ------------------
