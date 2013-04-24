@@ -26,10 +26,10 @@ Optional parameters:
 -->
 </tal:comment>
 
-<div metal:define-macro="relatedItemsWithThumbs" id="relatedItems"
+<tal:relatedItems metal:define-macro="relatedItemsWithThumbs"
      i18n:domain="eea"
      tal:condition="context/@@plone_context_state/is_view_template">
-  <tal:content
+  <div id="relatedItems"
           tal:define="relations nocall:here/@@eea.relations.macro;
                   auto_relations nocall:here/@@auto-relations.html;
                   thumb_scale thumb_scale | string:image_thumb;
@@ -86,8 +86,8 @@ Optional parameters:
       </tal:tab>
     </div>
   </tal:auto>
-  </tal:content>
-</div>
+  </div>
+</tal:relatedItems>
 
 
 <tal:comment condition="nothing">
