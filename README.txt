@@ -34,37 +34,43 @@ EEA Relations features:
   4. Nice visual diagram showning all the relations and restrictions you defined
      (Control Panel -> Possible relations)
 
-Installation
-============
+Install
+=======
 
-zc.buildout
------------
-If you are using `zc.buildout`_ and the `plone.recipe.zope2instance`_
-recipe to manage your project, you can do this:
+.. warning ::
 
-* Update your buildout.cfg file:
+  Never do this directly on production servers and always backup your data
+  before installing Plone add-ons.
 
-  * Add ``eea.relations`` to the list of eggs to install
-  * Tell the `plone.recipe.zope2instance`_ recipe to install a ZCML slug
+- Add eea.relations to your eggs and zcml section in your buildout
+  and re-run buildout.
+- To use eea.relations widget for all default Plone Content-Types you'll also
+  need to add 'eea.relations.default' within zcml section like::
 
-  ::
-
-    [instance]
-    ...
-    eggs =
-      ...
+    eggs +=
       eea.relations
 
-    zcml =
-      ...
+    zcml +=
       eea.relations
+      eea.relations.default
 
-* Re-run buildout, e.g. with::
+- Install EEA Possible Relations within Site Setup > Add-ons
 
-  $ ./bin/buildout
+Uninstall
+=========
 
-You can skip the ZCML slug if you are going to explicitly include the package
-from another package's configure.zcml file.
+.. warning ::
+
+  This will not uninstall EEA Relations dependencies. See **Dependencies**
+  section within this document and mannually uninstall them as described
+  by their own documentation before uninstalling EEA Relations.
+
+- Backup your data.
+- Go to ZMI > PloneSite and remove portal_relations object.
+- Uninstall EEA Possible Relations within Site Setup > Add-ons
+- Remove eea.relations from your eggs and zcml section within your buildout and
+  re-run buildout
+- Restart Zope
 
 
 Getting started

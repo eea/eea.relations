@@ -3,6 +3,14 @@ Changelog
 
 6.2-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.relations
+* Bug fix: Use schemaextender to override default relatedItems widget for all
+  Archetypes Content-Types. This fixes the missing macro eeareferencebrowser
+  error when EEA Relations is not installed yet in Site Setup > Add-ons
+  [voineali refs #9486]
+* Feature: Added uninstall profile to easily uninstall eea.relations
+  [voineali refs #9486]
 * Change: load relatedItemsWithThumbs macro only on view template to avoid it
   from showing up in unwanted places like edit form
   [ichim-david]
@@ -22,7 +30,7 @@ Changelog
 
 6.0 - (2013-03-15)
 ------------------
-* Bug fix: fixed generation of tabs call when IAutoRelations queryAdapter 
+* Bug fix: fixed generation of tabs call when IAutoRelations queryAdapter
   returns no result
   [ichimdav]
 * Feature: added information for contributors
@@ -30,7 +38,7 @@ Changelog
 
 5.9 - (2013-02-27)
 ------------------
-* Bug fix: avoid crash for backwards and forward relations when relation is 
+* Bug fix: avoid crash for backwards and forward relations when relation is
   None
   [ichimdav 13988]
 * Bug fix: sort items in related items macro based on title

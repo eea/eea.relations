@@ -25,6 +25,14 @@
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     />
 
+  <genericsetup:registerProfile
+    name="uninstall"
+    title="EEA Relations (uninstall)"
+    directory="profiles/uninstall"
+    description="Uninstalls the eea.relations package"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
   <genericsetup:importStep
     name="possible_relations"
     title="Possible Relations Settings" description="Import possible relations"
