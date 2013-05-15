@@ -1,7 +1,11 @@
 <configure
-  xmlns:five="http://namespaces.zope.org/five"
+  xmlns="http://namespaces.zope.org/zope"
   i18n_domain="eea">
 
-  <five:registerPackage package="." initialize=".override" />
+  <adapter name="eea.relations"
+    for="Products.Archetypes.interfaces.metadata.IExtensibleMetadata"
+    factory=".subtypes.SchemaModifier"
+    provides="archetypes.schemaextender.interfaces.ISchemaModifier"
+    />
 
 </configure>
