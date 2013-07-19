@@ -3,6 +3,8 @@ Changelog
 
 6.3-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed missing i18n translations.
+  [prospchr refs #15572]
 
 6.2 - (2013-05-20)
 ------------------

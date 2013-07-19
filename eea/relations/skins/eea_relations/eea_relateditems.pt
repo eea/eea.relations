@@ -44,8 +44,8 @@ Optional parameters:
   <div class="sorter_ctl" style="margin-bottom: 1.5em; display:none;">
       <label for="sort_by" i18n:translate="">Sort by: </label>
       <select name="sort_by">
-          <option value="effective">Publishing date</option>
-          <option value="title">Title</option>
+          <option value="effective" i18n:translate="">Publishing date</option>
+          <option value="title" i18n:translate="">Title</option>
       </select>
   </div>
 
