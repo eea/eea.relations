@@ -101,9 +101,10 @@ class ContentTypeLookUp(object):
         # Search for full mapping
         tuple_types = self.tuple_types
         ptype = self.portal_type
-        for iface in object_provides:
-            if (iface, ptype) in tuple_types:
-                return tuple_types[(iface, ptype)]
+        if tuple_types:
+            for iface in object_provides:
+                if (iface, ptype) in tuple_types:
+                    return tuple_types[(iface, ptype)]
 
         # Fallback to portal_type only
         portal_types = self.portal_types_only
@@ -112,8 +113,9 @@ class ContentTypeLookUp(object):
 
         # Fallback to interfaces only
         interfaces = self.interfaces_only
-        for iface in object_provides:
-            if iface in interfaces:
-                return interfaces[iface]
+        if interfaces:
+            for iface in object_provides:
+                if iface in interfaces:
+                    return interfaces[iface]
 
         return None
