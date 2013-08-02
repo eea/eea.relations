@@ -15,6 +15,7 @@ class ContentTypeLookUp(object):
         self.context = context
         self.adapted = None
         self._ctypes = None
+        self._types_and_interfaces = None
 
     @property
     def ctypes(self):
@@ -50,15 +51,27 @@ class ContentTypeLookUp(object):
         return ifaces
 
     @property
+    def types_and_interfaces(self):
+        """ Types and interfaces logic from every field
+        """
+        if self._types_and_interfaces:
+            return self._types_and_interfaces
+        self._types_and_interfaces = []
+        for doc in self.ctypes:
+            ct_type = doc.getField('ct_type').getAccessor(doc)()
+            ct_interface = doc.getField('ct_interface').getAccessor(doc)()
+            self._types_and_interfaces.append((ct_type, ct_interface, doc))
+        return self._types_and_interfaces
+
+
+    @property
     def tuple_types(self):
         """ Types
         """
         res = {}
-        for doc in self.ctypes:
-            ct_type = doc.getField('ct_type').getAccessor(doc)()
+        for ct_type, ct_interface, doc in self.types_and_interfaces:
             if not ct_type:
                 continue
-            ct_interface = doc.getField('ct_interface').getAccessor(doc)()
             if not ct_interface:
                 continue
             res[(ct_interface, ct_type)] = doc
@@ -69,11 +82,9 @@ class ContentTypeLookUp(object):
         """ Only portal_types
         """
         res = {}
-        for doc in self.ctypes:
-            ct_interface = doc.getField('ct_interface').getAccessor(doc)()
+        for ct_type, ct_interface, doc in self.types_and_interfaces:
             if ct_interface:
                 continue
-            ct_type = doc.getField('ct_type').getAccessor(doc)()
             if not ct_type:
                 continue
             res[ct_type] = doc
@@ -84,11 +95,9 @@ class ContentTypeLookUp(object):
         """ Only interfaces
         """
         res = {}
-        for doc in self.ctypes:
-            ct_type = doc.getField('ct_type').getAccessor(doc)()
+        for ct_type, ct_interface, doc in self.types_and_interfaces:
             if ct_type:
                 continue
-            ct_interface = doc.getField('ct_interface').getAccessor(doc)()
             if not ct_interface:
                 continue
             res[ct_interface] = doc
