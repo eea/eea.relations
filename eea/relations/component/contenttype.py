@@ -44,9 +44,7 @@ class ContentTypeLookUp(object):
             self.adapted = IMarkerInterfaces(self.context)
 
         ifaces = self.adapted.getDirectlyProvidedNames()
-
-        interfaces = self.adapted.getInterfaces()
-        ifaces.extend((i.__module__ + '.' + i.__name__) for i in interfaces)
+        ifaces.extend(self.adapted.getInterfaceNames())
 
         return ifaces
 
