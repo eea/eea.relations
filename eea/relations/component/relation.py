@@ -48,9 +48,10 @@ class RelationsLookUp(object):
         """ Check content type to see if it's a forward
             relation for self.context
         """
+        who_id = who.getId()
         for relation in self.forward():
             nto = relation.getField('to').getAccessor(relation)()
-            if who.getId() == nto:
+            if who_id == nto:
                 return relation
         return None
 
@@ -58,8 +59,9 @@ class RelationsLookUp(object):
         """ Check content type to see if it's a backward
             relation for self.context
         """
+        who_id = who.getId()
         for relation in self.backward():
             nfrom = relation.getField('from').getAccessor(relation)()
-            if who.getId() == nfrom:
+            if who_id == nfrom:
                 return relation
         return None
