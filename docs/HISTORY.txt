@@ -3,6 +3,8 @@ Changelog
 
 6.4-dev - (unreleased)
 ----------------------
+* Change: added small optimizations to relations lookups
+  [ichim-david refs #14863]
 
 6.3 - (2013-08-09)
 ------------------
