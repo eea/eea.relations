@@ -476,7 +476,18 @@ EEAReferenceBrowser.Widget.prototype = {
         jQuery('.popup-tabs #faceted-form').remove();
       },
       onClick: function(evt, idx){
-        js_context.tab_selected(this);
+          var self = this;
+          var panel = this.getPanes();
+          if (!panel.find('#faceted-form').length) {
+              panel.load(this.getCurrentTab().attr('href'), function(){
+                  js_context.tab_selected(self);
+                  panel.show();
+              });
+          }
+          else {
+              js_context.tab_selected(self);
+              panel.show();
+          }
       }
     });
     this.popup.dialog('open');
