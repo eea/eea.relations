@@ -3,6 +3,11 @@ Changelog
 
 6.4-dev - (unreleased)
 ----------------------
+* Bug fix: fixed tab behaviour with faceted loading when upgrading to Plone 4.3
+  [ichim-david fixes #16598]
+* Bug fix: fixed height of tabs on Chrome browser which spanned over two lines
+  because of the required images
+  [ichim-david refs #16598]
 * Change: added small optimizations to relations lookups
   [ichim-david refs #14863]
 
