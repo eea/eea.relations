@@ -184,10 +184,19 @@
   box-shadow: 0px 2px 2px #888;
 }
 
+.formTab .fieldRequired {
+    padding: 0;
+    display: inline-block;
+    height: 8px;
+    width: 6px;
+}
+
 .fieldRequiredFor {
   background:transparent url(&dtml-portal_url;/required_for.gif) no-repeat scroll left center;
   color:White;
   padding:0 0 0 8px;
+  display: inline-block;
+  height: 8px;
   background-position: center center;
 }
 
