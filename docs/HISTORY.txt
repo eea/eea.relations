@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.5-dev - (unreleased)
+----------------------
+
 6.4 - (2013-09-06)
 ------------------
 * Bug fix: fixed tab behaviour with faceted loading when upgrading to Plone 4.3
