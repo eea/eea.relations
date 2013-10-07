@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.6-dev - (unreleased)
+----------------------
+
 6.5 - (2013-10-07)
 ------------------
 * Change: Added the notoc class in order to remove the relations h3 headers 
