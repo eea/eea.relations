@@ -39,7 +39,7 @@ Optional parameters:
                   templateStyle templateStyle|string:album_view;"
           tal:condition="python:backward_tabs or forward_tabs or auto_tabs">
   <tal:relatedTitle metal:define-slot="relatedTitle">
-      <h3 i18n:translate="">Related content</h3>
+      <h2 i18n:translate="">Related content</h2>
   </tal:relatedTitle>
   <div class="sorter_ctl" style="margin-bottom: 1.5em; display:none;">
       <label for="sort_by" i18n:translate="">Sort by: </label>
@@ -55,7 +55,7 @@ Optional parameters:
       <tal:tab repeat="tab backward_tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]"
           tal:condition="related">
-          <h3 tal:content="label" i18n:translate="">Relation label</h3>
+          <h3 tal:content="label" i18n:translate="" class="notoc">Relation label</h3>
           <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
         </tal:def>
       </tal:tab>
@@ -68,7 +68,7 @@ Optional parameters:
       <tal:tab repeat="tab forward_tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]"
           tal:condition="related">
-          <h3 tal:content="label" i18n:translate="">Relation label</h3>
+          <h3 tal:content="label" i18n:translate="" class="notoc">Relation label</h3>
           <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
         </tal:def>
       </tal:tab>
@@ -80,7 +80,7 @@ Optional parameters:
     <div class="visualNoMarker">
       <tal:tab repeat="tab auto_tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]">
-          <h3 tal:content="label" i18n:translate="">Relation label</h3>
+          <h3 tal:content="label" i18n:translate="" class="notoc">Relation label</h3>
           <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
         </tal:def>
       </tal:tab>

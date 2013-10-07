@@ -3,6 +3,9 @@ Changelog
 
 6.5-dev - (unreleased)
 ----------------------
+* Change: Added the notoc class in order to remove the relations h3 headers 
+  from the EEA TOC 
+  [ichimdav refs #16929]
 
 6.4 - (2013-09-06)
 ------------------
