@@ -74,7 +74,7 @@
                 name="eeareferencebrowser-popup-selecteditems.html"
                 template="template/popup-selecteditems.pt"
                 class=".app.popup.PopupSelectedItems"
-                permission="cmf.ModifyPortalContent"
+                permission="zope2.View"
                 allowed_attributes="mode" />
 
   <browser:page for="*"

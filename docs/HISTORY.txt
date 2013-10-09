@@ -3,11 +3,15 @@ Changelog
 
 6.6-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed permissions for popup-selecteditems view as it asks for
+  login and breaks the edit layout if the user doesn't have the standard Editor
+  role but she/he can add/edit a document
+  [voineali refs #17010]
 
 6.5 - (2013-10-07)
 ------------------
-* Change: Added the notoc class in order to remove the relations h3 headers 
-  from the EEA TOC 
+* Change: Added the notoc class in order to remove the relations h3 headers
+  from the EEA TOC
   [ichimdav refs #16929]
 
 6.4 - (2013-09-06)
