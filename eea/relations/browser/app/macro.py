@@ -66,12 +66,6 @@ class Macro(BrowserView):
                 tabs[name] = []
             tabs[name].append(relation)
         tabs = tabs.items()
-        tabs.sort()
-        # sort by effective date reversed by default
-        for _label, relations in tabs:
-            relations.sort(cmp=lambda x, y:cmp(x.effective(),
-                                               y.effective()),
-                           reverse=True)
         return tabs
 
     def backward(self, **kwargs):
@@ -115,13 +109,6 @@ class Macro(BrowserView):
                 tabs[name] = []
             tabs[name].append(relation)
         tabs = tabs.items()
-        tabs.sort() #this sorts based on relation label
-
-        # sort by effective date reversed by default
-        for _label, relations in tabs:
-            relations.sort(cmp=lambda x, y:cmp(x.effective(),
-                                               y.effective()),
-                           reverse=True)
         return tabs
 
     def forward_backward(self):
@@ -131,11 +118,6 @@ class Macro(BrowserView):
         backward_relations = self.backward()
         relations = forward_relations + backward_relations
 
-        if forward_relations and not backward_relations:
-            return forward_relations
-        if backward_relations and not forward_relations:
-            return backward_relations
-
         result = {}
         for relation in relations:
             name = relation[0]
@@ -143,4 +125,13 @@ class Macro(BrowserView):
                 result[name] = relation[1]
             else:
                 result[name].extend(relation[1])
-        return result.items()
+
+        tabs = result.items()
+        tabs.sort() #this sorts based on relation label
+
+        # sort by effective date reversed by default
+        for _label, relations in tabs:
+            relations.sort(cmp=lambda x, y:cmp(x.effective(),
+                                               y.effective()),
+                           reverse=True)
+        return tabs
