@@ -33,11 +33,10 @@ Optional parameters:
           tal:define="relations nocall:here/@@eea.relations.macro;
                   auto_relations nocall:here/@@auto-relations.html;
                   thumb_scale thumb_scale | string:image_thumb;
-                  backward_tabs python:relations.backward();
-                  forward_tabs python:relations.forward();
+                  forward_backward_tabs python:relations.forward_backward();
                   auto_tabs python:auto_relations.tabs;
                   templateStyle templateStyle|string:album_view;"
-          tal:condition="python:backward_tabs or forward_tabs or auto_tabs">
+          tal:condition="python:forward_backward_tabs or auto_tabs">
   <tal:relatedTitle metal:define-slot="relatedTitle">
       <h2 i18n:translate="">Related content</h2>
   </tal:relatedTitle>
@@ -49,31 +48,18 @@ Optional parameters:
       </select>
   </div>
 
-  <tal:backward tal:condition="backward_tabs">
-    <!-- Backward relations -->
-    <div class="visualNoMarker">
-      <tal:tab repeat="tab backward_tabs">
-        <tal:def define="label python:tab[0]; related python:tab[1]"
-          tal:condition="related">
-          <h3 tal:content="label" i18n:translate="" class="notoc">Relation label</h3>
-          <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
-        </tal:def>
-      </tal:tab>
-    </div>
-  </tal:backward>
-
-  <tal:forward tal:condition="forward_tabs">
-    <!-- Forward relations -->
-    <div class="visualNoMarker">
-      <tal:tab repeat="tab forward_tabs">
-        <tal:def define="label python:tab[0]; related python:tab[1]"
-          tal:condition="related">
-          <h3 tal:content="label" i18n:translate="" class="notoc">Relation label</h3>
-          <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
-        </tal:def>
-      </tal:tab>
-    </div>
-  </tal:forward>
+  <tal:forward_backward tal:condition="forward_backward_tabs">
+      <!-- Forward and Backward relations -->
+      <div class="visualNoMarker">
+          <tal:tab repeat="tab forward_backward_tabs">
+              <tal:def define="label python:tab[0]; related python:tab[1]"
+                      tal:condition="related">
+                  <h3 tal:content="label" i18n:translate="" class="notoc">Relation label</h3>
+                  <div metal:use-macro="here/eea_relateditems/macros/relatedItems"></div>
+              </tal:def>
+          </tal:tab>
+      </div>
+  </tal:forward_backward>
 
   <tal:auto tal:condition="python:auto_tabs">
     <!-- Auto relations -->
@@ -81,7 +67,7 @@ Optional parameters:
       <tal:tab repeat="tab auto_tabs">
         <tal:def define="label python:tab[0]; related python:tab[1]">
           <h3 tal:content="label" i18n:translate="" class="notoc">Relation label</h3>
-          <div metal:use-macro="here/eea_relateditems/macros/relatedItems" />
+          <div metal:use-macro="here/eea_relateditems/macros/relatedItems"></div>
         </tal:def>
       </tal:tab>
     </div>
@@ -145,9 +131,9 @@ Usage:
                                          alt pretty_title;
                                          src string:${img_url}/image_thumb" />
                 </span>
-                <span class="photoAlbumEntryTitle" tal:content="pretty_title" />
+                <span class="photoAlbumEntryTitle" tal:content="pretty_title"></span>
                 <span class="photoAlbumEntryDescription"
-                      tal:content="description" />
+                      tal:content="description"></span>
             </a>
         </div>
     </tal:album_view>

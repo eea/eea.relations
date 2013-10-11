@@ -123,3 +123,24 @@ class Macro(BrowserView):
                                                y.effective()),
                            reverse=True)
         return tabs
+
+    def forward_backward(self):
+        """ Return backward and forward relations sorted by category
+        """
+        forward_relations = self.forward()
+        backward_relations = self.backward()
+        relations = forward_relations + backward_relations
+
+        if forward_relations and not backward_relations:
+            return forward_relations
+        if backward_relations and not forward_relations:
+            return backward_relations
+
+        result = {}
+        for relation in relations:
+            name = relation[0]
+            if not result.get(name):
+                result[name] = relation[1]
+            else:
+                result[name].extend(relation[1])
+        return result.items()

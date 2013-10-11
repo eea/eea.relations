@@ -3,6 +3,11 @@ Changelog
 
 6.6-dev - (unreleased)
 ----------------------
+* Change: Merged forward and backward relations within eea_relateditems.pt in 
+  order to avoid having publicated titles if both the forward and backward
+  categories had the same title. If they don't have the same title then the
+  behaviour will be the same as before this change.
+  [ichimdav refs #17059]
 * Bug fix: Fixed permissions for popup-selecteditems view as it asks for
   login and breaks the edit layout if the user doesn't have the standard Editor
   role but she/he can add/edit a document
