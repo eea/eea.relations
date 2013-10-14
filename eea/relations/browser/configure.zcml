@@ -89,7 +89,7 @@
                 name="eea.relations.macro"
                 class=".app.macro.Macro"
                 permission="zope2.View"
-                allowed_attributes="forward backward" />
+                allowed_attributes="forward backward forward_backward" />
 
   <!-- Bad relations -->
   <browser:page for="..interfaces.IRelationsTool"
