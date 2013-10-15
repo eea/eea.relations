@@ -6,8 +6,8 @@ Changelog
 * Feature: added categorizations.txt functional test for covering the logic
   of relations macros
   [ichimdav refs #17059]
-* Change: Merged forward and backward relations within eea_relateditems.pt in 
-  order to avoid having publicated titles if both the forward and backward
+* Change: Merged forward, backward and auto relations within eea_relateditems.pt 
+  in order to avoid having publicated titles if any of the relations 
   categories had the same title. If they don't have the same title then the
   behaviour will be the same as before this change.
   [ichimdav refs #17059]

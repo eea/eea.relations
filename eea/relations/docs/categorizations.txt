@@ -163,7 +163,7 @@ In order to avoid this 'eea_relateditems.pt' now uses a new method from
 Calling this method will result in the merging of results between the forward
 and backward relations if they have the same title as demonstrated below:
 
-    >>> forward_backward_relations = categorization_view.forward_backward()
+    >>> forward_backward_relations = categorization_view.forward_backward_auto()
     >>> forward_backward_relations
     [('See also', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/another_news>,
                    <ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>]),
