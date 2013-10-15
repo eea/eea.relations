@@ -31,6 +31,29 @@ class Macro(BrowserView):
             return doc
         return None
 
+    def filter_relation_translations(self, relations):
+        """ Filteres the translations from the relation list
+            :param relations: list of relations
+        """
+        # this method assumes getLanguage from LinguaPlone therefore if there
+        # is no such attribute on the object then we return the relations
+        # unmodified
+        language = getattr(self.context, 'getLanguage', None)
+        if not language:
+            return relations
+        context_language = language()
+        relations_set = set(relations)
+        for relation in relations:
+            if not relation:
+                continue
+            relation_language = relation.getLanguage()
+            if context_language != relation_language:
+                canonical_relation = relation.getCanonical()
+                if canonical_relation in relations_set:
+                    relations_set.remove(relation)
+        filtered_relations = list(relations_set)
+        return filtered_relations
+
     def forward(self, **kwargs):
         """ Return forward relations by category
         """
@@ -47,7 +70,8 @@ class Macro(BrowserView):
         contentTypes = {}
         nonForwardRelations = set()
         relations = accessor()
-        for relation in relations:
+        filtered_relations = self.filter_relation_translations(relations)
+        for relation in filtered_relations:
             if not self.checkPermission(relation) or relation.portal_type in \
                     nonForwardRelations:
                 continue
@@ -81,7 +105,9 @@ class Macro(BrowserView):
         relations = getBRefs(relation) or []
         contentTypes = {}
         nonBackwardRelations = set()
-        for relation in relations:
+
+        filtered_relations = self.filter_relation_translations(relations)
+        for relation in filtered_relations:
             # save the name and the portal type of the first relation that we
             # have permission to use.
             # this way we can check if other relations are of same portal_type

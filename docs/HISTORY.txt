@@ -3,6 +3,10 @@ Changelog
 
 6.6-dev - (unreleased)
 ----------------------
+* Feature: filter forward and backward relations of translations and instead
+  show only the canonical relation if getLanguage is present which is normally
+  present after Products.LinguaPlone is installed
+  [ichim-david refs #16995]
 * Feature: added categorizations.txt functional test for covering the logic
   of relations macros
   [ichimdav refs #17059]
