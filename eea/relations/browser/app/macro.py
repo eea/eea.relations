@@ -111,12 +111,15 @@ class Macro(BrowserView):
         tabs = tabs.items()
         return tabs
 
-    def forward_backward(self):
-        """ Return backward and forward relations sorted by category
+    def forward_backward_auto(self):
+        """ Return forward, backward and auto relations sorted by category
         """
         forward_relations = self.forward()
         backward_relations = self.backward()
-        relations = forward_relations + backward_relations
+        auto_relations = self.context.unrestrictedTraverse(
+            '@@auto-relations.html').tabs
+        relations = forward_relations + backward_relations + \
+            list(auto_relations)
 
         result = {}
         for relation in relations:
@@ -125,6 +128,8 @@ class Macro(BrowserView):
                 result[name] = relation[1]
             else:
                 result[name].extend(relation[1])
+            # filter the resulting lists of duplicates
+            result[name] = list(set(result[name]))
 
         tabs = result.items()
         tabs.sort() #this sorts based on relation label

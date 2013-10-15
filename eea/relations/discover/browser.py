@@ -43,11 +43,11 @@ class View(BrowserView):
         """ Return brains
         """
         explorer = queryAdapter(self.context, IAutoRelations)
-        # if query adapter doesn't return a match then return False
+        # if query adapter doesn't return a match then return an empty list
         if not explorer:
-            return False
+            return []
         explorer = explorer()
-        # if adapter returns an empty value then return false as well
+        # if adapter returns an empty value then return an empty list as well
         if not explorer:
-            return False
+            return []
         return self.generatorTabs(explorer)
