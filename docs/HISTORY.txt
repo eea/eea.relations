@@ -19,6 +19,10 @@ Changelog
   login and breaks the edit layout if the user doesn't have the standard Editor
   role but she/he can add/edit a document
   [voineali refs #17010]
+* Bug fix: Fixed i18n attributes for eea_relateditems.pt as i18ndude 
+  returned an error.
+  [prospchr refs #17141]
+
 
 6.5 - (2013-10-07)
 ------------------
