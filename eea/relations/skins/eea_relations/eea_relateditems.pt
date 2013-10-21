@@ -39,7 +39,7 @@ Optional parameters:
       <h2 i18n:translate="">Related content</h2>
   </tal:relatedTitle>
   <div class="sorter_ctl" style="margin-bottom: 1.5em; display:none;">
-      <label for="sort_by" i18n:translate="">Sort by:
+      <label for="sort_by"> <span i18n:translate="">Sort by:</span>
           <select name="sort_by">
               <option value="effective" i18n:translate="">Publishing date
               </option>
