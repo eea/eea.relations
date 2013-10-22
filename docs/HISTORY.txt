@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.6-dev - (unreleased)
-----------------------
+6.6 - (2013-10-22)
+------------------
 * Feature: filter forward and backward relations of translations and instead
   show only the canonical relation if getLanguage is present which is normally
   present after Products.LinguaPlone is installed
@@ -22,7 +22,6 @@ Changelog
 * Bug fix: Fixed i18n attributes for eea_relateditems.pt as i18ndude 
   returned an error.
   [prospchr refs #17141]
-
 
 6.5 - (2013-10-07)
 ------------------
