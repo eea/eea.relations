@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.7-dev - (unreleased)
+----------------------
+
 6.6 - (2013-10-22)
 ------------------
 * Feature: filter forward and backward relations of translations and instead
