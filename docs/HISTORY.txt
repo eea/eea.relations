@@ -3,6 +3,8 @@ Changelog
 
 6.7-dev - (unreleased)
 ----------------------
+* Change: Documented collective.js.jqueryui dependency within README
+  [olimpiurob #17853]
 
 6.6 - (2013-10-22)
 ------------------
