@@ -94,7 +94,12 @@ Dependencies
 
   * pydot
   * eea.facetednavigation
+  * collective.js.jqueryui normally installed by eea.facetednavigation. Make sure
+    the you are using the proper version for your plone installation and that 
+    the following effects are enabled::
 
+      1. transfer
+      2. pulsate
 
 API Doc
 =======
