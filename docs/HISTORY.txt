@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Change: Documented collective.js.jqueryui dependency within README
   [olimpiurob #17853]
+* Feature: adding Sphinx-generated documentation in Page Template format
+  [batradav refs #9502]
 
 6.6 - (2013-10-22)
 ------------------
@@ -15,8 +17,8 @@ Changelog
 * Feature: added categorizations.txt functional test for covering the logic
   of relations macros
   [ichimdav refs #17059]
-* Change: Merged forward, backward and auto relations within eea_relateditems.pt 
-  in order to avoid having publicated titles if any of the relations 
+* Change: Merged forward, backward and auto relations within eea_relateditems.pt
+  in order to avoid having publicated titles if any of the relations
   categories had the same title. If they don't have the same title then the
   behaviour will be the same as before this change.
   [ichimdav refs #17059]
@@ -24,7 +26,7 @@ Changelog
   login and breaks the edit layout if the user doesn't have the standard Editor
   role but she/he can add/edit a document
   [voineali refs #17010]
-* Bug fix: Fixed i18n attributes for eea_relateditems.pt as i18ndude 
+* Bug fix: Fixed i18n attributes for eea_relateditems.pt as i18ndude
   returned an error.
   [prospchr refs #17141]
 
