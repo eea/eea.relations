@@ -1,5 +1,5 @@
 
-<tal:block define="context python: request.PARENTS[-2]">
+<tal:block define="context python: request.PARENTS[-2]; here nocall:context">
 <html metal:use-macro="context/main_template/macros/master"
       i18n:domain="plone">
 
@@ -157,6 +157,13 @@ $ apt-get install graphviz</pre>
 <li><p class="first">pydot</p>
 </li>
 <li><p class="first">eea.facetednavigation</p>
+</li>
+<li><p class="first">collective.js.jqueryui normally installed by eea.facetednavigation. Make sure
+that you are using the proper version for your plone installation and that
+the following effects are enabled:</p>
+<div class="highlight-python"><pre>1. transfer
+2. pulsate</pre>
+</div>
 </li>
 </ul>
 </div></blockquote>
