@@ -26,13 +26,13 @@ related item widget.
 
 EEA Relations features:
 
-  1. Define/restrict what kind of content types a certain content can relate to
-  2. Set restrictions on possible relations (e.g. relations can be made
-     only with published content)
-  3. You can define easy to use faceted searches (using EEA Faceted navigation)
-     on the relate items popup
-  4. Nice visual diagram showning all the relations and restrictions you defined
-     (Control Panel -> Possible relations)
+1. Define/restrict what kind of content types a certain content can relate to
+2. Set restrictions on possible relations (e.g. relations can be made
+   only with published content)
+3. You can define easy to use faceted searches (using EEA Faceted navigation)
+   on the relate items popup
+4. Nice visual diagram showning all the relations and restrictions you defined
+   (Control Panel -> Possible relations)
 
 Install
 =======
@@ -85,18 +85,18 @@ Dependencies
 ============
 `EEA Relations`_ has the following dependencies:
 
-  * graphviz
+* graphviz
 
-    ::
+  ::
 
-      $ yum install graphviz
-      $ apt-get install graphviz
+    $ yum install graphviz
+    $ apt-get install graphviz
 
-  * pydot
-  * eea.facetednavigation
-  * collective.js.jqueryui normally installed by eea.facetednavigation. Make sure
-    that you are using the proper version for your plone installation and that 
-    the following effects are enabled::
+* pydot
+* eea.facetednavigation
+* collective.js.jqueryui normally installed by eea.facetednavigation. Make sure
+  that you are using the proper version for your plone installation and that 
+  the following effects are enabled::
 
       1. transfer
       2. pulsate
@@ -104,7 +104,7 @@ Dependencies
 API Doc
 =======
 
-  http://apidoc.eea.europa.eu/eea.relations-module.html
+http://apidoc.eea.europa.eu/eea.relations-module.html
 
 
 Source code
@@ -132,7 +132,7 @@ More details under docs/License.txt
 Funding
 =======
 
-  EEA_ - European Environment Agency (EU)
+EEA_ - European Environment Agency (EU)
 
 .. _EEA: http://www.eea.europa.eu/
 .. _`plone.recipe.zope2instance`: http://pypi.python.org/pypi/plone.recipe.zope2instance
