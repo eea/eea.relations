@@ -275,6 +275,10 @@
   display: none;
 }
 
+.input-block {
+    display: block;
+    width: 100%;
+}
 /*
 </dtml-with>  (end of loaded base_properties variables)
  */
