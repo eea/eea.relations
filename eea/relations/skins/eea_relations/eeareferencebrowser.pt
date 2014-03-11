@@ -42,7 +42,6 @@ Usage:
       multiVal python:test(field, field.multiValued, True);
       required python:test(field, field.required, False);
       ">
-
       <!-- Edit -->
       <metal:slot define-slot="edit">
         <input type="hidden" value=""
@@ -77,7 +76,7 @@ Usage:
 
       <!-- Button -->
       <metal:button define-slot="button">
-        <input class="searchButton eea-ref-popup-button" type="button"
+        <input class="searchButton eea-ref-popup-button input-block" type="button"
           value="Edit" i18n:attributes="value"/>
       </metal:button>
 

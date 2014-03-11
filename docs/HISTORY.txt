@@ -3,6 +3,8 @@ Changelog
 
 6.8-dev - (unreleased)
 ----------------------
+* Feature: increase the width of the Edit button 
+  [mironovi refs #9037]
 
 6.7 - (2014-01-22)
 ------------------
