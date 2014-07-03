@@ -58,11 +58,10 @@ class Macro(BrowserView):
         """ Return forward relations by category
         """
         tabs = {}
-
         fieldname = kwargs.get('fieldname', 'relatedItems')
         field = self.context.getField(fieldname)
         if not field:
-            return tabs
+            return tabs.items()
 
         accessor = field.getAccessor(self.context)
         #getRelatedItems = getattr(self.context, 'getRelatedItems', None)

@@ -3,6 +3,9 @@ Changelog
 
 6.9-dev - (unreleased)
 ----------------------
+* Bug fix: forward and background relations now return only one datatype
+  instead of lists or dicts if the field isn't found
+  [ichimdav refs #20045]
 
 6.8 - (2014-05-13)
 ------------------
