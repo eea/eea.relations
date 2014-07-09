@@ -14,6 +14,7 @@ class Macro(BrowserView):
         super(Macro, self).__init__(context, request)
         self._portal_membership = None
 
+
     @property
     def portal_membership(self):
         """ cached portal_membership as a property of Macro
@@ -79,8 +80,9 @@ class Macro(BrowserView):
             if portalType not in contentTypes:
                 forward = getForwardRelationWith(self.context, relation)
                 if not forward:
-                    nonForwardRelations.add(portalType)
-                    continue
+                    if not self.checkForGenericRelation(relation):
+                        nonForwardRelations.add(portalType)
+                        continue
                 name = forward.getField('forward_label').getAccessor(forward)()
                 contentTypes[portalType] = name
 
@@ -165,3 +167,9 @@ class Macro(BrowserView):
                                                y.effective()),
                            reverse=True)
         return tabs
+
+    def checkForGenericRelation(self, relation):
+        """
+        :param relation:
+        """
+        pass
