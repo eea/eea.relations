@@ -61,7 +61,7 @@ def getForwardRelationWith(context, ctype):
     new_ctype = ctype
     if not IContentType.providedBy(ctype):
         new_ctype = queryContentType(ctype)
-    if not ctype:
+    if not new_ctype:
         return None
 
     connecter = queryAdapter(context, IRelationsLookUp)
