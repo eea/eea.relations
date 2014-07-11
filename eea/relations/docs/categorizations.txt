@@ -214,34 +214,37 @@ as it already has a schema containing EEAReferenceField
 Set up
 ------
 
-    >>> name = folder.invokeFactory('Folder', 'sandbox')
-    >>> sandbox = folder._getOb(name)
     >>> name = sandbox.invokeFactory('EEARefBrowserDemo', 'my-doc')
     >>> document = sandbox._getOb(name)
-    >>> name = sandbox.invokeFactory('File', 'my-file')
-    >>> pfile = sandbox._getOb(name)
 
-    >>> From zope.interface import alsoProvides
+    >>> from zope.interface import alsoProvides
     >>> from eea.relations.browser.interfaces import IEEARelationsLayer
 
 Since we have a possible relation from the document to a generic relation lets
 add one such relation
     >>> document.processForm(values={
-    ...  'relatedItems': [pfile.UID(),],
+    ...  'relatedItems': [newz.UID(),],
     ... }, data=1, metadata=1)
 
 Now if we check for forward relations of document we will get the news since it
 provides IBaseObject
-    >>> queryForwardRelations(document)
-    [<ATFolder at /plone/news>]
+    >>> categorization_view = document.unrestrictedTraverse('@@eea.relations.macro')
+    >>> print categorization_view.forward()
+    [('', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>])]
 
 If our file were to provide an interface for which a relation content type would be
 found such as the IEEARelationsLayer which is assigned for the 'generic' content type
-then our relation would have been a bad relation because the connector would have found that content type for which our document doesn't have a forward relationship with
-    >>> alsoProvides(pfile, IEEARelationsLayer)
+then our relation would have been a bad relation because the connector would have found
+that content type for which our document doesn't have a forward relationship with
+    >>> alsoProvides(newz, IEEARelationsLayer)
+    >>> print categorization_view.forward()
+    []
 
-However if we have a relationship that is defined as a forward relationship which is defined
-using an interface such as the 'generic' possible relationship that our relationship
-from the 'document' to  the 'news' will be found
-    >>> queryForwardRelations(document)
-    [<ATFolder at /plone/news>]
+Perform extended search
+-----------------------
+
+By passing the keyword arguement 'perform_extended_search' the relationship connector
+will attempt to find a relationship from all of the interfaces that the object
+provides not just the first interface it finds.
+   >>> print categorization_view.forward(perform_extended_search=True)
+    [('', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>])]

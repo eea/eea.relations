@@ -8,7 +8,7 @@ from eea.relations.component.interfaces import IRelationsLookUp
 
 logger = logging.getLogger('eea.relations.queryContentType')
 
-def queryContentType(context, reverse=False):
+def queryContentType(context, perform_extended_search=False):
     """ Lookup for context related content-type in portal_relations
     """
     connecter = queryAdapter(context, IContentTypeLookUp)
@@ -16,7 +16,7 @@ def queryContentType(context, reverse=False):
         logger.exception('No IContentTypeLookUp adapter found for '
                          '%s', context)
         return None
-    return connecter(reverse)
+    return connecter(perform_extended_search)
 
 def queryForwardRelations(context):
     """ Lookup for context possible forward relations
@@ -48,7 +48,8 @@ def queryBackwardRelations(context):
     for relation in connecter.backward():
         yield relation
 
-def getForwardRelationWith(context, ctype):
+def getForwardRelationWith(context, ctype,
+                           perform_extended_search=False):
     """ Get forward relation with ctype
 
     Returns None if I can't find possible relation or
@@ -70,8 +71,13 @@ def getForwardRelationWith(context, ctype):
                          '%s', context)
         return None
     result = connecter.forward_with(new_ctype)
-    if not result:
-        return queryContentType(ctype, reverse=True)
+    if not result and perform_extended_search:
+        relations = queryContentType(ctype, perform_extended_search=True)
+        for relation in relations:
+            check = connecter.forward_with(relation)
+            if not check:
+                continue
+            return check
     else:
         return result
 

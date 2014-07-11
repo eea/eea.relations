@@ -80,9 +80,14 @@ class Macro(BrowserView):
             if portalType not in contentTypes:
                 forward = getForwardRelationWith(self.context, relation)
                 if not forward:
-                    if not self.checkForGenericRelation(relation):
+                    if kwargs.get('perform_extended_search'):
+                        forward = getForwardRelationWith(self.context,
+                             relation, perform_extended_search=True)
+                    else:
                         nonForwardRelations.add(portalType)
                         continue
+                if len(forward) > 1:
+                    forward = forward[0]
                 name = forward.getField('forward_label').getAccessor(forward)()
                 contentTypes[portalType] = name
 
