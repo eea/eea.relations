@@ -228,7 +228,8 @@ Since we have a possible relation from the document to a generic relation lets
 add one such relation
     >>> document.processForm(values={
     ...  'relatedItems': [pfile.UID(),],
-   ... }, data=1, metadata=1)
+    ... }, data=1, metadata=1)
+
 Now if we check for forward relations of document we will get the news since it
 provides IBaseObject
     >>> queryForwardRelations(document)
