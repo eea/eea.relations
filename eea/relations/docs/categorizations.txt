@@ -203,7 +203,7 @@ as it already has a schema containing EEAReferenceField
     ...  <object name="demo-to-all" meta_type="EEAPossibleRelation">
     ...   <property name="title">Demo -> All Relations</property>
     ...   <property name="from">demo</property>
-    ...   <property name="to">all-relations</property>
+    ...   <property name="to">all</property>
     ...   <property name="required_for">
     ...    <element value="published" />
     ...   </property>
