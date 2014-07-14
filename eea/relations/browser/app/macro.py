@@ -146,7 +146,7 @@ class Macro(BrowserView):
     def forward_backward_auto(self):
         """ Return forward, backward and auto relations sorted by category
         """
-        forward_relations = self.forward()
+        forward_relations = self.forward(deep_search=True)
         backward_relations = self.backward()
         auto_relations = self.context.unrestrictedTraverse(
             '@@auto-relations.html').tabs

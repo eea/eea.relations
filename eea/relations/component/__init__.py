@@ -59,6 +59,8 @@ def getForwardRelationWith(context, ctype,
         context = queryContentType(context)
     if not context:
         return None
+    if len(context) > 1:
+        context = context[0]
     new_ctype = ctype
     if not IContentType.providedBy(ctype):
         new_ctype = queryContentType(ctype)
