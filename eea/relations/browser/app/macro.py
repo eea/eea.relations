@@ -79,14 +79,8 @@ class Macro(BrowserView):
             if portalType not in contentTypes:
                 forward = getForwardRelationWith(self.context, relation)
                 if not forward:
-                    if kwargs.get('deep_search'):
-                        forward = getForwardRelationWith(self.context,
-                             relation, deep_search=True)
-                    else:
-                        nonForwardRelations.add(portalType)
-                        continue
-                if len(forward) > 1:
-                    forward = forward[0]
+                    nonForwardRelations.add(portalType)
+                    continue
                 name = forward.getField('forward_label').getAccessor(forward)()
                 contentTypes[portalType] = name
 
@@ -145,7 +139,7 @@ class Macro(BrowserView):
     def forward_backward_auto(self):
         """ Return forward, backward and auto relations sorted by category
         """
-        forward_relations = self.forward(deep_search=True)
+        forward_relations = self.forward()
         backward_relations = self.backward()
         auto_relations = self.context.unrestrictedTraverse(
             '@@auto-relations.html').tabs

@@ -235,21 +235,12 @@ provides IBaseObject
 If our file were to provide an interface for which a relation content type would be
 found such as the IEEARelationsLayer which is assigned for the 'generic' content type
 then our relation would have been a bad relation because the connector would have found
-that content type for which our document doesn't have a forward relationship with
+that content type for which our document doesn't have a forward relationship with.
+
+However with the version 6.9 of this package the forward forward now checks for relationships
+also by switching the interface lookup of queryContentType which will find again the 'all'
+generic relationship
     >>> alsoProvides(newz, IEEARelationsLayer)
     >>> print categorization_view.forward()
-    []
-
-Perform extended search
------------------------
-
-By passing the keyword arguement 'deep_search' the relationship connector
-will attempt to find a relationship from all of the interfaces that the object
-provides not just the first interface it finds.
-
-Therefore even thou there isn't a relationship between the 'demo'
-content type and the 'relation' content type because we have the generic relationship
-'all' which the 'relation' content type provides, the categorization_view will again
-find the 'Demo -> All relations' possible relation
-   >>> print categorization_view.forward(deep_search=True)
     [('', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>])]
+

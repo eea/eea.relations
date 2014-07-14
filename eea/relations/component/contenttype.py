@@ -101,10 +101,9 @@ class ContentTypeLookUp(object):
             res[ct_interface] = doc
         return res
 
-    def __call__(self, deep_search=False):
+    def __call__(self, inverse_interface_check=False):
         """ Return ContentType object from portal_relation or None
         """
-        found_relationships = []
         object_provides = self.object_provides
         # Search for full mapping
         tuple_types = self.tuple_types
@@ -122,10 +121,9 @@ class ContentTypeLookUp(object):
         # Fallback to interfaces only
         interfaces = self.interfaces_only
         if interfaces:
+            if inverse_interface_check:
+                object_provides.reverse()
             for iface in object_provides:
                 if iface in interfaces:
-                    if not deep_search:
-                        return interfaces[iface]
-                    else:
-                        found_relationships.append(interfaces[iface])
-        return found_relationships or None
+                    return interfaces[iface]
+        return None
