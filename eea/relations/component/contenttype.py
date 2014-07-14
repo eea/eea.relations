@@ -101,7 +101,7 @@ class ContentTypeLookUp(object):
             res[ct_interface] = doc
         return res
 
-    def __call__(self, perform_extended_search=False):
+    def __call__(self, deep_search=False):
         """ Return ContentType object from portal_relation or None
         """
         found_relationships = []
@@ -124,7 +124,7 @@ class ContentTypeLookUp(object):
         if interfaces:
             for iface in object_provides:
                 if iface in interfaces:
-                    if not perform_extended_search:
+                    if not deep_search:
                         return interfaces[iface]
                     else:
                         found_relationships.append(interfaces[iface])

@@ -148,7 +148,7 @@ on our Folder as a backward relation
     [('See also', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>])]
 
 Likewise because of our relations added on the Folder itself we can see that now
-we have two forward relations
+we have two forward relations.
 
     >>> forward_relations = categorization_view.forward()
     >>> forward_relations
@@ -192,11 +192,11 @@ as it already has a schema containing EEAReferenceField
     ...   <property name="title">File</property>
     ...   <property name="ct_type">File</property>
     ...  </object>
-    ...  <object name="generic" meta_type="EEARelationsContentType">
+    ...  <object name="relation" meta_type="EEARelationsContentType">
     ...   <property name="title">Generic Relationship</property>
     ...   <property name="ct_interface">eea.relations.browser.interfaces.IEEARelationsLayer</property>
     ...  </object>
-    ...  <object name="all-relations" meta_type="EEARelationsContentType">
+    ...  <object name="all" meta_type="EEARelationsContentType">
     ...   <property name="title">All Relations</property>
     ...   <property name="ct_interface">eea.relations.content.interfaces.IBaseObject</property>
     ...  </object>
@@ -243,8 +243,13 @@ that content type for which our document doesn't have a forward relationship wit
 Perform extended search
 -----------------------
 
-By passing the keyword arguement 'perform_extended_search' the relationship connector
+By passing the keyword arguement 'deep_search' the relationship connector
 will attempt to find a relationship from all of the interfaces that the object
 provides not just the first interface it finds.
-   >>> print categorization_view.forward(perform_extended_search=True)
+
+Therefore even thou there isn't a relationship between the 'demo'
+content type and the 'relation' content type because we have the generic relationship
+'all' which the 'relation' content type provides, the categorization_view will again
+find the 'Demo -> All relations' possible relation
+   >>> print categorization_view.forward(deep_search=True)
     [('', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>])]

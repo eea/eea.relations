@@ -80,9 +80,9 @@ class Macro(BrowserView):
             if portalType not in contentTypes:
                 forward = getForwardRelationWith(self.context, relation)
                 if not forward:
-                    if kwargs.get('perform_extended_search'):
+                    if kwargs.get('deep_search'):
                         forward = getForwardRelationWith(self.context,
-                             relation, perform_extended_search=True)
+                             relation, deep_search=True)
                     else:
                         nonForwardRelations.add(portalType)
                         continue
