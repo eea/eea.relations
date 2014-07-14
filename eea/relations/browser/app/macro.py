@@ -76,7 +76,6 @@ class Macro(BrowserView):
                     nonForwardRelations:
                 continue
             portalType = relation.portal_type
-
             if portalType not in contentTypes:
                 forward = getForwardRelationWith(self.context, relation)
                 if not forward:
@@ -173,8 +172,3 @@ class Macro(BrowserView):
                            reverse=True)
         return tabs
 
-    def checkForGenericRelation(self, relation):
-        """
-        :param relation:
-        """
-        pass
