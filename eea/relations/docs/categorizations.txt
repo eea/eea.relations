@@ -136,18 +136,19 @@ Let's add to our Folder a relation of each kind of relations that our Folder sup
 If we add to a News Item a relation back to our Folder this relation will appear
 on our Folder as a backward relation
 
+    >>> categorization_view = sandbox.unrestrictedTraverse('@@eea.relations.macro')
+
     >>> newz.processForm(values={
     ...  'relatedItems': [sandbox.UID(),],
     ... }, data=1, metadata=1)
 
-    >>> categorization_view = sandbox.unrestrictedTraverse('@@eea.relations.macro')
 
     >>> backward_relations = categorization_view.backward()
     >>> backward_relations
     [('See also', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>])]
 
 Likewise because of our relations added on the Folder itself we can see that now
-we have two forward relations
+we have two forward relations.
 
     >>> forward_relations = categorization_view.forward()
     >>> forward_relations
@@ -168,3 +169,88 @@ and backward relations if they have the same title as demonstrated below:
     [('See also', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/another_news>,
                    <ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>]),
     ('Similar Documents', [<ATDocument at /plone/Members/test_user_1_/sandbox/my-document>])]
+
+
+Multiple Content Types lookup
+=============================
+
+Add possible relations. We will use EEARefBrowserDemo as document content-type
+as it already has a schema containing EEAReferenceField
+
+    >>> from zope.component import queryMultiAdapter
+    >>> from Products.GenericSetup.interfaces import IBody
+    >>> from Products.GenericSetup.testing import DummySetupEnviron
+    >>> importer = queryMultiAdapter((rtool, DummySetupEnviron()), IBody)
+
+    >>> importer.body = '''<?xml version="1.0" encoding="utf-8"?>
+    ... <object name="portal_relations" meta_type="EEARelationsTool">
+    ...  <object name="demo" meta_type="EEARelationsContentType">
+    ...   <property name="title">Demo</property>
+    ...   <property name="ct_type">EEARefBrowserDemo</property>
+    ...  </object>
+    ...  <object name="file" meta_type="EEARelationsContentType">
+    ...   <property name="title">File</property>
+    ...   <property name="ct_type">File</property>
+    ...  </object>
+    ...  <object name="relation" meta_type="EEARelationsContentType">
+    ...   <property name="title">Generic Relationship</property>
+    ...   <property name="ct_interface">eea.relations.browser.interfaces.IEEARelationsLayer</property>
+    ...  </object>
+    ...  <object name="all" meta_type="EEARelationsContentType">
+    ...   <property name="title">All Relations</property>
+    ...   <property name="ct_interface">eea.relations.content.interfaces.IBaseObject</property>
+    ...  </object>
+    ...  <object name="demo-to-all" meta_type="EEAPossibleRelation">
+    ...   <property name="title">Demo -> All Relations</property>
+    ...   <property name="from">demo</property>
+    ...   <property name="to">all</property>
+    ...   <property name="required_for">
+    ...    <element value="published" />
+    ...   </property>
+    ...  </object>
+    ... </object>
+    ... '''
+
+Set up
+------
+
+    >>> name = sandbox.invokeFactory('EEARefBrowserDemo', 'my-doc')
+    >>> document = sandbox._getOb(name)
+
+    >>> from zope.interface import alsoProvides
+    >>> from eea.relations.browser.interfaces import IEEARelationsLayer
+
+Since we have a possible relation from the document to a generic relation lets
+add one such relation
+    >>> document.processForm(values={
+    ...  'relatedItems': [newz.UID(),],
+    ... }, data=1, metadata=1)
+
+Now if we check for forward relations of document we will get the news since it
+provides IBaseObject
+    >>> categorization_view = document.unrestrictedTraverse('@@eea.relations.macro')
+    >>> print categorization_view.forward()
+    [('', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>])]
+
+If our file were to provide an interface for which a relation content type would be
+found such as the IEEARelationsLayer which is assigned for the 'generic' content type
+then our relation would have been a bad relation because the connector would have found
+that content type for which our document doesn't have a forward relationship with.
+
+However with the version 6.9 of this package the forward forward now checks for relationships
+also by switching the interface lookup of queryContentType which will find again the 'all'
+generic relationship
+    >>> alsoProvides(newz, IEEARelationsLayer)
+    >>> print categorization_view.forward()
+    [('', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>])]
+
+This is because queryContentType can now accept a  keyword parameter 'inverse_inteface_check'
+which modifies the way we check the resulting relations contenttype by reversing the interfaces
+that the object provides before checking for a match
+    >>> ctype = queryContentType(newz)
+    >>> print ctype
+    <EEARelationsContentType at relation>
+    >>> ctype = queryContentType(newz, inverse_interface_check=True)
+    >>> print ctype
+    <EEARelationsContentType at all>
+

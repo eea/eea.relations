@@ -101,7 +101,7 @@ class ContentTypeLookUp(object):
             res[ct_interface] = doc
         return res
 
-    def __call__(self, **kwargs):
+    def __call__(self, inverse_interface_check=False):
         """ Return ContentType object from portal_relation or None
         """
         object_provides = self.object_provides
@@ -121,8 +121,9 @@ class ContentTypeLookUp(object):
         # Fallback to interfaces only
         interfaces = self.interfaces_only
         if interfaces:
+            if inverse_interface_check:
+                object_provides.reverse()
             for iface in object_provides:
                 if iface in interfaces:
                     return interfaces[iface]
-
         return None

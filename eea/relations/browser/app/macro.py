@@ -14,6 +14,7 @@ class Macro(BrowserView):
         super(Macro, self).__init__(context, request)
         self._portal_membership = None
 
+
     @property
     def portal_membership(self):
         """ cached portal_membership as a property of Macro
@@ -75,7 +76,6 @@ class Macro(BrowserView):
                     nonForwardRelations:
                 continue
             portalType = relation.portal_type
-
             if portalType not in contentTypes:
                 forward = getForwardRelationWith(self.context, relation)
                 if not forward:
@@ -165,3 +165,4 @@ class Macro(BrowserView):
                                                y.effective()),
                            reverse=True)
         return tabs
+
