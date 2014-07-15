@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.0-dev - (unreleased)
+----------------------
+
 6.9 - (2014-07-15)
 ------------------
 * Bug fix: forward and background relations now return only one datatype
