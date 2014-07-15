@@ -244,3 +244,13 @@ generic relationship
     >>> print categorization_view.forward()
     [('', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>])]
 
+This is because queryContentType can now accept a  keyword parameter 'inverse_inteface_check'
+which modifies the way we check the resulting relations contenttype by reversing the interfaces
+that the object provides before checking for a match
+    >>> ctype = queryContentType(newz)
+    >>> print ctype
+    <EEARelationsContentType at relation>
+    >>> ctype = queryContentType(newz, inverse_interface_check=True)
+    >>> print ctype
+    <EEARelationsContentType at all>
+
