@@ -3,6 +3,8 @@ Changelog
 
 7.0-dev - (unreleased)
 ----------------------
+* Bug fix: Include i18n translations
+  [avoinea]
 
 6.9 - (2014-07-15)
 ------------------
@@ -12,7 +14,7 @@ Changelog
 
 6.8 - (2014-05-13)
 ------------------
-* Feature: increase the width of the Edit button 
+* Feature: increase the width of the Edit button
   [mironovi refs #9037]
 
 6.7 - (2014-01-22)
