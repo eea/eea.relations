@@ -14,7 +14,13 @@
     />
 
   <utility
-    component = ".graph.PNG"
-    name="png"/>
+    name="png"
+    factory=".graph.Graph"
+    />
+
+  <utility
+    name="json"
+    factory=".graph.JSONGraph"
+    />
 
 </configure>

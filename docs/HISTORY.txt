@@ -3,6 +3,10 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Feature: Replace graphviz graph.png within Site Setup > Possibile relations
+  with a more scalable visualisation solution based on Dracula JS Graph Library
+  (see: http://www.graphdracula.net)
+  [voineali refs #21182]
 
 7.0 - (2014-08-12)
 ------------------
