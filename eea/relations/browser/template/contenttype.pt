@@ -7,17 +7,13 @@
 
 <div metal:fill-slot="content-core">
 
-    <metal:relationerror use-macro="context/eea_relations_macros/macros/errors" />
+  <metal:relationerror use-macro="context/eea_relations_macros/macros/errors" />
 
-<div style="width: 100%; overflow: auto;">
-  <div style="text-align: center; border: 1px solid #8CACBB; padding: 2em 0">
-  <img tal:attributes="
-    src string:${here/absolute_url}/@@graph.png;
-    alt string:Relation Graph;
-    title string:Relation Graph" />
+  <div class="eea-relations">
+    <div class="graph" id="eea-relations-graph" data-height="400"></div>
   </div>
-</div>
 
 </div>
+
 </body>
 </html>

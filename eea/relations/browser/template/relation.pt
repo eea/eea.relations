@@ -18,13 +18,8 @@
     tal:condition="value" class="fieldRequiredFor"> </span>
 </div>
 
-<div style="width: 100%; overflow: auto;">
-  <div style="text-align: center; border: 1px solid #8CACBB; padding: 2em 0">
-  <img tal:attributes="
-    src string:${here/absolute_url}/@@graph.png;
-    alt string:Relation Graph;
-    title string:Relation Graph" />
-  </div>
+<div class="eea-relations">
+  <div class="graph" id="eea-relations-graph" data-height="400"></div>
 </div>
 
 </div>

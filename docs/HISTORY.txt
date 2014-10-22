@@ -1,15 +1,37 @@
 Changelog
 =========
 
-6.9-dev - (unreleased)
+7.1-dev - (unreleased)
 ----------------------
+* Change: Relations viewlet through Forward relations now searches for valid
+  relationship with an extra check when checking the interfaces before ignoring
+  the added relationship
+  [ichimdav refs #20045]
+* Feature: queryContentType can now search in a reverse fashion for the
+  interface match. See categorizations.txt functional test for details
+  [ichimdav refs #20045]
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.relations
+  [voineali refs #21182]
+* Feature: Replace graphviz graph.png within Site Setup > Possibile relations
+  with a more scalable visualisation solution based on Dracula JS Graph Library
+  (see: http://www.graphdracula.net)
+  [voineali refs #21182]
+
+7.0 - (2014-08-12)
+------------------
+* Bug fix: Include i18n translations
+  [avoinea]
+
+6.9 - (2014-07-15)
+------------------
 * Bug fix: forward and background relations now return only one datatype
   instead of lists or dicts if the field isn't found
   [ichimdav refs #20045]
 
 6.8 - (2014-05-13)
 ------------------
-* Feature: increase the width of the Edit button 
+* Feature: increase the width of the Edit button
   [mironovi refs #9037]
 
 6.7 - (2014-01-22)

@@ -42,6 +42,7 @@ setup(name=NAME,
           'setuptools',
           # -*- Extra requirements: -*-
           'pydot',
+          'eea.jquery > 8.0',
           'eea.facetednavigation',
           'Products.TALESField',
       ],
