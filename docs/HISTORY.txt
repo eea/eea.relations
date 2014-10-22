@@ -3,6 +3,13 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Change: Relations viewlet through Forward relations now searches for valid
+  relationship with an extra check when checking the interfaces before ignoring
+  the added relationship
+  [ichimdav refs #20045]
+* Feature: queryContentType can now search in a reverse fashion for the
+  interface match. See categorizations.txt functional test for details
+  [ichimdav refs #20045]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.relations
   [voineali refs #21182]
