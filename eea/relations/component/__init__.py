@@ -8,7 +8,7 @@ from eea.relations.component.interfaces import IRelationsLookUp
 
 logger = logging.getLogger('eea.relations.queryContentType')
 
-def queryContentType(context, inverse_interface_check=False):
+def queryContentType(context):
     """ Lookup for context related content-type in portal_relations
     """
     connecter = queryAdapter(context, IContentTypeLookUp)
@@ -16,7 +16,7 @@ def queryContentType(context, inverse_interface_check=False):
         logger.exception('No IContentTypeLookUp adapter found for '
                          '%s', context)
         return None
-    return connecter(inverse_interface_check)
+    return connecter()
 
 def queryForwardRelations(context):
     """ Lookup for context possible forward relations
@@ -58,10 +58,10 @@ def getForwardRelationWith(context, ctype):
         context = queryContentType(context)
     if not context:
         return None
-    new_ctype = ctype
+
     if not IContentType.providedBy(ctype):
-        new_ctype = queryContentType(ctype)
-    if not new_ctype:
+        ctype = queryContentType(ctype)
+    if not ctype:
         return None
 
     connecter = queryAdapter(context, IRelationsLookUp)
@@ -69,14 +69,7 @@ def getForwardRelationWith(context, ctype):
         logger.exception('No IRelationsLookUp adapter found for '
                          '%s', context)
         return None
-    result = connecter.forward_with(new_ctype)
-    if not result:
-        ctype_res = queryContentType(ctype, inverse_interface_check=True)
-        if not ctype_res:
-            return None
-        return connecter.forward_with(ctype_res)
-    else:
-        return result
+    return connecter.forward_with(ctype)
 
 def getBackwardRelationWith(context, ctype):
     """ Get backward relation with ctype
