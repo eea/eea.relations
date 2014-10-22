@@ -29,6 +29,13 @@
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IRelationsTool"
+                name="graph.json"
+                class=".app.graph.ToolGraph"
+                attribute="json"
+                allowed_attributes="markBrokenRelations"
+                permission="cmf.ModifyPortalContent" />
+
+  <browser:page for="..interfaces.IRelationsTool"
                 name="view.html"
                 template="template/tool.pt"
                 permission="cmf.ModifyPortalContent" />
@@ -41,6 +48,13 @@
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IContentType"
+                name="graph.json"
+                class=".app.graph.ContentTypeGraph"
+                attribute="json"
+                allowed_attributes="markBrokenRelations"
+                permission="cmf.ModifyPortalContent" />
+
+  <browser:page for="..interfaces.IContentType"
                 name="graph.html"
                 template="template/contenttype.pt"
                 permission="cmf.ModifyPortalContent" />
@@ -49,6 +63,13 @@
                 name="graph.png"
                 class=".app.graph.RelationGraph"
                 attribute="image"
+                allowed_attributes="markBrokenRelations"
+                permission="cmf.ModifyPortalContent" />
+
+  <browser:page for="..interfaces.IRelation"
+                name="graph.json"
+                class=".app.graph.RelationGraph"
+                attribute="json"
                 allowed_attributes="markBrokenRelations"
                 permission="cmf.ModifyPortalContent" />
 
@@ -97,5 +118,15 @@
                 template="template/badrelations.pt"
                 class=".app.badrelations.View"
                 permission="cmf.ModifyPortalContent" />
+
+  <browser:resourceDirectory
+    name="eea.relations.css"
+    directory="css"
+   />
+
+  <browser:resourceDirectory
+    name="eea.relations.js"
+    directory="js"
+   />
 
 </configure>

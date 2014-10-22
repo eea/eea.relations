@@ -31,8 +31,8 @@ class BaseGraph(BrowserView):
         if graph_string == "digraph G {\n}\n":
             self.markBrokenRelations()
             graph_res = self.graph_res
-        # we need to have an empty PyGraph object on graph_res otherwise when 
-        # ran on the same object it misses results when new restrictions are 
+        # we need to have an empty PyGraph object on graph_res otherwise when
+        # ran on the same object it misses results when new restrictions are
         # added to relations tool
         self.graph_res = PyGraph()
         return graph_res
@@ -44,6 +44,15 @@ class BaseGraph(BrowserView):
         raw = image(self.graph)
 
         self.request.response.setHeader('Content-Type', 'image/png')
+        return raw
+
+    def json(self):
+        """ Returns a JSON graph
+        """
+        converter = queryUtility(IGraph, name=u'json')
+        raw = converter(self.graph)
+
+        self.request.response.setHeader('Content-Type', 'application/json')
         return raw
 
     def brokenRelationMessage(self, bad_content, bad_relations):
@@ -61,9 +70,9 @@ class RelationGraph(BaseGraph):
     """
 
     def markBrokenRelations(self):
-        """ Construct graph and return message with info about broken 
+        """ Construct graph and return message with info about broken
         relations for RelationGraph if any errors are found
-        """ 
+        """
         bad_relations = []
         bad_content = []
         bad_rel = ""
@@ -105,11 +114,11 @@ class ContentTypeGraph(BaseGraph):
     """
 
     def markBrokenRelations(self):
-        """ Construct graph and return message with info about broken 
+        """ Construct graph and return message with info about broken
         relations for ContentTypeGraph if any errors are found
         """
         bad_relations = []
-        bad_content = [] 
+        bad_content = []
         name = self.context.getId()
         node = queryAdapter(self.context, INode)
         graph = PyGraph()
@@ -165,11 +174,11 @@ class ToolGraph(BaseGraph):
     """
 
     def markBrokenRelations(self):
-        """ Construct graph and return message with info about broken 
+        """ Construct graph and return message with info about broken
         relations for ToolGraph if any errors are found
         """
         bad_relations = []
-        bad_content = [] 
+        bad_content = []
         bad_rel = ""
 
         graph = PyGraph()
@@ -206,6 +215,6 @@ class ToolGraph(BaseGraph):
         return ""
 
     def dot(self):
-        """ Return dotted graph 
+        """ Return dotted graph
         """
         return self.graph.to_string()

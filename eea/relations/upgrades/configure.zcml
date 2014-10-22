@@ -3,6 +3,24 @@
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   i18n_domain="eea">
 
+  <!-- 6.2 => 7.1 -->
+  <genericsetup:upgradeSteps
+    source="6.2"
+    destination="7.1"
+    profile="eea.relations:default">
+
+    <genericsetup:upgradeDepends
+      title="Import eea.jquery: 27-dracula"
+      import_profile="eea.jquery:27-dracula"
+      />
+
+    <genericsetup:upgradeDepends
+      title="Import steps with changes: jsregistry cssregistry"
+      import_steps="jsregistry cssregistry"
+      />
+
+  </genericsetup:upgradeSteps>
+
   <!-- 6.1 => 6.2 -->
   <genericsetup:upgradeSteps
     source="6.1"

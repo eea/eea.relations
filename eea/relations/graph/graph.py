@@ -1,6 +1,7 @@
 """ Graph utilities
 """
 import os
+import json
 from tempfile import mktemp
 from zope.interface import implements
 from eea.relations.graph.interfaces import IGraph
@@ -11,7 +12,7 @@ class Graph(object):
     """
     implements(IGraph)
 
-    def __init__(self, fmt):
+    def __init__(self, fmt='png'):
         self.fmt = fmt
 
     def __call__(self, graph):
@@ -35,4 +36,43 @@ class Graph(object):
 
         return raw
 
-PNG = Graph('png')
+class JSONGraph(object):
+    """ Export Graph to JSON
+    """
+    implements(IGraph)
+
+    def __init__(self, fmt='json'):
+        self.fmt = fmt
+
+    def __call__(self, graph):
+        """ Draw json Graph
+        """
+        res = {
+            'nodes': [],
+            'edges': []
+        }
+
+        for node in graph.get_nodes():
+            res['nodes'].append({
+                'name': node.get_name().strip('"'),
+                'label': node.get_label().strip('"')
+            })
+
+        for edge in graph.get_edges():
+            source = edge.get_source()
+            source = source.strip('"') if source else ""
+            destination = edge.get_destination()
+            destination = destination.strip('"') if destination else ""
+            label = edge.get_label()
+            label = label.strip('"') if label else ""
+            fontcolor = edge.get_fontcolor() or ""
+            color = edge.get_color() or ""
+            res['edges'].append({
+                'source': source,
+                'destination': destination,
+                'label': label,
+                'fontcolor': fontcolor,
+                'color': color
+            })
+
+        return json.dumps(res)

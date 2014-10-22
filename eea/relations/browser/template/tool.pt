@@ -10,22 +10,15 @@
 
 <div metal:fill-slot="content-core">
 
+<metal:relationerror use-macro="context/eea_relations_macros/macros/errors">
 
-    <metal:relationerror use-macro="context/eea_relations_macros/macros/errors">
-    <metal:body fill-slot="body">
-  <div style="width: 100%">
-    <div style="float: left; width: 100%">
-      <div style="width: 100%; overflow: auto; text-align: center; border: 1px solid #8CACBB; padding: 2em 0">
-          <img tal:attributes="src string:${here/absolute_url}/@@graph.png;
-                             alt string:Relations Graph;
-                             title string:Relations Graph" />
-      </div>
+<metal:body fill-slot="body">
+
+  <div class="eea-relations">
+    <div class="wrapper">
+      <div class="graph" id="eea-relations-graph" data-height="600"></div>
+
       <div class="eea-portalrelations-menu">
-        <a href="graph.png"
-           title="View full graph"
-           i18n:translate=""
-           i18n:attributes="title"
-           tal:attributes="href string:${here/absolute_url}/@@graph.png">View full graph</a> |
         <a href="badrelations.html"
            title="List all relations that don't comply portal_relations schema"
            i18n:translate=""
@@ -33,16 +26,22 @@
            tal:attributes="href string:${here/absolute_url}/@@badrelations.html">List of bad relations</a> |
       </div>
     </div>
-    <div style="float: left; width: 48%">
+
+    <div class="left">
       <tal:viewlet replace="structure here/@@contenttypes.html" />
     </div>
-    <div style="float: right; width: 48%">
+
+    <div class="right">
       <tal:viewlet replace="structure here/@@relations.html" />
     </div>
+
   </div>
+
   <div class="visualClear"></div>
-    </metal:body>
-  </metal:relationerror>
+
+</metal:body>
+</metal:relationerror>
+
 </div>
 
 </body>
