@@ -3,21 +3,6 @@
   metal:use-macro="here/main_template/macros/master"
   i18n:domain="eea">
 
-<head>
-
-<metal:javascript fill-slot="javascript_head_slot">
-  <script tal:attributes="src string:$portal_url/++resource++eea.relations.js/raphael.js" type="text/javascript"></script>
-  <script tal:attributes="src string:$portal_url/++resource++eea.relations.js/dracula_graffle.js" type="text/javascript"></script>
-  <script tal:attributes="src string:$portal_url/++resource++eea.relations.js/dracula_graph.js" type="text/javascript"></script>
-  <script tal:attributes="src string:$portal_url/++resource++eea.relations.js/tool.js" type="text/javascript"></script>
-</metal:javascript>
-
-<metal:style_slot fill-slot="style_slot">
-  <link href="++resource++eea.relations.css/tool.css" rel="stylesheet" type="text/css" media="screen" />
-</metal:style_slot>
-
-</head>
-
 <body>
 
 <div metal:fill-slot="content-core">
