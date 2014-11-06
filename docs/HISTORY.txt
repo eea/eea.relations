@@ -3,6 +3,8 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Change: Refactoring to speedup "broken relations algorithm" within Control Panel
+  [voineali refs #21182]
 * Change: Relations viewlet through Forward relations now searches for valid
   relationship with an extra check when checking the interfaces before ignoring
   the added relationship

@@ -26,7 +26,12 @@ EEA.RelationsGraph.prototype = {
     self.height = parseInt(self.context.data('height'), 10) || 600;
 
     self.activeNode = null;
-    jQuery.getJSON(self.settings.dataurl, {}, function(data){
+    self.data = self.context.data('graph');
+    if(self.data) {
+      return self.reload();
+    }
+
+    jQuery.getJSON(self.settings.dataurl, {}, function (data) {
       self.data = data;
       return self.reload();
     });

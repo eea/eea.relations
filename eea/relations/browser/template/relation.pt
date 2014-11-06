@@ -5,22 +5,27 @@
 
 <body>
 
-<div metal:fill-slot="content-core">
-    <metal:relationerror use-macro="context/eea_relations_macros/macros/errors" />
-<div>
-  <span tal:define="
-    required python:here.getField('required');
-    value python:required.getAccessor(here)();"
-    tal:condition="value" class="fieldRequired"> </span>
-  <span tal:define="
-    required python:here.getField('required_for');
-    value python:required.getAccessor(here)();"
-    tal:condition="value" class="fieldRequiredFor"> </span>
-</div>
+<div metal:fill-slot="content-core" tal:define="
+  graph nocall:here/@@graph.json;
+  data python:graph(setHeader=False);
+  bad_relations python:graph.bad_relations;
+  bad_content python:graph.bad_content;
+  ">
+  <metal:relationerror use-macro="context/eea_relations_macros/macros/errors" />
+  <div>
+    <span tal:define="
+      required python:here.getField('required');
+      value python:required.getAccessor(here)();"
+      tal:condition="value" class="fieldRequired"> </span>
+    <span tal:define="
+      required python:here.getField('required_for');
+      value python:required.getAccessor(here)();"
+      tal:condition="value" class="fieldRequiredFor"> </span>
+  </div>
 
-<div class="eea-relations">
-  <div class="graph" id="eea-relations-graph" data-height="400"></div>
-</div>
+  <div class="eea-relations">
+    <div class="graph" id="eea-relations-graph" data-height="400" tal:attributes="data-graph data"></div>
+  </div>
 
 </div>
 </body>
