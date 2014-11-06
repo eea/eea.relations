@@ -166,8 +166,7 @@ and backward relations if they have the same title as demonstrated below:
 
     >>> forward_backward_relations = categorization_view.forward_backward_auto()
     >>> forward_backward_relations
-    [('See also', [<ATNewsItem at /plone/Members/test_user_1_/sandbox/my-news>,
-                   <ATNewsItem at /plone/Members/test_user_1_/sandbox/another_news>]),
+    [('See also', [...news..., ...news...]),
     ('Similar Documents', [<ATDocument at /plone/Members/test_user_1_/sandbox/my-document>])]
 
 
