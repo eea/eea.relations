@@ -120,6 +120,7 @@ Ok let's add more restrictions
     ... </object>
     ... '''
 
+    >>> graph = queryMultiAdapter((rtool, rtool.REQUEST), name=u'graph.dot')
     >>> print graph()
     digraph G {
     "node-demo" [label="Demo"];
