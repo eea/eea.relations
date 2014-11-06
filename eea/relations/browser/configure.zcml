@@ -18,21 +18,16 @@
   <browser:page for="..interfaces.IRelationsTool"
                 name="graph.dot"
                 class=".app.graph.ToolGraph"
-                attribute="dot"
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IRelationsTool"
                 name="graph.png"
                 class=".app.graph.ToolGraph"
-                attribute="image"
-                allowed_attributes="markBrokenRelations"
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IRelationsTool"
                 name="graph.json"
                 class=".app.graph.ToolGraph"
-                attribute="json"
-                allowed_attributes="markBrokenRelations"
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IRelationsTool"
@@ -43,15 +38,11 @@
   <browser:page for="..interfaces.IContentType"
                 name="graph.png"
                 class=".app.graph.ContentTypeGraph"
-                attribute="image"
-                allowed_attributes="markBrokenRelations"
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IContentType"
                 name="graph.json"
                 class=".app.graph.ContentTypeGraph"
-                attribute="json"
-                allowed_attributes="markBrokenRelations"
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IContentType"
@@ -62,15 +53,11 @@
   <browser:page for="..interfaces.IRelation"
                 name="graph.png"
                 class=".app.graph.RelationGraph"
-                attribute="image"
-                allowed_attributes="markBrokenRelations"
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IRelation"
                 name="graph.json"
                 class=".app.graph.RelationGraph"
-                attribute="json"
-                allowed_attributes="markBrokenRelations"
                 permission="cmf.ModifyPortalContent" />
 
   <browser:page for="..interfaces.IRelation"
