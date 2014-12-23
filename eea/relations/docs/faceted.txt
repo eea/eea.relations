@@ -35,7 +35,7 @@ Default faceted widgets
        <property name="section">default</property>
        <property name="hidden">0</property>
        <property name="index">Title</property>
-       <property name="default"/>
+       <property name="default"...>
       </criterion>
       <criterion name="c1">
        <property name="widget">alphabetic</property>
@@ -46,7 +46,7 @@ Default faceted widgets
        <property name="index">Title</property>
        <property name="count">0</property>
        <property name="hidezerocount">0</property>
-       <property name="default"/>
+       <property name="default"...>
       </criterion>
       <criterion name="c2">
        <property name="widget">criteria</property>
@@ -72,7 +72,7 @@ Default faceted widgets
        <property name="position">left</property>
        <property name="section">default</property>
        <property name="hidden">1</property>
-       <property name="vocabulary"/>
+       <property name="vocabulary"...>
        <property name="default">effective(reverse)</property>
       </criterion>
      </criteria>

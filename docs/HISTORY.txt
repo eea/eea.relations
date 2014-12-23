@@ -3,6 +3,8 @@ Changelog
 
 7.2-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed tests
+  [avoinea]
 
 7.1 - (2014-11-20)
 ------------------
