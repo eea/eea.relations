@@ -3,6 +3,9 @@ Changelog
 
 7.3-dev - (unreleased)
 ----------------------
+* Change: cache forward and backward relations on relations macro
+  since they are called also by the auto relations
+  [ichimdav refs #21173]
 
 7.2 - (2015-01-22)
 ------------------
