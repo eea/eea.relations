@@ -5,6 +5,8 @@ from eea.relations.component import getForwardRelationWith
 from eea.relations.component import getBackwardRelationWith
 from Products.CMFCore.utils import getToolByName
 
+from plone.memoize.view import memoize
+
 
 class Macro(BrowserView):
     """ Categorize relations
@@ -55,6 +57,7 @@ class Macro(BrowserView):
         filtered_relations = list(relations_set)
         return filtered_relations
 
+    @memoize
     def forward(self, **kwargs):
         """ Return forward relations by category
         """
@@ -91,6 +94,7 @@ class Macro(BrowserView):
         tabs = tabs.items()
         return tabs
 
+    @memoize
     def backward(self, **kwargs):
         """ Return backward relations by category
         """
