@@ -22,15 +22,15 @@ def initialize(context):
     content_types, constructors, ftis = process_types(listTypes(PROJECTNAME),
                                                       PROJECTNAME)
 
-    cmfutils.ToolInit( PROJECTNAME+' Tools',
-                tools = [EEARelationsTool],
+    cmfutils.ToolInit(PROJECTNAME + ' Tools',
+                tools=[EEARelationsTool],
                 icon='content/tool.gif'
-                ).initialize( context )
+                ).initialize(context)
 
     cmfutils.ContentInit(
         PROJECTNAME + ' Content',
-        content_types      = content_types,
-        permission         = ADD_CONTENT_PERMISSION,
-        extra_constructors = constructors,
-        fti                = ftis,
+        content_types=content_types,
+        permission=ADD_CONTENT_PERMISSION,
+        extra_constructors=constructors,
+        fti=ftis,
         ).initialize(context)

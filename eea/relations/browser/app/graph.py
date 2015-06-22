@@ -121,7 +121,7 @@ class RelationGraph(BaseGraph):
         value_to = self.context.getField('to').getAccessor(self.context)()
         nto = self.tool.get(value_to)
         if nto:
-            if (value_from != value_to):
+            if value_from != value_to:
                 node = queryAdapter(nto, INode)
                 self._graph.add_node(node())
         else:

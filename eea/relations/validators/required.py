@@ -12,7 +12,7 @@ class Required(object):
     """
     implements(IValidator)
 
-    def __init__( self, name, title='', description=''):
+    def __init__(self, name, title='', description=''):
         self.name = name
         self.title = title or name
         self.description = description
