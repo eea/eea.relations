@@ -8,9 +8,9 @@ from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
 from Products.ATContentTypes import ATCTMessageFactory as _
 
 widget = EEAReferenceBrowserWidget(
-    label = _(u'Related Items'),
+    label=_(u'Related Items'),
     description='',
-    visible = {'edit' : 'visible', 'view' : 'invisible' },
+    visible={'edit' : 'visible', 'view' : 'invisible'},
     i18n_domain="plone"
 )
 

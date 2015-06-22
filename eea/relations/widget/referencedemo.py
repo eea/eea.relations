@@ -8,8 +8,8 @@ from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
 SCHEMA = ATFolder.schema.copy() + atapi.Schema((
     EEAReferenceField('relatedItems',
         schemata='default',
-        relationship = 'relatesTo',
-        multiValued = True,
+        relationship='relatesTo',
+        multiValued=True,
         widget=EEAReferenceBrowserWidget(
             label='Related items',
             description='Relations.'
