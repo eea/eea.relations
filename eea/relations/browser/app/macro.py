@@ -165,7 +165,7 @@ class Macro(BrowserView):
 
         # sort by effective date reversed by default
         for _label, relations in tabs:
-            relations.sort(cmp=lambda x, y:cmp(x.effective(),
+            relations.sort(cmp=lambda x, y: cmp(x.effective(),
                                                y.effective()),
                            reverse=True)
         return tabs
