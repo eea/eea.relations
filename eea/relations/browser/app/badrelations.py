@@ -90,7 +90,7 @@ class View(BrowserView):
                 # The catalog expects AttributeErrors when
                 # a value can't be found
                 raise AttributeError
-            except:
+            except Exception:
                 logger.info('ERROR getting relations for %s', brain.getURL())
             if not count % 100:
                 logger.info('done %s out of %s', count, len(res))
