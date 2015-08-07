@@ -3,6 +3,9 @@ Changelog
 
 7.5.dev0 - (unreleased)
 -----------------------
+* Change: removed green gradient from popup-selected-items, we now use
+  flat colors
+  [ichimdav refs #27537]
 
 7.4 - (2015-03-17)
 ------------------
