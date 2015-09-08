@@ -292,6 +292,18 @@ Export
       <property name="ct_interface"></property>
       <property name="ct_default_location">python:None</property>
       <criteria>
+       <criterion name="c3">
+        <property name="widget">tagscloud</property>
+        <property name="title">Meta-type d'element</property>
+        <property name="position">top</property>
+        <property name="section">default</property>
+        <property name="hidden">0</property>
+        <property name="count"></property>
+        <property name="index">meta_type</property>
+        <property name="vocabulary"></property>
+        <property name="cloud">sphere</property>
+        <property name="default">ATFolder</property>
+       </criterion>
        <criterion name="c4">
         <property name="widget">checkbox</property>
         <property name="title">Type d'element</property>
@@ -305,18 +317,6 @@ Export
          <element value="Folder"/>
          <element value="Document"/>
         </property>
-       </criterion>
-       <criterion name="c3">
-        <property name="widget">tagscloud</property>
-        <property name="title">Meta-type d'element</property>
-        <property name="position">top</property>
-        <property name="section">default</property>
-        <property name="hidden">0</property>
-        <property name="count"></property>
-        <property name="index">meta_type</property>
-        <property name="vocabulary"></property>
-        <property name="cloud">sphere</property>
-        <property name="default">ATFolder</property>
        </criterion>
       </criteria>
      </object>
