@@ -3,6 +3,8 @@ Changelog
 
 7.6.dev0 - (unreleased)
 -----------------------
+* Change: documented the required js for eeareferencebrowser.js
+  [ichimdav refs #27220]
 
 7.5 - (2015-08-18)
 ------------------

@@ -1,3 +1,10 @@
+/* EXTERNAL DEPENDENCIES: collective.js.jqueryui.custom.min.js, faceted_view.js */
+
+/*
+ * Reference browser is used for the related field which in combination
+ * with eea faceted navigation searching allows for easier finding of related
+ * content
+ * */
 var EEAReferenceBrowser = {version: '4.0'};
 EEAReferenceBrowser.debug = false;
 
