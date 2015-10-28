@@ -9,6 +9,11 @@ from Products.Archetypes.atapi import ReferenceField
 class EEAReferenceField(ReferenceField):
     """ Customize ReferenceBrowser field
     """
+    _properties = ReferenceField._properties.copy()
+    _properties.update({
+        'edit_accessor': 'getRawRelatedItems'
+    })
+
     def validate_relations(self, value, instance, errors=None, **kwargs):
         """ Validate relations
         """
