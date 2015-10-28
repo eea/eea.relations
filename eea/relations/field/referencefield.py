@@ -1,5 +1,8 @@
 """ Reference field
 """
+from Acquisition import aq_base
+from persistent.list import PersistentList
+
 from Products.validation import ValidationChain
 from Products.Archetypes.atapi import ReferenceField
 
@@ -30,3 +33,14 @@ class EEAReferenceField(ReferenceField):
             return res
         return super(EEAReferenceField, self).validate(
             value, instance, errors=None, **kwargs)
+
+    def set(self, instance, value, **kwargs):
+        instance.eea_ordered_refs = PersistentList(value)
+        return super(EEAReferenceField, self).set(instance, value, **kwargs)
+
+    def getRaw(self, instance, aslist=False, **kwargs):
+        res = super(EEAReferenceField, self).getRaw(instance, aslist, **kwargs)
+        if not hasattr(aq_base(instance), "eea_ordered_refs"):
+            return res
+
+        return [r for r in instance.eea_ordered_refs]

@@ -3,6 +3,9 @@ Changelog
 
 7.7.dev0 - (unreleased)
 -----------------------
+* Bugfix: Customized set and getRaw methods for EEAReferenceField so we can
+  have a diff for relations also
+  [szabozo0 refs #21177]
 
 7.6 - (2015-09-10)
 ------------------
