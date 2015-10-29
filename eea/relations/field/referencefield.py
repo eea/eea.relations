@@ -40,12 +40,12 @@ class EEAReferenceField(ReferenceField):
             value, instance, errors=None, **kwargs)
 
     def set(self, instance, value, **kwargs):
-        instance.eea_ordered_refs = PersistentList(value)
+        instance.eea_refs = PersistentList(value)
         return super(EEAReferenceField, self).set(instance, value, **kwargs)
 
     def getRaw(self, instance, aslist=False, **kwargs):
         res = super(EEAReferenceField, self).getRaw(instance, aslist, **kwargs)
-        if not hasattr(aq_base(instance), "eea_ordered_refs"):
+        if not hasattr(aq_base(instance), "eea_refs"):
             return res
 
-        return [r for r in instance.eea_ordered_refs]
+        return [r for r in instance.eea_refs]
