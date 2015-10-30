@@ -2,6 +2,7 @@
 """
 
 import logging
+import transaction
 from persistent.list import PersistentList
 from Products.CMFCore.utils import getToolByName
 
@@ -14,12 +15,16 @@ def add_eea_refs(context):
     """
     ctool = getToolByName(context, 'portal_catalog')
     brains = ctool()
-    logger.info("Total of %s objects" %len(brains))
-    i = 0
+    total = len(brains)
+    logger.info("Total of %s objects" %total)
+    count = 0
     for brain in brains:
-        i += 1
-        if i%1000 == 0:
-            logger.info("%s objects updated" %i)
+        count += 1
+        if count%100 == 0:
+            logger.info('INFO: Subtransaction committed to zodb (%s/%s)',
+                        count, total)
+            transaction.commit()
+
         try:
             obj = brain.getObject()
             try:
