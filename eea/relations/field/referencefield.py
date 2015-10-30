@@ -39,10 +39,14 @@ class EEAReferenceField(ReferenceField):
             value, instance, errors=None, **kwargs)
 
     def set(self, instance, value, **kwargs):
+        """ On set, save the relations in the eea_refs attribute
+        """
         instance.eea_refs = PersistentList(value)
         return super(EEAReferenceField, self).set(instance, value, **kwargs)
 
     def getRaw(self, instance, aslist=False, **kwargs):
+        """ If exists, use the values from eea_refs attribute
+        """
         res = super(EEAReferenceField, self).getRaw(instance, aslist, **kwargs)
         if not hasattr(instance, "eea_refs"):
             return res
