@@ -1,6 +1,5 @@
 """ Reference field
 """
-from Acquisition import aq_base
 from persistent.list import PersistentList
 
 from Products.validation import ValidationChain
