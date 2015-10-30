@@ -3,6 +3,19 @@
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   i18n_domain="eea">
 
+  <!-- 7.1 => 7.7 -->
+  <genericsetup:upgradeSteps
+    source="7.1"
+    destination="7.7"
+    profile="eea.relations:default">
+
+    <genericsetup:upgradeStep
+      title="Add eea_refs attribute on all EEA"
+      handler="eea.relations.upgrades.evolve77.add_eea_refs"
+      />
+
+  </genericsetup:upgradeSteps>
+
   <!-- 6.2 => 7.1 -->
   <genericsetup:upgradeSteps
     source="6.2"

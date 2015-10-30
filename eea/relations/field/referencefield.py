@@ -1,11 +1,19 @@
 """ Reference field
 """
+from Acquisition import aq_base
+from persistent.list import PersistentList
+
 from Products.validation import ValidationChain
 from Products.Archetypes.atapi import ReferenceField
 
 class EEAReferenceField(ReferenceField):
     """ Customize ReferenceBrowser field
     """
+    _properties = ReferenceField._properties.copy()
+    _properties.update({
+        'edit_accessor': 'getRawRelatedItems'
+    })
+
     def validate_relations(self, value, instance, errors=None, **kwargs):
         """ Validate relations
         """
@@ -30,3 +38,14 @@ class EEAReferenceField(ReferenceField):
             return res
         return super(EEAReferenceField, self).validate(
             value, instance, errors=None, **kwargs)
+
+    def set(self, instance, value, **kwargs):
+        instance.eea_refs = PersistentList(value)
+        return super(EEAReferenceField, self).set(instance, value, **kwargs)
+
+    def getRaw(self, instance, aslist=False, **kwargs):
+        res = super(EEAReferenceField, self).getRaw(instance, aslist, **kwargs)
+        if not hasattr(instance, "eea_refs"):
+            return res
+
+        return [r for r in instance.eea_refs]
