@@ -29,8 +29,8 @@ def add_eea_refs(context):
             obj = brain.getObject()
             try:
                 obj.eea_refs = PersistentList(obj.getRawRelatedItems())
-            except:
+            except Exception:
                 obj.eea_refs = PersistentList()
-        except:
+        except Exception:
             logger.warn("brain with problems: %s" %brain.getPath())
     logger.info("Done adding eea_refs on objects")
