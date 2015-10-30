@@ -26,7 +26,6 @@ def add_eea_refs(context):
                 obj.eea_refs = PersistentList(obj.getRawRelatedItems())
             except:
                 obj.eea_refs = PersistentList()
-            obj._p_changed = 1
         except:
             logger.warn("brain with problems: %s" %brain.getPath())
     logger.info("Done adding eea_refs on objects")

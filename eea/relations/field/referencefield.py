@@ -45,7 +45,7 @@ class EEAReferenceField(ReferenceField):
 
     def getRaw(self, instance, aslist=False, **kwargs):
         res = super(EEAReferenceField, self).getRaw(instance, aslist, **kwargs)
-        if not hasattr(aq_base(instance), "eea_refs"):
+        if not hasattr(instance, "eea_refs"):
             return res
 
         return [r for r in instance.eea_refs]
