@@ -16,21 +16,26 @@ def add_eea_refs(context):
     ctool = getToolByName(context, 'portal_catalog')
     brains = ctool()
     total = len(brains)
-    logger.info("Total of %s objects" %total)
+    logger.info("Total of %s objects", total)
     count = 0
-    for brain in brains:
-        count += 1
-        if count%100 == 0:
-            logger.info('INFO: Subtransaction committed to zodb (%s/%s)',
-                        count, total)
-            transaction.commit()
+    step = 20000
 
-        try:
-            obj = brain.getObject()
+    for startfrom in range (0, total, step):
+        logger.info('INFO: Updating brains[%s:%s]', startfrom, startfrom + step)
+        partcount = 0
+        for brain in brains[startfrom:startfrom + step]:
+            count += 1
+            if count%100 == 0:
+                logger.info('INFO: Subtransaction committed to zodb (%s/%s)',
+                            count, total)
+                transaction.commit()
             try:
-                obj.eea_refs = PersistentList(obj.getRawRelatedItems())
+                obj = brain.getObject()
+                try:
+                    obj.eea_refs = PersistentList(obj.getRawRelatedItems())
+                except Exception:
+                    obj.eea_refs = PersistentList()
             except Exception:
-                obj.eea_refs = PersistentList()
-        except Exception:
-            logger.warn("brain with problems: %s" %brain.getPath())
+                logger.warn("'WARNING: brain with problems: %s",
+                            brain.getPath())
     logger.info("Done adding eea_refs on objects")
