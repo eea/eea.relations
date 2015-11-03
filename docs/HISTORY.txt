@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.7.dev0 - (unreleased)
------------------------
+7.7 - (2015-11-03)
+------------------
 * Bugfix: EEAReferenceField needs a list with related objects when setting
   references and not the object itself in case there is only one reference
   [ichim-david refs #30288]
