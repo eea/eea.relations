@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.8.dev0 - (unreleased)
+-----------------------
+
 7.7 - (2015-11-03)
 ------------------
 * Bugfix: EEAReferenceField needs a list with related objects when setting
