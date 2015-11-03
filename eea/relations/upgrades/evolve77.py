@@ -18,24 +18,33 @@ def add_eea_refs(context):
     total = len(brains)
     logger.info("Total of %s objects", total)
     count = 0
-    step = 20000
-
-    for startfrom in range (0, total, step):
-        logger.info('INFO: Updating brains[%s:%s]', startfrom, startfrom + step)
-        partcount = 0
-        for brain in brains[startfrom:startfrom + step]:
-            count += 1
-            if count%100 == 0:
-                logger.info('INFO: Subtransaction committed to zodb (%s/%s)',
-                            count, total)
-                transaction.commit()
-            try:
-                obj = brain.getObject()
+    commit_every = 100
+    for brain in brains:
+        count += 1
+        if count%commit_every == 0:
+            logger.info('INFO: Subtransaction committed (%s/%s)',
+                        count, total)
+            transaction.commit()
+        try:
+            obj = brain.getObject()
+            should_add_eea_refs = True
+            if hasattr(obj, "eea_refs"):
+                should_add_eea_refs = False
+            if obj.meta_type == 'Sparql':
+                try:
+                    if len(obj.cached_result['result']['rows']) > 100000:
+                        logger.warn("'WARNING: Sparql has too many rows %s",
+                            brain.getPath())
+                        should_add_eea_refs = False
+                except Exception:
+                    logger.warn("'WARNING: Sparql with problems: %s",
+                        brain.getPath())
+            if should_add_eea_refs:
                 try:
                     obj.eea_refs = PersistentList(obj.getRawRelatedItems())
                 except Exception:
                     obj.eea_refs = PersistentList()
-            except Exception:
-                logger.warn("'WARNING: brain with problems: %s",
-                            brain.getPath())
+        except Exception:
+            logger.warn("'WARNING: brain with problems: %s",
+                        brain.getPath())
     logger.info("Done adding eea_refs on objects")
