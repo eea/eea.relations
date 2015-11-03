@@ -3,6 +3,9 @@ Changelog
 
 7.7.dev0 - (unreleased)
 -----------------------
+* Bugfix: EEAReferenceField needs a list with related objects when setting
+  references and not the object itself in case there is only one reference
+  [ichim-david refs #30288]
 * Bugfix: Customized set and getRaw methods for EEAReferenceField so we can
   have a diff for relations also
   [szabozo0 refs #21177]
