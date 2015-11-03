@@ -41,6 +41,12 @@ class EEAReferenceField(ReferenceField):
     def set(self, instance, value, **kwargs):
         """ On set, save the relations in the eea_refs attribute
         """
+        # 30288 value needs to be a list of values and not a single object
+        # for situations where only one relation is added
+        if not isinstance(value, list):
+            t = value
+            value = []
+            value.append(t)
         instance.eea_refs = PersistentList(value)
         return super(EEAReferenceField, self).set(instance, value, **kwargs)
 
