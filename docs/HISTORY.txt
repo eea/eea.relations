@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.9.dev0 - (unreleased)
+-----------------------
+
 7.8 - (2015-11-05)
 ------------------
 * Bugfix: EEAReferenceField needs a list of uids, so if we receive a list
