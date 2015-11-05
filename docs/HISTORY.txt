@@ -3,6 +3,9 @@ Changelog
 
 7.8.dev0 - (unreleased)
 -----------------------
+* Bugfix: EEAReferenceField needs a list of uids, so if we receive a list
+  of objects, we get their uids
+  [szabozo0 refs #30398]
 
 7.7 - (2015-11-03)
 ------------------

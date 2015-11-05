@@ -47,6 +47,16 @@ class EEAReferenceField(ReferenceField):
             t = value
             value = []
             value.append(t)
+
+        # 30398 for versioning, when versioning is used the values for related
+        # items are not uids, but the objects, so we get their uid
+        uid_value = []
+        for val in value:
+            if not isinstance(val, basestring):
+                val = val.UID()
+            uid_value.append(val)
+        value = uid_value
+
         instance.eea_refs = PersistentList(value)
         return super(EEAReferenceField, self).set(instance, value, **kwargs)
 
