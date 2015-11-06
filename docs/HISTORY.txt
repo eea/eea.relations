@@ -3,6 +3,8 @@ Changelog
 
 7.9.dev0 - (unreleased)
 -----------------------
+* Fix: Force uids only for eea_refs
+  [szabozo0 refs #30398]
 
 7.8 - (2015-11-05)
 ------------------

@@ -55,9 +55,8 @@ class EEAReferenceField(ReferenceField):
             if not isinstance(val, basestring):
                 val = val.UID()
             uid_value.append(val)
-        value = uid_value
 
-        instance.eea_refs = PersistentList(value)
+        instance.eea_refs = PersistentList(uid_value)
         return super(EEAReferenceField, self).set(instance, value, **kwargs)
 
     def getRaw(self, instance, aslist=False, **kwargs):
