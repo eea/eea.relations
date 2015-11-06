@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.9.dev0 - (unreleased)
------------------------
+7.9 - (2015-11-06)
+------------------
 * Fix: Force uids only for eea_refs
   [szabozo0 refs #30398]
 
