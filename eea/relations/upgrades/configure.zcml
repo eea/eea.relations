@@ -3,6 +3,19 @@
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   i18n_domain="eea">
 
+  <!-- 7.7 => 8.0 -->
+  <genericsetup:upgradeSteps
+    source="7.7"
+    destination="8.0"
+    profile="eea.relations:default">
+
+    <genericsetup:upgradeStep
+      title="Fix eea_refs attribute on all EEA (change object to uid)"
+      handler="eea.relations.upgrades.evolve80.fix_eea_refs"
+      />
+
+  </genericsetup:upgradeSteps>
+
   <!-- 7.1 => 7.7 -->
   <genericsetup:upgradeSteps
     source="7.1"
