@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.0.dev0 - (unreleased)
------------------------
+8.0 - (2015-11-09)
+------------------
 * Fix: Updated objects where new version was created and the eea_refs contains
   objects instead of uids
   [szabozo0 refs #30502]
