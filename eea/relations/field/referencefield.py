@@ -47,7 +47,16 @@ class EEAReferenceField(ReferenceField):
             t = value
             value = []
             value.append(t)
-        instance.eea_refs = PersistentList(value)
+
+        # 30398 for versioning, when versioning is used the values for related
+        # items are not uids, but the objects, so we get their uid
+        uid_value = []
+        for val in value:
+            if not isinstance(val, basestring):
+                val = val.UID()
+            uid_value.append(val)
+
+        instance.eea_refs = PersistentList(uid_value)
         return super(EEAReferenceField, self).set(instance, value, **kwargs)
 
     def getRaw(self, instance, aslist=False, **kwargs):

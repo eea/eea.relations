@@ -1,8 +1,19 @@
 Changelog
 =========
 
-7.8.dev0 - (unreleased)
+8.0.dev0 - (unreleased)
 -----------------------
+
+7.9 - (2015-11-06)
+------------------
+* Fix: Force uids only for eea_refs
+  [szabozo0 refs #30398]
+
+7.8 - (2015-11-05)
+------------------
+* Bugfix: EEAReferenceField needs a list of uids, so if we receive a list
+  of objects, we get their uids
+  [szabozo0 refs #30398]
 
 7.7 - (2015-11-03)
 ------------------
