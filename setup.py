@@ -49,7 +49,15 @@ setup(name=NAME,
       extras_require={
           'test': [
               'plone.app.testing',
-          ]
+          ],
+          'yum': [
+              'graphviz',
+              'graphviz-devel',
+              ],
+          'apt': [
+              'graphviz',
+              'libgraphviz-dev',
+          ],
       },
       entry_points="""
       [z3c.autoinclude.plugin]
