@@ -3,6 +3,8 @@ Changelog
 
 8.2.dev0 - (unreleased)
 -----------------------
+* Bugfix: removed debugging statements from eea_relateditems.pt
+  [ichim-david]
 
 8.1 - (2015-12-07)
 ------------------
