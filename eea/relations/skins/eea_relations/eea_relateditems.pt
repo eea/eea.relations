@@ -36,8 +36,6 @@ Optional parameters:
                   templateStyle templateStyle|string:album_view;"
           tal:condition="python:forward_backward_auto_tabs">
   <tal:relatedTitle metal:define-slot="relatedTitle">
-      <h1>David</h1>
-      <!--?<h1 tal:content="python:request.get('printSkip')"></h1>-->
       <h2 i18n:translate="">Related content</h2>
   </tal:relatedTitle>
   <div class="sorter_ctl" style="margin-bottom: 1.5em; display:none;">
