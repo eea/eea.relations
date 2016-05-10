@@ -1,12 +1,13 @@
 """ Browser view for bad relations listing
 """
-from zope.component import queryAdapter
-from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
-from eea.relations.interfaces import IToolAccessor
-from eea.relations.component import getForwardRelationWith
-from Products.statusmessages.interfaces import IStatusMessage
 import logging
+
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
+from eea.relations.component import getForwardRelationWith
+from eea.relations.interfaces import IToolAccessor
+from zope.component import queryAdapter
 
 logger = logging.getLogger('eea.relations.browser.badrelations')
 
