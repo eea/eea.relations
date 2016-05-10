@@ -1,9 +1,11 @@
 """ Graphviz
 """
 import logging
-logger = logging.getLogger('eea.relations.graph')
 from Globals import INSTANCE_HOME
 from pydot import __find_executables as _find_executables
+
+logger = logging.getLogger('eea.relations.graph')
+
 
 def find_graphviz():
     """ This assumes that Graphviz is installed in
