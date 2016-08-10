@@ -19,5 +19,6 @@
   <include package=".content" />
   <include package=".upgrades" />
   <include package=".rules" />
+  <include package=".events" />
 
 </configure>
