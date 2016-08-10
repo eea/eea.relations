@@ -18,5 +18,6 @@
   <include package=".field" />
   <include package=".content" />
   <include package=".upgrades" />
+  <include package=".rules" />
 
 </configure>
