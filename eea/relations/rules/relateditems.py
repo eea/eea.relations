@@ -1,3 +1,4 @@
+import logging
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 from zope.component import adapts
 from zope.formlib import form
@@ -14,6 +15,7 @@ from plone.app.contentrules import PloneMessageFactory
 from plone.app.contentrules import PloneMessageFactory as _
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 
+logger = logging.getLogger('eea.relations')
 
 class IRelatedItemsAction(Interface):
     transition = schema.Choice(title=_(u"Transition"),
@@ -42,7 +44,7 @@ class RelatedItemsActionExecutor(object):
         self.element = element
         self.event = event
 
-    def xxxRelatedItems(self):
+    def publishRelatedItems(self):
         wtool = getToolByName(self.context, 'portal_workflow', None)
         if wtool is None:
             return False
@@ -50,14 +52,13 @@ class RelatedItemsActionExecutor(object):
         obj = self.event.object
         relatedItems = obj.getRelatedItems()
         print relatedItems
+        print "a intrat aici"
         for item in relatedItems:
             try:
                 wtool.doActionFor(item, self.element.transition)
-            except ConflictError, e:
-                raise e
-            except Exception, e:
-                self.error(item, str(e))
-                return False
+            except Exception, err:
+                logger.warn("%s: %s", err.message.format(action_id=self.element.transition), item.absolute_url())
+                continue
         return True
 
     def error(self, obj, error):
@@ -68,21 +69,30 @@ class RelatedItemsActionExecutor(object):
                           mapping={'name': title, 'error': error})
             IStatusMessage(request).addStatusMessage(message, type="error")
 
-    def xxxBackRefs(self):
-        # obj = self.event.object
-        # backRefs = obj.getBackRefs()
-        # print backRefs
-        pass
+    def publishBackRefs(self):
+        wtool = getToolByName(self.context, 'portal_workflow', None)
+        if wtool is None:
+            return False
+
+        obj = self.event.object
+        backRefs = obj.getBRefs()
+        print backRefs
+        print "incerc backrefs"
+        for item in backRefs:
+            try:
+                wtool.doActionFor(item, self.element.transition)
+            except Exception, err:
+                # import pdb; pdb.set_trace()
+                logger.warn("%s: %s", err.message.format(action_id=self.element.transition), item.absolute_url())
+                continue
+        return True
 
     def __call__(self):
         if self.element.related_items:
-            # self.relateditems
-            self.xxxRelatedItems()
-            pass
+            self.publishRelatedItems()
 
         if self.element.backward_related_items:
-            self.xxxBackRefs()
-            pass
+            self.publishBackRefs()
 
         if self.element.asynchronous:
             pass
