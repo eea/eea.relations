@@ -1,0 +1,38 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:plone="http://namespaces.plone.org/plone">
+
+  <include package="plone.app.contentrules" />
+
+  <!-- Related Items action definition -->
+
+  <adapter factory=".relateditems.RelatedItemsActionExecutor" />
+
+  <browser:page
+    for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+      name="plone.actions.Relateditems"
+      class=".relateditems.RelatedItemsAddForm"
+      permission="plone.app.contentrules.ManageContentRules"
+      />
+ 
+  <browser:page
+    for=".relateditems.IRelatedItemsAction"
+    name="edit"
+    class=".relateditems.RelatedItemsEditForm"
+    permission="plone.app.contentrules.ManageContentRules"
+    />
+ 
+  <plone:ruleAction
+    name="plone.actions.Relateditems"
+    title="Related items: workflow transition"
+    description="description"
+    for="*"
+    event="*"
+    addview="plone.actions.Relateditems"
+    editview="edit"
+    schema=".relateditems.IRelatedItemsAction"
+    factory=".relateditems.RelatedItemsAction"
+    />
+
+</configure>

@@ -1,0 +1,132 @@
+from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
+from zope.component import adapts
+from zope.formlib import form
+from zope.interface import implements, Interface
+from zope import schema
+
+from OFS.SimpleItem import SimpleItem
+from Products.statusmessages.interfaces import IStatusMessage
+from Products.CMFCore.utils import getToolByName
+from ZODB.POSException import ConflictError
+from Products.CMFPlone import utils
+
+from plone.app.contentrules import PloneMessageFactory
+from plone.app.contentrules import PloneMessageFactory as _
+from plone.app.contentrules.browser.formhelper import AddForm, EditForm
+
+
+class IRelatedItemsAction(Interface):
+    transition = schema.Choice(title=_(u"Transition"),
+                               description=_(u"Select the workflow transition to attempt"),
+                               required=True,
+                               vocabulary='plone.app.vocabularies.WorkflowTransitions')
+    related_items = schema.Bool(title=_(u"Related items"),
+                                required=False,
+                                description=_("Attempt workflow transition on related items"))
+    backward_related_items = schema.Bool(title=_(u"Backward References"),
+                                         required=False,
+                                         description=_("Attempt workflow transition on backward references"))
+    asynchronous = schema.Bool(title=_(u"Asynchronous"),
+                               required=False,
+                               description=_("Perform action asynchronous"))
+
+
+class RelatedItemsActionExecutor(object):
+    """The executor for this action.
+    """
+    implements(IExecutable)
+    adapts(Interface, IRelatedItemsAction, Interface)
+
+    def __init__(self, context, element, event):
+        self.context = context
+        self.element = element
+        self.event = event
+
+    def xxxRelatedItems(self):
+        wtool = getToolByName(self.context, 'portal_workflow', None)
+        if wtool is None:
+            return False
+
+        obj = self.event.object
+        relatedItems = obj.getRelatedItems()
+        print relatedItems
+        for item in relatedItems:
+            try:
+                wtool.doActionFor(item, self.element.transition)
+            except ConflictError, e:
+                raise e
+            except Exception, e:
+                self.error(item, str(e))
+                return False
+        return True
+
+    def error(self, obj, error):
+        request = getattr(self.context, 'REQUEST', None)
+        if request is not None:
+            title = utils.pretty_title_or_id(obj, obj)
+            message = _(u"Unable to change state of ${name} as part of content rule 'workflow' action: ${error}",
+                          mapping={'name': title, 'error': error})
+            IStatusMessage(request).addStatusMessage(message, type="error")
+
+    def xxxBackRefs(self):
+        # obj = self.event.object
+        # backRefs = obj.getBackRefs()
+        # print backRefs
+        pass
+
+    def __call__(self):
+        if self.element.related_items:
+            # self.relateditems
+            self.xxxRelatedItems()
+            pass
+
+        if self.element.backward_related_items:
+            self.xxxBackRefs()
+            pass
+
+        if self.element.asynchronous:
+            pass
+ 
+
+class RelatedItemsAction(SimpleItem):
+    """The actual persistent implementation of the action element.
+    """
+    implements(IRelatedItemsAction, IRuleElementData)
+
+    transition = ''
+    related_items = False
+    backward_related_items = False
+    asynchronous = False
+
+    element = "plone.actions.Workflow"
+
+    @property
+    def summary(self):
+        return _(u"Execute transition ${transition}", mapping=dict(transition=self.transition))
+
+
+class RelatedItemsAddForm(AddForm):
+    """
+    An add form for the related items action
+    """
+    form_fields = form.FormFields(IRelatedItemsAction)
+    label = _(u"Add Related Items Action")
+    description = _(u"Change workflow state for related items.")
+    form_name = _(u"Configure element")
+
+    def create(self, data):
+        a = RelatedItemsAction()
+        form.applyChanges(a, self.form_fields, data)
+        return a
+
+
+
+class RelatedItemsEditForm(EditForm):
+    """
+    An add form for the related items action
+    """
+    form_fields = form.FormFields(IRelatedItemsAction)
+    label = _(u"Add Related Items Action")
+    description = _(u"Change workflow state for related items.")
+    form_name = _(u"Configure element")
+
