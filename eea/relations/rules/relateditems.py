@@ -1,4 +1,6 @@
 import logging
+import zope.event
+
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 from zope.component import adapts
 from zope.formlib import form
@@ -14,6 +16,7 @@ from Products.CMFPlone import utils
 from plone.app.contentrules import PloneMessageFactory
 from plone.app.contentrules import PloneMessageFactory as _
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
+
 
 logger = logging.getLogger('eea.relations')
 
@@ -82,7 +85,6 @@ class RelatedItemsActionExecutor(object):
             try:
                 wtool.doActionFor(item, self.element.transition)
             except Exception, err:
-                # import pdb; pdb.set_trace()
                 logger.warn("%s: %s", err.message.format(action_id=self.element.transition), item.absolute_url())
                 continue
         return True
@@ -128,7 +130,6 @@ class RelatedItemsAddForm(AddForm):
         a = RelatedItemsAction()
         form.applyChanges(a, self.form_fields, data)
         return a
-
 
 
 class RelatedItemsEditForm(EditForm):
