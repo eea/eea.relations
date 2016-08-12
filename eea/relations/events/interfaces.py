@@ -7,12 +7,14 @@ class IObjectInitializedEvent(IObjectModifiedEvent):
     """An object is being initialised, i.e. populated for the first time
     """
 
-class IEvent(IObjectEvent):
-    """ Base Event Interface for all export events
+class IRelatedItemsWorkflowStateChanged(IObjectEvent):
+    """ Base Event Interface for all Related Items Workflow State Changed events
     """
 
-class IRelatedItemsWorkflowStateChanged(IEvent):
-    """ Base Event Interface for all Async events
+class IForwardRelatedItemsWSC(IRelatedItemsWorkflowStateChanged):
+    """ Forward Related Items Interface
     """
 
-
+class IBackwardRelatedItemsWSC(IRelatedItemsWorkflowStateChanged):
+    """ Backward Releated Items Interface
+    """
