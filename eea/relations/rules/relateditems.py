@@ -1,7 +1,7 @@
 import logging
 from zope.event import notify
-from eea.relations.events.__init__ import ForwardRelatedItemsWorkflowStateChanged
-from eea.relations.events.__init__ import BackwardRelatedItemsWorkflowStateChanged
+from eea.relations.events import ForwardRelatedItemsWorkflowStateChanged
+from eea.relations.events import BackwardRelatedItemsWorkflowStateChanged
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 from zope.component import adapts
 from zope.formlib import form
@@ -21,20 +21,32 @@ from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 
 logger = logging.getLogger('eea.relations')
 
+
 class IRelatedItemsAction(Interface):
-    transition = schema.Choice(title=_(u"Transition"),
-                               description=_(u"Select the workflow transition to attempt"),
-                               required=True,
-                               vocabulary='plone.app.vocabularies.WorkflowTransitions')
-    related_items = schema.Bool(title=_(u"Related items"),
-                                required=False,
-                                description=_("Attempt workflow transition on related items"))
-    backward_related_items = schema.Bool(title=_(u"Backward References"),
-                                         required=False,
-                                         description=_("Attempt workflow transition on backward references"))
-    asynchronous = schema.Bool(title=_(u"Asynchronous"),
-                               required=False,
-                               description=_("Perform action asynchronous"))
+    transition = schema.Choice(
+            title=_(u"Transition"),
+            description=_(u"Select the workflow transition to attempt"),
+            required=True,
+            vocabulary='plone.app.vocabularies.WorkflowTransitions'
+    )
+
+    related_items = schema.Bool(
+            title=_(u"Related items"),
+            required=False,
+            description=_("Attempt workflow transition on related items")
+    )
+
+    backward_related_items = schema.Bool(
+            title=_(u"Backward References"),
+            required=False,
+            description=_("Attempt workflow transition on backward references")
+    )
+
+    asynchronous = schema.Bool(
+            title=_(u"Asynchronous"),
+            required=False,
+            description=_("Perform action asynchronous")
+    )
 
 
 class RelatedItemsActionExecutor(object):
@@ -61,7 +73,11 @@ class RelatedItemsActionExecutor(object):
             try:
                 wtool.doActionFor(item, self.element.transition)
             except Exception, err:
-                logger.warn("%s: %s", err.message.format(action_id=self.element.transition), item.absolute_url())
+                logger.warn(
+                        "%s: %s",
+                        err.message.format(action_id=self.element.transition),
+                        item.absolute_url()
+                )
                 continue
         event = ForwardRelatedItemsWorkflowStateChanged(self.context)
         notify(event)
@@ -71,8 +87,11 @@ class RelatedItemsActionExecutor(object):
         request = getattr(self.context, 'REQUEST', None)
         if request is not None:
             title = utils.pretty_title_or_id(obj, obj)
-            message = _(u"Unable to change state of ${name} as part of content rule 'workflow' action: ${error}",
-                          mapping={'name': title, 'error': error})
+            message = _(
+                    u"Unable to change state of ${name} as part of content "
+                    u"rule 'workflow' action: ${error}",
+                    mapping={'name': title, 'error': error}
+                    )
             IStatusMessage(request).addStatusMessage(message, type="error")
 
     def publishBackRefs(self):
@@ -88,7 +107,11 @@ class RelatedItemsActionExecutor(object):
             try:
                 wtool.doActionFor(item, self.element.transition)
             except Exception, err:
-                logger.warn("%s: %s", err.message.format(action_id=self.element.transition), item.absolute_url())
+                logger.warn(
+                        "%s: %s",
+                        err.message.format(action_id=self.element.transition),
+                        item.absolute_url()
+                )
                 continue
         event = BackwardRelatedItemsWorkflowStateChanged(self.context)
         notify(event)
@@ -103,7 +126,7 @@ class RelatedItemsActionExecutor(object):
 
         if self.element.asynchronous:
             pass
- 
+
 
 class RelatedItemsAction(SimpleItem):
     """The actual persistent implementation of the action element.
@@ -119,7 +142,10 @@ class RelatedItemsAction(SimpleItem):
 
     @property
     def summary(self):
-        return _(u"Execute transition ${transition}", mapping=dict(transition=self.transition))
+        return _(
+                u"Execute transition ${transition}",
+                mapping=dict(transition=self.transition)
+                )
 
 
 class RelatedItemsAddForm(AddForm):
@@ -145,4 +171,3 @@ class RelatedItemsEditForm(EditForm):
     label = _(u"Add Related Items Action")
     description = _(u"Change workflow state for related items.")
     form_name = _(u"Configure element")
-
