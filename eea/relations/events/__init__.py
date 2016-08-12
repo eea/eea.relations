@@ -7,10 +7,12 @@ from eea.relations.events.interfaces import IRelatedItemsWorkflowStateChanged
 from eea.relations.events.interfaces import IForwardRelatedItemsWSC
 from eea.relations.events.interfaces import IBackwardRelatedItemsWSC
 
+
 class ObjectInitializedEvent(ObjectModifiedEvent):
     """ An object is being initialised, i.e. populated for the first time
     """
     implements(IObjectInitializedEvent)
+
 
 @implementer(IRelatedItemsWorkflowStateChanged)
 class RelatedItemsWorkflowStateChanged(object):
@@ -19,11 +21,18 @@ class RelatedItemsWorkflowStateChanged(object):
     def __init__(self, context):
         self.object = context
 
+
 @implementer(IForwardRelatedItemsWSC)
-class ForwardRelatedItemsWorkflowStateChanged(RelatedItemsWorkflowStateChanged):
+class ForwardRelatedItemsWorkflowStateChanged(
+        RelatedItemsWorkflowStateChanged
+        ):
     """ Related Items Workflow State Changed
     """
+
+
 @implementer(IBackwardRelatedItemsWSC)
-class BackwardRelatedItemsWorkflowStateChanged(RelatedItemsWorkflowStateChanged):
+class BackwardRelatedItemsWorkflowStateChanged(
+        RelatedItemsWorkflowStateChanged
+        ):
     """ Related Items Workflow State Changed
     """
