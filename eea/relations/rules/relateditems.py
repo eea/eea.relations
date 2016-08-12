@@ -1,6 +1,7 @@
 import logging
-import zope.event
-
+from zope.event import notify
+from eea.relations.events.__init__ import ForwardRelatedItemsWorkflowStateChanged
+from eea.relations.events.__init__ import BackwardRelatedItemsWorkflowStateChanged
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 from zope.component import adapts
 from zope.formlib import form
@@ -62,6 +63,8 @@ class RelatedItemsActionExecutor(object):
             except Exception, err:
                 logger.warn("%s: %s", err.message.format(action_id=self.element.transition), item.absolute_url())
                 continue
+        event = ForwardRelatedItemsWorkflowStateChanged(self.context)
+        notify(event)
         return True
 
     def error(self, obj, error):
@@ -87,6 +90,8 @@ class RelatedItemsActionExecutor(object):
             except Exception, err:
                 logger.warn("%s: %s", err.message.format(action_id=self.element.transition), item.absolute_url())
                 continue
+        event = BackwardRelatedItemsWorkflowStateChanged(self.context)
+        notify(event)
         return True
 
     def __call__(self):
