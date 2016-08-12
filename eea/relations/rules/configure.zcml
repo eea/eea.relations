@@ -12,11 +12,35 @@
     name="Related Items Workflow State Change"
     />
 
+  <interface
+    interface="eea.relations.events.interfaces.IForwardRelatedItemsWSC"
+    type="plone.contentrules.rule.interfaces.IRuleEventType"
+    name="Related Items Workflow State Change [Forward]"
+    />
+
+  <interface
+    interface="eea.relations.events.interfaces.IBackwardRelatedItemsWSC"
+    type="plone.contentrules.rule.interfaces.IRuleEventType"
+    name="Related Items Workflow State Change [Backward]"
+    />
+
   <!-- Content rules subscribers -->
   <subscriber
     for="eea.relations.events.interfaces.IRelatedItemsWorkflowStateChanged"
     handler=".handlers.execute_event"
     />
+
+  <subscriber
+    for="eea.relations.events.interfaces.IForwardRelatedItemsWSC"
+    handler=".handlers.execute_event"
+    />
+
+  <subscriber
+    for="eea.relations.events.interfaces.IBackwardRelatedItemsWSC"
+    handler=".handlers.execute_event"
+    />
+
+
 
   <!-- Related Items action definition -->
 
