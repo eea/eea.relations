@@ -40,8 +40,6 @@
     handler=".handlers.execute_event"
     />
 
-
-
   <!-- Related Items action definition -->
 
   <adapter factory=".relateditems.RelatedItemsActionExecutor" />
@@ -52,14 +50,14 @@
       class=".relateditems.RelatedItemsAddForm"
       permission="plone.app.contentrules.ManageContentRules"
       />
- 
+
   <browser:page
     for=".relateditems.IRelatedItemsAction"
     name="edit"
     class=".relateditems.RelatedItemsEditForm"
     permission="plone.app.contentrules.ManageContentRules"
     />
- 
+
   <plone:ruleAction
     name="plone.actions.Relateditems"
     title="Related items: workflow transition"
