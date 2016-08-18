@@ -67,6 +67,8 @@ class RelatedItemsActionExecutor(object):
 
         obj = self.event.object
         relatedItems = obj.getRelatedItems()
+        if not relatedItems:
+            return False
         print relatedItems
         print "a intrat aici"
         for item in relatedItems:
@@ -79,7 +81,10 @@ class RelatedItemsActionExecutor(object):
                         item.absolute_url()
                 )
                 continue
-        event = ForwardRelatedItemsWorkflowStateChanged(self.context)
+        print obj
+        event = ForwardRelatedItemsWorkflowStateChanged(obj)
+        # import pdb; pdb.set_trace()
+        print "sunt in publish related items"
         notify(event)
         return True
 
@@ -95,12 +100,15 @@ class RelatedItemsActionExecutor(object):
             IStatusMessage(request).addStatusMessage(message, type="error")
 
     def publishBackRefs(self):
+        print "incerc si publish back refs"
         wtool = getToolByName(self.context, 'portal_workflow', None)
         if wtool is None:
             return False
 
         obj = self.event.object
         backRefs = obj.getBRefs()
+        if not backRefs:
+            return False
         print backRefs
         print "incerc backrefs"
         for item in backRefs:
@@ -113,7 +121,7 @@ class RelatedItemsActionExecutor(object):
                         item.absolute_url()
                 )
                 continue
-        event = BackwardRelatedItemsWorkflowStateChanged(self.context)
+        event = BackwardRelatedItemsWorkflowStateChanged(obj)
         notify(event)
         return True
 
