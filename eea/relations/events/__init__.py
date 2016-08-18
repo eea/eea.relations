@@ -18,7 +18,7 @@ class ObjectInitializedEvent(ObjectModifiedEvent):
 class RelatedItemsWorkflowStateChanged(object):
     """ Related Items Workflow State Changed
     """
-    def __init__(self, context):
+    def __init__(self, context, **kwargs):
         self.object = context
 
 
