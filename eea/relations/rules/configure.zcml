@@ -70,4 +70,18 @@
     factory=".relateditems.RelatedItemsAction"
     />
 
+  <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".relateditems.SubstitutionFWPublishedRelatedItems"
+    name="published_forward_related_items"
+    />
+
+  <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".relateditems.SubstitutionBWPublishedRelatedItems"
+    name="published_backward_related_items"
+    />
+
 </configure>
