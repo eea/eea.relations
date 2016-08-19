@@ -18,6 +18,11 @@ from plone.app.contentrules import PloneMessageFactory
 from plone.app.contentrules import PloneMessageFactory as _
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 
+from plone.stringinterp.interfaces import IStringSubstitution
+from Products.CMFCore.interfaces import (
+            IContentish, IMinimalDublinCore, IWorkflowAware, IDublinCore,
+            ICatalogableDublinCore)
+
 
 logger = logging.getLogger('eea.relations')
 
@@ -82,6 +87,7 @@ class RelatedItemsActionExecutor(object):
                 )
                 continue
         print obj
+        # import pdb; pdb.set_trace()
         event = ForwardRelatedItemsWorkflowStateChanged(obj)
         # import pdb; pdb.set_trace()
         print "sunt in publish related items"
@@ -179,3 +185,46 @@ class RelatedItemsEditForm(EditForm):
     label = _(u"Add Related Items Action")
     description = _(u"Change workflow state for related items.")
     form_name = _(u"Configure element")
+
+"""
+class BaseSubstitution(object):
+    implements(IStringSubstitution)
+
+    def __init__(self, context):
+        self.context = context
+
+    # __call__ is a wrapper for the subclassed
+    # adapter's actual substitution that makes sure we're
+    # not generating unauth exceptions or returning non-unicode.
+    def __call__(self):
+        try:
+            return safe_unicode(self.safe_call())
+        except Unauthorized:
+            return _(u'Unauthorized')
+"""
+
+from plone.stringinterp.adapters import BaseSubstitution
+class SubstitutionFWPublishedRelatedItems(BaseSubstitution):
+    """
+    Add substitution option for forward published related items
+    """
+    adapts(IContentish)
+
+    category = _(u'All Content')
+    description = _(u'TEEEEEEEST')
+
+    def safe_call(self):
+        return "abcd"
+
+
+class SubstitutionBWPublishedRelatedItems(BaseSubstitution):
+    """
+    Add substitution option for backward published related items
+    """
+    adapts(IContentish)
+
+    category = _(u'All Content')
+    description = _(u'TEST2222')
+
+    def safe_call(self):
+        return "efgh"
