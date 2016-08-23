@@ -73,15 +73,15 @@
   <adapter
     for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".relateditems.SubstitutionFWPublishedRelatedItems"
-    name="published_forward_related_items"
+    factory=".relateditems.SubstitutionSucceededRelatedItems"
+    name="workflow_state_changed"
     />
 
   <adapter
     for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".relateditems.SubstitutionBWPublishedRelatedItems"
-    name="published_backward_related_items"
+    factory=".relateditems.SubstitutionFailedRelatedItems"
+    name="workflow_state_unchanged"
     />
 
 </configure>
