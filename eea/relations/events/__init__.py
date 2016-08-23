@@ -20,6 +20,14 @@ class RelatedItemsWorkflowStateChanged(object):
     """
     def __init__(self, context, **kwargs):
         self.object = context
+        sdm = getattr(context, 'session_data_manager', None)
+        session = sdm.getSessionData(create=True) if sdm else None
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+            if not session:
+                continue
+            session.set(key, value)
 
 
 @implementer(IForwardRelatedItemsWSC)
