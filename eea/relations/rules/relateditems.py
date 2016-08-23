@@ -1,4 +1,5 @@
 import logging
+from plone import api
 from zope.event import notify
 from eea.relations.events import ForwardRelatedItemsWorkflowStateChanged
 from eea.relations.events import BackwardRelatedItemsWorkflowStateChanged
@@ -19,9 +20,7 @@ from plone.app.contentrules import PloneMessageFactory as _
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 
 from plone.stringinterp.interfaces import IStringSubstitution
-from Products.CMFCore.interfaces import (
-            IContentish, IMinimalDublinCore, IWorkflowAware, IDublinCore,
-            ICatalogableDublinCore)
+from plone.stringinterp.adapters import BaseSubstitution
 
 
 logger = logging.getLogger('eea.relations')
@@ -65,7 +64,7 @@ class RelatedItemsActionExecutor(object):
         self.element = element
         self.event = event
 
-    def publishRelatedItems(self):
+    def forwardWorkflowStateChangedRelatedItems(self):
         wtool = getToolByName(self.context, 'portal_workflow', None)
         if wtool is None:
             return False
@@ -76,20 +75,29 @@ class RelatedItemsActionExecutor(object):
             return False
         print relatedItems
         print "a intrat aici"
+
+        succeeded = set()
+        failed = set()
+
         for item in relatedItems:
             try:
                 wtool.doActionFor(item, self.element.transition)
+                succeeded.add(item.absolute_url())
             except Exception, err:
                 logger.warn(
                         "%s: %s",
                         err.message.format(action_id=self.element.transition),
                         item.absolute_url()
                 )
+                failed.add(item.absolute_url())
                 continue
-        print obj
-        # import pdb; pdb.set_trace()
-        event = ForwardRelatedItemsWorkflowStateChanged(obj)
-        # import pdb; pdb.set_trace()
+
+        event = ForwardRelatedItemsWorkflowStateChanged(
+                        obj,
+                        succeeded=succeeded,
+                        failed=failed,
+                        transition=self.element.transition
+                )
         print "sunt in publish related items"
         notify(event)
         return True
@@ -105,7 +113,7 @@ class RelatedItemsActionExecutor(object):
                     )
             IStatusMessage(request).addStatusMessage(message, type="error")
 
-    def publishBackRefs(self):
+    def backwardWorkflowStateChangedRelatedItems(self):
         print "incerc si publish back refs"
         wtool = getToolByName(self.context, 'portal_workflow', None)
         if wtool is None:
@@ -115,28 +123,40 @@ class RelatedItemsActionExecutor(object):
         backRefs = obj.getBRefs()
         if not backRefs:
             return False
+
         print backRefs
         print "incerc backrefs"
+
+        succeeded = set()
+        failed = set()
+
         for item in backRefs:
             try:
                 wtool.doActionFor(item, self.element.transition)
+                succeeded.add(item.absolute_url())
             except Exception, err:
                 logger.warn(
                         "%s: %s",
                         err.message.format(action_id=self.element.transition),
                         item.absolute_url()
                 )
+                failed.add(item.absolute_url())
                 continue
-        event = BackwardRelatedItemsWorkflowStateChanged(obj)
+        event = BackwardRelatedItemsWorkflowStateChanged(
+                        obj,
+                        succeeded=succeeded,
+                        failed=failed,
+                        transition=self.element.transition
+                )
         notify(event)
         return True
 
     def __call__(self):
         if self.element.related_items:
-            self.publishRelatedItems()
+            self.forwardWorkflowStateChangedRelatedItems()
 
         if self.element.backward_related_items:
-            self.publishBackRefs()
+            self.backwardWorkflowStateChangedRelatedItems()
 
         if self.element.asynchronous:
             pass
@@ -186,45 +206,73 @@ class RelatedItemsEditForm(EditForm):
     description = _(u"Change workflow state for related items.")
     form_name = _(u"Configure element")
 
-"""
-class BaseSubstitution(object):
-    implements(IStringSubstitution)
 
-    def __init__(self, context):
-        self.context = context
-
-    # __call__ is a wrapper for the subclassed
-    # adapter's actual substitution that makes sure we're
-    # not generating unauth exceptions or returning non-unicode.
-    def __call__(self):
-        try:
-            return safe_unicode(self.safe_call())
-        except Unauthorized:
-            return _(u'Unauthorized')
-"""
-
-from plone.stringinterp.adapters import BaseSubstitution
-class SubstitutionFWPublishedRelatedItems(BaseSubstitution):
+class CommentSubstitution(BaseSubstitution):
+    """In line comment string substitution
     """
-    Add substitution option for forward published related items
-    """
-    adapts(IContentish)
+    def __init__(self, context, **kwargs):
+        super(CommentSubstitution, self).__init__(context, **kwargs)
+        self._session = None
 
-    category = _(u'All Content')
-    description = _(u'TEEEEEEEST')
+    @property
+    def session(self):
+        """ User session
+        """
+        if self._session is None:
+            sdm = getattr(self.context, 'session_data_manager', None)
+            self._session = sdm.getSessionData(create=False) if sdm else {}
+        return self._session
+
+    @property
+    def workflow_transition_changed(self):
+        """ All items that changed transition with success.
+        """
+        if not self.session.get('succeeded'):
+            return "Couldn't " + str(self.session.get('transition')) + " none related items.\n"
+        succeeded_items = ""
+        succeeded_items += str(self.session.get('transition')).title()
+        succeeded_items += ' related items:\n'
+        for item in self.session.get('succeeded'):
+            succeeded_items += '- '
+            succeeded_items += str(item)
+            succeeded_items += '\n'
+        return succeeded_items
+
+    @property
+    def workflow_transition_unchanged(self):
+        """ All items that unchanged transition.
+        """
+        if not self.session.get('failed'):
+            return "All related items are " + str(self.session.get('transition')) + ".\n"
+        failed_items = ""
+        failed_items += 'Failed to '
+        failed_items += str(self.session.get('transition'))
+        failed_items += ' related items:\n'
+        for item in self.session.get('failed'):
+            failed_items += '- '
+            failed_items += str(item)
+            failed_items += '\n'
+        return failed_items
 
     def safe_call(self):
-        return "abcd"
+        """ Safe call
+        """
+        return getattr(self, self.attribute, u'')
 
 
-class SubstitutionBWPublishedRelatedItems(BaseSubstitution):
+class SubstitutionSucceededRelatedItems(CommentSubstitution):
     """
-    Add substitution option for backward published related items
+    Add substitution option for workflow transition changed with success.
     """
-    adapts(IContentish)
-
     category = _(u'All Content')
-    description = _(u'TEST2222')
+    description = _(u'All the items that changed transition with success.')
+    attribute = u'workflow_transition_changed'
 
-    def safe_call(self):
-        return "efgh"
+
+class SubstitutionFailedRelatedItems(CommentSubstitution):
+    """
+    Add substitution option for workflow transition chnaged with failure.
+    """
+    category = _(u'All Content')
+    description = _(u'All the items that failed to changed transition.')
+    attribute = u'workflow_transition_unchanged'
