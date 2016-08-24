@@ -84,4 +84,11 @@
     name="workflow_state_unchanged"
     />
 
+  <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".relateditems.SubstitutionWorkflowTransitionRelatedItems"
+    name="workflow_transition"
+    />
+
 </configure>
