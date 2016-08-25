@@ -46,7 +46,7 @@
 
   <browser:page
     for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
-      name="plone.actions.Relateditems"
+      name="eea.relations.workflow"
       class=".relateditems.RelatedItemsAddForm"
       permission="plone.app.contentrules.ManageContentRules"
       />
@@ -59,12 +59,12 @@
     />
 
   <plone:ruleAction
-    name="plone.actions.Relateditems"
+    name="eea.relations.workflow"
     title="Related items: workflow transition"
     description="description"
     for="*"
     event="*"
-    addview="plone.actions.Relateditems"
+    addview="eea.relations.workflow"
     editview="edit"
     schema=".relateditems.IRelatedItemsAction"
     factory=".relateditems.RelatedItemsAction"
@@ -73,21 +73,21 @@
   <adapter
     for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".relateditems.SubstitutionSucceededRelatedItems"
+    factory=".substitutions.SubstitutionSucceededRelatedItems"
     name="workflow_state_changed"
     />
 
   <adapter
     for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".relateditems.SubstitutionFailedRelatedItems"
+    factory=".substitutions.SubstitutionFailedRelatedItems"
     name="workflow_state_unchanged"
     />
 
   <adapter
     for="*"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".relateditems.SubstitutionWorkflowTransitionRelatedItems"
+    factory=".substitutions.SubstitutionWorkflowTransitionRelatedItems"
     name="workflow_transition"
     />
 
