@@ -33,6 +33,8 @@ EEA Relations features:
    on the relate items popup
 4. Nice visual diagram showning all the relations and restrictions you defined
    (Control Panel -> Possible relations)
+5. Possibility to automatically publish/retract object's related items/backward
+   references via Content-Rules.
 
 Install
 =======
@@ -95,7 +97,7 @@ Dependencies
 * pydot
 * eea.facetednavigation
 * collective.js.jqueryui normally installed by eea.facetednavigation. Make sure
-  that you are using the proper version for your plone installation and that 
+  that you are using the proper version for your plone installation and that
   the following effects are enabled::
 
       1. transfer
