@@ -1,6 +1,6 @@
 """ Custom events
 """
-from zope.interface import implements, implementer
+from zope.interface import implementer
 from zope.lifecycleevent import ObjectModifiedEvent
 from eea.relations.events.interfaces import IObjectInitializedEvent
 from eea.relations.events.interfaces import IRelatedItemsWorkflowStateChanged
@@ -8,10 +8,10 @@ from eea.relations.events.interfaces import IForwardRelatedItemsWSC
 from eea.relations.events.interfaces import IBackwardRelatedItemsWSC
 
 
+@implementer(IObjectInitializedEvent)
 class ObjectInitializedEvent(ObjectModifiedEvent):
     """ An object is being initialised, i.e. populated for the first time
     """
-    implements(IObjectInitializedEvent)
 
 
 @implementer(IRelatedItemsWorkflowStateChanged)
@@ -32,15 +32,13 @@ class RelatedItemsWorkflowStateChanged(object):
 
 @implementer(IForwardRelatedItemsWSC)
 class ForwardRelatedItemsWorkflowStateChanged(
-        RelatedItemsWorkflowStateChanged
-        ):
+        RelatedItemsWorkflowStateChanged):
     """ Related Items Workflow State Changed
     """
 
 
 @implementer(IBackwardRelatedItemsWSC)
 class BackwardRelatedItemsWorkflowStateChanged(
-        RelatedItemsWorkflowStateChanged
-        ):
+        RelatedItemsWorkflowStateChanged):
     """ Related Items Workflow State Changed
     """
