@@ -1,12 +1,11 @@
 """ Upgrades for eea.relations 7.8
 """
-
 import logging
 import transaction
 from persistent.list import PersistentList
 from Products.CMFCore.utils import getToolByName
-
 logger = logging.getLogger("eea.relations.upgrades")
+
 
 def fix_eea_refs(context):
     """
@@ -41,19 +40,19 @@ def fix_eea_refs(context):
                     logger.warn("'WARNING: Sparql with problems: %s",
                         brain.getPath())
             if should_fix_eea_refs:
-                if len(obj.eea_refs) > 0:
-                    there_are_fixes = False
-                    fixed_refs = []
-                    for ref in obj.eea_refs:
-                        if not isinstance(ref, basestring):
-                            there_are_fixes = True
-                            ref = ref.UID()
-                        fixed_refs.append(ref)
-                    if there_are_fixes:
-                        obj.eea_refs = PersistentList(fixed_refs)
-                        logger.info('INFO: object fixed: %s',
-                            brain.getPath())
-        except Exception:
-            logger.warn("'WARNING: brain with problems: %s",
-                        brain.getPath())
+                if not len(obj.eea_refs):
+                    continue
+                there_are_fixes = False
+                fixed_refs = []
+                for ref in obj.eea_refs:
+                    if not isinstance(ref, basestring):
+                        there_are_fixes = True
+                        ref = ref.UID()
+                    fixed_refs.append(ref)
+                if there_are_fixes:
+                    obj.eea_refs = PersistentList(fixed_refs)
+                    logger.info('INFO: object fixed: %s', brain.getPath())
+        except Exception, err:
+            logger.warn("'WARNING: brain with problems: %s, %s",
+                        brain.getPath(), err)
     logger.info("Done fixing eea_refs on objects")
