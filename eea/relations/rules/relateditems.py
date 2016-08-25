@@ -6,47 +6,18 @@ from zope.event import notify
 from zope.component import adapter
 from zope.formlib import form
 from zope.interface import implementer, Interface
-from zope import schema
 from OFS.SimpleItem import SimpleItem
 
 from plone import api
-from plone.app.contentrules import PloneMessageFactory as _
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 
+from eea.relations.config import EEAMessageFactory as _
 from eea.relations.events import ForwardRelatedItemsWorkflowStateChanged
 from eea.relations.events import BackwardRelatedItemsWorkflowStateChanged
+from eea.relations.rules.interfaces import IRelatedItemsAction
 
 logger = logging.getLogger('eea.relations')
-
-
-class IRelatedItemsAction(Interface):
-    """ Related Items Action
-    """
-    transition = schema.Choice(
-        title=_(u"Transition"),
-        description=_(u"Select the workflow transition to attempt"),
-        required=True,
-        vocabulary='plone.app.vocabularies.WorkflowTransitions'
-    )
-
-    related_items = schema.Bool(
-        title=_(u"Related items"),
-        required=False,
-        description=_("Attempt workflow transition on related items")
-    )
-
-    backward_related_items = schema.Bool(
-        title=_(u"Backward References"),
-        required=False,
-        description=_("Attempt workflow transition on backward references")
-    )
-
-    asynchronous = schema.Bool(
-        title=_(u"Asynchronous"),
-        required=False,
-        description=_("Perform action asynchronous")
-    )
 
 
 @implementer(IExecutable)
@@ -139,11 +110,10 @@ class RelatedItemsAction(SimpleItem):
     """ The actual persistent implementation of the action element.
     """
 
-    transition = ''
+    transition = u""
     related_items = False
     backward_related_items = False
     asynchronous = False
-
     element = "eea.relations.workflow"
 
     @property
@@ -166,9 +136,9 @@ class RelatedItemsAddForm(AddForm):
     form_name = _(u"Configure element")
 
     def create(self, data):
-        a = RelatedItemsAction()
-        form.applyChanges(a, self.form_fields, data)
-        return a
+        action = RelatedItemsAction()
+        form.applyChanges(action, self.form_fields, data)
+        return action
 
 
 class RelatedItemsEditForm(EditForm):
