@@ -3,6 +3,8 @@ Changelog
 
 8.4.dev0 - (unreleased)
 -----------------------
+* Feature: Implement related items
+  [catalin refs #70758]
 
 8.3 - (2016-05-19)
 ------------------

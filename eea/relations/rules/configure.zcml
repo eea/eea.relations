@@ -1,0 +1,94 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:plone="http://namespaces.plone.org/plone">
+
+  <include package="plone.app.contentrules" />
+
+  <!-- Custom content-rules events -->
+  <interface
+    interface="eea.relations.events.interfaces.IRelatedItemsWorkflowStateChanged"
+    type="plone.contentrules.rule.interfaces.IRuleEventType"
+    name="Related Items Workflow State Change"
+    />
+
+  <interface
+    interface="eea.relations.events.interfaces.IForwardRelatedItemsWSC"
+    type="plone.contentrules.rule.interfaces.IRuleEventType"
+    name="Related Items Workflow State Change [Forward]"
+    />
+
+  <interface
+    interface="eea.relations.events.interfaces.IBackwardRelatedItemsWSC"
+    type="plone.contentrules.rule.interfaces.IRuleEventType"
+    name="Related Items Workflow State Change [Backward]"
+    />
+
+  <!-- Content rules subscribers -->
+  <subscriber
+    for="eea.relations.events.interfaces.IRelatedItemsWorkflowStateChanged"
+    handler=".handlers.execute_event"
+    />
+
+  <subscriber
+    for="eea.relations.events.interfaces.IForwardRelatedItemsWSC"
+    handler=".handlers.execute_event"
+    />
+
+  <subscriber
+    for="eea.relations.events.interfaces.IBackwardRelatedItemsWSC"
+    handler=".handlers.execute_event"
+    />
+
+  <!-- Related Items action definition -->
+
+  <adapter factory=".relateditems.RelatedItemsActionExecutor" />
+
+  <browser:page
+    for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+      name="eea.relations.workflow"
+      class=".relateditems.RelatedItemsAddForm"
+      permission="plone.app.contentrules.ManageContentRules"
+      />
+
+  <browser:page
+    for=".relateditems.IRelatedItemsAction"
+    name="edit"
+    class=".relateditems.RelatedItemsEditForm"
+    permission="plone.app.contentrules.ManageContentRules"
+    />
+
+  <plone:ruleAction
+    name="eea.relations.workflow"
+    title="Related items: workflow transition"
+    description="description"
+    for="*"
+    event="*"
+    addview="eea.relations.workflow"
+    editview="edit"
+    schema=".relateditems.IRelatedItemsAction"
+    factory=".relateditems.RelatedItemsAction"
+    />
+
+  <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".substitutions.SubstitutionSucceededRelatedItems"
+    name="workflow_state_changed"
+    />
+
+  <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".substitutions.SubstitutionFailedRelatedItems"
+    name="workflow_state_unchanged"
+    />
+
+  <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".substitutions.SubstitutionWorkflowTransitionRelatedItems"
+    name="workflow_transition"
+    />
+
+</configure>
