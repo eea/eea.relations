@@ -4,6 +4,7 @@ import logging
 
 from zope.event import notify
 from zope.component import adapter
+from zope.component import queryUtility
 from zope.formlib import form
 from zope.interface import implementer, Interface
 from OFS.SimpleItem import SimpleItem
@@ -13,6 +14,7 @@ from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 
 from eea.relations.config import EEAMessageFactory as _
+from eea.relations.config import IAsyncService
 from eea.relations.events import ForwardRelatedItemsWorkflowStateChanged
 from eea.relations.events import BackwardRelatedItemsWorkflowStateChanged
 from eea.relations.rules.interfaces import IRelatedItemsAction
@@ -20,89 +22,97 @@ from eea.relations.rules.interfaces import IRelatedItemsAction
 logger = logging.getLogger('eea.relations')
 
 
+def forward_transition_change(obj, transition):
+    """ Forward workflow state changed related items
+    """
+    relatedItems = obj.getRelatedItems()
+    if not relatedItems:
+        return
+
+    succeeded = set()
+    failed = set()
+    for item in relatedItems:
+        try:
+            api.content.transition(obj=item, transition=transition)
+        except Exception, err:
+            logger.debug("%s: %s", item.absolute_url(), err)
+            failed.add(item.absolute_url())
+        else:
+            succeeded.add(item.absolute_url())
+
+    # notify(ForwardRelatedItemsWorkflowStateChanged(
+    #     obj, succeeded=succeeded, failed=failed, transition=transition))
+
+
+def backward_transition_change(obj, transition):
+    """ Backward workflow state changed related items
+    """
+    backRefs = obj.getBRefs()
+    if not backRefs:
+        return
+
+    succeeded = set()
+    failed = set()
+    for item in backRefs:
+        try:
+            api.content.transition(obj=item, transition=transition)
+        except Exception, err:
+            logger.debug("%s: %s", item.absolute_url(), err)
+            failed.add(item.absolute_url())
+        else:
+            succeeded.add(item.absolute_url())
+
+    # notify(BackwardRelatedItemsWorkflowStateChanged(
+    #     obj, succeeded=succeeded, failed=failed, transition=transition))
+
+
 @implementer(IExecutable)
 @adapter(Interface, IRelatedItemsAction, Interface)
 class RelatedItemsActionExecutor(object):
     """The executor for this action.
     """
-
     def __init__(self, context, element, event):
         self.context = context
         self.element = element
         self.event = event
 
-    def forward_transition_changed(self):
-        """ Forward workflow state changed related items
+    def forward(self):
+        """ Handle related items
         """
+        if not self.element.related_items:
+            return
 
-        obj = self.event.object
-        relatedItems = obj.getRelatedItems()
-        if not relatedItems:
-            return False
+        if not self.element.asynchronous:
+            return forward_transition_change(
+                self.event.object,
+                self.element.transition)
 
-        succeeded = set()
-        failed = set()
+        async = queryUtility(IAsyncService)
+        job = async.queueJob(
+            forward_transition_change,
+            self.event.object,
+            self.element.transition)
 
-        for item in relatedItems:
-            try:
-                api.content.transition(
-                        obj=item,
-                        transition=self.element.transition)
-                succeeded.add(item.absolute_url())
-            except Exception, err:
-                logger.debug("%s: %s", item.absolute_url(), err)
-                failed.add(item.absolute_url())
-                continue
-
-        event = ForwardRelatedItemsWorkflowStateChanged(
-                        obj,
-                        succeeded=succeeded,
-                        failed=failed,
-                        transition=self.element.transition
-                )
-        notify(event)
-        return True
-
-    def backward_transition_changed(self):
-        """ Backward workflow state changed related items
+    def backward(self):
+        """ Handle back refs
         """
+        if not self.element.backward_related_items:
+            return
 
-        obj = self.event.object
-        backRefs = obj.getBRefs()
-        if not backRefs:
-            return False
+        if not self.element.asynchronous:
+            return backward_transition_change(
+                self.event.object,
+                self.element.transition)
 
-        succeeded = set()
-        failed = set()
-
-        for item in backRefs:
-            try:
-                api.content.transition(
-                                obj=item,
-                                transition=self.element.transition)
-                succeeded.add(item.absolute_url())
-            except Exception, err:
-                logger.debug("%s: %s", item.absolute_url(), err)
-                failed.add(item.absolute_url())
-                continue
-        event = BackwardRelatedItemsWorkflowStateChanged(
-                        obj,
-                        succeeded=succeeded,
-                        failed=failed,
-                        transition=self.element.transition
-                )
-        notify(event)
-        return True
+        async = queryUtility(IAsyncService)
+        job = async.queueJob(
+            backward_transition_change,
+            self.event.object,
+            self.element.transition)
 
     def __call__(self):
-        if self.element.related_items:
-            self.forward_transition_changed()
-
-        if self.element.backward_related_items:
-            self.backward_transition_changed()
-
-        if self.element.asynchronous:
-            logger.warn("Not implemented yet")
+        self.forward()
+        self.backward()
 
 
 @implementer(IRelatedItemsAction, IRuleElementData)

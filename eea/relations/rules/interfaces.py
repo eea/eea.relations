@@ -2,7 +2,8 @@
 """
 from zope import schema
 from zope.interface import Interface
-from eea.relations.config import EEAMessageFactory as _, ASYNC
+from eea.relations.config import IAsyncService
+from eea.relations.config import EEAMessageFactory as _
 
 
 class IRelatedItemsAction(Interface):
@@ -27,7 +28,7 @@ class IRelatedItemsAction(Interface):
         description=_(u"Attempt workflow transition on backward references")
     )
 
-    if ASYNC:
+    if 'queueJob' in IAsyncService:
         asynchronous = schema.Bool(
             title=_(u"Asynchronous"),
             required=False,
