@@ -79,11 +79,7 @@ class RelatedItemsActionExecutor(object):
                         transition=self.element.transition)
                 succeeded.add(item.absolute_url())
             except Exception, err:
-                logger.warn(
-                        "%s: %s",
-                        err.message.format(action_id=self.element.transition),
-                        item.absolute_url()
-                )
+                logger.debug("%s: %s", item.absolute_url(), err)
                 failed.add(item.absolute_url())
                 continue
 
@@ -115,11 +111,7 @@ class RelatedItemsActionExecutor(object):
                                 transition=self.element.transition)
                 succeeded.add(item.absolute_url())
             except Exception, err:
-                logger.warn(
-                        "%s: %s",
-                        err.message.format(action_id=self.element.transition),
-                        item.absolute_url()
-                )
+                logger.debug("%s: %s", item.absolute_url(), err)
                 failed.add(item.absolute_url())
                 continue
         event = BackwardRelatedItemsWorkflowStateChanged(
