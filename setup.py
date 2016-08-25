@@ -44,6 +44,7 @@ setup(name=NAME,
           'pydot',
           'eea.jquery > 8.0',
           'eea.facetednavigation',
+          'plone.api',
           'Products.TALESField',
       ],
       extras_require={
