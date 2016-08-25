@@ -1,9 +1,10 @@
 Changelog
 =========
 
-8.4.dev0 - (unreleased)
+9.0.dev0 - (unreleased)
 -----------------------
-* Feature: Implement related items
+* Feature: Added possibility to automatically publish/retract object's related items
+  and/or backward references via Content-Rules
   [catalin refs #70758]
 
 8.3 - (2016-05-19)
