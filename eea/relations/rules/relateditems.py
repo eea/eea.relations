@@ -136,6 +136,8 @@ class RelatedItemsAddForm(AddForm):
     form_name = _(u"Configure element")
 
     def create(self, data):
+        """ Create action
+        """
         action = RelatedItemsAction()
         form.applyChanges(action, self.form_fields, data)
         return action
