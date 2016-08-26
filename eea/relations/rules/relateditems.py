@@ -2,68 +2,22 @@
 """
 import logging
 
-from zope.event import notify
 from zope.component import adapter
 from zope.component import queryUtility
 from zope.formlib import form
 from zope.interface import implementer, Interface
 from OFS.SimpleItem import SimpleItem
 
-from plone import api
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 
 from eea.relations.config import EEAMessageFactory as _
 from eea.relations.config import IAsyncService
-from eea.relations.events import ForwardRelatedItemsWorkflowStateChanged
-from eea.relations.events import BackwardRelatedItemsWorkflowStateChanged
 from eea.relations.rules.interfaces import IRelatedItemsAction
+from eea.relations.rules.async import forward_transition_change
+from eea.relations.rules.async import backward_transition_change
 
 logger = logging.getLogger('eea.relations')
-
-
-def forward_transition_change(obj, transition):
-    """ Forward workflow state changed related items
-    """
-    relatedItems = obj.getRelatedItems()
-    if not relatedItems:
-        return
-
-    succeeded = set()
-    failed = set()
-    for item in relatedItems:
-        try:
-            api.content.transition(obj=item, transition=transition)
-        except Exception, err:
-            logger.debug("%s: %s", item.absolute_url(), err)
-            failed.add(item.absolute_url())
-        else:
-            succeeded.add(item.absolute_url())
-
-    # notify(ForwardRelatedItemsWorkflowStateChanged(
-    #     obj, succeeded=succeeded, failed=failed, transition=transition))
-
-
-def backward_transition_change(obj, transition):
-    """ Backward workflow state changed related items
-    """
-    backRefs = obj.getBRefs()
-    if not backRefs:
-        return
-
-    succeeded = set()
-    failed = set()
-    for item in backRefs:
-        try:
-            api.content.transition(obj=item, transition=transition)
-        except Exception, err:
-            logger.debug("%s: %s", item.absolute_url(), err)
-            failed.add(item.absolute_url())
-        else:
-            succeeded.add(item.absolute_url())
-
-    # notify(BackwardRelatedItemsWorkflowStateChanged(
-    #     obj, succeeded=succeeded, failed=failed, transition=transition))
 
 
 @implementer(IExecutable)
@@ -88,7 +42,7 @@ class RelatedItemsActionExecutor(object):
                 self.element.transition)
 
         async = queryUtility(IAsyncService)
-        job = async.queueJob(
+        async.queueJob(
             forward_transition_change,
             self.event.object,
             self.element.transition)
@@ -105,7 +59,7 @@ class RelatedItemsActionExecutor(object):
                 self.element.transition)
 
         async = queryUtility(IAsyncService)
-        job = async.queueJob(
+        async.queueJob(
             backward_transition_change,
             self.event.object,
             self.element.transition)
