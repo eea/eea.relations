@@ -1,8 +1,11 @@
 Changelog
 =========
 
-9.0.dev0 - (unreleased)
+9.1.dev0 - (unreleased)
 -----------------------
+
+9.0 - (2016-08-29)
+------------------
 * Feature: Added possibility to automatically publish/retract object's related items
   and/or backward references via Content-Rules
   [catalin refs #70758]
