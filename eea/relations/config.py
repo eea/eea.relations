@@ -2,13 +2,14 @@
 """
 from eea.relations import graph
 from zope.i18nmessageid import MessageFactory
+from zope.interface import Interface
 try:
     from plone.app.async import interfaces
     IAsyncService = interfaces.IAsyncService
 except (ImportError, AttributeError):
-    ASYNC = False
-else:
-    ASYNC = True
+    class IAsyncService(Interface):
+        """ Fallback async service
+        """
 
 EEAMessageFactory = MessageFactory('eea')
 GRAPHVIZ_PATHS = graph.GRAPHVIZ_PATHS

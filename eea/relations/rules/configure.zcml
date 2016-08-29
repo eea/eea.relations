@@ -46,10 +46,10 @@
 
   <browser:page
     for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
-      name="eea.relations.workflow"
-      class=".relateditems.RelatedItemsAddForm"
-      permission="plone.app.contentrules.ManageContentRules"
-      />
+    name="eea.relations.workflow"
+    class=".relateditems.RelatedItemsAddForm"
+    permission="plone.app.contentrules.ManageContentRules"
+    />
 
   <browser:page
     for=".interfaces.IRelatedItemsAction"
@@ -70,25 +70,26 @@
     factory=".relateditems.RelatedItemsAction"
     />
 
+  <!-- Custom string substitutions -->
   <adapter
-    for="*"
+    for=".interfaces.IContextWrapper"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".substitutions.SubstitutionSucceededRelatedItems"
-    name="workflow_state_changed"
+    factory=".substitutions.RelatedItemsSucceeded"
+    name="related_items_changed"
     />
 
   <adapter
-    for="*"
+    for=".interfaces.IContextWrapper"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".substitutions.SubstitutionFailedRelatedItems"
-    name="workflow_state_unchanged"
+    factory=".substitutions.RelatedItemsFailed"
+    name="related_items_unchanged"
     />
 
   <adapter
-    for="*"
+    for=".interfaces.IContextWrapper"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".substitutions.SubstitutionWorkflowTransitionRelatedItems"
-    name="workflow_transition"
+    factory=".substitutions.RelatedItemsTransition"
+    name="related_items_transition"
     />
 
 </configure>
