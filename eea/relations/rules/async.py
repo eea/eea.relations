@@ -34,9 +34,9 @@ def forward_transition_change(obj, transition):
     wrapper = queryAdapter(obj, IContextWrapper)
     if wrapper is not None:
         obj = wrapper(
-            succeeded=succeeded,
-            failed=failed,
-            transition=transition)
+            related_items_changed=succeeded,
+            related_items_unchanged=failed,
+            related_items_transition=transition)
 
     event.notify(ForwardRelatedItemsWorkflowStateChanged(obj))
 
@@ -65,8 +65,8 @@ def backward_transition_change(obj, transition):
     wrapper = queryAdapter(obj, IContextWrapper)
     if wrapper is not None:
         obj = wrapper(
-            succeeded=succeeded,
-            failed=failed,
-            transition=transition)
+            related_items_changed=succeeded,
+            related_items_unchanged=failed,
+            related_items_transition=transition)
 
     event.notify(BackwardRelatedItemsWorkflowStateChanged(obj))

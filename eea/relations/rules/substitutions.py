@@ -14,21 +14,21 @@ class RelatedItemsSubstitution(BaseSubstitution):
     def related_items_changed(self):
         """ All items that changed transition with success.
         """
-        succeeded = getattr(self.context, "succeeded", [])
+        succeeded = getattr(self.wrapper, "related_items_changed", [])
         return u"\n".join(succeeded)
 
     @property
     def related_items_unchanged(self):
         """ All items that unchanged transition.
         """
-        failed = getattr(self.context, "failed", [])
+        failed = getattr(self.wrapper, "related_items_unchanged", [])
         return u"\n".join(failed)
 
     @property
     def related_items_transition(self):
         """ Workflow transition.
         """
-        return getattr(self.context, "transition", "")
+        return getattr(self.wrapper, "related_items_transition", "")
 
     def safe_call(self):
         """ Safe call
