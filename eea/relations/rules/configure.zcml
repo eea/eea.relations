@@ -74,6 +74,13 @@
   <adapter
     for=".interfaces.IContextWrapper"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".substitutions.RelatedItemsUrl"
+    name="related_items_url"
+    />
+
+  <adapter
+    for=".interfaces.IContextWrapper"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
     factory=".substitutions.RelatedItemsSucceeded"
     name="related_items_changed"
     />

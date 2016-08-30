@@ -30,11 +30,24 @@ class RelatedItemsSubstitution(BaseSubstitution):
         """
         return getattr(self.wrapper, "related_items_transition", "")
 
+    @property
+    def related_items_url(self):
+        """ URL.
+        """
+        return getattr(self.wrapper, "related_items_url", "")
+
     def safe_call(self):
         """ Safe call
         """
         return getattr(self, self.attribute, u'')
 
+
+class RelatedItemsUrl(RelatedItemsSubstitution):
+    """ Add substitution option for object's url.
+    """
+    category = _(u'Related items')
+    description = _(u"Related items context URL")
+    attribute = u'related_items_url'
 
 class RelatedItemsSucceeded(RelatedItemsSubstitution):
     """ Add substitution option for workflow transition changed with success.
