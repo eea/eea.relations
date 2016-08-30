@@ -3,6 +3,8 @@ Changelog
 
 9.1.dev0 - (unreleased)
 -----------------------
+* Bug fix: Fix Related items URLs within Content-Rules
+  [voineali refs #70758]
 
 9.0 - (2016-08-29)
 ------------------

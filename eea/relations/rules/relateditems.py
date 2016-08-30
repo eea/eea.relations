@@ -4,6 +4,7 @@ import logging
 
 from zope.component import adapter
 from zope.component import queryUtility
+from zope.component.hooks import getSite
 from zope.formlib import form
 from zope.interface import implementer, Interface
 from OFS.SimpleItem import SimpleItem
@@ -36,33 +37,43 @@ class RelatedItemsActionExecutor(object):
         if not self.element.related_items:
             return
 
+        portal_url = getSite().absolute_url()
         if not self.element.asynchronous:
             return forward_transition_change(
                 self.event.object,
-                self.element.transition)
+                self.element.transition,
+                portal_url
+            )
 
         async = queryUtility(IAsyncService)
         async.queueJob(
             forward_transition_change,
             self.event.object,
-            self.element.transition)
+            self.element.transition,
+            portal_url
+        )
 
     def backward(self):
         """ Handle back refs
         """
+        portal_url = getSite().absolute_url()
         if not self.element.backward_related_items:
             return
 
         if not self.element.asynchronous:
             return backward_transition_change(
                 self.event.object,
-                self.element.transition)
+                self.element.transition,
+                portal_url
+            )
 
         async = queryUtility(IAsyncService)
         async.queueJob(
             backward_transition_change,
             self.event.object,
-            self.element.transition)
+            self.element.transition,
+            portal_url
+        )
 
     def __call__(self):
         self.forward()
