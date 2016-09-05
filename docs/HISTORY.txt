@@ -1,8 +1,11 @@
 Changelog
 =========
 
-9.1.dev0 - (unreleased)
+9.2.dev0 - (unreleased)
 -----------------------
+
+9.1 - (2016-09-05)
+------------------
 * Bug fix: Fix Related items URLs within Content-Rules
   [voineali refs #70758]
 
