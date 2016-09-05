@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.2.dev0 - (unreleased)
------------------------
+9.2 - (2016-09-05)
+------------------
 * Bug fix: take into consideration that during tests relatedItems
   might not have access to plone.app.async queue
   [ichim-david refs #75480]
