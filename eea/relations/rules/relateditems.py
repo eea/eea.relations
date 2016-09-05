@@ -2,6 +2,7 @@
 """
 import logging
 
+from zope.component import ComponentLookupError
 from zope.component import adapter
 from zope.component import queryUtility
 from zope.component.hooks import getSite
@@ -44,14 +45,20 @@ class RelatedItemsActionExecutor(object):
                 self.element.transition,
                 portal_url
             )
-
         async = queryUtility(IAsyncService)
-        async.queueJob(
-            forward_transition_change,
-            self.event.object,
-            self.element.transition,
-            portal_url
-        )
+        try:
+            async.queueJob(
+                forward_transition_change,
+                self.event.object,
+                self.element.transition,
+                portal_url
+            )
+        except ComponentLookupError:
+            return forward_transition_change(
+                self.event.object,
+                self.element.transition,
+                portal_url
+            )
 
     def backward(self):
         """ Handle back refs
@@ -59,21 +66,26 @@ class RelatedItemsActionExecutor(object):
         portal_url = getSite().absolute_url()
         if not self.element.backward_related_items:
             return
-
         if not self.element.asynchronous:
             return backward_transition_change(
                 self.event.object,
                 self.element.transition,
                 portal_url
             )
-
         async = queryUtility(IAsyncService)
-        async.queueJob(
-            backward_transition_change,
-            self.event.object,
-            self.element.transition,
-            portal_url
-        )
+        try:
+            async.queueJob(
+                backward_transition_change,
+                self.event.object,
+                self.element.transition,
+                portal_url
+            )
+        except ComponentLookupError:
+            return backward_transition_change(
+                self.event.object,
+                self.element.transition,
+                portal_url
+            )
 
     def __call__(self):
         self.forward()
