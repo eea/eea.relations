@@ -3,6 +3,8 @@ Changelog
 
 9.3.dev0 - (unreleased)
 -----------------------
+* Change: Added dependency to plone.stringinterp 1.0.14+
+  [avoinea]
 
 9.2 - (2016-09-05)
 ------------------
