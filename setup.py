@@ -45,6 +45,7 @@ setup(name=NAME,
           'eea.jquery > 8.0',
           'eea.facetednavigation',
           'plone.api',
+          'plone.stringinterp >= 1.0.14',
           'Products.TALESField',
       ],
       extras_require={
