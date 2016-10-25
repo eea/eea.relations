@@ -52,6 +52,14 @@ class RelationsToolAccessor(object):
         """
         kwargs.setdefault('portal_type', 'EEARelationsContentType')
         kwargs.setdefault('review_state', '')
+
+        # 75296 context does not have access to getFolderContent within an
+        # async instance
+        hasFolderContents = getattr(self.context, 'getFolderContents',
+                lambda contentFilter=None: '')
+        if not hasFolderContents:
+            yield ""
+
         brains = self.context.getFolderContents(contentFilter=kwargs)
         for brain in brains:
             if not proxy:
