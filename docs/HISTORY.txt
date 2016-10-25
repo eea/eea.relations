@@ -3,6 +3,9 @@ Changelog
 
 9.4.dev0 - (unreleased)
 -----------------------
+* Change: check if getFolderContents is present when checking the relation
+  tool types otherwise we get an error within an async operation
+  [ichim-david refs #75296]
 
 9.3 - (2016-10-03)
 ------------------
