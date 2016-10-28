@@ -13,7 +13,7 @@ setup(name=NAME,
                    "way to manage relations in a Plone site. it provides a new "
                    "reference browser widget and a central management "
                    "interface for relations, their labels and requirements."),
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
           "Framework :: Zope2",
