@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.5.dev0 - (unreleased)
+-----------------------
+
 9.4 - (2016-10-31)
 ------------------
 * Change: check if getFolderContents is present when checking the relation
