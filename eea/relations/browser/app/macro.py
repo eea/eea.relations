@@ -49,9 +49,11 @@ class Macro(BrowserView):
             if not relation:
                 continue
             relation_language = relation.getLanguage()
-            if context_language != relation_language:
-                canonical_relation = relation.getCanonical()
-                if canonical_relation in relations_set:
+            if context_language == relation_language:
+                continue
+            canonical_relation = relation.getCanonical()
+            if canonical_relation in relations_set:
+                if relation in relations_set:
                     relations_set.remove(relation)
         filtered_relations = list(relations_set)
         return filtered_relations
