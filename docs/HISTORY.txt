@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.5.dev0 - (unreleased)
------------------------
+9.5 - (2017-02-14)
+------------------
 * Bug fix: Fix  `filter_relation_translations`
   [voineali refs #81658]
 
