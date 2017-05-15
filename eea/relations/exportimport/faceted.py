@@ -2,10 +2,10 @@
 """
 #from zope import event
 from eea.relations.interfaces import IFacetedNavigable
-from Products.GenericSetup.utils import XMLAdapterBase
 from eea.relations.exportimport.contenttype import ContentTypeXMLAdapter
 from eea.facetednavigation.exportimport.faceted import \
      FacetedNavigableXMLAdapter as FacetedXMLAdapter
+from Products.GenericSetup.utils import XMLAdapterBase
 
 class FacetedNavigableXMLAdapter(XMLAdapterBase):
     """ Generic setup import/export xml adapter

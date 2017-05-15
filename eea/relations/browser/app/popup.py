@@ -2,8 +2,8 @@
 """
 import logging
 from Products.Five.browser import BrowserView
-from eea.relations.component import queryForwardRelations
 from Products.CMFCore.utils import getToolByName
+from eea.relations.component import queryForwardRelations
 
 logger = logging.getLogger('eea.relations.browser.popup')
 

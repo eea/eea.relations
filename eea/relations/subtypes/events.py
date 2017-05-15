@@ -2,16 +2,15 @@
 """
 from zope.component import queryMultiAdapter
 from zope.interface import alsoProvides, noLongerProvides
+from zope.component import queryAdapter
 from Products.GenericSetup.interfaces import IBody
 from Products.GenericSetup.context import SnapshotImportContext
-
+from Products.CMFCore.utils import getToolByName
 from eea.relations.subtypes.interfaces import (
     IOriginalFacetedNavigable,
     IFacetedNavigable,
 )
 from eea.relations.interfaces import IToolAccessor
-from Products.CMFCore.utils import getToolByName
-from zope.component import queryAdapter
 
 def subtype(obj, evt):
     """ Subtype as faceted navigable

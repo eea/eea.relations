@@ -1,8 +1,8 @@
 """ XML Adapter
 """
 from eea.relations.interfaces import IRelation
-from Products.GenericSetup.utils import XMLAdapterBase
 from eea.relations.content.relation import RelationSchema
+from Products.GenericSetup.utils import XMLAdapterBase
 
 class RelationXMLAdapter(XMLAdapterBase):
     """ Generic setup import/export xml adapter

@@ -3,8 +3,8 @@
 import logging
 import urlparse
 from zope import event
-from plone import api
 from zope.component import queryAdapter
+from plone import api
 from eea.relations.events import ForwardRelatedItemsWorkflowStateChanged
 from eea.relations.events import BackwardRelatedItemsWorkflowStateChanged
 from eea.relations.rules.interfaces import IContextWrapper
