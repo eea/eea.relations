@@ -1,10 +1,9 @@
 """ View macro utils
 """
 from Products.Five.browser import BrowserView
+from Products.CMFCore.utils import getToolByName
 from eea.relations.component import getForwardRelationWith
 from eea.relations.component import getBackwardRelationWith
-from Products.CMFCore.utils import getToolByName
-
 from plone.memoize.view import memoize
 
 
@@ -171,4 +170,3 @@ class Macro(BrowserView):
                                                y.effective()),
                            reverse=True)
         return tabs
-

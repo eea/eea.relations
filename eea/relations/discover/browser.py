@@ -5,9 +5,8 @@ from zope.component import queryAdapter
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from eea.relations.interfaces import IAutoRelations
-from AccessControl import Unauthorized
 from eea.relations.discover.interfaces import IBrowserView
-
+from AccessControl import Unauthorized
 
 class View(BrowserView):
     """ Display auto discovered relations

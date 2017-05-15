@@ -2,15 +2,14 @@
 """
 from Products.CMFCore import utils as cmfutils
 from Products.Archetypes.atapi import process_types, listTypes
-from eea.relations.config import (
-    PROJECTNAME,
-    ADD_CONTENT_PERMISSION
-)
-
 from Products.Archetypes.atapi import registerType
 from eea.relations.content.tool import EEARelationsTool
 from eea.relations.content.contenttype import EEARelationsContentType
 from eea.relations.content.relation import EEAPossibleRelation
+from eea.relations.config import (
+    PROJECTNAME,
+    ADD_CONTENT_PERMISSION
+)
 
 registerType(EEARelationsTool, PROJECTNAME)
 registerType(EEARelationsContentType, PROJECTNAME)

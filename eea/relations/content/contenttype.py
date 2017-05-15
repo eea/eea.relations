@@ -4,9 +4,8 @@ from zope import event
 from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
-from eea.relations.events import ObjectInitializedEvent
 from Products.TALESField import TALESString
-
+from eea.relations.events import ObjectInitializedEvent
 from eea.relations.content.interfaces import IContentType
 
 EditSchema = ATFolder.schema.copy() + atapi.Schema((
