@@ -45,9 +45,9 @@ class RelatedItemsActionExecutor(object):
                 self.element.transition,
                 portal_url
             )
-        async = queryUtility(IAsyncService)
+        async_service = queryUtility(IAsyncService)
         try:
-            async.queueJob(
+            async_service.queueJob(
                 forward_transition_change,
                 self.event.object,
                 self.element.transition,
@@ -72,9 +72,9 @@ class RelatedItemsActionExecutor(object):
                 self.element.transition,
                 portal_url
             )
-        async = queryUtility(IAsyncService)
+        async_service = queryUtility(IAsyncService)
         try:
-            async.queueJob(
+            async_service.queueJob(
                 backward_transition_change,
                 self.event.object,
                 self.element.transition,
@@ -108,9 +108,9 @@ class RelatedItemsAction(SimpleItem):
         """ Need to access the content rule with the related items action.
         """
         return _(
-                u"Execute transition ${transition}",
-                mapping=dict(transition=self.transition)
-                )
+            u"Execute transition ${transition}",
+            mapping=dict(transition=self.transition)
+        )
 
 
 class RelatedItemsAddForm(AddForm):

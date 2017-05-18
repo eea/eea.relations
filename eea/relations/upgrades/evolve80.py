@@ -40,7 +40,7 @@ def fix_eea_refs(context):
                     logger.warn("'WARNING: Sparql with problems: %s",
                         brain.getPath())
             if should_fix_eea_refs:
-                if not len(obj.eea_refs):
+                if not obj.eea_refs:
                     continue
                 there_are_fixes = False
                 fixed_refs = []

@@ -8,6 +8,7 @@ from eea.relations.interfaces import IAutoRelations
 from eea.relations.discover.interfaces import IBrowserView
 from AccessControl import Unauthorized
 
+
 class View(BrowserView):
     """ Display auto discovered relations
     """
@@ -33,7 +34,7 @@ class View(BrowserView):
         """
         for tab, brains in tupleResult:
             brains = [b for b in self.checkPermission(brains)]
-            if not len(brains):
+            if not brains:
                 continue
             yield tab, brains
 
