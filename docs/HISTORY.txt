@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.8.dev0 - (unreleased)
------------------------
+9.8 - (2017-05-22)
+------------------
 * Change: Add dedicated async quota for relations jobs
   [avoinea refs #84915]
 * Change: fixed PyLint warnings and errors
