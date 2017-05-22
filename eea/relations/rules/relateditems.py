@@ -14,7 +14,7 @@ from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 from plone.contentrules.rule.interfaces import IExecutable, IRuleElementData
 
 from eea.relations.config import EEAMessageFactory as _
-from eea.relations.config import IAsyncService
+from eea.relations.async import IAsyncService
 from eea.relations.rules.interfaces import IRelatedItemsAction
 from eea.relations.rules.async import forward_transition_change
 from eea.relations.rules.async import backward_transition_change
@@ -47,13 +47,15 @@ class RelatedItemsActionExecutor(object):
             )
         async_service = queryUtility(IAsyncService)
         try:
-            async_service.queueJob(
+            async_queue = async_service.getQueues()['']
+            async_service.queueJobInQueue(
+                async_queue, ('relations',),
                 forward_transition_change,
                 self.event.object,
                 self.element.transition,
                 portal_url
             )
-        except ComponentLookupError:
+        except (AttributeError, ComponentLookupError):
             return forward_transition_change(
                 self.event.object,
                 self.element.transition,
@@ -74,13 +76,15 @@ class RelatedItemsActionExecutor(object):
             )
         async_service = queryUtility(IAsyncService)
         try:
-            async_service.queueJob(
+            async_queue = async_service.getQueues()['']
+            async_service.queueJobInQueue(
+                async_queue, ('relations',),
                 backward_transition_change,
                 self.event.object,
                 self.element.transition,
                 portal_url
             )
-        except ComponentLookupError:
+        except (AttributeError, ComponentLookupError):
             return backward_transition_change(
                 self.event.object,
                 self.element.transition,

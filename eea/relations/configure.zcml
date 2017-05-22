@@ -8,6 +8,7 @@
   <include file="profiles.zcml" />
   <include file="skins.zcml" />
 
+  <include package=".async" />
   <include package=".browser" />
   <include package=".subtypes" />
   <include package=".vocabulary" />
