@@ -2,7 +2,7 @@
 """
 from zope import schema
 from zope.interface import Interface
-from eea.relations.config import IAsyncService
+from eea.relations.async import IAsyncService
 from eea.relations.config import EEAMessageFactory as _
 from plone.stringinterp.interfaces import IContextWrapper
 

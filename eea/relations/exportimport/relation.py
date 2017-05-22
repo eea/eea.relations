@@ -4,6 +4,7 @@ from eea.relations.interfaces import IRelation
 from eea.relations.content.relation import RelationSchema
 from Products.GenericSetup.utils import XMLAdapterBase
 
+
 class RelationXMLAdapter(XMLAdapterBase):
     """ Generic setup import/export xml adapter
     """
@@ -51,11 +52,11 @@ class RelationXMLAdapter(XMLAdapterBase):
                     continue
                 elements.append(element.getAttribute('value'))
             if elements:
-                value = (not purge) and elements or []
+                value = elements if not purge else []
             else:
                 value = self._getNodeText(child)
                 value = value.decode('utf-8')
-                value = (not purge) and value or u''
+                value = value if not purge else u''
 
             if name in ('required',):
                 value = self._convertToBoolean(value)
