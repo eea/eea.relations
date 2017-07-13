@@ -1,11 +1,11 @@
 """ Components
 """
 import logging
+import types
 from zope.component import queryAdapter
 from eea.relations.interfaces import IContentType
 from eea.relations.component.interfaces import IContentTypeLookUp
 from eea.relations.component.interfaces import IRelationsLookUp
-import types
 
 logger = logging.getLogger('eea.relations.queryContentType')
 
