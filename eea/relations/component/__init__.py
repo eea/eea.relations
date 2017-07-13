@@ -5,18 +5,22 @@ from zope.component import queryAdapter
 from eea.relations.interfaces import IContentType
 from eea.relations.component.interfaces import IContentTypeLookUp
 from eea.relations.component.interfaces import IRelationsLookUp
+import types
 
 logger = logging.getLogger('eea.relations.queryContentType')
+
 
 def queryContentType(context, inverse_interface_check=False):
     """ Lookup for context related content-type in portal_relations
     """
     connecter = queryAdapter(context, IContentTypeLookUp)
     if not connecter:
-        logger.exception('No IContentTypeLookUp adapter found for '
-                         '%s', context)
+        if not isinstance(context, types.MethodType):
+            logger.exception('No IContentTypeLookUp adapter found for '
+                             '%s', context)
         return None
     return connecter(inverse_interface_check)
+
 
 def queryForwardRelations(context):
     """ Lookup for context possible forward relations
@@ -33,6 +37,7 @@ def queryForwardRelations(context):
     for relation in connecter.forward():
         yield relation
 
+
 def queryBackwardRelations(context):
     """ Lookup for context possible backward relations
     """
@@ -47,6 +52,7 @@ def queryBackwardRelations(context):
         return
     for relation in connecter.backward():
         yield relation
+
 
 def getForwardRelationWith(context, ctype):
     """ Get forward relation with ctype
@@ -77,6 +83,7 @@ def getForwardRelationWith(context, ctype):
         return connecter.forward_with(ctype_res)
     else:
         return result
+
 
 def getBackwardRelationWith(context, ctype):
     """ Get backward relation with ctype
