@@ -3,6 +3,10 @@ Changelog
 
 9.9.dev0 - (unreleased)
 -----------------------
+* Bug fix: fixed an exception in queryContentType when
+  the context ended up being plone view method instead of
+  an object
+  [ichim-david refs #85791]
 
 9.8 - (2017-05-22)
 ------------------
