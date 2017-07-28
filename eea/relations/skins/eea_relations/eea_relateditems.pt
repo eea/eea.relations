@@ -40,7 +40,7 @@ Optional parameters:
   </tal:relatedTitle>
   <div class="sorter_ctl" style="margin-bottom: 1.5em; display:none;">
       <label for="sort_by"> <span i18n:translate="">Sort by:</span>
-          <select name="sort_by">
+          <select name="sort_by" id="sort_by">
               <option value="effective" i18n:translate="">Publishing date
               </option>
               <option value="title" i18n:translate="">Title</option>

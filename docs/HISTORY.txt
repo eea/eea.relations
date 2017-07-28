@@ -7,6 +7,11 @@ Changelog
   the context ended up being plone view method instead of
   an object
   [ichim-david refs #85791]
+* Bug fix W3C compliance modifications
+  [valipod refs #86295]
+* Upgrade step: Remove customized views at **ZMI > portal_skins/custom:
+  eea_relateditems
+  [valipod refs #86295]
 
 9.8 - (2017-05-22)
 ------------------
