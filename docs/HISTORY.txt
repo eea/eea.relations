@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.9.dev0 - (unreleased)
------------------------
+9.9 - (2017-08-16)
+------------------
 * Bug fix: fixed an exception in queryContentType when
   the context ended up being plone view method instead of
   an object
