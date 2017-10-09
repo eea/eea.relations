@@ -4,7 +4,6 @@
 
   <include package="eea.facetednavigation" file="minimal.zcml" />
 
-  <include file="documentation.zcml" />
   <include file="profiles.zcml" />
   <include file="skins.zcml" />
 
