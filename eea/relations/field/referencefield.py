@@ -1,7 +1,7 @@
 """ Reference field
 """
 from persistent.list import PersistentList
-
+from Acquisition import aq_base
 from Products.validation import ValidationChain
 from Products.Archetypes.atapi import ReferenceField
 
@@ -43,7 +43,7 @@ class EEAReferenceField(ReferenceField):
         """
         # 30288 value needs to be a list of values and not a single object
         # for situations where only one relation is added
-        if not isinstance(value, list):
+        if not isinstance(value, list) and value:
             t = value
             value = []
             value.append(t)
@@ -63,7 +63,7 @@ class EEAReferenceField(ReferenceField):
         """ If exists, use the values from eea_refs attribute
         """
         res = super(EEAReferenceField, self).getRaw(instance, aslist, **kwargs)
-        if not hasattr(instance, "eea_refs"):
+        if not hasattr(aq_base(instance), "eea_refs"):
             return res
 
         return [r for r in instance.eea_refs]

@@ -43,7 +43,7 @@ setup(name=NAME,
           # -*- Extra requirements: -*-
           'pydot',
           'eea.jquery > 8.0',
-          'eea.facetednavigation',
+          'eea.facetednavigation > 10.0',
           'plone.api',
           'plone.stringinterp >= 1.0.14',
           'Products.TALESField',

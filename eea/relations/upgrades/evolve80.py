@@ -2,10 +2,11 @@
 """
 import logging
 import transaction
+from Acquisition import aq_base
 from persistent.list import PersistentList
 from Products.CMFCore.utils import getToolByName
-logger = logging.getLogger("eea.relations.upgrades")
 
+logger = logging.getLogger("eea.relations.upgrades")
 
 def fix_eea_refs(context):
     """
@@ -28,7 +29,7 @@ def fix_eea_refs(context):
         try:
             obj = brain.getObject()
             should_fix_eea_refs = True
-            if not hasattr(obj, "eea_refs"):
+            if not hasattr(aq_base(obj), "eea_refs"):
                 should_fix_eea_refs = False
             if obj.meta_type == 'Sparql':
                 try:
