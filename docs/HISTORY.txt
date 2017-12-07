@@ -3,6 +3,11 @@ Changelog
 
 10.1.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed the issue preventing the existing relations being listed
+  under edit.
+  [alecghica refs #78945]
+* Bug fix: fixed the default value for the eea_refs property, [] instead of ['']
+  [alecghica refs #78945]
 
 10.0 - (2017-11-07)
 -------------------
