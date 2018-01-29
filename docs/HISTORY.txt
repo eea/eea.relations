@@ -3,6 +3,8 @@ Changelog
 
 10.2.dev0 - (unreleased)
 ------------------------
+* Change: add reference browser on jQuery dome ready
+ [ichim-david refs #91577]
 
 10.1 - (2017-12-12)
 -------------------
