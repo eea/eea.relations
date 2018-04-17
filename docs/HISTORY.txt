@@ -1,7 +1,7 @@
 Changelog
 =========
 
-10.3 - (unreleased)
+10.3 - (2018-04-17)
 -------------------
 * Change: removed green gradient from jquery ui
  [ichim-david refs #91590]
