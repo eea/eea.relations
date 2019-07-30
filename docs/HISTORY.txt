@@ -3,6 +3,9 @@ Changelog
 
 10.8-dev0 - (unreleased)
 ---------------------
+* Change: eea_relatedItems relatedItems macro album view now adds background
+  image instead of image tag if image_thumb is not passed as thumb_scale variable
+  [ichim-david refs #106884]
 
 10.7 - (2019-01-28)
 ---------------------
