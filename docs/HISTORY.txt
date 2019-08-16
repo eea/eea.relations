@@ -2,28 +2,28 @@ Changelog
 =========
 
 10.8-dev0 - (unreleased)
----------------------
+--------------------------
 * Change: eea_relatedItems relatedItems macro album view now adds background
   image instead of image tag if image_thumb is not passed as thumb_scale variable
   [ichim-david refs #106884]
 
 10.7 - (2019-01-28)
----------------------
+--------------------------
 * Jenkins: Add sonarqube step
   [avoinea refs #101552]
 
 10.6 - (2018-08-27)
----------------------
+--------------------------
 * Change: Get base-url from body data `base-url`
   [avoinea refs #97843]
 
 10.5 - (2018-06-20)
----------------------
+--------------------------
 * Change: updated URLs pointing to eea.europa.eu with https://
   [alecghica refs #95849]
 
 10.4 - (2018-05-30)
----------------------
+--------------------------
 * Bug fix: Restrict getBRefs only to related items
   [avoinea refs #95796]
 
