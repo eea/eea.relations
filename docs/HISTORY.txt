@@ -30,12 +30,12 @@ Changelog
 10.3 - (2018-04-17)
 -------------------
 * Change: removed green gradient from jquery ui
- [ichim-david refs #91590]
+  [ichim-david refs #91590]
 
 10.2 - (2018-03-14)
 -------------------
 * Change: add reference browser on jQuery dome ready
- [ichim-david refs #91577]
+  [ichim-david refs #91577]
 
 10.1 - (2017-12-12)
 -------------------
