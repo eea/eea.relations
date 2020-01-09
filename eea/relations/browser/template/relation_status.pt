@@ -1,0 +1,13 @@
+<metal:condition tal:condition="view/available" >
+<!--?  <div metal:use-macro="context/eea_relations_macros/macros/relation_status" />-->
+  <metal:no_relations_entered tal:define="relations view/no_relations_entered" tal:condition="relations">
+    <tal:relation tal:repeat="relation relations">
+      <div class="portalMessage sadMessage">
+        No relations are added for
+        <a tal:attributes="href python: context.absolute_url() + '#tab-' + relation.forward_label.lower().replace(' ', '-')" tal:content="relation/forward_label"></a>
+
+      </div>
+    </tal:relation>
+
+  </metal:no_relations_entered>
+</metal:condition>
