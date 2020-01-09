@@ -97,7 +97,7 @@
                 name="eea.relations.macro"
                 class=".app.macro.Macro"
                 permission="zope2.View"
-                allowed_attributes="forward backward forward_backward_auto" />
+                allowed_attributes="forward backward forward_backward_auto no_relations_entered" />
 
   <!-- Bad relations -->
   <browser:page for="..interfaces.IRelationsTool"

@@ -3,7 +3,6 @@
 from plone.app.layout.viewlets.common import ViewletBase
 from zope.component import getMultiAdapter
 
-from eea.relations.component import queryForwardRelations
 
 
 class RelationsStatusViewlet(ViewletBase):
@@ -16,14 +15,14 @@ class RelationsStatusViewlet(ViewletBase):
         """
         plone = getMultiAdapter((self.context, self.request),
                                 name=u'plone_context_state')
-        return plone.is_view_template()
+
+        plone_state = getMultiAdapter((self.context, self.request),
+                                name=u'plone_portal_state')
+        return plone.is_view_template() and not plone_state.anonymous()
 
     def no_relations_entered(self):
-        """ """
-        obj = self.context
-        ctypes = list(queryForwardRelations(obj))
-        relations = []
-        for ctype in ctypes:
-            if getattr(ctype, 'no_relation_label', False):
-                relations.append(ctype)
-        return relations
+        """
+        """
+        macro_view = self.context.restrictedTraverse('eea.relations.macro')
+        return macro_view.no_relations_entered()
+
