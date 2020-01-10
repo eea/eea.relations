@@ -1,8 +1,7 @@
 Changelog
 =========
 
-
-10.9 - (unreleased)
+10.9-dev0 - (unreleased)
 --------------------------
 * Feature: added ability to display a message to logged in users and still
   show a related title with body for anonymous users in case no relations are
