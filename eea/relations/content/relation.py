@@ -95,7 +95,7 @@ RelationSchema = atapi.Schema((
 
     atapi.TextField('no_relation_label',
          schemata='default',
-         searchable=1,
+         searchable=0,
          widget=atapi.TextAreaWidget(
              label='No relation Label',
              description="Label to be used when no relation is added",
