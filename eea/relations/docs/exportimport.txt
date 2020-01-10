@@ -68,6 +68,7 @@ See default faceted portal types
       <property name="title">All -&gt; All</property>
       <property name="forward_label"></property>
       <property name="backward_label"></property>
+      <property name="no_relation_label"></property>
       <property name="description"></property>
       <property name="required">False</property>
       <property name="required_for"/>
