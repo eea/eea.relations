@@ -113,16 +113,16 @@ class ContentTypeLookUp(object):
                 if (iface, ptype) in tuple_types:
                     return tuple_types[(iface, ptype)]
 
-        # Fallback to portal_type only
-        portal_types = self.portal_types_only
-        if ptype in self.portal_types_only:
-            return portal_types[ptype]
-
         # Fallback to interfaces only
         interfaces = self.interfaces_only
         if interfaces:
             for iface in object_provides:
                 if iface in interfaces:
                     return interfaces[iface]
+
+        # Fallback to portal_type only
+        portal_types = self.portal_types_only
+        if ptype in self.portal_types_only:
+            return portal_types[ptype]
 
         return None

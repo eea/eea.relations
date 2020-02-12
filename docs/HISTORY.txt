@@ -3,6 +3,18 @@ Changelog
 
 11.0-dev0 - (unreleased)
 ---------------------------
+* Change: when resolving relation content types the order is now like so:
+
+ * Content type that has both a content type and an interface set
+ * Interfaces only
+ * Portal type only
+
+ Before we had:
+  * Content type that has both a content type and an interface set
+  * Portal type only
+  * Interfaces only
+
+  [ichim-david refs #113376]
 
 10.9 - (2020-01-10)
 --------------------------
