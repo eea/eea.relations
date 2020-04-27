@@ -1,5 +1,7 @@
 """ View macro utils
 """
+from DateTime import DateTime
+
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from eea.relations.component import getForwardRelationWith
@@ -32,6 +34,38 @@ class Macro(BrowserView):
         if mtool.checkPermission('View', doc):
             return doc
         return None
+
+    def is_anon_user(self):
+        """
+        :return: Boolean indicating if visitor is an anonymous user or not
+        :rtype: bool
+        """
+        mtool = getToolByName(self.context, 'portal_membership')
+        return bool(mtool.isAnonymousUser())
+
+    def filter_relation_published_and_active(self, relations):
+        """ Filteres non published not active relations from the relation list
+            :param relations: list of relations
+        """
+        if not self.is_anon_user():
+            return relations
+
+        relations_set = set(relations)
+        now = DateTime()
+        for relation in relations:
+            if not relation:
+                relations_set.remove(relation)
+                continue
+            rpdate = relation.effective_date
+            rexdate = relation.expiration_date
+            if not rpdate or rexdate and rexdate <= now:
+                relations_set.remove(relation)
+                continue
+            if rpdate and rpdate > now:
+                relations_set.remove(relation)
+
+        filtered_relations = list(relations_set)
+        return filtered_relations
 
     def filter_relation_translations(self, relations):
         """ Filteres the translations from the relation list
@@ -74,7 +108,9 @@ class Macro(BrowserView):
         contentTypes = {}
         nonForwardRelations = set()
         relations = accessor()
-        filtered_relations = self.filter_relation_translations(relations)
+        canonical_relations = self.filter_relation_translations(relations)
+        filtered_relations = self.filter_relation_published_and_active(
+            canonical_relations)
         for relation in filtered_relations:
             if not self.checkPermission(relation) or relation.portal_type in \
                     nonForwardRelations:
@@ -111,7 +147,9 @@ class Macro(BrowserView):
         contentTypes = {}
         nonBackwardRelations = set()
 
-        filtered_relations = self.filter_relation_translations(relations)
+        canonical_relations = self.filter_relation_translations(relations)
+        filtered_relations = self.filter_relation_published_and_active(
+            canonical_relations)
         for relation in filtered_relations:
             # save the name and the portal type of the first relation that we
             # have permission to use.
@@ -164,9 +202,8 @@ class Macro(BrowserView):
         backward_relations = self.backward()
         auto_relations = self.context.unrestrictedTraverse(
             '@@auto-relations.html').tabs
-        relations = forward_relations + backward_relations + \
-            list(auto_relations)
-
+        lauto_relations = list(auto_relations)
+        relations = forward_relations + backward_relations + lauto_relations
         result = {}
         for relation in relations:
             name = relation[0]
