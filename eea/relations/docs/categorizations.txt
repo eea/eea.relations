@@ -84,7 +84,6 @@ Let's add some possible relations
     ...   'from': 'generic',
     ...   'to': 'simple-document',
     ...   'forward_label': 'Similar Documents',
-    ...   'no_relation_label': 'Our apologies, no related documents have been found',
     ...   'backward_label': 'See also'
     ... })
 
@@ -168,18 +167,3 @@ and backward relations if they have the same title as demonstrated below:
     >>> forward_backward_relations
     [('See also', [...news..., ...news...]),
     ('Similar Documents', [<ATDocument at /plone/Members/test_user_1_/sandbox/my-document>])]
-
-
-No relation added lookup
-------------------------
-
-Let's remove from our Folder the Documents from the related items
-
-    >>> sandbox.processForm(values={
-    ...  'relatedItems': [],
-    ... }, data=1, metadata=1)
-
-Checking now
-
-    >>> no_relations = categorization_view.no_relations_entered()
-    >>> [i.Title for i in no_relations]
