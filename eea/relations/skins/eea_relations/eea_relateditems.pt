@@ -29,13 +29,14 @@ Optional parameters:
 <tal:relatedItems metal:define-macro="relatedItemsWithThumbs"
      i18n:domain="eea"
      tal:condition="context/@@plone_context_state/is_view_template">
-  <div class="" tal:define="mini_header python:context.restrictedTraverse('@@miniheader_content_types', lambda: False)();" tal:attributes="class python: 'related-wrapper fullwidth-bg eea-block bg-secondary' if mini_header else 'related-wrapper'">
-    <div id="relatedItems"
-         tal:define="relations nocall:here/@@eea.relations.macro;
+  <div class="" tal:define="mini_header python:context.restrictedTraverse('@@miniheader_content_types', lambda: False)();
+        relations nocall:here/@@eea.relations.macro;
         thumb_scale thumb_scale | string:image_thumb;
         forward_backward_auto_tabs python:relations.forward_backward_auto();
         templateStyle templateStyle|string:album_view;"
-         tal:condition="python:forward_backward_auto_tabs">
+        tal:condition="python:forward_backward_auto_tabs"
+       tal:attributes="class python: 'related-wrapper fullwidth-bg eea-block bg-secondary' if mini_header else 'related-wrapper'">
+    <div id="relatedItems">
       <tal:relatedTitle metal:define-slot="relatedTitle">
         <h2 i18n:translate="">Related content</h2>
       </tal:relatedTitle>
@@ -51,7 +52,7 @@ Optional parameters:
 
       <tal:forward_backward tal:condition="forward_backward_auto_tabs">
         <!-- Forward, Backward and Auto relations -->
-        <div class="visualNoMarker">
+        <div class="visualNoMarker" data-paginate-count="3">
           <tal:tab repeat="tab forward_backward_auto_tabs">
             <tal:def define="label python:tab[0]; related python:tab[1]"
                  tal:condition="related">
@@ -137,7 +138,10 @@ Optional parameters:
                             <span
                                 class="photoAlbumEntryWrapperImg lazy" tal:attributes="data-src string:${img_url}/${thumb_scale}" tal:condition="python: thumb_scale != 'image_thumb'"><!--?--></span>
                 </span>
-        <span class="photoAlbumEntryTitle" tal:content="pretty_title"></span>
+
+        <span class="photoAlbumEntryTitleWrapper">
+          <span class="photoAlbumEntryTitle" tal:content="pretty_title"></span>
+        </span>
         <span class="photoAlbumEntryDescription"
              tal:content="description"></span>
       </a>
