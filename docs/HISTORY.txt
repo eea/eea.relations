@@ -1,7 +1,7 @@
 Changelog
 =========
 
-11.1-dev0 - (unreleased)
+11.1 - (2020-06-22)
 ---------------------------
 * Change: hide relation information within an accordion and display expired or
   non published ribbon on photoAlbumEntry entries
