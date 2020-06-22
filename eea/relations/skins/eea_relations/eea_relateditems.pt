@@ -105,6 +105,7 @@ Optional parameters:
      i18n:domain="eea"
      tal:define="related related | python:[];
     thumb_scale thumb_scale | string:image_thumb;
+    wtool context/portal_workflow;
     templateStyle templateStyle"
      tal:condition="related">
   <tal:album_view tal:repeat="item related"
@@ -115,7 +116,7 @@ Optional parameters:
         img_url item/absolute_url;
         urlview item/@@url|nothing;
         listing_url urlview/listing_url|img_url;
-        item_interfaces context/@@plone_interface_info;
+        item_interfaces item/@@plone_interface_info;
         is_video python:item_interfaces.provides('eea.mediacentre.interfaces.IVideo');
         css_class python: 'video-fancybox' if is_video else '';
         portal_type item/portal_type;
@@ -124,6 +125,10 @@ Optional parameters:
         cloud python: 'video-fancybox cloudvideo' if portal_type == 'CloudVideo' else '';
         pretty_title item/title_or_id;
         desc_or_title python:description or pretty_title;
+        wf_state python: wtool.getInfoFor(item, 'review_state', '');
+        published python: True if wf_state and wf_state == 'published' else False;
+        is_expired item/isExpired|python:False;
+        show_ribbon python: True if is_expired or not published else False;
         time item/effective;"
          tal:attributes="data-effective time/millis|nothing;
         data-title pretty_title;">
@@ -139,7 +144,10 @@ Optional parameters:
                                 class="photoAlbumEntryWrapperImg lazy" tal:attributes="data-src string:${img_url}/${thumb_scale}" tal:condition="python: thumb_scale != 'image_thumb'"><!--?--></span>
                 </span>
 
-        <span class="photoAlbumEntryTitleWrapper">
+        <span class="photoAlbumEntryTitleWrapper" tal:attributes="class python:'photoAlbumEntryTitleWrapper expired'  if show_ribbon else  'photoAlbumEntryTitleWrapper' ">
+          <div class="ribbon-wrapper" tal:condition="show_ribbon">
+            <div class="ribbon" tal:content="python:context.translate('Archived') if is_expired else context.translate('Draft')"></div>
+          </div>
           <span class="photoAlbumEntryTitle" tal:content="pretty_title"></span>
         </span>
         <span class="photoAlbumEntryDescription"
