@@ -3,6 +3,9 @@ Changelog
 
 11.3-dev0 - (unreleased)
 ---------------------------
+* Change: use Type for photoALbumEntryType first then portal_type when setting
+  photoAlbumEntryType
+  [ichim-david refs #117296]
 
 11.2 - (2020-06-26)
 ---------------------------
