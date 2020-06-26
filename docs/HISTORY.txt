@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.3-dev0 - (unreleased)
+---------------------------
+
 11.2 - (2020-06-26)
 ---------------------------
 * Feature: added draft or archived info within photoAlbumEntry
