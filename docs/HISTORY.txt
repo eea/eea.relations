@@ -4,6 +4,12 @@ Changelog
 11.1-dev0 - (unreleased)
 ---------------------------
 
+* Feature: added draft or archived info within photoAlbumEntry
+  [ichim-david refs #117295]
+* Feature: added photoAlbumEntryType info to related albums for mini header
+  condition
+  [ichim-david refs #117296]
+
 11.0 - (2020-02-12)
 ---------------------------
 * Change: Refs #113376 ensure interface content type is read before a portal type content type
