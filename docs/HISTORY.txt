@@ -1,6 +1,12 @@
 Changelog
 =========
 
+11.3 - (2020-09-18)
+---------------------------
+* Change: use Type for photoALbumEntryType first then portal_type when setting
+  photoAlbumEntryType
+  [ichim-david refs #117296]
+
 11.2 - (2020-06-26)
 ---------------------------
 * Feature: added draft or archived info within photoAlbumEntry
