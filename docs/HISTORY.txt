@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.4-dev0 - (unreleased)
+---------------------------
+
 11.3 - (2020-09-18)
 ---------------------------
 * Change: use Type for photoALbumEntryType first then portal_type when setting
