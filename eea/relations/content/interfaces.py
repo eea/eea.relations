@@ -1,7 +1,7 @@
 """ Content interfaces
 """
 from zope.interface import Interface
-from Products.Archetypes.interfaces import IBaseObject as IATBaseObject
+# from Products.Archetypes.interfaces import IBaseObject as IATBaseObject
 
 class IContentType(Interface):
     """ Content type
