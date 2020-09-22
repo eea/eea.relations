@@ -3,6 +3,8 @@ Changelog
 
 11.4-dev0 - (unreleased)
 ---------------------------
+* Change: Related items now also appear for dexterity objects, not only archetypes
+  [iulianpetchesi #120841]
 
 11.3 - (2020-09-18)
 ---------------------------
