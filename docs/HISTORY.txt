@@ -1,7 +1,7 @@
 Changelog
 =========
 
-11.4-dev0 - (unreleased)
+11.4 - (2020-09-23)
 ---------------------------
 * Change: Related items now also appear for dexterity objects, not only archetypes
   [iulianpetchesi #120841]
