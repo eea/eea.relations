@@ -142,7 +142,7 @@ Optional parameters:
                         alt pretty_title;
                         src string:${img_url}/image_thumb" tal:condition="python: thumb_scale == 'image_thumb'" />
                             <span
-                                class="photoAlbumEntryWrapperImg lazy" tal:attributes="data-src string:${img_url}/${thumb_scale}" tal:condition="python: thumb_scale != 'image_thumb'"><!--?--></span>
+                                class="photoAlbumEntryWrapperImg lazy" tal:attributes="data-src string:${img_url}/${thumb_scale}" tal:condition="python: thumb_scale != 'image_thumb'"><!-- comment ?--></span>
                 </span>
 
         <span class="photoAlbumEntryTitleWrapper" tal:attributes="class python:'photoAlbumEntryTitleWrapper expired'  if show_ribbon else  'photoAlbumEntryTitleWrapper'">
