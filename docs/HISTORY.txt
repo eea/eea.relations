@@ -3,6 +3,9 @@ Changelog
 
 11.5-dev0 - (unreleased)
 ---------------------------
+* Change: added notoc class to related content header as it
+  shouldn't appear in the body toc portlet
+  [ichim-david refs #119674]
 
 11.4 - (2020-09-23)
 ---------------------------

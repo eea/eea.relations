@@ -39,7 +39,7 @@ Optional parameters:
        tal:condition="python:forward_backward_auto_tabs">
     <div id="relatedItems" class="relatedItems">
       <tal:relatedTitle metal:define-slot="relatedTitle">
-        <h2 i18n:translate="">Related content</h2>
+        <h2 i18n:translate="" class="notoc">Related content</h2>
       </tal:relatedTitle>
       <div class="sorter_ctl" style="margin-bottom: 1.5em; display:none;">
         <label for="sort_by"> <span i18n:translate="">Sort by:</span>
