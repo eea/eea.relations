@@ -1,0 +1,28 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:monkey="http://namespaces.plone.org/monkey"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  xmlns:z3c="http://namespaces.zope.org/z3c"
+  i18n_domain="eea">
+
+  <include package="collective.monkeypatcher" />
+  <include package="collective.monkeypatcher" file="meta.zcml" />
+
+  <adapter factory=".dexteritywidget.RelatedItemsFieldWidget" />
+  <adapter factory=".dexteritywidget.RelatedItemsFieldDataConverter" />
+
+  <z3c:widgetTemplate
+      mode="input"
+      widget=".dexteritywidget.RelatedItemsWidget"
+      layer="z3c.form.interfaces.IFormLayer"
+      template="input.pt"
+      />
+
+  <z3c:widgetTemplate
+      mode="display"
+      widget=".dexteritywidget.RelatedItemsWidget"
+      layer="z3c.form.interfaces.IFormLayer"
+      template="display.pt"
+      />
+
+</configure>
