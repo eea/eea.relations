@@ -109,7 +109,7 @@ Optional parameters:
     wtool context/portal_workflow;
     templateStyle templateStyle"
      tal:condition="related">
-  <span tal:content="related"></span>
+
   <tal:album_view tal:repeat="item related"
        tal:condition="python: templateStyle == 'album_view'">
     <div class="photoAlbumEntry"
