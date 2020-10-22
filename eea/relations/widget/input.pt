@@ -48,7 +48,7 @@
 
         <!-- Button -->
         <input class="searchButton eea-ref-popup-button input-block" type="button"
-            value="Edit" i18n:attributes="inputvalue"/>
+               value="Edit" i18n:attributes="inputvalue"/>
 
         <!-- Script -->
         <script type="text/javascript" tal:content="string:
