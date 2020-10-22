@@ -19,18 +19,6 @@
                  tabindex           nothing">
 
     <div class="eea-widget-referencebrowser eea-dexterity-relatedItems kssattr-fieldname-form.widgets.IRelatedItems.relatedItems" tal:attributes="id string:$inputname-widget" data-fieldname="form.widgets.IRelatedItems.relatedItems">
-        <span>ID      </span><span tal:content="id"></span><br>
-        <span>portal_url     </span><span tal:content="portal_url"></span><br>
-        <!--<span>portal        </span><span tal:content="portal"></span>-->
-        <span>inputname      </span><span tal:content="inputname"></span><br>
-        <span>uuids      </span><span tal:content="inputvalue"></span><br>
-        <span>here_url        </span><span tal:content="here_url"></span><br>
-        <span>member         </span><span tal:content="member"></span><br>
-
-        <!--<span>member         </span><span tal:content="z3c_widget/enter_pdb"></span><br>-->
-
-        <span>fieldname         </span><span tal:content="fieldName"></span><br>
-
 
         <!-- Edit -->
         <input type="hidden" value="" tal:attributes="name string:$fieldName:default" />
@@ -50,7 +38,7 @@
             tal:define="popup_view nocall:here/@@eeareferencebrowser-popup-selecteditems.html"
             tal:content="structure python:popup_view(field=fieldName, uids=inputvalue)" />
 
-        <!-- Popup TODO: CHECK python:widget and 'Edit %s' % widget.Label(here) or 'Edit'; --> 
+        <!-- Popup -->
         <div title="Edit related items" tal:attributes="
             title python: 'Edit';
             id string:$fieldName-popup" i18n:attributes="title">
