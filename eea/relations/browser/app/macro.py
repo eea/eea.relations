@@ -85,7 +85,6 @@ class Macro(BrowserView):
             catalog = getUtility(ICatalog)
             intids = getUtility(IIntIds)
             relations = catalog.findRelations(dict(from_id=intids.getId(aq_inner(self.context))))
-            relations = [rel for rel in relations]
             to_object = []
             for obj in relations:
                 try:
@@ -138,7 +137,6 @@ class Macro(BrowserView):
             catalog = getUtility(ICatalog)
             intids = getUtility(IIntIds)
             relations = catalog.findRelations(dict(to_id=intids.getId(aq_inner(self.context))))
-            # relations = [rel.from_object for rel in relations]
             from_object = []
             for obj in relations:
                 try:
