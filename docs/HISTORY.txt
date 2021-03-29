@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.8-dev0 - (unreleased)
+---------------------------
+
 11.7 - (2021-03-29)
 ---------------------------
 * Feature: added the new custom_css property to all facet widgets.
