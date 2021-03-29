@@ -3,6 +3,8 @@ Changelog
 
 11.7-dev0 - (unreleased)
 ---------------------------
+* Feature: added the new custom_css property to all facet widgets.
+  [alecghica refs #126549]
 
 11.6 - (2020-11-17)
 ---------------------------
