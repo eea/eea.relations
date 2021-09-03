@@ -80,6 +80,19 @@ class Macro(BrowserView):
         nonForwardRelations = set()
         relations = accessor()
 
+        # 134485 check within portal catalog for the uid that is set on the
+        # raw value of relatedItems if we related a dexterity content type
+        # since archetypes will not find it as such we search for the object
+        # in the normal portal catalog
+        rids = [i.UID() for i in relations]
+        relation_uids = field.getRaw(self.context)
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        for relation_uid in relation_uids:
+            if relation_uid not in rids:
+                brain = portal_catalog(UID=relation_uid)
+                if brain:
+                    relations.append(brain[0].getObject())
+
         # dexterity relations
         if IDexterityContent.providedBy(self.context):
             catalog = getUtility(ICatalog)
