@@ -86,19 +86,24 @@ class Macro(BrowserView):
         for relation_uid in relation_uids:
             brain = portal_catalog(UID=relation_uid)
             if brain:
-                relations.append(brain[0].getObject())
+                try:
+                    relations.append(brain[0].getObject())
+                except Exception:
+                    # broken object
+                    continue
 
         # dexterity relations
         if IDexterityContent.providedBy(self.context):
             catalog = getUtility(ICatalog)
             intids = getUtility(IIntIds)
-            relations = catalog.findRelations(dict(from_id=intids.getId(aq_inner(self.context))))
+            relations = catalog.findRelations(dict(
+                from_id=intids.getId(aq_inner(self.context))))
             to_object = []
             for obj in relations:
                 try:
                     obj = obj.to_object
                     to_object.append(obj)
-                except:
+                except Exception:
                     # broken relation
                     continue
             relations = to_object
@@ -130,30 +135,34 @@ class Macro(BrowserView):
         """ Return backward relations by category
         """
         tabs = {}
-        getBRefs = getattr(self.context, 'getBRefs', None)
-        if not getBRefs:
-            return tabs
-
-        relation = kwargs.get('relation', 'relatesTo')
-
-        relations = getBRefs(relation) or []
+        relations = []
+        if not IDexterityContent.providedBy(self.context):
+            getBRefs = getattr(self.context, 'getBRefs', None)
+            if not getBRefs:
+                return tabs
+            relation = kwargs.get('relation', 'relatesTo')
+            relations = getBRefs(relation) or []
         contentTypes = {}
         nonBackwardRelations = set()
 
         # dexterity relations
-        if IDexterityContent.providedBy(self.context):
-            catalog = getUtility(ICatalog)
-            intids = getUtility(IIntIds)
-            relations = catalog.findRelations(dict(to_id=intids.getId(aq_inner(self.context))))
+        catalog = getUtility(ICatalog)
+        intids = getUtility(IIntIds)
+        try:
+            relations_generator = catalog.findRelations(dict(
+                to_id=intids.getId(aq_inner(self.context))))
             from_object = []
-            for obj in relations:
+            for obj in relations_generator:
                 try:
                     obj = obj.from_object
                     from_object.append(obj)
                 except:
                     # broken relation
                     continue
-            relations = from_object
+            relations.extend(from_object)
+        except KeyError:
+            if not relations:
+                return relations
 
         filtered_relations = self.filter_relation_translations(relations)
         for relation in filtered_relations:
