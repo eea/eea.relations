@@ -21,6 +21,11 @@ def patched_uidFor(self, obj):
         # and we look up the object
         uid_catalog = getToolByName(self, 'uid_catalog')
         brains = uid_catalog(dict(UID=uuid))
+        # 134485 look for object from portal_catalog
+        # for situations where we point to a dexterity content type
+        if not brains:
+            portal_catalog = getToolByName(self, 'portal_catalog')
+            brains = portal_catalog(UID=uuid)
         for brain in brains:
             res = brain.getObject()
             if res is not None:
