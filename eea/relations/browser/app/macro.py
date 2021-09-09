@@ -1,6 +1,6 @@
 """ View macro utils
 """
-from Acquisition import aq_inner
+from Acquisition import aq_inner, aq_base
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from eea.relations.component import getForwardRelationWith
@@ -136,8 +136,10 @@ class Macro(BrowserView):
         """
         tabs = {}
         relations = []
-        if not IDexterityContent.providedBy(self.context):
-            getBRefs = getattr(self.context, 'getBRefs', None)
+        context = self.context
+        dexterity_context = IDexterityContent.providedBy(context)
+        if not dexterity_context:
+            getBRefs = getattr(context, 'getBRefs', None)
             if not getBRefs:
                 return tabs
             relation = kwargs.get('relation', 'relatesTo')
@@ -148,23 +150,38 @@ class Macro(BrowserView):
         # dexterity relations
         catalog = getUtility(ICatalog)
         intids = getUtility(IIntIds)
+        from_object = []
         try:
             relations_generator = catalog.findRelations(dict(
-                to_id=intids.getId(aq_inner(self.context))))
-            from_object = []
+                to_id=intids.getId(aq_inner(context))))
             for obj in relations_generator:
                 try:
                     obj = obj.from_object
                     from_object.append(obj)
-                except:
+                except Exception:
                     # broken relation
                     continue
-            relations.extend(from_object)
+            if dexterity_context and not from_object:
+                # 134485 reference_catalog checks if isReferenceable is present
+                # as attribute on the object and dexterity needs to add it
+                # manually in order for their uuid to be added to the catalog
+                context.isReferenceable = True
+                rtool = getToolByName(context, 'reference_catalog')
+                if rtool:
+                    refs = rtool.getBackReferences(context)
+                    language = context.language
+                    for ref in refs:
+                        from_uid = ref.sourceUID
+                        rel_obj = rtool.lookupObject(from_uid)
+                        rel_obj_lang = getattr(aq_base(rel_obj), 'getLanguage', lambda: None)() or rel_obj.language
+                        if language and language == rel_obj_lang:
+                            from_object.append(rel_obj)
         except KeyError:
             if not relations:
                 return relations
 
         filtered_relations = self.filter_relation_translations(relations)
+        filtered_relations.extend(from_object)
         for relation in filtered_relations:
             # save the name and the portal type of the first relation that we
             # have permission to use.
