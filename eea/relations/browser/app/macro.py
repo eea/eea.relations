@@ -9,7 +9,7 @@ from eea.relations.component import queryForwardRelations
 from plone.dexterity.interfaces import IDexterityContent
 from plone.memoize.view import memoize
 from zc.relation.interfaces import ICatalog
-from zope.component import getUtility
+from zope.component import queryUtility
 from zope.intid.interfaces import IIntIds
 
 
@@ -94,8 +94,8 @@ class Macro(BrowserView):
 
         # dexterity relations
         if IDexterityContent.providedBy(self.context):
-            catalog = getUtility(ICatalog)
-            intids = getUtility(IIntIds)
+            catalog = queryUtility(ICatalog)
+            intids = queryUtility(IIntIds)
             relations = catalog.findRelations(dict(
                 from_id=intids.getId(aq_inner(self.context))))
             to_object = []
@@ -148,34 +148,39 @@ class Macro(BrowserView):
         nonBackwardRelations = set()
 
         # dexterity relations
-        catalog = getUtility(ICatalog)
-        intids = getUtility(IIntIds)
+        catalog = queryUtility(ICatalog)
+        intids = queryUtility(IIntIds)
         from_object = []
         try:
-            relations_generator = catalog.findRelations(dict(
-                to_id=intids.getId(aq_inner(context))))
-            for obj in relations_generator:
-                try:
-                    obj = obj.from_object
-                    from_object.append(obj)
-                except Exception:
-                    # broken relation
-                    continue
-            if dexterity_context and not from_object:
-                # 134485 reference_catalog checks if isReferenceable is present
-                # as attribute on the object and dexterity needs to add it
-                # manually in order for their uuid to be added to the catalog
-                context.isReferenceable = True
-                rtool = getToolByName(context, 'reference_catalog')
-                if rtool:
-                    refs = rtool.getBackReferences(context)
-                    language = context.language
-                    for ref in refs:
-                        from_uid = ref.sourceUID
-                        rel_obj = rtool.lookupObject(from_uid)
-                        rel_obj_lang = getattr(aq_base(rel_obj), 'getLanguage', lambda: None)() or rel_obj.language
-                        if language and language == rel_obj_lang:
-                            from_object.append(rel_obj)
+            if catalog:
+                relations_generator = catalog.findRelations(dict(
+                    to_id=intids.getId(aq_inner(context))))
+                for obj in relations_generator:
+                    try:
+                        obj = obj.from_object
+                        from_object.append(obj)
+                    except Exception:
+                        # broken relation
+                        continue
+                if dexterity_context and not from_object:
+                    # 134485 reference_catalog checks if isReferenceable is
+                    # present as attribute on the object and dexterity needs to
+                    # add it manually in order for their uuid to be added to
+                    # the catalog
+                    context.isReferenceable = True
+                    rtool = getToolByName(context, 'reference_catalog')
+                    if rtool:
+                        refs = rtool.getBackReferences(context)
+                        language = context.language
+                        for ref in refs:
+                            from_uid = ref.sourceUID
+                            rel_obj = rtool.lookupObject(from_uid)
+                            rel_obj_lang = getattr(aq_base(rel_obj),
+                                                   'getLanguage',
+                                                   lambda: None)() or \
+                                           rel_obj.language
+                            if language and language == rel_obj_lang:
+                                from_object.append(rel_obj)
         except KeyError:
             if not relations:
                 return relations
