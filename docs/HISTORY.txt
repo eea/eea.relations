@@ -1,8 +1,10 @@
 Changelog
 =========
 
-11.8-dev0 - (unreleased)
+11.8 - (2021-09-10)
 ---------------------------
+* Change: Refs #134485 return dexterity results in forward backward and auto relations
+  [ichim-david]
 
 11.7 - (2021-03-29)
 ---------------------------
