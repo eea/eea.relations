@@ -71,6 +71,9 @@ class RelatedItemsFieldDataConverter(BaseDataConverter):
         :type value: list
         :returns: The value to be stored in the tile
         """
+        if isinstance(value, basestring):
+            value = [value, ]
+
         if not len(value) or not isinstance(value, list):
             return self.field.missing_value
 
