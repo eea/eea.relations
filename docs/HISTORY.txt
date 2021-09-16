@@ -1,6 +1,15 @@
 Changelog
 =========
 
+12.0 - (2021-09-10)
+---------------------------
+* Change: Refs #134485 return dexterity results in forward backward and auto relations
+  [ichim-david refs #134485]
+* Patch: Archetypes reference engine
+  [ichim-david refs #134485]
+* Patch: Archetypes referenceable
+  [ichim-david refs #134485]
+
 11.7 - (2021-03-29)
 ---------------------------
 * Feature: added the new custom_css property to all facet widgets.

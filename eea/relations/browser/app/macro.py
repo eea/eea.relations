@@ -1,6 +1,6 @@
 """ View macro utils
 """
-from Acquisition import aq_inner
+from Acquisition import aq_inner, aq_base
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from eea.relations.component import getForwardRelationWith
@@ -9,7 +9,7 @@ from eea.relations.component import queryForwardRelations
 from plone.dexterity.interfaces import IDexterityContent
 from plone.memoize.view import memoize
 from zc.relation.interfaces import ICatalog
-from zope.component import getUtility
+from zope.component import queryUtility
 from zope.intid.interfaces import IIntIds
 
 
@@ -73,24 +73,37 @@ class Macro(BrowserView):
         if not field:
             return tabs.items()
 
-        accessor = field.getAccessor(self.context)
-        #getRelatedItems = getattr(self.context, 'getRelatedItems', None)
-
         contentTypes = {}
         nonForwardRelations = set()
-        relations = accessor()
+        relations = []
+
+        # 134485 check within portal catalog for the uid that is set on the
+        # raw value of relatedItems if we related a dexterity content type
+        # since archetypes will not find it as such we search for the object
+        # in the normal portal catalog
+        relation_uids = field.getRaw(self.context)
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        for relation_uid in relation_uids:
+            brain = portal_catalog(UID=relation_uid)
+            if brain:
+                try:
+                    relations.append(brain[0].getObject())
+                except Exception:
+                    # broken object
+                    continue
 
         # dexterity relations
         if IDexterityContent.providedBy(self.context):
-            catalog = getUtility(ICatalog)
-            intids = getUtility(IIntIds)
-            relations = catalog.findRelations(dict(from_id=intids.getId(aq_inner(self.context))))
+            catalog = queryUtility(ICatalog)
+            intids = queryUtility(IIntIds)
+            relations = catalog.findRelations(dict(
+                from_id=intids.getId(aq_inner(self.context))))
             to_object = []
             for obj in relations:
                 try:
                     obj = obj.to_object
                     to_object.append(obj)
-                except:
+                except Exception:
                     # broken relation
                     continue
             relations = to_object
@@ -122,32 +135,58 @@ class Macro(BrowserView):
         """ Return backward relations by category
         """
         tabs = {}
-        getBRefs = getattr(self.context, 'getBRefs', None)
-        if not getBRefs:
-            return tabs
-
-        relation = kwargs.get('relation', 'relatesTo')
-
-        relations = getBRefs(relation) or []
+        relations = []
+        context = self.context
+        dexterity_context = IDexterityContent.providedBy(context)
+        if not dexterity_context:
+            getBRefs = getattr(context, 'getBRefs', None)
+            if not getBRefs:
+                return tabs
+            relation = kwargs.get('relation', 'relatesTo')
+            relations = getBRefs(relation) or []
         contentTypes = {}
         nonBackwardRelations = set()
 
         # dexterity relations
-        if IDexterityContent.providedBy(self.context):
-            catalog = getUtility(ICatalog)
-            intids = getUtility(IIntIds)
-            relations = catalog.findRelations(dict(to_id=intids.getId(aq_inner(self.context))))
-            from_object = []
-            for obj in relations:
-                try:
-                    obj = obj.from_object
-                    from_object.append(obj)
-                except:
-                    # broken relation
-                    continue
-            relations = from_object
+        catalog = queryUtility(ICatalog)
+        intids = queryUtility(IIntIds)
+        from_object = []
+        try:
+            if catalog:
+                relations_generator = catalog.findRelations(dict(
+                    to_id=intids.getId(aq_inner(context))))
+                for obj in relations_generator:
+                    try:
+                        obj = obj.from_object
+                        from_object.append(obj)
+                    except Exception:
+                        # broken relation
+                        continue
+                if dexterity_context and not from_object:
+                    # 134485 reference_catalog checks if isReferenceable is
+                    # present as attribute on the object and dexterity needs to
+                    # add it manually in order for their uuid to be added to
+                    # the catalog
+                    context.isReferenceable = True
+                    rtool = getToolByName(context, 'reference_catalog')
+                    if rtool:
+                        refs = rtool.getBackReferences(context)
+                        language = context.language
+                        for ref in refs:
+                            from_uid = ref.sourceUID
+                            rel_obj = rtool.lookupObject(from_uid)
+                            rel_obj_lang = getattr(aq_base(rel_obj),
+                                                   'getLanguage',
+                                                   lambda: None)() or \
+                                           rel_obj.language
+                            if language and language == rel_obj_lang:
+                                from_object.append(rel_obj)
+        except KeyError:
+            if not relations:
+                return relations
 
         filtered_relations = self.filter_relation_translations(relations)
+        filtered_relations.extend(from_object)
         for relation in filtered_relations:
             # save the name and the portal type of the first relation that we
             # have permission to use.
