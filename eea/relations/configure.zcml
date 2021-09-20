@@ -9,17 +9,18 @@
 
   <include package=".async" />
   <include package=".browser" />
-  <include package=".subtypes" />
-  <include package=".vocabulary" />
-  <include package=".graph" />
   <include package=".component" />
+  <include package=".content" />
   <include package=".discover" />
+  <include package=".events" />
   <include package=".exportimport" />
   <include package=".field" />
-  <include package=".content" />
-  <include package=".upgrades" />
+  <include package=".graph" />
+  <include package=".restapi" />
   <include package=".rules" />
-  <include package=".events" />
+  <include package=".subtypes" />
+  <include package=".upgrades" />
+  <include package=".vocabulary" />
   <include package=".widget" />
 
 </configure>
