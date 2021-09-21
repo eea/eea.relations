@@ -1,7 +1,7 @@
 Changelog
 =========
 
-12.1-dev0 - (unreleased)
+12.1 - (2021-09-21)
 ---------------------------
 * Change: Modified ContentTypeLookUp so that it gets the right portal factory
   when adding a new object
