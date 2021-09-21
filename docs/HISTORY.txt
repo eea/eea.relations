@@ -3,6 +3,12 @@ Changelog
 
 12.1-dev0 - (unreleased)
 ---------------------------
+* Change: Modified ContentTypeLookUp so that it gets the right portal factory
+  when adding a new object
+  [iulianpetchesi refs #120841]
+* Upgrade step: Changed js/css conditions in order for related items widget
+  to work on ++add++
+  [iulianpetchesi refs #120841]
 
 12.0 - (2021-09-10)
 ---------------------------

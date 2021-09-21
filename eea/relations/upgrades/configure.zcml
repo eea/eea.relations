@@ -3,6 +3,19 @@
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   i18n_domain="eea">
 
+  <!-- 8.0 => 12.1 -->
+  <genericsetup:upgradeSteps
+    source="8.0"
+    destination="12.1"
+    profile="eea.relations:default">
+
+    <genericsetup:upgradeDepends
+      title="Upgrade profile eea.relations to 12.1"
+      import_profile="eea.relations:upgrade121"
+    />
+
+  </genericsetup:upgradeSteps>
+
   <!-- 7.7 => 8.0 -->
   <genericsetup:upgradeSteps
     source="7.7"
