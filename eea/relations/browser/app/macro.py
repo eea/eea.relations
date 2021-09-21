@@ -162,7 +162,7 @@ class Macro(BrowserView):
                     except Exception:
                         # broken relation
                         continue
-                if dexterity_context and not from_object:
+                if dexterity_context:
                     # 134485 reference_catalog checks if isReferenceable is
                     # present as attribute on the object and dexterity needs to
                     # add it manually in order for their uuid to be added to
