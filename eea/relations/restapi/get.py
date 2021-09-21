@@ -6,7 +6,7 @@ from plone.restapi.serializer.converters import json_compatible
 from plone.restapi.services import Service
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFCore.utils import getToolByName
-from zope.component import adapter, queryAdapter
+from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
 
