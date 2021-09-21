@@ -39,12 +39,13 @@ class ContentTypeLookUp(object):
         """ Context portal_type
         """
         request = getRequest()
-        if '++add++' in request.URL:
-            types_tool = getToolByName(getSite(), 'portal_types')
-            add_view_url = request.steps[-1].split('++add++')[-1]
-            portal_type = types_tool[add_view_url].factory
+        if request:
+            if '++add++' in request.URL:
+                types_tool = getToolByName(getSite(), 'portal_types')
+                add_view_url = request.steps[-1].split('++add++')[-1]
+                portal_type = types_tool[add_view_url].factory
 
-            return portal_type
+                return portal_type
 
         return getattr(self.context, 'portal_type', '')
 
