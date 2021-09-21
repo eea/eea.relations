@@ -43,6 +43,7 @@ class EEARelations(object):
                     obj_dict = {'title': obj.title, '@type': obj.portal_type,
                                 '@id': obj.absolute_url(),
                                 'description': obj.description,
+                                'is_expired': obj.isExpired(),
                                 'review_state': wftool.getInfoFor(obj,
                                                                 'review_state')}
                     res_list.append(obj_dict)
