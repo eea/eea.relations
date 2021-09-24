@@ -3,6 +3,10 @@ Changelog
 
 12.1 - (2021-09-21)
 ---------------------------
+* Patch: added patched_getRefs in order to patch retrieval of references
+  for archetypes to skip None values as you can add a reference when logged in
+  for which you cannot access when you are anonymous
+  [ichim-david refs #134485]
 * Change: Modified ContentTypeLookUp so that it gets the right portal factory
   when adding a new object
   [iulianpetchesi refs #120841]

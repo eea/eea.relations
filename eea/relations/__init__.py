@@ -5,7 +5,7 @@ try:
     from Products.Archetypes.ReferenceEngine import ReferenceCatalog
     from Products.Archetypes.Referenceable import Referenceable
     from patches.patch_archetypes_referenceable import \
-        patched_optimizedGetObject
+        patched_optimizedGetObject, patched_getRefs
     from patches.patch_archetypes_reference_engine import \
         patched_uidFor
 except ImportError:
@@ -14,6 +14,8 @@ except ImportError:
 if has_archetypes:
     ReferenceCatalog._uidFor = patched_uidFor
     Referenceable._optimizedGetObject = patched_optimizedGetObject
+    Referenceable.getRefs = patched_getRefs
+    
 
 def initialize(context):
     """ Zope 2 """
