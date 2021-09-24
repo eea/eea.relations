@@ -38,9 +38,9 @@ def patched_getRefs(self, relationship=None, targetObject=None):
                                 objects=False)
     if brains:
         results = []
-        # 
         for b in brains:
             res = self._optimizedGetObject(b.targetUID)
             if res:
                 results.append(res)
+        return results
     return []
