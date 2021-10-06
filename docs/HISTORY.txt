@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.2-dev0 - (unreleased)
+---------------------------
+
 12.1 - (2021-09-21)
 ---------------------------
 * Patch: added patched_getRefs in order to patch retrieval of references
