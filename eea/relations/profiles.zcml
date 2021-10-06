@@ -50,11 +50,4 @@
     <depends name="toolset" />
   </genericsetup:importStep>
 
-  <genericsetup:registerProfile
-      name="upgrade121"
-      title="EEA Relations upgrade profile for v12.1"
-      directory="profiles/upgrades/to_121"
-      description='EEA Plone Admin upgrade profile for v12.1'
-      provides="Products.GenericSetup.interfaces.EXTENSION"/>
-
 </configure>
