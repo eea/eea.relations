@@ -21,6 +21,7 @@
     class string:tileImage">
     <img tal:attributes="src string:${item_absolute_url}/image_thumb;
       title item_title_or_id;
+      width string:128;
       alt item_title_or_id" />
   </a>
 

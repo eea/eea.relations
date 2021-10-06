@@ -1,10 +1,14 @@
 """ Relations content-type components
 """
 from zope.component import queryAdapter
+from zope.component.hooks import getSite
 from zope.interface import implements
+from zope.globalrequest import getRequest
+from Products.CMFCore.utils import getToolByName
 from Products.Five.utilities.interfaces import IMarkerInterfaces
 from eea.relations.interfaces import IToolAccessor
 from eea.relations.component.interfaces import IContentTypeLookUp
+
 
 class ContentTypeLookUp(object):
     """ Lookup for context in portal_relations content-types """
@@ -34,6 +38,15 @@ class ContentTypeLookUp(object):
     def portal_type(self):
         """ Context portal_type
         """
+        request = getRequest()
+        if request:
+            if '++add++' in request.URL:
+                types_tool = getToolByName(getSite(), 'portal_types')
+                add_view_url = request.steps[-1].split('++add++')[-1]
+                portal_type = types_tool[add_view_url].factory
+
+                return portal_type
+
         return getattr(self.context, 'portal_type', '')
 
     @property

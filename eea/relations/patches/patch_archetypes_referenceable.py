@@ -28,3 +28,19 @@ def patched_optimizedGetObject(self, uid):
             brain = ptool(UID=uid)
             if brain:
                 return brain[0].getObject()
+
+
+def patched_getRefs(self, relationship=None, targetObject=None):
+    """ getRefs patch to avoid returning None values """
+    # get all the referenced objects for this object
+    tool = getToolByName(self, 'reference_catalog')
+    brains = tool.getReferences(self, relationship, targetObject=targetObject,
+                                objects=False)
+    if brains:
+        results = []
+        for b in brains:
+            res = self._optimizedGetObject(b.targetUID)
+            if res:
+                results.append(res)
+        return results
+    return []
