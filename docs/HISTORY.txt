@@ -1,7 +1,7 @@
 Changelog
 =========
 
-12.2-dev0 - (unreleased)
+12.2 - (2021-10-12)
 ---------------------------
 * Bug fix: Fix @eea.relations RestAPI endpoint title and description
   [avoinea refs #139536]
