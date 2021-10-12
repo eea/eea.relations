@@ -1,6 +1,11 @@
 Changelog
 =========
 
+12.2 - (2021-10-12)
+---------------------------
+* Bug fix: Fix @eea.relations RestAPI endpoint title and description
+  [avoinea refs #139536]
+
 12.1 - (2021-09-21)
 ---------------------------
 * Patch: added patched_getRefs in order to patch retrieval of references

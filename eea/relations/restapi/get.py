@@ -40,9 +40,9 @@ class EEARelations(object):
                 relation_label = relation_tuples[0]
                 relations_list = relation_tuples[1]
                 for obj in relations_list:
-                    obj_dict = {'title': obj.title, '@type': obj.portal_type,
+                    obj_dict = {'title': obj.Title(), '@type': obj.portal_type,
                                 '@id': obj.absolute_url(),
-                                'description': obj.description,
+                                'description': obj.Description(),
                                 'is_expired': obj.isExpired(),
                                 'review_state': wftool.getInfoFor(obj,
                                                                 'review_state')}
