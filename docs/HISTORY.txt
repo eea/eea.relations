@@ -1,6 +1,11 @@
 Changelog
 =========
 
+12.3 - (2021-11-19)
+---------------------------
+* Bug fix: Fix patched_optimizedGetObject to skip broken brains
+  [avoinea refs #142248]
+
 12.2 - (2021-10-12)
 ---------------------------
 * Bug fix: Fix @eea.relations RestAPI endpoint title and description
