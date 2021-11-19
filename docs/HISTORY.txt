@@ -3,6 +3,8 @@ Changelog
 
 12.3-dev0 - (unreleased)
 ---------------------------
+* Bug fix: Fix patched_optimizedGetObject to skip broken brains
+  [avoinea refs #142248]
 
 12.2 - (2021-10-12)
 ---------------------------

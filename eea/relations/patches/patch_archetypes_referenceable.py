@@ -25,9 +25,12 @@ def patched_optimizedGetObject(self, uid):
     if not rids:
         ptool = getToolByName(self, 'portal_catalog', None)
         if ptool:
-            brain = ptool(UID=uid)
-            if brain:
-                return brain[0].getObject()
+            brains = ptool(UID=uid)
+            for brain in brains:
+                try:
+                    return brain.getObject()
+                except Exception:
+                    continue
 
 
 def patched_getRefs(self, relationship=None, targetObject=None):
